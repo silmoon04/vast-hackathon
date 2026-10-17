@@ -39,7 +39,7 @@ vast_bc*
 /prototypes/
 /docs/demos/
 /docs/DEMOS.md
-/docs/time-search/palette.png
+/docs/time-search/palette*.png
 /deploy/field-desk/
 /tests/test_field_desk.py
 /deploy/find-desk/dataset.json

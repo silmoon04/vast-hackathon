@@ -1,7 +1,7 @@
-# Time Search demo capture
+# Time Search demo captures
 
-`time-search-e2e.gif` is a short capture of the live Time Search Desk. It shows the two-camera Campus Walkway scene before a search, then the returned clothing-colour matches for “black top, blue lower body,” including candidate camera labels, time intervals, and the visible “That’s them” confirmation controls.
+The [end-to-end capture](time-search-e2e.gif) shows the live hosted flow: search for “black top and jeans,” review clothing-colour matches, confirm candidate 1, then open the route view. The [playback capture](time-search-playback.gif) shows the actual route clips playing across the two cameras.
 
-The capture ends at candidate review. It does not show a confirmation click or a completed cross-camera route, so the candidate cards should not be read as verified identity matches. The interface uses clothing colour and time filters; it does not use face recognition.
+The route view includes four sightings across Camera A and Camera B. The app describes other-camera results as same-colour sightings to check, not proof of identity. Confirmation records the operator’s choice of a candidate; it does not establish a real-world identity. The demo searches clothing colour and time and does not use faces or names.
 
-The visible sample footage is from the MEVA dataset and the interface credits Kitware / IARPA DIVA under CC BY 4.0. The GIF is a resized screen capture of the running product UI; it contains no separately bundled source video.
+The visible footage is from [MEVA](https://mevadata.org/index.html), credited in the app to Kitware / IARPA DIVA, and is shared under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). These captures are resized browser screenshots assembled into GIFs. The labels, route marks, and playback controls shown are part of the running product interface; the GIFs contain no separately bundled source videos.

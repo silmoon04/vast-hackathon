@@ -5,7 +5,7 @@ and inspect what happened nearby. Each result links to its recording and source 
 
 **[Open the Time Search demo](https://team-13-vss.thecosmoslabs.com/app/)**
 
-![Time Search: a recorded search from a description to camera evidence](docs/time-search/time-search-e2e.gif)
+![Time Search: search by clothing, confirm a candidate and review camera sightings](docs/time-search/time-search-e2e.gif)
 
 The recording shows the running product. See [the recording notes](docs/time-search/README.md) for the exact
 flow and which services it uses.
@@ -20,6 +20,10 @@ flow and which services it uses.
 
 Clothing and timing help find candidates. They do not establish a person's identity. Camera-local tracker IDs
 and cross-camera suggestions need review; an unseen interval stays unknown.
+
+Select a sighting to play the footage at its source time:
+
+![Time Search: footage playing beside camera sightings and the conversation](docs/time-search/time-search-playback.gif)
 
 ## How it works
 
