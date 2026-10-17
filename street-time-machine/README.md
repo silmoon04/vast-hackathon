@@ -2,7 +2,7 @@
 
 Browse a camera recording by event, compare parked vehicles across days, and ask questions with a timestamp and crop attached to the answer. A visibility ledger records dark, blurred, frozen and blocked intervals so the app can answer UNKNOWN when it could not see.
 
-This folder contains the Python analysis modules, FastAPI server, browser UI, tests, output contracts and demo preparation tools. It also includes a small illustrated fixture so a fresh checkout can open the interface without event footage, credentials or model inference.
+This folder contains the Python analysis modules, FastAPI server, browser UI, tests, output contracts and static-export tools. It also includes a small illustrated fixture so a fresh checkout can open the interface without event footage, credentials or model inference.
 
 ## Run the source checkout
 
@@ -75,7 +75,7 @@ The builder uses ffprobe and ffmpeg, joins chunks in recording order, offsets se
 
 These are saved results, not outputs recomputed by this checkout. Their video, crops and background images are omitted, so some referenced assets are unavailable. They are kept outside the server's default output directory so the initial interface does not display missing-media cameras. Read them to inspect the work already done or use them as schema examples. To process the actual footage, obtain it through your authorised VSS access and run the setup helpers.
 
-## Tests and demo tools
+## Tests
 
 The source checkout smoke check makes no network requests and loads no models:
 
@@ -83,9 +83,7 @@ The source checkout smoke check makes no network requests and loads no models:
 python -m pytest tests/test_source_checkout.py -q
 ```
 
-The other tests cover module logic, synthetic fixtures and prepared video outputs. Several expect local footage or generated `out/` files, so running the entire test folder requires those inputs. `CONTRACTS.md` describes the output formats. `scripts/freeze_demo.py` checks prepared outputs and can export a static build; review its `--help` before using it.
-
-`PITCH.md` is a demo outline for prepared footage. `CUECARD.txt` is a generated reference from a separate local run, including failed gates. Its numbers do not describe the bundled synthetic fixture and should be regenerated against the footage being shown.
+The other tests cover module logic, synthetic fixtures and prepared video outputs. Several expect local footage or generated `out/` files, so running the entire test folder requires those inputs. `CONTRACTS.md` describes the output formats.
 
 ## Modules
 

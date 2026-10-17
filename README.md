@@ -1,11 +1,26 @@
 # Video Atlas
 
-Video Atlas brings together our VAST video hackathon work: Street Time Machine, fifteen focused video experiments,
-and the `vastkit` Python toolkit they can build on. The projects explore searching motion, rewinding a street
-camera, comparing parked cars, checking redactions, and finding useful moments in recordings.
+Video Atlas is a collection of video search and analysis tools: Street Time Machine, fifteen focused
+experiments, and the `vastkit` Python toolkit. Draw a motion path to find matching tracks, inspect a camera's
+blind intervals, check a redacted export, or rewind a street scene with visual evidence.
 
-Source code, configuration examples, labelled test cases, measured result summaries and run instructions live here.
-Recordings, model weights, rendered reports, caches and credentials stay on the machine that runs them.
+## See the demos
+
+These animated GIFs come from existing demo videos. Each experiment documents its inputs,
+implementation and evaluation limits.
+
+| Street Time Machine: compress a street recording | MIMIC: find matching movement |
+|---|---|
+| [![Street Time Machine synopsis showing timestamped moving-object ghosts](docs/demos/street-time-machine.gif)](docs/DEMOS.md#rewind-a-street-scene-in-seconds) | [![MIMIC U-turn search result with moving trajectory overlay](docs/demos/mimic-path-search.gif)](docs/DEMOS.md#draw-a-path-to-search-video) |
+| **Private View:** detect drift in privacy masks | **Release Desk:** keep the selected subject visible |
+| [![Private View changing privacy-mask exposure as the camera moves](docs/demos/private-view.gif)](docs/DEMOS.md#detect-privacy-mask-drift) | [![Release Desk moving redacted export](docs/demos/release-desk.gif)](docs/DEMOS.md#release-only-the-requested-subject) |
+
+The [full gallery](docs/DEMOS.md) has five moving demos, explanations, limitations and
+[footage credits](docs/DEMOS.md#footage-credits). The GIFs retain the original overlays. Street Time Machine's
+synopsis combines objects from different source times into one view.
+
+Source code, configuration examples, labelled test cases, measured result summaries and run instructions are
+included. Full recordings, model weights, caches and credentials stay local.
 
 ## Where to start
 
@@ -13,6 +28,7 @@ Recordings, model weights, rendered reports, caches and credentials stay on the 
 |---|---|
 | [street-time-machine/](street-time-machine/) | Street camera app: synopsis, parked-car changes, nearby tracks, questions with visual evidence and caption checks. See its [README](street-time-machine/README.md) for setup and the module commands. |
 | [prototypes/](prototypes/) | Fifteen experiments, each with a README, implementation and smoke checks. The table below links each one. |
+| [docs/DEMOS.md](docs/DEMOS.md) | Five animated demo previews, with source credits and evaluation limits. |
 | [vastkit/](vastkit/) | VSS and GPU clients, W&B / OpenAI-compatible LLM helpers, VastDB and S3 utilities, media processing, mocks and local model servers. |
 | [docs/TOOLKIT.md](docs/TOOLKIT.md) | Full SDK setup, endpoint configuration, command reference, deployment and operational details. |
 | [docs/API_NOTES.md](docs/API_NOTES.md) | API request and response shapes, known quirks and differences between mocks and hosted services. |
@@ -68,15 +84,16 @@ In a separate shell using the same environment, set `VSS_MOCK=1` to use the mock
 For hosted services, copy [.env.example](.env.example) to `.env` and fill in the endpoints and credentials.
 The [configuration reference](docs/TOOLKIT.md#setup) explains `VAST_ENV_FILE`, VM config discovery and proxies.
 
-Street Time Machine runs from its own directory once its local inputs are configured:
+Street Time Machine includes a small, clearly labelled synthetic demo for a fresh checkout:
 
 ```sh
 cd street-time-machine
 python -m uvicorn stm.server:app --host 127.0.0.1 --port 8780
 ```
 
-Open [the local app](http://127.0.0.1:8780). Follow its [README](street-time-machine/README.md) to prepare camera
-inputs and module outputs. A fresh checkout does not include the recordings or generated camera reports.
+Open [the local app](http://127.0.0.1:8780). Follow its [README](street-time-machine/README.md) to prepare real
+camera inputs and module outputs. The bundled demo uses synthetic records and preset answers; it does not run
+model inference.
 
 ## Experiments
 
@@ -96,12 +113,11 @@ inputs and module outputs. A fresh checkout does not include the recordings or g
 | [Hide and Seek](prototypes/12_hide_and_seek/README.md) | Turn tracked movement into an interactive search game. |
 | [Pinch Point](prototypes/13_pinch_point/README.md) | Find close interactions between moving objects. |
 | [Lane Call](prototypes/14_lane_call/README.md) | Inspect traffic lanes and candidate incidents. |
-| [Private View](prototypes/15_private_view/README.md) | Keep privacy masks aligned as a camera moves. |
+| [Private View](prototypes/15_private_view/README.md) | Detect privacy-mask drift as a camera moves. |
 
-`prototypes/protokit.py` shares tracking, local model and rendering helpers. Set `PK_MODELS` to your model
-directory and `PK_INTEL` to your local Intel clip directory. `prototypes/videos.json` and `videos_extra.json`
-retain source and licence metadata; update their `path` values to files on your machine. The saved paths and
-some renderer font defaults reflect the Windows development environment.
+`prototypes/protokit.py` shares tracking, local model and rendering helpers. The
+[video catalogue](prototypes/videos.json) and [additional clips](prototypes/videos_extra.json) retain source
+and licence metadata. Some renderer font defaults reflect the Windows development environment.
 
 For example, after installing the experiment's dependencies and preparing its inputs:
 
@@ -111,7 +127,8 @@ python prototypes/07_mimic/run.py --all
 
 This produces local outputs and can run GPU inference. Inspect the selected README for the narrower commands,
 expected inputs, evaluation limits and runtime notes. The numeric results in those README files describe
-their recorded runs. Structured result summaries are included; generated videos and rendered reports stay local.
+their recorded runs. Structured result summaries and the curated GIF previews above are included; full
+generated reports and videos stay local.
 
 Prototype assets default to `data/videos/` and `data/models/`. Set `PK_VIDEOS`, `PK_MODELS` or `PK_INTEL` to use
 other locations. An optional ignored `prototypes/paths.local.json` can also supply `videos`, `models` and `intel`

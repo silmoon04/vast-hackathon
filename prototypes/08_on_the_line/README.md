@@ -4,24 +4,16 @@
 A scene-state engine that follows a live alarm camera, so that when police ask "how many, which way did they go, what are they wearing, are they still there, when did they arrive?" the operator gets a card with the answer and the evidence (thumbnail + timestamp) in milliseconds.
 At hang-up it drafts the incident log with times. Everything is advanced through the clip with a simulated clock and answered from data before "now"; no answer calls a model.
 
-## Demo script (what you show judges in 90 s)
-1. (0:00) One sentence: "A remote video response centre operator is on the phone with police and has 10 seconds to look at a camera. These are the five questions police always ask." Open `out/rochester_night/demo.mp4` or `out/person_bicycle_car_detection/demo.mp4` (live replay left, answer cards right).
-2. (0:10) Press play. The alarm clip runs, police lines appear in the caption bar (typed here, Canary ASR on the day). Each answer card pops on the next frame with its evidence crop and a latency chip (a few ms).
-3. (0:30) Point at the follow-up chain: "What colour is the car?" -> "Is the car still there?" -> the engine resolves "it/she/the car" to the same entity and says "NO, last seen 2.8 s ago, left via the LEFT edge" with the path drawn on the frame. Then say something messy, "Where'd they go?" or "The man in the red jacket, where is he?": it still answers (and an unrecognised question shows a "Didn't catch that" card with the scene summary instead of nothing).
-4. (0:50) Hang-up: the video panel flips to the auto-drafted incident log (arrivals, departures, every Q&A with times). "The operator reviews it instead of typing it."
-5. (1:05) Show `out/<clip>/hero.jpg`: green verdict badge in the header ("5/5 RIGHT vs my eyeball truth"), slowest answer a few ms. Mention the held-out clips and the SQL-only baseline: the 5 s segment table alone gets totals badly wrong (13 vs 4) and cannot say direction at all, which is why the per-frame tracker is the point.
-6. (1:20) One line on the VAST stack: Canary hears the police, DataEngine/VastDB hold the scene facts, Cosmos3-Reason describes the best crop, the answer path stays model-free. Be upfront that colour naming from pixels is the weakest part (see limits).
+Run from this folder with the project environment and local inputs prepared: `python run.py --all`.
+`python test_smoke.py` checks the generated outputs and core logic.
 
-## How it maps to the VAST stack on the day
-| Prototype piece | On the day | Status |
-|---|---|---|
-| Typed police lines | Canary ASR transcript of the call (operator microphone / call audio), same text-in contract | not built, input contract identical |
-| YOLO26s + ByteTrack rows replayed per frame | **Own** YOLO11s (COCO) + ByteTrack on the live stream. As described in the brief DataEngine yields 5 s segment counts, so I assume it does not expose boxes or tracks (confirm on the day); direction/exit/arrival to the second need a per-frame tracker | design risk, see limits |
-| DataEngine 5 s counts | Cross-check and fallback for count/total questions (SQL on the segment table), also the segment record a judge can see in VastDB | baseline measured below |
-| Cosmos3-Edge (local) describing the best crop | Cosmos3-Reason on the best crop of each confirmed track, results cached; the card shows pixel colours first and the Cosmos sentence second, and withholds the sentence (amber chip) when it contradicts the pixels or guesses an age | stand-in, 1 call per entity, <= 28 per clip |
-| In-memory entity table | VastDB `entities` / `events` tables written when a track confirms/leaves; cards read them with SQL (< 1 s) and the incident log is one `ORDER BY t` query | not built |
-| Cosmos-Embed1 | Not used. Would add "show me the same person again" re-identification across cameras | out of scope |
-| duckdb | VastDB SQL (only used here for the segment-table baseline; no IN/ILIKE/GROUP BY/JOIN/window) | stand-in |
+## Implementation notes
+
+- Typed police questions supply the text input; speech transcription is not implemented.
+- YOLO26s + ByteTrack rows are replayed per frame. Direction, exits and arrivals depend on these per-frame tracks.
+- A five-second count table supplies the SQL-only baseline. duckdb is used for this baseline, with no IN, ILIKE, GROUP BY, JOIN or window functions.
+- Local Cosmos3-Edge describes a cached crop, one call per entity and at most 28 per clip. The card can withhold a description that contradicts pixel colours or guesses an age.
+- Entities remain in memory. VastDB entity/event persistence and Cosmos-Embed1 re-identification are not implemented.
 
 ## Results on test footage
 Three tuned-on default clips (5 typed questions each at given video times; truth = frames I looked at, in `scripts.json`) plus three held-out clips (17 questions). Two of the held-out clips use **paraphrased police phrasing** ("Where'd she go?", "Has the red one gone yet?", "Is anybody still about?"); I wrote their questions and truth from contact sheets before running the engine on them. Latency = parse + answer + evidence crops, measured per question.
@@ -41,7 +33,7 @@ How honest the held-out number is:
 - `car_detection` was **5/6 on its first run** (6/6 now). C6 "how many vehicles all told" said 5 vs 4: a car half out of the top edge got a second tracker id and the engine's "left through an edge, so a new track is a new object" rule counted it twice; and the red car was named "pink" so "Has the red one gone yet?" only passed by falling back to the latest car. I fixed both (merge a fresh id within 0.6 s on an overlapping box even at an edge; vehicles named "pink" become "red", glare desaturates red paint). Those two fixes were made after seeing this clip, so it is no longer clean held-out. The default clips stayed 5/5 after them (the shop's entity count went from 30 to 27).
 - `people_detection` is **5/6 and I did not touch the engine after seeing it.** P3 "What's the lad in the black top got on?" is wrong: the card says "black top, maroon trousers" for a man in black trousers (the polished red-brown floor leaks into the trouser colour). Also P4 "The man in the black top, where did he go?" scored right, but the card carries an amber "no black top: showing latest" chip and its evidence crop shows the woman, not the man: by hang-up the man's top had drifted to "purple" in the pixel votes so the attribute selector found nobody. The exit side (LEFT) was the same for both, so the verdict is right and the card is only half right.
 - `one_by_one_person_detection` is the easy case (one person at a time).
-- The paraphrased questions still share a phrasing family with the reviewer's failure cases (blokes, where'd, what's), so they measure the engine more than the parser. `test_smoke.py::test_parser_paraphrases` covers 14 more phrasings; those were written after the first parser fixes.
+- The paraphrased questions still share a phrasing family with the initial parser failure cases (blokes, where'd, what's), so they measure the engine more than the parser. `test_smoke.py::test_parser_paraphrases` covers 14 more phrasings; those were written after the first parser fixes.
 
 Per-question detail:
 
@@ -137,15 +129,11 @@ Other measured numbers (all in `results.json`):
 - **Parser is still regex**, now broader (contractions, police slang, colour/garment selectors, "last one", a fallback card), but unknown phrasing still falls to the "Didn't catch that" card, pronouns resolve to the last answered entity only, and the fallback fires only on question-shaped lines. ASR errors will hit this directly. All 32 questions in this folder are my own wording, none independent.
 - **Fixed camera assumed**: entry/exit sides mean nothing on a moving camera. `ptz_parking` untested; Rochester's camera re-aim after ~20 s is avoided by ending the call at 21 s.
 - **Small sample**: six clips, 32 questions, one rater (me).
-- **DataEngine (as described) hands us 5 s counts, not boxes**, so the winning move depends on running our own YOLO11s+ByteTrack on the stream. If the event cannot provide the stream at frame rate, this idea degrades to the SQL-only baseline (count questions only).
-- **Judging risk**: the provided services are thin here (Cosmos only describes crops; DataEngine counts are a fallback; no VastDB tables built). The story has to be "real RVRC pain, services as memory and voice", not "built on the stack".
+- **The documented DataEngine table exposes 5 s counts rather than boxes.** The scene-state engine requires per-frame tracks; count-only inputs support only the SQL baseline.
 
 ## Kill test result
 Criterion: >= 4 of 5 answers right on 2 clips, answer latency < 1 s.
 **PASSED**: 5/5 on person_bicycle_car_detection, rochester_night and retail_cctv, slowest answer 5.3 ms (all clips), no-future-data re-runs identical for every question on all six clips. Held-out: 16/17 (one_by_one 5/5, car_detection 6/6 after two fixes made on it, people_detection 5/6). Read it with the caveats above: default clips are tuned-on, all 32 questions are phrased by me, and colour answers are the shaky part.
-
-## Rebuild plan on the day (hours)
-About **10 h** for two people with the real services: tracker on the stream + the entity/scene-state code (reuse this design) 3 h; Canary ASR hookup and intent rules with an LLM fallback for messy transcripts 1.5 h; VastDB entity/event tables, SQL answer path and incident-log query 1.5 h; Cosmos3-Reason crop descriptions and the "disagrees with pixels" check 1 h; cards UI + live video panel 2 h; rehearsal on 3-4 clips, camera orientation labels (left edge = which street) and the demo script 1 h.
 
 ## Files
 `run.py` (CLI: `--all` = 3 default + 3 held-out clips, `--video NAME`, `--ask "text@mm:ss"`, `--no-vlm`, `--no-video`, `--no-causality`, `--vlm-latency`), `engine.py` (scene state), `qa.py` (intents, selectors, fallback, Cosmos conflict check, cards), `incident_log.py`, `render.py`, `sim.py` (clock + scoring), `sql_baseline.py`, `scripts.json` (questions + truth), `test_smoke.py` (16 checks), `results.json`, `out/<clip>/{hero.jpg,report.html,demo.mp4,evidence/}`, `out/_eyeball/` (contact sheets and frame grids). Every module now imports on its own (no PYTHONPATH needed).

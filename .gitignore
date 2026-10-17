@@ -30,6 +30,17 @@ vast_bc*
 /PRE-EXISTING.md
 /templates/PRE-EXISTING.template.md
 
+# local presentation plans, personal benchmarks and publication backups
+/.local-notes/
+/prototypes/PITCHES.md
+/prototypes/render_pitches.py
+/prototypes/gallery.py
+/street-time-machine/PITCH.md
+/street-time-machine/CUECARD.txt
+/street-time-machine/scripts/freeze_demo.py
+/docs/bench_frames.json
+/docs/bench_yolo_rtx4080.json
+
 # data and model artefacts (large, regenerable). No *.ts here: that would also hide TypeScript
 # sources; keep MPEG-TS segments under data/ or runs/.
 data/

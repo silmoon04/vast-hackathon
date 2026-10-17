@@ -4,24 +4,15 @@
 Leak Test is a motivated-intruder second opinion for anyone releasing redacted CCTV (councils, police disclosure, FOI teams). It takes the released export plus the original, finds every face that is still sharp in any single frame, and issues a PASS/FAIL certificate with a leak reel (crops of the exposed faces, with times). The auditor deliberately uses different models (YOLO26l + pose landmarks) from the redactors it checks (YOLO26s).
 
 Run: `python run.py --all` (default set), `python run.py --video retail_cctv`, options `--secs N --start S --refresh`. Warm re-runs from cache take about 35 s. `python test_smoke.py` checks the produced outputs (135 checks, a few seconds).
-Four test exports per clip are produced by redactors I wrote (SIMULATED, see below): **A** keyframe-only (blurs person boxes on every 3rd frame), **B** confidence-gated (only conf >= 0.60), **C** full (all persons, every frame, boxes dilated 30 %, 1-frame hold, plus a low-confidence YOLO26s pass), **D** tight (same low-confidence person boxes as C, every frame, NOT dilated, no hold; added after review so the PASS case is not a near-full-frame blur).
+Four test exports per clip are produced by redactors I wrote (SIMULATED, see below): **A** keyframe-only (blurs person boxes on every 3rd frame), **B** confidence-gated (only conf >= 0.60), **C** full (all persons, every frame, boxes dilated 30 %, 1-frame hold, plus a low-confidence YOLO26s pass), **D** tight (same low-confidence person boxes as C, every frame, NOT dilated, no hold; added so the PASS case is not a near-full-frame blur).
 
-## Demo script (90 s)
-1. 0-15 s: play the exports of `retail_cctv` (`out/retail_cctv/report.html`, "Playback" section). At speed they all look redacted.
-2. 15-40 s: open `out/retail_cctv/hero.jpg`. Headline under the title: "A looks blurred at playback speed, but 178 of 262 frames (68 %) show readable faces". Four columns, each shown at the frame where THAT export leaks most (evidence inset = the exposed face cropped from the export): A FAIL, B FAIL, C PASS, D FAIL (tight boxes still miss a boy's head: 2 frames).
-3. 40-65 s: the comb pattern in the timeline (A leaks in the 2 of 3 frames nobody blurred) and the leak reels (crop + time + person + leaked frames). Amber tiles are flags my own eyeball check rejects: show them, it is the credibility moment.
-4. 65-80 s: certificate JSON for C: PASS, 0 of 262 frames, 1033 identifiable faces all unreadable, export SHA-256 plus original SHA-256, thresholds used.
-5. 80-90 s: honesty slide: kill-test numbers (below) and the DataEngine 5 s segment table with exposure counts from the VastDB-style SQL ledger (in report.html).
+## Implementation notes
 
-## How it maps to the VAST stack on the day
-| This prototype (local stand-in) | On the day |
-|---|---|
-| YOLO26s + ByteTrack, cached (redactor under test; `pk.tracks`) | DataEngine YOLO11s COCO person detections (the "redactor" side, or whatever the customer used) |
-| YOLO26l person detector + YOLO26s-pose face landmarks (auditor) | Needs a second model that is not YOLO11s: Cosmos3-Reason on frame + person crop ("is a face identifiable here? eyes, nose visible?") as the face-evidence step; keep the OpenCV sharpness maths as is |
-| Laplacian-variance ratio + sharp-pixel fraction on the eyes+nose core, export vs original | unchanged (OpenCV, no service needed) |
-| duckdb leak ledger + `pk.segments` (5 s table) | VastDB: leak ledger table (export, frame, t, rect, ratio, track) and the DataEngine 5 s segment table (`peak_person`) to rank segments to audit. SQL here avoids GROUP BY/JOIN/IN (restricted VastDB subset): one `COUNT(*) ... WHERE` per segment |
-| Position-only face-track linker -> "people (est.)" | Cosmos-Embed1 on face crops to cluster identities (not built, not tested) |
-| not built | Canary ASR: same idea for audio (names spoken in a redacted export) |
+- The simulated redactors use cached YOLO26s + ByteTrack detections from `pk.tracks`.
+- The auditor uses YOLO26l person detections and YOLO26s-pose face landmarks, independently of the redactor's model.
+- OpenCV compares Laplacian variance and the sharp-pixel fraction on the eyes-and-nose core between the export and original.
+- A duckdb leak ledger and `pk.segments` provide the 5 s table. The SQL avoids GROUP BY, JOIN and IN.
+- Face tracks are linked by position only. Embedding-based identity clustering and audio auditing are not implemented.
 
 ## Results on test footage
 Window = best 20 s per clip (most/largest people), working grid 12-13 fps (every source frame at 12-13 fps, every 2nd at 24 fps), exports re-encoded H.264 crf 23. All numbers are measured by `run.py` and live in `results.json` and `out/<video>/certificate_*.json`.
@@ -88,12 +79,3 @@ Result: **passed** (recall 93.8 % by construction and 90.9 % eyeball, false flag
 
 ## Kill test result
 Criterion: auditor recall >= 90 % on leaks injected by redactor A with <= 5 % false flags on the good export. Measured: 93.8 % frame recall (by construction), 99.1 % person recall, 90.9 % independent eyeball recall (n = 33, interval 76-97 %); false flags 0.0 % on C (0 of 2008 faces, 0 of 742 frames) and 0.2 % of faces on the tight good export D (4 flagged frames of 7 not readable by eyeball); eyeball precision 75 %. **Passed**, with the caveats above: thin independent recall margin, circular by-construction recall, thresholds tuned on the same clips, and a precision that says flags need a human look.
-
-## Rebuild plan on the day (hours)
-About 6 h with the real services:
-1. 0.5 h: ingest the customer export and original into DataEngine, read the 5 s segment table (peak person counts) from VastDB to choose which segments to audit first.
-2. 1.5 h: port the auditor: OpenCV sharpness measures and certificate (copy), face-evidence step via Cosmos3-Reason on person crops (prompted, JSON verdict), person detection from a model other than the redactor's.
-3. 1.0 h: VastDB leak ledger table + SQL certificate counts (restricted SQL dialect), per-segment exposure table.
-4. 1.0 h: Cosmos-Embed1 clustering of exposed crops into identities (replaces my linker and its over-count).
-5. 1.0 h: hero image, leak reel, report, four test exports (A/B/C/D) for the demo.
-6. 1.0 h: ground-truth eyeball sample and kill test re-run on the event footage.

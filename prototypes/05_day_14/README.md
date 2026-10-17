@@ -6,24 +6,12 @@ Why: West Midlands Police, April 2025: 1,321 of 2,017 Snap reports (65%) got no 
 
 Run: `python run.py --all` (about 30 s with caches) or `python run.py --video dashcam_urban --recorded 2026-10-10 --start-time 18:40:00 --location "..."`. Outputs: `out/<video>/hero.jpg`, `report.html`, `cand_N/{clip.mp4,key.jpg,crop.jpg,storyboard.jpg,packet.json}`, top-level `results.json` (always merged, so the two sim runs survive `--all`). Simulated test: `python inject_test.py` then `python run.py --video out/sim/sim_cutin.mp4` and `--video out/sim/ctrl_highway.mp4`. Tests: `python -m pytest -q test_smoke.py` (10 tests, about 8 s). Options added in this revision: `--cosmos-triage` (turn the old "Cosmos says parked -> demote" back on, default off).
 
-## Demo script (90 s)
-1. (10 s) Open `out/dashcam_urban/hero.jpg`: 2 minutes of dashcam in, five numbered moments on the risk curve and five thumbnails, an amber "REVIEW: CLOSE INTERACTION" stamp (never a green "ready": the tool finds moments for a person to judge), and a clock bar that is red because the overlay says the footage was recorded on 18 Jun 2013 ("PASSED 4,855 days ago"). Say it out loud: the clock is read from the footage, and for this old clip it correctly says too late.
-2. (25 s) Open `report.html`, go to #2 (the silver BMW at 00:48.4, passing about 1 m off the left front wing), play `cand_2/clip.mp4`, show the storyboard. #1 is a pass of two parked cars in a car park: say that the tool cannot tell parked from moving and a human swipes past it in two seconds.
-3. (25 s) Show `cand_2/packet.json`: stream time, wall clock derived from the overlay time, SHA-256 of the original, statement draft with blanks the user must fill truthfully, plate field "NOT extracted", the clock.
-4. (15 s) Change the clock live: `--recorded 2026-10-10` gives "7 days left" (amber bar, checked), `--recorded 2026-09-28` gives red "PASSED 5 days ago".
-5. (15 s) Honesty beat: `out/motorway_a40/hero.jpg` (grey, "NOT A DASHCAM", no clock, no packet), `out/ctrl_highway/hero.jpg` ("NO INCIDENTS FOUND", a clean road gives zero) and `out/sim_cutin/hero.jpg` (SIMULATED cut-in found).
-Do NOT claim that dashcam_urban contains a reportable offence: it does not (see below).
+## Implementation notes
 
-## How it maps to the VAST stack on the day
-| Step here (local stand-in) | On the day |
-|---|---|
-| YOLO26s + ByteTrack per-frame boxes (`pk.tracks`, cached) | DataEngine YOLO11s. NOTE: the DataEngine table is per 5 s segment COUNTS, not boxes or tracks. This idea needs per-frame boxes, so we would run our own YOLO on the footage (or ask whether DataEngine exposes boxes). Biggest rebuild risk. |
-| Ground-plane geometry + severity + peaks (`core.py`, CPU) | Same code, unchanged. |
-| Optical-flow ego motion (`ego.py`, CPU, ffmpeg + Farneback) | Same code. |
-| Local Cosmos3-Edge one-frame colour/body description and overlay date read | Cosmos3-Reason on the key frame, ideally on the 10 s clip (it can answer "is that car moving", which the stand-in cannot). Nothing depends on it except the recording date, which has the `--recorded` fallback. |
-| Cosmos-Embed1 | Not used. Could index every candidate clip and let a user search "car cuts in front". |
-| VastDB | Store candidates, packets and the clock (deadline per incident) as rows; query "what is expiring in 3 days". Not built here. |
-| Canary ASR | Not used. Could transcribe the driver's spoken note in the audio track for the statement. |
+- Cached YOLO26s + ByteTrack per-frame boxes come from `pk.tracks`.
+- `core.py` computes ground-plane geometry, severity and peaks on CPU. `ego.py` uses ffmpeg and Farneback optical flow for ego motion.
+- Local Cosmos3-Edge describes one frame and reads the overlay recording date. `--recorded` provides a date fallback.
+- Cosmos-Embed1, VastDB persistence and Canary ASR are not used by this implementation.
 
 ## Results on test footage
 Measured on this laptop (shared with other prototypes). Tracks and Cosmos answers were cached unless stated.
@@ -48,8 +36,8 @@ So the old "Cosmos says parked -> demote" rule (which looked like 2 correct, 1 w
 Cosmos colour/body description of the 5 final candidates against my labels: colour right for 2 of 5 (#3 white VW and #5 white SUV). #1 dark grey estate called "silver sedan", #2 silver BMW saloon called "white small hatchback", #4 grey hatchback called "Reddred car". The prompt now forbids make/model and motion claims (the old "Honda Jazz" error is gone, replaced by a colour/body error), and the hero says "local stand-in, can be wrong".
 The relative-motion test in the packet notes ("moving-like/static-like") marks the parked cars moving-like (0.92 and 1.0 for 33.7 and 71.5 s). It is shown labelled "unreliable" and is not used for anything.
 
-## Fixes made in this revision (reviewer list)
-1. Stamp logic: hero stamp comes from `verdict()`: fixed camera -> NOT A DASHCAM; no candidates -> NO INCIDENTS FOUND on a statement card with no empty frame panel; otherwise amber REVIEW: CLOSE INTERACTION. I first wrote a "SNAP-READY if severity >= 0.8, not parked, moving-like" rule as the reviewer suggested, and it stamped SNAP-READY on the parked car at 33.7 s (severity 0.84, moving-like 0.92: both signals wrong), so I deleted the green tier. A test asserts no heuristic can produce it.
+## Implementation changes
+1. Stamp logic: hero stamp comes from `verdict()`: fixed camera -> NOT A DASHCAM; no candidates -> NO INCIDENTS FOUND on a statement card with no empty frame panel; otherwise amber REVIEW: CLOSE INTERACTION. I first wrote a "SNAP-READY if severity >= 0.8, not parked, moving-like" rule, and it stamped SNAP-READY on the parked car at 33.7 s (severity 0.84, moving-like 0.92: both signals wrong), so I deleted the green tier. A test asserts no heuristic can produce it.
 2. Refused heroes: grey badge "look-alike only: not analysed for Snap" (moved to the bottom-left so it cannot collide with the stamp), grey box and ticks, grey dead clock bar "NO PACKET: NOT A DASHCAM, SO NO CLOCK". The same grey clock is used for the no-incident case.
 3. Key frame: the hero main panel is now a context zoom (at least 3x the box and 40% of the frame width) on the sharpest un-clipped moment of the vehicle within 1.2 s of the peak, with a full-frame inset showing the window, plus a row of all five candidate thumbnails. I used this instead of the t-0.4/t0/t+0.4 strip (the strip exists per candidate as `storyboard.jpg` and in the report; in the hero it would have made every tile tiny). Cosmos prompt: colour and body type only, no make/model, no motion claim.
 4. Recording date from the footage: read from the burned-in overlay (see above), used as the clock default, with `--recorded` taking priority and today as the last, labelled fallback. The hero says where the date came from. On this clip the clock is red and says PASSED, which is the honest answer.
@@ -70,7 +58,7 @@ The relative-motion test in the packet notes ("moving-like/static-like") marks t
 
 ## What fails / limits
 - Precision is weak where it matters: dashcam_urban holds one plausibly reportable moment (the BMW) in 2 minutes, I am only moderately sure it is moving, and it does not clearly transgress anything. Headline: near-field precision 5/5, reportable precision 1/5, and the top-1 on the hero is a parked car.
-- Monocular geometry cannot tell a parked car the driver passes closely from a moving car, and the local Cosmos cannot either (measured above, chance level). That is the product's core question ("is the other party at fault"). Only Cosmos3-Reason on the clip (to be tested on the day), ego speed, or a human can answer it. The honest UI is therefore "REVIEW", with five ranked thumbnails for a person to dismiss in seconds.
+- Monocular geometry cannot tell a parked car the driver passes closely from a moving car, and the local Cosmos cannot either (measured above, chance level). That is the product's core question ("is the other party at fault"). A clip-level model, ego-speed data or a human assessment would be needed; this implementation does not establish fault. The honest UI is therefore "REVIEW", with five ranked thumbnails for a person to dismiss in seconds.
 - Objects at the frame edge are distorted by the wide lens, so lateral offset is biased outward; the cut-in rule fired correctly only on the simulated case. No real cut-in was available to test.
 - Sudden braking of the camera car is not detected (flow speed too noisy; the G-sensor in the overlay is the obvious fix). Pedestrians and cyclists are not scored.
 - Motorway/overhead clips are refused by a simple rule (median scene expansion), which would also refuse a dashcam that never moves. Overlay dates are only read in dashcam mode.
@@ -80,6 +68,3 @@ The relative-motion test in the packet notes ("moving-like/static-like") marks t
 
 ## Kill test result
 Criterion: on dashcam_urban at least one of the top 3 is a real close interaction by eyeball. PASS, unchanged but now stated more plainly: the top 3 are a parked dark estate passed at about 1 m in a car park (#1, close_static), the silver BMW passing about 1 m off the left front wing (#2, moving, moderate confidence) and a parked white VW (#3, close_static). All five are real vehicles within about 1-2 m (near-field precision 5/5). Strict reading (a moving other party that a police portal would care about): 1 of 5, and it does not clearly transgress anything. Retrieval works, ranking by geometry alone cannot put the real one first, and the demo clip cannot show a convincing offence; with real submitted footage the value depends on how many true incidents are in it. If the user needs a hero with a real event at #1, that needs the hosted Cosmos3-Reason motion triage to work (not shown here).
-
-## Rebuild plan on the day (hours)
-About 8 h: 1 h get per-frame boxes (own YOLO on the footage if DataEngine only exposes 5 s counts), 1 h port `core.py`/`ego.py` as is, 2 h Cosmos3-Reason on the clip for "is it moving / what happened" plus triage (and re-test `--cosmos-triage` against hand labels before trusting it), 1 h packet + clock + overlay date + VastDB rows, 1 h clip/report/hero, 2 h find and label a few real incident clips to tune thresholds honestly.

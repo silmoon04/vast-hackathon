@@ -1,6 +1,6 @@
 # VAST stack API notes (request/response shapes, compiled Fri 16 Oct 2026)
 
-Compiled from the public VAST build kit, the VSS blueprint source and the event docs. Each entry gives the request/response shape, quirks and a confidence tag (confirmed-in-source / documented-in-skill / inferred). Verify anything tagged inferred or listed under open_questions against the live lab before relying on it. MOCK notes describe the shipped mocks (`vastkit/mocks/vss_mock.py`, `vastkit/mocks/gpu_mock.py`) and say where they differ from the source.
+Compiled from the public VAST build kit, the VSS blueprint source and the event docs. Each entry gives the request/response shape, quirks and a confidence tag (confirmed-in-source / documented-in-skill / inferred). Verify anything tagged inferred against the configured deployment before relying on it. MOCK notes describe the shipped mocks (`vastkit/mocks/vss_mock.py`, `vastkit/mocks/gpu_mock.py`) and say where they differ from the source.
 
 ### vss-backend POST /api/v1/auth/login | auth: none | confirmed-in-source
 
@@ -162,7 +162,7 @@ RESP: 200 {answer: str, tool_used: "video_segments"|"search_hybrid", evidence: o
 
 QUIRKS: 404 "No accessible segments found for video: <uri>" (agent.py:45-49).
 
-LIKELY BUG (inferred; verify Saturday):
+LIKELY BUG (inferred; verify against the deployed version):
 - In global mode, agent.py:81-82 calls search_response.llm_synthesis.get("response").
 - But llm_synthesis is a pydantic v2 model: pydantic 2.5.3 coerces the dict, and the model has no .get.
 - So any query with at least one hit raises AttributeError and an unhandled 500. The body is plain text "Internal Server Error", not JSON.
@@ -417,7 +417,7 @@ Behaviour:
 - The uploader is always added to allowed_users.
 - There is no job id. Track progress via /videos/explore?indexed=partial and /dashboard/stats.
 - The kit skill says object_key is '<timestamp>_<filename>'; that is wrong per the source.
-- ARCHITECTURE_REFERENCE says only re-ingest is available on the day, so uploads may not be processed.
+- The referenced architecture documents only re-ingest in the live path, so uploads may not be processed.
 
 MOCK: same form fields, extension and stream_id/chunk_number checks with the same details, 413 above VSS_MOCK_MAX_UPLOAD_MB (default 25), object_key format with the extension's case kept (s3_service.py:209), custom_prompt stripped and truncated to 800, uploader added to allowed_users. Differences:
 - The bytes are kept in VSS_MOCK_UPLOAD_DIR (default ~/.vastkit/mock_uploads), so the new rows can be streamed.
@@ -550,7 +550,7 @@ RESP: Exact payload of ingest_config_for_api():
 - labels: {use_custom_prompt, metadata_section_title, metadata_section_description, camera_id, capture_type, location, object_classes}
 - placeholders: {camera_id, location, tags, allowed_users, custom_prompt}
 
-QUIRKS: ARCHITECTURE_REFERENCE.md:96 lists 9 scenario presets; the source has 11. Read the lists from this endpoint on the day instead of hardcoding them.
+QUIRKS: ARCHITECTURE_REFERENCE.md:96 lists 9 scenario presets; the source has 11. Read the lists from this endpoint instead of hardcoding them.
 MOCK: same keys, field labels and default labels; the use_custom_prompt / metadata_section_* labels and the placeholders are shorter neutral wording of its own, and capture_types and analysis_scenarios each hold one neutral entry ("general", with the source's labels). No auth, as in the source.
 
 SRC: BE/api/v1/metadata.py:57-64; SP/repo_vssbp/src/source-code/shared/ingest_metadata.py:12-82,160-179
@@ -1020,7 +1020,7 @@ Template: templates/ssh_config.example (append it to %USERPROFILE%\.ssh\config):
 - Create the key with: ssh-keygen -t ed25519 -f $env:USERPROFILE\.ssh\vast_bc -C vast-bc-london
 - cloudflared must be on PATH: `winget install --id Cloudflare.cloudflared -e` (or `winget upgrade` for an old copy). If ssh cannot find it, put its full path (with no spaces) in ProxyCommand.
 - The Windows ssh-agent service is disabled by default. Rely on IdentityFile, or enable the agent yourself.
-- Pick the NNN from the lab page on the day.
+- Use the NNN assigned by the lab page.
 
 PRIVATE: VM or cluster only, no public DNS or routing
 - INGRESS_URL: the VSS backend API (video-lab-team-<N>.cosmos.vastdata.com); its /api/v1/* is the only routed path.
@@ -1039,7 +1039,7 @@ CLOUDFLARE ACCESS: laptop browser with SSO
 GPU ENDPOINTS: unresolved
 - At the earlier dry run they were public IP:port (one host, ports 8001-8004) behind a bearer token.
 - config.example says each has its own host:port with no token.
-- Read the URLs, not the secrets, on the day:
+- Read the configured endpoint URLs without printing secrets:
   ssh bc-<u> "grep -E '^(COSMOS3_REASON_URL|COSMOS_EMBED1_URL|YOLO_URL|CANARY_1B_URL)=' /config/*.config"
   Then test reachability from both the laptop and the VM. W&B inference is public internet.
 
@@ -1051,25 +1051,3 @@ LAPTOP DEV AGAINST PRIVATE HOSTS
 - -L is fine for raw IP:port GPU endpoints: ssh -N -L 18001:<gpu-host>:8001 -L 18003:<gpu-host>:8003 bc-<u>
 - VastDB Query Engine SQL needs the Linux ADBC driver, so run it on the VM, not through the tunnel.
 - Never edit /etc/hosts (build-day.mdc).
-
-TODAY (Fri)
-Event infra does not exist yet, so build and test only against the local mock. No network calls to the event infra.
-
-## open_questions
-
-- Do POST /api/v1/dashboard/reingest and GET /api/v1/dashboard/reingest/{job_id} exist on the event backend? They are absent from blueprint BE/api/v1/dashboard.py. If they exist, what are: the validation for both or neither of stream_id/original_video, the custom_prompt over 800 behaviour (truncate or 422), the non-terminal and failed status values, and the error field name?
-- Is the re-ingest job record shared across the 4 uvicorn workers (Dockerfile --workers 4), or do status polls randomly 404 when they hit another worker?
-- Does the event backend accept llm_top_n=0? The reingest-chunk skill (SK/ingest/reingest-chunk/SKILL.md:124) sends it, but the blueprint schema has ge=1, which returns 422.
-- Is the /agent/ask global-mode bug present on the event build? It calls .get on a pydantic LLMSynthesisResponse (BE/api/v1/agent.py:81-82), which would give a plain-text 500 whenever there are hits.
-- Event backend version vs the blueprint snapshot d0e58da. First thing Saturday, diff routes and models via /openapi.json: port-forward svc/video-backend-service:8000 on the VM, because the ingress only routes /api.
-- GPU auth for London: is the GPU_BEARER_TOKEN from the gpu skills required, or is there no token as config.example:44-46 says? Are the four endpoints reachable from the laptop, from the VM only, or from app pods? What are the real host:port values? The skills hardcode the stale dry-run GPU host with ports 8001 reason / 8002 yolo / 8003 embed / 8004 canary.
-- Cosmos3-Reason: what model id does /v1/models return (nvidia/cosmos3-reason reportedly 404s)? Is the server NIM or vLLM? Does it support media_io_kwargs fps/num_frames, response_format json_schema, and more than one video per request? What are the max base64 payload size and clip duration?
-- Canary-1B: what model id should requests use, given /v1/models 404s? What is the transcription response shape ('text' only, or segments with timestamps)? Which audio formats and sample rates are accepted?
-- Is /videos/upload allowed and processed on the day? ARCHITECTURE_REFERENCE says only re-ingest is available and the segmenter is not in the live path.
-- App pod egress: can pods reach PyPI (needed for pip install at start), the GPU endpoints and W&B inference? Can teams add nginx proxy-body-size and proxy-read-timeout annotations to their /app Ingress (the defaults are 1m and 60 s)?
-- Does the workshop.thecosmoslabs.com App button proxy to video-lab-team-<N>.cosmos.vastdata.com/app with the /app prefix kept? Is team-<N>-app.thecosmoslabs.com real and usable with cf-access-token for scripts?
-- VastDB: can the SDK select vectors and vectors_visual at all (kit query.py says --include-vectors 'often fails')? If not, vector search runs only as QE SQL. Which aggregates (COUNT, GROUP BY, DISTINCT, JOIN, ILIKE, window functions) does the Query Engine accept beyond the known IN rejection?
-- Are config VDB_ENDPOINT and backend-secret vdb_endpoint the same Query Engine VIP, and is S3_ENDPOINT required for SDK writes? The kit query.py and the vastdb-read SKILL disagree. Are teams allowed to create a custom schema such as 'hackathon' in VASTDB_BUCKET?
-- Is the organisers' shared pre-indexed corpus is_public=TRUE, and does it sit in each team's own VASTDB_BUCKET? That determines which search scopes see it.
-- upload_timestamp timezone: the writer stores naive values parsed from UTC ISO, but backend comments call it LOCAL time, and display_timezone exists. Confirm it is UTC before building time filters.
-- Which W&B Inference model ids are served on the day? vastkit.llm uses https://api.inference.wandb.ai/v1 and the llm.MODELS defaults (each overridable by env var); check with `python -m vastkit models`.

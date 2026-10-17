@@ -1,8 +1,8 @@
 # 04 NIGHT EXIT: "who went through the exit since T?"
 
 Local-footage prototype. Video time is the clock:
-`00:00` is the start of the clip, `--since 00:21` means 21 s into the footage. On the day it would be the DataEngine segment
-timestamp / camera clock.
+`00:00` is the start of the clip, `--since 00:21` means 21 s into the footage. These times are clip-relative;
+this prototype does not map them to a camera wall clock.
 
 ## What it is (2 lines)
 
@@ -12,28 +12,16 @@ description ("grey top").
 Output per clip: `hero.jpg` (card stack with crop + zoomed evidence frame per person, timeline), `report.html`, evidence frames, `results.json`.
 Every default hero now headlines a person who went OUT (the missing-resident story); when several people match the description about equally the hero says "best of N close matches, not a sure thing".
 
-## Demo script (90 s)
+Run from this folder with the project environment and local inputs prepared: `python run.py --all`.
+`python test_smoke.py` runs the checks; `--no-recompute` skips the pipeline recomputation.
 
-1. (0:00) "Resident missing, last seen 00:12 in the lounge." Open `out/one_by_one_person_detection/report.html`, point at the yellow exit lines on the reference frame.
-2. (0:10) Query `--since 00:21 --query "light grey shirt and blue jeans"`: hero card says **WENT OUT at 02:15**, 4 people listed, match first (`out/one_by_one_person_detection/hero.jpg`).
-3. (0:30) Read the first card aloud: crop, the zoomed "crossing" frame (yellow line, person boxed, red dot where the line was crossed, so the direction can be checked by eye), grey 87 %, "grey short-sleeved t-shirt, blue jeans" (Cosmos), rank score 73 % (next person 56 %: a clear gap), evidence 64 %. Show the timeline (green marker = the match).
-3b. (0:40) The spec query `--since 00:12 --query "grey top"` (`hero_q1.jpg`): three people really wear grey (100 / 98 / 92 %), so the hero says **"best of 3 close matches, not a sure thing"**. That honesty is a feature: the carer sees three candidates, not a false certainty.
-4. (0:50) Harder one, `--since 00:40 --query "blonde woman in a black cardigan"` (`hero_q3.jpg`): colour alone ranks the black-hoodie man first; Cosmos description + Embed1 put the right woman first. This is where the VAST services earn their place.
-5. (1:05) Retail door, now the default retail hero (`retail_cctv/hero.jpg`, `--since 00:30 --query "blue coat and pink top"`): **WENT OUT 00:45, BACK IN 1 s later**, so no false alarm.
-6. (1:20) Night street (`rochester_night/hero.jpg`): the brown bars on the timeline are "camera is moving, the line is switched off". It tells the carer when it cannot see.
+## Implementation notes
 
-Commands: `python run.py --all` (about 40 to 80 s warm depending on machine load, several minutes cold, see Results), `python run.py --video retail_cctv --since 00:20 --query "white coat" --dir out`,
-`python run.py --video X --line "Gate:690,0,690,432:300,200:centre"` to draw your own line (`name:x1,y1,x2,y2:inside_x,inside_y[:foot|centre]`).
-
-## How it maps to the VAST stack on the day
-
-| Local stand-in here | On the day | Note |
-|---|---|---|
-| YOLO26s + ByteTrack person tracks | DataEngine YOLO11s | **The DataEngine table holds counts per 5 s segment, not boxes.** A direction needs tracked boxes, so on the day we still run our own detector + ByteTrack (or the hosted YOLO if it returns boxes). |
-| duckdb over `pk.segments()` | VastDB SQL | `vastdb_shortlist()` runs `SELECT ... WHERE "end" > T AND n_person > 0 ORDER BY start` to shortlist the 5 s segments to track. It only prunes empty time (rochester: 2 of 17 segments, one_by_one 23 of 24, retail 23 of 23). Every crossing found lies inside a shortlisted segment (checked in the smoke test). |
-| Cosmos3-Edge one-liner on the best crop | Cosmos3-Reason | One call per person, cached. Wrong sometimes ("white hair" for a white hoodie). |
-| `embed_text(query)` vs `embed_text(description)` | Cosmos-Embed1 | On the day embed the crop clip (video) against the text directly, which should beat text-vs-text. |
-| (not used) | Canary ASR | No audio in this idea. |
+- YOLO26s + ByteTrack provide person tracks. Direction requires tracked boxes, which cannot be recovered from segment counts alone.
+- duckdb queries `pk.segments()`. `vastdb_shortlist()` uses `SELECT ... WHERE "end" > T AND n_person > 0 ORDER BY start` to shortlist 5 s segments; the smoke test checks that every detected crossing lies inside a shortlisted segment.
+- Local Cosmos3-Edge produces a cached one-line description from the best crop, one call per person. Descriptions can be wrong, including confusing a white hoodie with white hair.
+- Cosmos-Embed1 compares query text with description text through `embed_text(query)` and `embed_text(description)`.
+- Canary ASR is not used; this experiment has no audio path.
 
 ## Results on test footage (all numbers measured by `python run.py --all`, `results.json`)
 
@@ -85,8 +73,8 @@ so a fully cold `--all` should take about 5 to 6 minutes on a loaded machine, no
 - retail 1 Hz sweep of the door region, 0 to 110 s (four sheets) and a 16-frame close-up sheet at 52 to 63 s: counted who steps over the line and which way. The blue-coat woman at 00:45 bends over the line to pick up a basket and returns 1.4 s later; the woman in the navy coat at 00:59 to 01:02 stands on the line with her feet before walking in (crossing logged 01:02).
 - retail best-crop sheet (9 crops): all sharp and the right person; pid labels match the eyeballed people (girl in maroon, bow girl, glasses mum, hoodie girl, navy-fleece man, white-coat woman, blue-coat woman, navy-coat woman, grey-sweater woman).
 - All three `hero.jpg` and `hero_q*.jpg` viewed after the last render; layout bugs I found and fixed: score text overlapping the swatches, cards running into the timeline, empty left panel.
-- After the reviewer fixes I re-viewed the three default heroes plus `one_by_one/hero_q1` ("grey top") and `retail_cctv/hero_q1` ("white coat"). Seen: one_by_one default "WENT OUT at 02:15", 73 % vs 56 %, each card has a zoomed crossing frame with the yellow line, boxed person and red dot; "grey top" shows 100 / 98 / 92 %, a "1 OF 3 CLOSE" badge and amber "best of 3 close matches, not a sure thing" (rank 1 = blonde woman in grey, rank 2 = woman in grey cardigan whose torso reads grey/black, rank 3 = man in grey shirt); retail default "WENT OUT 00:45, BACK IN 1s later" with the blue-coat woman boxed on the mat, rank 2 a woman walking IN at 01:02, rank 3 OUT 01:07; retail "white coat" "1 OF 2 CLOSE" (white jacket woman IN 00:20, white-hoodie man IN 00:10); rochester shows "ONLY CANDIDATE" and "only candidate in this window" (88 % rank score there is meaningless and the card says so).
-- Reviewer's colour remarks, re-checked: on the rank-2 card of "grey top" the torso colour reads grey 65 % / black 32 % while Cosmos says "grey long-sleeved top", consistent; the rank-1 one_by_one crop at 02:15 reads legs "black 48 %" while Cosmos (and I) see blue jeans in dim light: a known colour-naming weakness, not fixed.
+- After the changes I re-viewed the three default heroes plus `one_by_one/hero_q1` ("grey top") and `retail_cctv/hero_q1` ("white coat"). Seen: one_by_one default "WENT OUT at 02:15", 73 % vs 56 %, each card has a zoomed crossing frame with the yellow line, boxed person and red dot; "grey top" shows 100 / 98 / 92 %, a "1 OF 3 CLOSE" badge and amber "best of 3 close matches, not a sure thing" (rank 1 = blonde woman in grey, rank 2 = woman in grey cardigan whose torso reads grey/black, rank 3 = man in grey shirt); retail default "WENT OUT 00:45, BACK IN 1s later" with the blue-coat woman boxed on the mat, rank 2 a woman walking IN at 01:02, rank 3 OUT 01:07; retail "white coat" "1 OF 2 CLOSE" (white jacket woman IN 00:20, white-hoodie man IN 00:10); rochester shows "ONLY CANDIDATE" and "only candidate in this window" (88 % rank score there is meaningless and the card says so).
+- Colour checks: on the rank-2 card of "grey top" the torso colour reads grey 65 % / black 32 % while Cosmos says "grey long-sleeved top", consistent; the rank-1 one_by_one crop at 02:15 reads legs "black 48 %" while Cosmos (and I) see blue jeans in dim light: a known colour-naming weakness, not fixed.
 - Independent check of rochester with the larger detector (yolo26l on CPU, conf 0.2, imgsz 960, 20 frames from 1 s to 80 s): a person at 1 s, 3 s and 7.5 s (the pedestrian, a different box each time), none in the other 17 frames (at 5.5 s he is behind the car). So the one crossing is probably the only pedestrian visible; this does not cover the panned part by eye.
 
 ## Simulated or faked (explicit)
@@ -94,7 +82,7 @@ so a fully cold `--all` should take about 5 to 6 minutes on a loaded machine, no
 - **The missing-resident story is simulated.** The footage is public clips (a one-by-one person test, a night street, a shop). Nobody is missing; "since T" is a time in the clip.
 - **Exit lines are drawn by me**, not detected doors, and are overridable with `--line`. In retail the real door is outside the frame; the line is a convention across the mat corner.
 - Cosmos3-Edge stands in for Cosmos3-Reason, local Embed1 for the hosted one, YOLO26s for YOLO11s, duckdb for VastDB. DataEngine counts are not used for directions (they cannot give any).
-- Colour and ranking weights (0.55 / 0.20 / 0.25) were set once by judgment, then the 7 queries were run. The close-match threshold (10 points) and the evidence score were added after the review, not tuned on results. No injected faults anywhere.
+- Colour and ranking weights (0.55 / 0.20 / 0.25) were set once by judgment, then the 7 queries were run. The close-match threshold (10 points) and the evidence score were added later, not tuned on results. No injected faults anywhere.
 - `test_smoke.py` recompute mode runs the pipeline with `--no-vlm` (no Cosmos descriptions), so it checks tracking, crossings, directions and cards, not the Cosmos part of the ranking.
 - Retail ground truth is circular in part (see Results). Rochester has exactly one pedestrian, so its ranking test proves nothing about ranking.
 - The ranking queries are small (5 to 9 candidates). The "right person first" claim is about this footage, not about a station full of residents.
@@ -107,7 +95,7 @@ so a fully cold `--all` should take about 5 to 6 minutes on a loaded machine, no
 - **Colour is rough:** torso/legs from pose keypoints (CPU YOLO26s-pose, cached). Long cardigans put torso colour into the "legs" region (P1 legs read grey, real: dark leggings); jeans in dim light read black (P6 legs black 48 %); the Rochester pedestrian's crop is mostly a yellow hoarding. No light/dark qualifiers ("light grey" = grey).
 - **Colour alone is not enough** (rows marked bold above): black t-shirt versus black hoodie versus black cardigan needs the Cosmos description. The query parser is rule-based: colours and garment families (coat/jacket vs hoodie vs cardigan). Hair, gender, bags only reach the ranking through the Cosmos description and Embed1.
 - **The 'white coat' query failed on first run** (rank 2 of 9: white-hoodie girl 1.00 vs white-coat woman 0.98, colour cannot separate coat from hoodie). I added garment-word matching after seeing that, so its pass is not clean evidence. The 2 post-fix queries were written afterwards and pass.
-- **Embed1 text-vs-text** gives low raw cosines (0.0 to 0.5); I min-max them over the few candidates, which exaggerates small gaps and is 0.5 for a single candidate. Mitigation after review: the hero prints the not-min-maxed evidence score next to the rank score and says "close matches" when candidates are within 10 points. The rank score is still relative to the candidates in the window, not a probability.
+- **Embed1 text-vs-text** gives low raw cosines (0.0 to 0.5); I min-max them over the few candidates, which exaggerates small gaps and is 0.5 for a single candidate. Mitigation: the hero prints the not-min-maxed evidence score next to the rank score and says "close matches" when candidates are within 10 points. The rank score is still relative to the candidates in the window, not a probability.
 - **Rochester is a weak night test:** the crop of the one pedestrian is a roughly 90 px tall blurred sliver; Cosmos "black hair" there is likely a guess, and the exit line is switched off for 75 % of the clip. The "night" claim is barely tested and the ranking there proves nothing (one candidate).
 - **Smoke test scope:** the default smoke now recomputes one clip (about 10 s warm, no VLM); retail and rochester are still only checked on their saved outputs.
 - **Camera motion guard** is one global shift against frame 0 (phase correlation, upper 65 % of the frame, plus a weak-peak test). It switches the line off for the whole rest of rochester (21.5 s on) and does not re-register a returning view. Zooming PTZ clips are out of scope.
@@ -119,18 +107,9 @@ so a fully cold `--all` should take about 5 to 6 minutes on a loaded machine, no
 Criterion: crossing directions correct for eyeballed people; the right person ranked first for 3 description queries written from eyeballing.
 
 - Directions: 23 of 23 eyeballed crossings found, 23 of 23 with the right direction, 0 extra, 0 missed (retail part circular, see above).
-- Fixes after review: default hero per clip now headlines an OUT (retail default changed from "white coat" -> WENT IN 00:20 to "blue coat and pink top" -> WENT OUT 00:45); near-ties flagged ("grey top": 3 close matches; "white coat": 2); zoomed evidence frame with line and crossing dot on each card; smoke test recomputes one clip. The numbers below did not change.
+- Implementation changes: default hero per clip now headlines an OUT (retail default changed from "white coat" -> WENT IN 00:20 to "blue coat and pink top" -> WENT OUT 00:45); near-ties flagged ("grey top": 3 close matches; "white coat": 2); zoomed evidence frame with line and crossing dot on each card; smoke test recomputes one clip. The numbers below did not change.
 - Ranking: the 3 one_by_one queries: 3 of 3 rank 1 (also 1 of 1 post-fix there). All 7 pre-registered queries: 6 of 7 on the first run, 7 of 7 after the garment fix (post-hoc). The 2 queries written after the fix: 2 of 2.
 - Verdict: **passed**, with the caveats above. The idea works on real footage; it is not a proof for a busy night ward.
-
-## Rebuild plan on the day (about 6 hours)
-
-1. 0.5 h: exit line picker (click two points on a reference frame, inside side) and the `since T` query box.
-2. 1.0 h: detector + ByteTrack on the stream/clip (DataEngine gives counts only), plus the VastDB segment shortlist SQL.
-3. 1.5 h: stitching and debounced line crossing (copy the logic from `nightexit.py`: `stitch`, `find_crossings`, `camera_blind_spans`).
-4. 1.0 h: best crop (size x sharpness, no overlap) + pose colours (`appearance`).
-5. 1.0 h: Cosmos3-Reason one-liner and Cosmos-Embed1 (crop clip vs text) ranking.
-6. 1.0 h: card stack + timeline UI (`render.py` is a reference), IN/OUT, "back in N s" logic.
 
 ## Files
 

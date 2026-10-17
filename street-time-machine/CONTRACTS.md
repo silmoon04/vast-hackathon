@@ -1,19 +1,18 @@
 # Street Time Machine: module contracts
 
-Built on event day (Sat 17 Oct 2026, after 09:30). One fixed street camera, two days, answered honestly.
+Data interfaces for analysing a fixed street camera across recordings, with explicit unknown states when visibility is insufficient.
 
-## Ground rules for every module
+## Data and execution conventions
+
 - Python: install `requirements.txt` in a virtual environment. Run from this folder: `python -m stm.<module> <cam>`.
-- Import data ONLY via `stm.data` (tracks, objects, path, frame_at, background, crop, save_crop, days, info, out_dir, write_json, CAMS). Do not edit `stm/data.py`; if you need a helper, put it in your own module.
-- Write ONLY your own files: `stm/<module>.py`, `tests/test_<module>.py`, and outputs under `out/<cam>/` with the names below. Never touch another module's files.
-- Never open `.env` files, never print environment values, never use the network. Do not open, view or upload image/video files to yourself; check outputs numerically (shapes, counts, JSON).
-- Every number you output must be computed, not invented. If something can't be seen (dark, frozen, blocked), say UNKNOWN with a reason, never a guess.
+- `stm.data` supplies tracks, objects, path, frame_at, background, crop, save_crop, days, info, out_dir, write_json and CAMS.
+- Analysis modules write their named outputs under `out/<cam>/`, using the schemas below.
+- Output values must come from computation. If something cannot be seen because the image is dark, frozen or blocked, return UNKNOWN with a reason.
 - Dev cameras: `ptz_parking` (main: a fixed car park, Day A/B = SIMULATED halves of one clip), `car_detection`, `person_bicycle_car_detection`, `rochester_night`, `yonge_dundas`.
 - Tracks are YOLO + ByteTrack at ~15 fps. Columns: f, t, tid, cls, name, conf, x1, y1, x2, y2, cx, cy, bw, bh, day. `objects(cam)` gives one row per track with `parked`.
-- Keep it fast: each module must finish in under 3 minutes for ptz_parking on CPU. Sample frames sparsely.
-- Each module gets a CLI `python -m stm.<module> [cams...]` (default: all cams that make sense) and pytest tests that run in under 60 s.
+- Modules expose a CLI `python -m stm.<module> [cams...]`; the default camera selection depends on the module.
 - All JSON times are seconds into the video (float, 2 dp). Paths inside JSON are relative to `out/<cam>/`.
-- Finish with a short `out/<cam>/<module>_summary.txt` of what was computed, with counts.
+- Module summaries use `out/<cam>/<module>_summary.txt` and report what was computed, with counts.
 
 ## Outputs (the UI reads exactly these)
 
@@ -82,7 +81,7 @@ Rule-based parsing for now (keywords + colour words matched against the crop's d
 ```
 Claims are extracted with plain rules (number words + COCO nouns + synonyms). Also flag detector-side errors (e.g. "toothbrush" on a bolt clip) as `detector_suspect: true` with a reason. Save one frame per row as `out/captions/frames/<id>.jpg` (frame at segment midpoint; video paths: `<STM_VIDEO_ROOT>/intel/<clip>.mp4`, default `videos/intel/`).
 
-## Wave 2 modules (same ground rules; never edit stm/data.py or wave-1 modules ledger/synopsis/diff/near/ask/server/captions)
+## Additional analysis modules
 
 ### flow -> `out/<cam>/flow.json` + `out/<cam>/flow.jpg`  (module `stm.flow`)
 Where things move: a heat trail of every moving track drawn over `background.jpg` (people amber #F2A93B, vehicles blue #7FB6FF), plus the main lanes as arrows.

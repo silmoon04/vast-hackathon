@@ -1,8 +1,7 @@
 # 14 LANE CALL: stopped-vehicle alert triage
 
 Local prototype. Every number below was measured by `run.py` on the local
-clips and is in `results.json`; anything not measured is labelled. This is the second version, after a review that called the first
-demo staged (slideshow trigger, hand-picked positives, self-drawn labels). What changed is in "Fixes since the review" at the end.
+clips and is in `results.json`; anything not measured is labelled. The first version used a slideshow trigger, hand-picked positives and self-drawn labels. The implementation changes below describe the corrections and remaining evaluation limits.
 
 ## What it is
 
@@ -41,33 +40,13 @@ Pipeline (`lanecall_core.py`, `lanecall.py`, `run.py`, `inject.py`):
    duckdb (`sql_queue_matches_python` is true for every video; the SQL avoids IN / GROUP BY / JOIN).
 7. Cosmos second opinion (local Cosmos3-Edge, <= 28 calls per video, cached) on the red-boxed frame; collapsed under each card.
 
-## Demo script (90 s)
+## Implementation notes
 
-1. 0:00 A40 hero (`out/motorway_a40_inject/hero.jpg`). Say first: "real motorway footage, three real cars cut out of the same clip and
-   pasted in as stopped vehicles: SIMULATED". "The real detector fires after 5 s on all three. Two are in the running lanes: IN LANE,
-   first in the queue, 97 %. The one on the hard shoulder drops to AT KERB. The control panel: the same clip without the pasted
-   cars gives 0 alerts." Point at the white ground-contact lines.
-2. 0:30 Lisbon hero (`out/lisbon_parking/hero.jpg`). "This clip is a photo slideshow, so the trigger is simulated and the polygons are
-   mine (stills, no dwell time shown). 5 IN LANE first: a tow truck, a van and a car on zebra crossings, a car in the road, and the
-   borderline one at 70 %: a car half up on the kerb. Say so: it is the honest limit." Open card Q01 in `report.html`.
-3. 0:50 PTZ parking lot hero. "87 alerts from one lot; 26 are the same parked cars seen again by another preset, merged. 46 AT KERB are
-   auto-lowered, nothing in a lane, 15 CAN'T SEE (car cut off at the frame edge: the system will not guess)." Open an 8 s clip.
-4. 1:10 Yonge-Dundas hero (bonus). "7 cars stopped on the carriageway: all waiting at a red light. They collapse into 1 QUEUE card plus
-   one lone IN LANE car and one CAN'T SEE: 7 alerts, 3 cards. IN LANE is not the same as an incident; the queue card is the first
-   answer to that."
-5. 1:25 "Alert to card: median 0.5 s including the segmentation pass, budget 2 s." Do not open the Cosmos row (see limits).
-
-## How it maps to the VAST stack on the day
-
-| This spike (local) | On the day | Note |
-|---|---|---|
-| YOLO26s detections (cached) | hosted YOLO11s (DataEngine) | RISK: the DataEngine table gives COCO counts per 5 s segment. The detector needs boxes per frame. If the endpoint only returns counts we must run our own YOLO on the stream (the same code), or fall back to count heuristics (no position, no lane call). Check on arrival. |
-| YOLO26s-seg on the alert frame (local GPU) | own YOLO-seg on the alert frame | NEW dependency for the contact line: about 90 to 460 ms per frame here (shared laptop GPU). Not part of DataEngine. If we have no GPU, fall back to the box edge (older, worse on angled cars). |
-| `pk.tracks` replayed | live stream into the detector | alert-to-card timing is measured on replayed detections (frame already decoded) |
-| local Cosmos3-Edge second opinion | Cosmos3-Reason on the crop / frame | prompt and JSON contract in `lanecall.py` (`VLM_PROMPT`); also the natural place for a plain-English caption. Test before showing disagreement chips: the local model never says IN LANE |
-| duckdb alerts table + ORDER BY | VastDB table `alerts` (call, conf, reason, vlm_call, queue_id, operator_verdict) | queue = `ORDER BY sev, conf DESC, dur DESC, t_alert, x1`; counts via `WHERE call = ?` |
-| not built | Cosmos-Embed1 on the alert clip | idea: "3 similar past alerts were: at kerb" from operator-verified alerts |
-| not built | Canary ASR | not relevant to this idea |
+- Cached YOLO26s detections and `pk.tracks` are replayed. Alert-to-card timing starts with already decoded frames and replayed detections.
+- Local YOLO26s-seg estimates the contact line on the alert frame. It takes about 90 to 460 ms per frame on the shared laptop GPU; the box-edge fallback is less accurate on angled cars.
+- Local Cosmos3-Edge supplies a second opinion. The prompt and JSON contract are `VLM_PROMPT` in `lanecall.py`; this local model never says IN LANE in the measured cases.
+- A duckdb alerts table supplies the queue through `ORDER BY sev, conf DESC, dur DESC, t_alert, x1`, with counts filtered by `WHERE call = ?`.
+- Cosmos-Embed1 and Canary ASR are not implemented.
 
 ## Results on test footage
 
@@ -175,16 +154,7 @@ positives (4 slideshow, 6 red-light, 2 pasted), Lisbon is not independent and it
 adjusted after seeing first-pass misses. The first version scored 126/132 = 95.5 % on a different set (before the PTZ repeat merge and the detector
 change) so the two numbers are not comparable one to one.
 
-## Rebuild plan on the day (hours)
-
-About 8 h with the real services if the hosted YOLO endpoint returns boxes and we have a camera feed with a real stop:
-1.5 h polygon drawing tool (click polygons on a reference frame, save to VastDB); 1 h detector on the YOLO stream (the logic is about 100 lines,
-unit-tested incl. ID switches and occlusion); 0.5 h YOLO-seg ground-contact line (port as is, needs a GPU); 1 h homography registration and call
-logic (port as is); 0.5 h queue collapse; 1.5 h queue UI with clips and the Cosmos-Reason call; 0.5 h VastDB alerts table and SQL; 1.5 h footage,
-polygons and rehearsal (include a real or pasted shoulder-straddling case). Add 2 to 3 h if the endpoint only returns counts (own YOLO). Biggest
-unknowns: whether we get footage with an in-lane stop, and how Cosmos3-Reason behaves on this prompt.
-
-## Fixes since the review (this round)
+## Implementation changes
 
 1. **Real motorway use case exercised**: `inject.py` pastes 3 real cars (cut from the clip, seg mask) into the A40 clip; the real detector, the S = 5 s
    rule, registration, geometry, call and cards run end to end (3/3 alerts, 2 IN LANE first, 1 AT KERB, control clip 0 alerts). Found and fixed on the way:
@@ -201,5 +171,5 @@ unknowns: whether we get footage with an in-lane stop, and how Cosmos3-Reason be
 
 `run.py` CLI; `lanecall_core.py` detector + dedupe; `lanecall.py` zones, registration, seg ground line, call, cards; `inject.py` simulated stops in
 the A40 clip; `inject_assets/` cut-out cars; `zones.json` polygons (ptz A/B, A40, Yonge, 33 Lisbon slides); `lisbon_manual_picks.json`;
-`ground_truth.json`; `test_smoke.py`; `results.json`; `results_before_fixes.json` and `ground_truth_before_fixes.json` (the reviewed version, for
+`ground_truth.json`; `test_smoke.py`; `results.json`; `results_before_fixes.json` and `ground_truth_before_fixes.json` (the earlier version, for
 comparison); `out/`. Footage credits are in each `report.html`.

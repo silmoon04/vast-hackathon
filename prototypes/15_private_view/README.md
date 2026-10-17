@@ -6,26 +6,14 @@ Local prototype. Run: `python run.py --all` (about 6-7.5 min here with other pro
 
 Council CCTV hides residents' windows with static privacy masks. If the camera is knocked or a PTZ moves, the masks stay put and the windows are exposed, and nobody notices. PRIVATE VIEW estimates camera motion against the setup frame (SIFT + RANSAC homography), warps the window polygons to where the windows really are now, and logs per window how much of it sticks out of the static mask (px misalignment, % exposed, start/end, max %).
 
-## Demo script (90 s)
+## Implementation notes
 
-1. (15 s) Open `out/rochester_night/hero.jpg`: "Left is setup, 9 windows masked. Right is the camera after someone knocked it (SIMULATED, so I know the answer): red is where the mask is, green is where the window really is, yellow is what is visible. W7 37%, W6 34%, W9 30% ... exposed for 10 s, 00:08-00:18." The stamp sits on the road, not on the windows.
-2. (20 s) Open `out/rochester_real/hero.jpg`: "Same building, no injection at all. The cameraman's hand drifted, and from 00:15.8 eight windows are really 21-27% uncovered. No ground truth here, so I ran a second, independent estimator: it puts the windows within 0.2 px of mine on average."
-3. (15 s) The honest part, last line of the Rochester hero: "the first test used stabilised frames, which is partly circular, so I re-ran it on the raw clip with truth from another algorithm: 9/9 windows, start/end error 0.00 s, peak error 0.3 pp."
-4. (20 s) Play `out/rochester_night/overlay.mp4` (17 s): banner flips ALL MASKS ALIGNED -> BREACH at 00:08, exposure strip fills, flips back at 00:18.
-5. (15 s) `out/ptz_parking/hero.jpg` (secondary, stand-in zones): "A camera that really panned: masks fine until 02:35, 80 s of view not recognised, then the masks cover nothing for 77 s." Say plainly that this is the estimator's stress test, not a residential case.
-6. (5 s) `out/*/exposure_log.csv` and the VastDB SQL over the 5 s segment table: "just a table the control room can alert on".
-
-## How it maps to the VAST stack on the day
-
-| Step | Local stand-in here | On the day |
-|---|---|---|
-| Zone proposals on the reference frame | Cosmos3-Edge grounding (1 useless box), classical contour detector, operator polygons (the ones actually used) | Cosmos3-Reason grounding if it returns usable boxes (test it first thing); operator polygons as the guaranteed path |
-| Camera motion / homography | OpenCV SIFT + RANSAC (own code) | Same: VAST has no geometry service. This is the real work. |
-| 5 s segments, YOLO counts | not needed for the core loop (people near exposed windows would be a bonus: DataEngine YOLO11s counts of `person` per segment) | DataEngine segments give the time base; join breaches to person counts |
-| Breach second opinion / caption | not used (core must not depend on the VLM) | Cosmos3-Reason: "is a window visible without a mask in this frame?" on the worst frame, caption goes into the log |
-| View-change screen | Cosmos-Embed1 segment similarity (see limits) | Cosmos-Embed1 vectors per 5 s segment: cheap "did the view change" flag |
-| Exposure log table + queries | duckdb via `pk.vastdb` (`seg_exposure` table, SQL limited to the VastDB subset: OR chains, no GROUP BY/IN/JOIN; query in `results.json` videos.*.vastdb_demo) | VastDB table, same SQL |
-| ASR | not used | not relevant |
+- Zone proposals combine local Cosmos3-Edge grounding, a classical contour detector and operator polygons. Grounding produced one unusable box; the operator polygons are the ones used.
+- OpenCV SIFT + RANSAC estimates camera motion and homography.
+- YOLO counts are not needed by the core loop. A VLM breach opinion is not used.
+- Cosmos-Embed1 segment similarity supplies the view-change screen; see its limits below.
+- `pk.vastdb` provides a duckdb `seg_exposure` table. Queries use OR chains with no GROUP BY, IN or JOIN; example output is in `results.json` under `videos.*.vastdb_demo`.
+- ASR is not used.
 
 ## Results on test footage
 
@@ -75,11 +63,11 @@ Cosmos-Embed1 cross-check on the PTZ clip (63 five-second segments, cosine to th
 - Single global homography: near and far planes differ for translating cameras (fine for pan/tilt/zoom and small knocks, and for a near-planar facade).
 - Moving cars and lamp glare reduce inliers; night windows are low texture (still 500+ inliers on Rochester).
 - Exposure assumes the mask stays where it was drawn in image space (software masks). Cameras with native PTZ mask memory behave differently.
-- Domain gap on PTZ: real PTZ cameras usually keep privacy masks per preset (re-projected by pan/tilt), so a PTZ moving on purpose does not expose masks the way this clip's static masks do. The realistic customer case is the knocked or drifting fixed camera, which is only simulated or small real drift here. Do not pitch PTZ as the problem.
+- Domain gap on PTZ: real PTZ cameras usually keep privacy masks per preset (re-projected by pan/tilt), so a PTZ moving on purpose does not expose masks the way this clip's static masks do. The realistic customer case is the knocked or drifting fixed camera, which is only simulated or small real drift here.
 - Cost: SIFT extraction is about 0.25-0.6 s per sample on this loaded laptop (single thread), so not real time; the PTZ clip needed 1.5 Hz. A GPU/optimised matcher would be needed for many cameras.
 - Cosmos Edge grounding is unusable (1 box, wrong); the classical fallback finds about two thirds of windows after tuning on one frame; operator polygons are the real setup path. Only 9 of about 30 visible Rochester windows are masked.
 - Lisbon test is only 2.6 s on a still photo and has no real-footage value beyond sub-second tracking.
-- The PTZ hero shows all three zones as one 100% block because the camera left the scene entirely, and there is no partially-exposed real PTZ case in this footage (a reviewer asked for one; this clip cannot give it, so partial real exposure is shown on Rochester instead). In 5 s a viewer sees a parking lot with slivers on the top edge, not a privacy breach: that is why the Rochester heroes lead and PTZ is secondary.
+- The PTZ hero shows all three zones as one 100% block because the camera left the scene entirely, and there is no partially-exposed real PTZ case in this footage (this clip cannot provide partial real exposure; Rochester supplies that case). The PTZ images show a parking lot with slivers on the top edge, so Rochester provides the clearer partial-exposure example.
 - ECC, the cross-check estimator, only works for moderate motion from the previous solution and needs a rigid region (it masks the road with the moving car); it is a test tool here, not part of the monitor.
 
 ## Kill test result
@@ -91,10 +79,6 @@ Criterion: on the simulated shift, exposure start/end within 0.5 s and % exposed
 - Real footage with no injection: the two independent estimators agree to 0.22 px and 0.06 pp on average, so the real-drift numbers are not an artefact of one algorithm.
 
 Caveats: the tolerance is read as 10 percentage points; a knock of the size tested exposes 8-47% of a window, not 100%; the exposure definition is shared by monitor and truth; the 7-size sweep (up to 100% exposure, 90 px) stays within 1.2 pp for SIFT.
-
-## Rebuild plan on the day (hours)
-
-About 6 h with the real services: 1 h camera feed in + reference-frame zone setup (operator polygon tool, test Cosmos3-Reason grounding), 2 h motion estimator + exposure maths (this folder's `pview_motion.py` / `pview.py` are generic, but must be rewritten on the day under the build-during-event rule), 1 h VastDB exposure table + SQL alerts, 1 h overlay/hero and Cosmos3-Reason breach caption, 1 h test on a clip with a real knock and polishing.
 
 ## Files
 

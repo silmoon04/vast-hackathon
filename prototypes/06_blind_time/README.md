@@ -8,23 +8,12 @@ For every second of a camera feed it decides OK / DARK / FROZEN / BLUR / MOVED /
 "did the camera see X between A and B?" in four states: **SEEN** (with evidence frames), **SEEN IN OTHER VIEW** (detected, but only while the camera looked somewhere else than the reference view; the asked-about place was not watched), **NOTHING FOUND** (only if the camera was OK for >= 95% of the
 window) or **COULD NOT SEE** (with the blind sub-spans and the coverage %). Today's search collapses NOTHING FOUND and COULD NOT SEE into "nothing found".
 
-## Demo script (90 s)
-1. **0-20 s, ptz_parking hero.** Ask `person 02:40-04:00`. Today's search: NOTHING FOUND (struck through, "MISLEADING"). Blind Time: **COULD NOT SEE, 1 m 20 s, coverage 0%**: the PTZ left its home view at 02:35 and never came back (it was away 2 m 41 s in total, not the 3 m 10 s the brief guessed). Say aloud that 02:40 is chosen to sit inside the away period.
-2. **20-40 s, same page, the literal window.** `person 02:00-04:00` is **SEEN** (a pedestrian really walks through until ~02:25) but the row carries "BLIND 1 m 25 s: HITS = LOWER BOUND" (coverage 29%): the partial-blind case, where a plain SEEN hides that 71% of the window was unwatched. `car 04:20-05:10` is **SEEN IN OTHER VIEW** (the PTZ is looking at a different view; real cars, but not the reference place), and `car 00:30-01:30` is SEEN at 100%: it is not a tool that refuses to answer.
-3. **40-65 s, SIMULATED hero (leads with the freeze).** `person 00:37-00:44`: plain search says **SEEN** (it found a person in the stale, repeated frame, "STALE FRAME"), Blind Time says COULD NOT SEE (FROZEN). Then the black window in the rows below: plain NOTHING FOUND, we say COULD NOT SEE. Show `spans_sheet.jpg`: one frame per detected state.
-4. **65-80 s, stack slide.** Health rows sit next to the DataEngine segment table in VastDB; the four-state verdict is plain `WHERE + COUNT/SUM` SQL (report section "The same answers from VastDB-style SQL"; 12/12 answers identical to the Python implementation, including the new other-view column).
-5. **80-90 s, honesty.** Sensitivity table (what it does NOT catch) and the coverage number as the product: "we never say nothing happened unless we could see".
-Live version on the day: a "pull the cable" button that injects the same faults into the incoming stream.
+## Implementation notes
 
-## How it maps to the VAST stack on the day
-| This prototype (local stand-in) | On the day |
-|---|---|
-| YOLO26s + ByteTrack cached tracks (ptz, rochester), YOLO26s TensorRT on the middle frame of each second (SIMULATED clip) | **DataEngine YOLO11s COCO counts** per 5 s segment: the "hits" side of every query. Health is per second here; per 5 s segment it gets coarser (blind spans quantised to 5 s). |
-| duckdb over `health(sec,state,ok,usable)` and `hits(sec,cls,n,conf,usable)` via `pk.vastdb` | **VastDB SQL** next to the segment table. Only `WHERE`, `COUNT`, `SUM`: no GROUP BY / JOIN / IN, so it fits the restricted dialect. Checked: `sql_check.agrees` is true for all 12 default queries (`hits.other_view` = camera state MOVED). |
-| Per-second ORB / frame-diff / blur / luminance code (OpenCV, CPU) | A small sidecar or DataEngine custom step over the same S3 video, writing one health row per second. This is the new work. |
-| Cosmos3-Reason | **Not used** (0 VLM calls) so correctness never depends on it. Optional: caption the blind frame ("close-up of a tree trunk, camera zoomed in") as the human-readable cause. |
-| Cosmos-Embed1 | Not used. Optional fallback for MOVED when ORB has no texture (cosine of reference vs current frame embedding). |
-| Canary ASR | Not used. Natural extension: an AUDIO-DEAD state (feed alive, microphone silent) with the same three-state answer. |
+- YOLO26s + ByteTrack cached tracks cover ptz and rochester; YOLO26s TensorRT runs on the middle frame of each second for the SIMULATED clip.
+- `pk.vastdb` provides duckdb tables `health(sec,state,ok,usable)` and `hits(sec,cls,n,conf,usable)`. Queries use `WHERE`, `COUNT` and `SUM`, with no GROUP BY, JOIN or IN. `sql_check.agrees` is true for all 12 default queries.
+- OpenCV measures ORB alignment, frame differences, blur and luminance per second on CPU.
+- Cosmos3-Reason, Cosmos-Embed1 and Canary ASR are not used. There are no VLM calls in the answer path.
 
 ## Results on test footage (all numbers measured by `run.py --all`, see `results.json`)
 | clip | seconds | OK | MOVED | other | headline query | plain search | Blind Time |
@@ -88,11 +77,11 @@ Compute (this laptop, shared with ~15 other jobs): ptz extract 71-310 s dependin
 
 ## What fails / limits
 - **Everything is relative to a reference view.** A PTZ that moves to another preset, or the handheld-style rochester clip, is MOVED even though the camera works. Hits seen in another field of view no longer read as a contradiction: they answer SEEN IN OTHER VIEW (coverage of the reference view still shown, typically 0%). MOVED means "not the reference view", not necessarily a fault: for a PTZ that patrols on purpose, "49% of the clip showed the reference view" is a coverage statement, not an alarm. A preset library (several references, state = which one) is the obvious fix and is not built.
-- The literal brief query `person 02:00-04:00` does **not** give COULD NOT SEE: a pedestrian is genuinely visible until ~02:25 and the PTZ leaves at 02:35 (away 2 m 41 s until the end of the clip, not 3 m 10 s). The hero therefore uses `02:40-04:00` (inside the away period; a chosen window, say so on stage) and shows the literal window right under it as SEEN with "BLIND 1 m 25 s: HITS = LOWER BOUND".
+- The literal brief query `person 02:00-04:00` does **not** give COULD NOT SEE: a pedestrian is genuinely visible until ~02:25 and the PTZ leaves at 02:35 (away 2 m 41 s until the end of the clip, not 3 m 10 s). The hero therefore uses `02:40-04:00` (a selected window inside the away period) and shows the literal window right under it as SEEN with "BLIND 1 m 25 s: HITS = LOWER BOUND".
 - OCCLUDED misses a ~30% dark blob on a busy, dark-textured scene (yonge_dundas held-out, 0/5 s).
 - FROZEN cannot be told apart from a perfectly static, noise-free feed. ptz home median pair difference is 0.0076 or more against my 0.004 threshold: a margin of about 2x. Needs >= 2 s.
 - Not caught (sensitivity): shifts around 5%, dimming to 50%, near objects covering < ~20% of the frame. Textureless scenes would defeat ORB registration and read as MOVED; night footage worked (rochester), an empty room worked (one_by_one).
-- Per-second granularity: boundary seconds are +-1 s. On the day the DataEngine segment is 5 s.
+- Per-second granularity: boundary seconds are +-1 s. The documented DataEngine segment is 5 s.
 - NOTHING FOUND still depends on detector recall (YOLO at 640 px misses small far objects): it means "camera OK and nothing detected", never "nothing happened".
 - Cold `--all` was not under 10 min on this machine: ptz extract 71-310 s, two faulted videos generated (35-55 s each) and analysed (30-60 s each), and the YOLO call for the SIMULATED clip queued 4-10 min behind other jobs on `gpu.lock` (6 s when idle). Idle-machine estimate ~5 min. Warm cache: 24 s.
 - The hero tile "plain NOTHING FOUND answers that were blind" is computed on only 4 (rochester) or 20 (ptz) windows: small numbers. Per-state recall rests on 5-11 s per class per clip.
@@ -101,9 +90,6 @@ Compute (this laptop, shared with ~15 other jobs): ptz extract 71-310 s dependin
 ## Kill test result
 **PASSED.** Criterion: simulated-fault recall >= 90% and PTZ away periods match eyeball.
 Per-state recall (DARK, FROZEN, BLUR, MOVED) on the in-sample SIMULATED clip: 100%, 92% (strict, includes 16 s of real stall), 100%, 100%; min 91.7%. Injected-only: 100% for all five faults. **Held-out** (two other clips, new times/strengths, frozen thresholds): DARK, FROZEN, BLUR, MOVED all 100% on both clips (pooled 46/46 s); OCCLUDED (extra) 5/10 s. PTZ away period: 316/316 seconds agree with my frame-by-frame labels (away from 155.5 s, boundary within half a second). Caveat: in-sample thresholds for the first number; the held-out number is the honest one for the four spec faults.
-
-## Rebuild plan on the day (hours)
-About **5 h** with the real services: health extractor over the stream/S3 and per-second rows (1.5 h), VastDB health + hits tables and the three-state SQL (1 h), UI (hero card, health timeline, query box, evidence frames) (1 h), joining with the DataEngine 5 s segment table and live ingest (1 h), tuning on the hackathon cameras plus a fault-injection self-test (0.5 h). Preset library for PTZ is +1 h.
 
 ## Files
 `run.py` (CLI), `blind.py` (state detector, queries, SQL), `sim.py` (SIMULATED faults + scoring), `render.py` (hero/timeline), `test_smoke.py`, `eyeball.json` (my frame-by-frame labels), `results.json`, `out/<video>/{hero.jpg,report.html,results.json,spans_sheet.jpg}`; `out/ptz_parking`, `out/rochester_night`, `out/retail_cctv_SIM`, plus control runs in `out/{one_by_one_person_detection,yonge_dundas,store_aisle_detection}`. Footage credits are in each report footer. Held-out outputs are in `out/heldout_<clip>/`. The throwaway probe scripts were deleted.

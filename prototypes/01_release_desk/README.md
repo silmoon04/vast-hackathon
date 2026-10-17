@@ -6,25 +6,13 @@ A council information-governance officer answers a CCTV subject access request (
 
 Run: `python run.py --all` (about 3-4 min with the GPU idle), `python run.py --video retail_cctv [--tid 1368] [--window 0:111] [--cls person]`, `python run.py --video X --list` (step 1 only), `python run.py --hard` (appendix: the lisbon van case), `python eyeball.py` (contact sheets), `python test_smoke.py` (13 tests, about 10 s). Outputs: `out/<video>/{hero.jpg, report.html, export.mp4, release_record.json, regions.json, leaks.json, risky/*.jpg, candidates.jpg, fault_injection.jpg, eyeball.jpg}` and `results.json`.
 
-## Demo script (90 s)
+## Implementation notes
 
-1. (0-15 s) Open `out/retail_cctv/hero.jpg`: left is the busy shop as filmed with 7 other people boxed in red; right is the frame that would be released, only the elderly shopper in the beige coat is visible. Say: "ICO gives us one month; the Home Office measured about nine hours to redact one hour of footage by hand."
-2. (15-35 s) Open `report.html`, section 1: the SQL that listed the candidates (real SQL over the segment table plus a track table) and the thumbnail strip. "The officer clicks the shopper; tests auto-pick."
-3. (35-55 s) Play `export.mp4`: the requester walks through the aisle, everything else is frosted glass. It is mask-by-default: a person the detector misses is still hidden.
-4. (55-75 s) The banner under the panels says "0 strangers detected in 346 / 346 export frames" and next to it "caught and fixed: round 1 found 5 leaks, cut out and re-exported, round 2 found 0". Say it as it is: that is detector evidence on every exported frame, not a proof, and round 1 shows the tracker really does miss people. Show `fault_injection.jpg` (SIMULATED: a stranger pasted back in, caught 12 of 12).
-5. (75-90 s) Forced-review list with crops (`risky/r06_*.jpg`: a stranger walks beside the requester, only the requester's silhouette is released). Finish on the stopwatch tile: 170 s of machine time end to end against about 4.0 min scaled from the Home Office figure, officer sign-off PENDING.
-
-## How it maps to the VAST stack on the day
-
-| Local stand-in here | On the day |
-|---|---|
-| `pk.segments()` (YOLO26s + ByteTrack counts per 5 s) + duckdb | DataEngine YOLO11s counts per 5 s segment in **VastDB**; the same simple SQL (no JOIN/GROUP BY/IN/window) narrows hours of footage to the candidate segments for the requested time window and class |
-| per-frame boxes and track ids (YOLO26s + ByteTrack, cached) | The segment table has counts only, no boxes. Call the hosted YOLO11s on the candidate segments only and run ByteTrack ourselves |
-| YOLO26s-seg instance mask of the requester | No seg model is listed for the event: either run a local seg model on the few overlap frames or fall back to the box (more of the requester lost) |
-| Independent leak check: yolo26l + yolo26s-pose | **Cosmos3-Reason** on export frames ("is any person other than the one in the box visible? JSON") plus a local YOLO as a second opinion. Not built or tested here: the local VLM stand-in was not used at all |
-| Candidate finding by thumbnail | **Cosmos-Embed1** text query ("woman in a beige coat with a brown bag") over segment video embeddings to rank segments; embed the requester's crop clip to find their other appearances and merge track ids |
-| Audio: dropped | **Canary ASR** on the audio track: flag segments with speech, drop or redact audio of others (not built here) |
-| Release record JSON on disk | A VastDB audit table (one row per release: hashes, leak result, review list, sign-off) |
+- `pk.segments()` uses YOLO26s + ByteTrack counts per 5 s segment with duckdb.
+- Cached per-frame YOLO26s + ByteTrack boxes and track IDs locate the requester; YOLO26s-seg supplies instance masks.
+- The independent export check uses YOLO26l and YOLO26s-pose. The local VLM is not used for this check.
+- Candidates are selected by thumbnail. Audio is dropped, and the release record is JSON on disk.
+- Embedding-based candidate matching, audio redaction and a VastDB audit table are not implemented.
 
 ## Results on test footage
 
@@ -77,13 +65,13 @@ Ground truth I recorded by looking: retail requester tid 1368 = one woman, beige
 
 - **"0 strangers detected" is a detector claim, not a proof.** It now covers every exported frame on all three default clips (346/346, 61/61, 75/75), but only for what yolo26l and yolo26s-pose can see at conf >= 0.35. Round 1 on retail released 5 people the tracker had missed; any person that both detectors miss at once would still be released if they stand inside the released region. The banner and `results.json` say "detected in N / N export frames" on purpose.
 - **The leak gate was set after seeing the data.** At confidence 0.20 the pose and detection models "found" one giant person covering most of a blurred retail frame. I count a hit as a leak only if conf >= 0.35 **and** it overlaps a stranger the same detectors saw in the unredacted frame. 17 weak and 182 unmatched export hits on retail are reported but not gating. A stricter reader would call that tuning on the test clip.
-- **Silhouette holes failed the checker on the van.** I tried the reviewer's suggestion (for a vehicle request, hide only the stranger's silhouette instead of her box). On the van, round 1 flagged a person in 86 of 86 frames, so the patch loop cut the box holes back in and the van is again released in two pieces. I did not investigate whether the detector fires on the blurred shape or on residual pixels at the dilation margin. On the Mini the same silhouette code was used for the poster (125 holes) and round 1 found 0 leaks. So that fix is only half valid, and the main lisbon case was replaced instead.
+- **Silhouette holes failed the checker on the van.** I tried hiding only the stranger's silhouette instead of her box for a vehicle request. On the van, round 1 flagged a person in 86 of 86 frames, so the patch loop cut the box holes back in and the van is again released in two pieces. I did not investigate whether the detector fires on the blurred shape or on residual pixels at the dilation margin. On the Mini the same silhouette code was used for the poster (125 holes) and round 1 found 0 leaks. So that fix is only half valid, and the main lisbon case was replaced instead.
 - **Strangers are hidden by their whole box** on person requests, so requester pixels inside a stranger's box are lost (65 of 346 retail frames overlap; the officer may want those pixels back).
 - Requester fragments: a same-class detection that is at least half inside the released pixels counts as part of the requester (172 hits on the van, 0 elsewhere).
 - A stranger fully inside the released rectangle on a frame with no tracked overlap and not found by the checker is released. No face detector beyond pose keypoints; no plate or text detector.
 - Heavy blur is not a proof of irreversibility, only of non-detection by these models.
 - One requester per run, one shot per release (`--tid a,b` merges tracker ids inside one shot only).
-- The trim pad is 0.4 s, not 1 s (changed after review): the extra seconds were extrapolated boxes outside the frame that released only slivers. Extrapolated frames whose box is less than 25% inside the frame are dropped, and a 5x5 morphological opening removes unmasked slivers up to 4 px wide (unit-tested).
+- The trim pad is 0.4 s, not 1 s (reduced from 1 s): the extra seconds were extrapolated boxes outside the frame that released only slivers. Extrapolated frames whose box is less than 25% inside the frame are dropped, and a 5x5 morphological opening removes unmasked slivers up to 4 px wide (unit-tested).
 - Mini case: 60 of 61 frames go to human review, because the poster face overlaps the released rectangle for the whole shot.
 - Only 3 default clips: one real CCTV clip with one hard stranger case, one trivial clip (pbc), one non-CCTV clip with a poster. No audio, no night CCTV, no crowds beyond 15 people.
 - Export hashes are not reproducible bit for bit (x264 threading); the hash is of the file that was checked.
@@ -91,16 +79,3 @@ Ground truth I recorded by looking: retail requester tid 1368 = one woman, beige
 ## Kill test result
 
 Criterion: requester at least about 60 px tall **and** the export runs at least real time. **Passed** on all four runs: requester 294 / 221 / 77 / 314 px, export step 4.0x / 7.9x / 14.2x / 9.1x real time (decode + mask + encode, no GPU). The whole pipeline including the all-frame leak check is 0.09-0.38x real time, so "real time" holds for the export step only.
-
-## Rebuild plan on the day (hours)
-
-About 7 h with the real services:
-
-- 1.0 h: ingest, VastDB segment table query for window + class, candidate list UI.
-- 1.5 h: call hosted YOLO11s on candidate segments, ByteTrack, shot-cut handling, stranger overlap logic.
-- 1.0 h: region planning (trim, interpolation, dilation, opening), pixelate/mask export with ffmpeg, burn-in reference.
-- 1.0 h: seg masks (local model) on overlap frames and stranger-box holes, or the box-only fallback.
-- 1.5 h: independent leak check with Cosmos3-Reason (prompt, JSON parsing, sampling) plus a local YOLO second opinion, patch-and-recheck loop.
-- 1.0 h: release record, review list with crops, report page, audit row in VastDB.
-
-Cosmos-Embed1 candidate search and Canary audio flagging are extra (about 1.5 h each) and not counted.

@@ -12,26 +12,13 @@ Every track becomes a 32-point motion descriptor in a table; a query is cosine k
 Direction: `left_to_right` and `diagonal` keep the drawn direction; `u_turn`, `stop_and_go` and `loiter` match in any orientation (12 rotations of the sketch), so the best hit often walks the other way round. This is no longer silent: every result records the rotation that matched (`rot_deg` in results.json), the hero shows an "as matched: turned 180 deg" copy of the sketch, and the page puts a "sketch turned 180 deg" chip on the card.
 Weak results: anything above cost 0.62 is not a match. Heroes and the page hide such candidates (page: behind a "show them" toggle) or grey them out; when nothing is under 0.62 the hero / page shows a NO MATCH banner with the closest candidate greyed out.
 
-## Demo script (90 s)
+## Implementation notes
 
-1. (0-15 s) Open `out/draw.html` (double-click, it is one file, 5 MB). "You remember how it moved, not what it looked like." The canvas holds the U-turn sketch and the page has already answered: 753 tracklets, 21 clips, 46 min of footage. The top hits are factory workers who walk in, turn round and walk out, each with their trajectory on the frame (green start, red end) and a grey chip "sketch turned 180 deg" (they walk the other way round than the sketch: orientation-free matching, and the page says so).
-2. (15-40 s) Clear, then draw your own U-turn with the mouse (any size, any direction). Results re-rank in about 0.1-0.2 s in the page. Click "clip" on the best card for the 17 s video of that worker.
-3. (40-60 s) The honest part, "it says NO when the answer is no": pick `yonge_dundas` in "Backdrop / search in" and draw the same U-turn. Red banner "NO MATCH: nothing in this clip moved like that (best cost 1.25, threshold 0.62)", the closest candidates greyed out. Backup picture: `out/hero_negative.jpg`.
-4. (60-80 s) Pick "stop and go" (two blue pause rings on the sketch) or tick "my pauses count" and draw with a pause in the middle: matches show a ring and "x s" where the person halts, plus a speed-vs-sketch sparkline (blue rings with seconds = halts) (yonge pedestrian who walks, stands about 3 s and walks on; a woman in face_demographics who pauses).
-5. (80-90 s) `out/hero.jpg`: the numbers (hand-checked P@3 1.00 / 1.00 / 0.67 / 1.00 for u-turn / left-to-right / stop-and-go / loiter) and `out/lisbon_parking/hero.jpg`: NO TRAJECTORIES, because that clip is a photo slideshow.
-
-Pitch line that is true on this footage: "a U-turn anywhere in 46 minutes of video, found by drawing it, and a clear NO when there is none". Lines that are NOT true here: "the one car that U-turned in 13 minutes of Lisbon" (Lisbon is a slideshow, no car U-turn exists in any clip; the only hairpins are a few factory workers: see What fails).
-
-## How it maps to the VAST stack on the day
-
-| Here (local stand-in) | On the day | Note |
-|---|---|---|
-| YOLO26s TensorRT + ByteTrack, cached per frame boxes | hosted YOLO11s detections per frame + our own ByteTrack | **Risk**: DataEngine's per-5 s output is COUNTS, which cannot give trajectories. We need per-frame boxes from the YOLO service (or run ByteTrack on frames we send), so ingest must keep box coordinates. |
-| duckdb `tracklets` table via `pk.vastdb` (SQL: SELECT / WHERE / OR chains / ORDER BY, no IN, GROUP BY, JOIN, window) | VastDB table, same columns (pos 64 floats, speed 32 floats, scalars) | Metadata filter in SQL (`video`, `cls`, `dur`, ...). kNN + DTW run in the app (numpy or the page's JS) over the pulled descriptors; no VastDB vector index is assumed. |
-| local camera-motion estimation (LK / ORB, similarity transform) | same code on the frames | Needed whenever the camera moves or cuts; it is what makes ptz / handheld footage usable at all. |
-| not used: Cosmos3-Reason | caption the best matches ("a white van reverses into a bay") and show it under the clip | optional garnish, never needed for correctness |
-| not used: Cosmos-Embed1 | "motion AND look" queries: drawn path + text embedding ("red car") as a second filter | would fix the main limit (no appearance), not built here |
-| not used: Canary ASR | none | |
+- YOLO26s TensorRT + ByteTrack supply cached per-frame boxes. Trajectories require box coordinates rather than segment counts.
+- `pk.vastdb` provides a duckdb `tracklets` table. Metadata filters use SELECT, WHERE, OR chains and ORDER BY, without IN, GROUP BY, JOIN or window functions.
+- kNN and DTW run in numpy or the page's JavaScript over the retrieved descriptors; no VastDB vector index is assumed.
+- Local camera-motion estimation uses LK / ORB and a similarity transform to handle camera movement and cuts.
+- Cosmos3-Reason, Cosmos-Embed1 and Canary ASR are not used.
 
 ## Results on test footage
 
@@ -50,7 +37,7 @@ Hand-checked precision (labels by me, from the images, see Eyeball checks; sampl
 
 Mean P@3 over the four kill-test presets: 0.92. Verdict thresholds (cost <= 0.45 MATCH, <= 0.62 MAYBE, else NO MATCH) were set by eye on those same 40 labelled results (29 right: median cost 0.43; 11 wrong: median 0.62, minimum 0.50), so they are optimistic and costs are not comparable between presets.
 
-Negative control (the part a judge will test): a U-turn sketch searched clip by clip gives MATCH in 1 clip (worker_zone_detection, 0.40), MAYBE in 2 (face_demographics head sway 0.50, elephants_dream cartoon 0.60), NO MATCH in 12, and has no data in the 6 clips without searchable tracklets (`results.json` videos.*.presets.u_turn). The demo negative is `yonge_dundas` (a crowd, 161 tracklets): best cost 1.11 -> NO MATCH, `out/hero_negative.jpg`. Tracker-level negative only: no camera-stable tracklet of at least 1.5 s has a hairpin; it does not prove nobody in the crowd turned round.
+Negative control: a U-turn sketch searched clip by clip gives MATCH in 1 clip (worker_zone_detection, 0.40), MAYBE in 2 (face_demographics head sway 0.50, elephants_dream cartoon 0.60), NO MATCH in 12, and has no data in the 6 clips without searchable tracklets (`results.json` videos.*.presets.u_turn). The demo negative is `yonge_dundas` (a crowd, 161 tracklets): best cost 1.11 -> NO MATCH, `out/hero_negative.jpg`. Tracker-level negative only: no camera-stable tracklet of at least 1.5 s has a hairpin; it does not prove nobody in the crowd turned round.
 
 Matched orientation (global top 3): u_turn 180 / 180 / 180 deg (the workers walk the other way round than the sketch, hence the "as matched" copy in the hero), stop_and_go 180 / 180 / 210 deg, loiter 0 / 210 / 0 deg, left_to_right and diagonal always 0 (direction is kept).
 
@@ -129,10 +116,6 @@ Frames I actually viewed, and what I saw:
 ## Kill test result
 
 Criterion: drawn-path queries return a plausible match for at least 3 of 4 presets. **PASS, 4 of 4**: u_turn, left_to_right, stop_and_go and loiter each have a hand-verified correct result in the top 3 (top-1 correct in all four; P@3 1.00 / 1.00 / 0.67 / 1.00). Caveats: the presets are synthetic sketches, one rater, and the U-turn evidence is one factory scene (6 tracklets, a few workers). Added this round: the negative control (U-turn on yonge_dundas -> NO MATCH, 12 of 15 clips with data say NO MATCH to a U-turn) and the page rendering check in a real browser; neither changes the verdict.
-
-## Rebuild plan on the day (hours)
-
-About 5 h with the real services: 1.0 h per-frame boxes from the YOLO endpoint + ByteTrack into tracklets; 1.0 h camera-motion windows and compensation (or skip it if the camera is fixed); 0.5 h descriptor table in VastDB; 1.0 h matching service (numpy kNN + DTW, ported from `mimic_core.match`); 1.0 h drawing page (port `mimic_search.js` + canvas); 0.5 h thumbnails, clip, polish. Plus 1 h of slack for the "only counts, no boxes" risk above.
 
 ## Files
 

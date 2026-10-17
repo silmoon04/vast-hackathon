@@ -8,24 +8,12 @@ Run: `python run.py --all` (about 30-60 s with a warm VLM cache, about 2 min col
 Trigger semantics are LITERAL: every second of the sustain window must have >= N people in the zone. `--gap 1` (off by default) forgives 1 s dips and is labelled on the hero if used.
 Optional `--xcheck` recounts the evidence frames with the larger detector (yolo26l); it needs the GPU lock and took 19 min here because other prototypes held the lock.
 
-## Demo script (what you show judges in 90 s)
-Lead with `retail_cctv` (fixed ceiling CCTV, a real till queue, clear polygon). Yonge-Dundas is the limitation example, not the hero.
-1. (10 s) Open `out/retail_cctv/hero.jpg`: "Fixed camera over a shop till. Everything outside the amber polygon is greyed out; the register counts only people whose feet are inside." Point at the 10 IN ZONE frame and the red stamp.
-2. (20 s) Timeline: "We replayed the whole 111 s recording against the rule >= 9 people for >= 3 s, every second. It would have fired twice (00:23 and 00:48) and was at or above the line for 12 s in total."
-3. (25 s) Sweep table, the real insight: "Nobody has to guess N. N>=9 fires twice, N>=10 never fires; N>=6 fires 9 times. The 95th percentile is only a starting point and fires on the busiest 5% by design." Rerun with `--n 8` live (about 10 s) to show it re-fires.
-4. (20 s) Open `out/retail_cctv/plan_entry.md`: zone polygon, trigger, back-test, three evidence frames, Cosmos label suggestion marked unverified, actions left blank for the operator ("the ORR finding was pinch points with no recorded plan: this is the recorded plan").
-5. (15 s) `store_aisle_detection/hero.jpg` (3 fires, a 15 s episode) to show it is not tuned to one clip; `yonge_dundas/hero.jpg` with its MOVING CAMERA banner to show we know where it breaks. Mention the kill test and the honest limits.
-Do NOT promise "38 people" or "fired 4 times": that does not exist in this footage. The real numbers are retail peak 10 / 2 fires, Yonge peak 14 / 0 fires at the recommended N.
+## Implementation notes
 
-## How it maps to the VAST stack on the day
-| Local stand-in | Event service |
-|---|---|
-| YOLO26s + ByteTrack person boxes (cached) | DataEngine YOLO11s per segment. **Caveat: the documented table has counts per 5 s segment, not box positions. A polygon zone needs boxes (or a per-camera zone = whole frame, which is a much weaker product). Check on the day whether the DataEngine output carries bboxes; otherwise run our own YOLO on segment keyframes.** |
-| duckdb `zone_occupancy(video, sec, n_in_zone)` + SQL check | VastDB table; the check uses only `COUNT/MAX/SUM ... WHERE` (no IN/ILIKE/GROUP BY/JOIN/window, the banned dialect parts). Episode detection is done in Python over the pulled series because it needs window functions. |
-| Local Cosmos3-Edge zone label/risk/control suggestions (1 call per clip, advisory) | Cosmos3-Reason on the zone-outlined peak frame |
-| Cosmos-Embed1 | not used (could retrieve "similar crowded moments" from a text query) |
-| Canary ASR | not used |
-| Local mp4 files | the provided camera/video buckets; footage never leaves the machine in this spike |
+- Cached YOLO26s + ByteTrack person boxes determine polygon-zone occupancy. Counts alone cannot locate a person inside a polygon.
+- duckdb stores `zone_occupancy(video, sec, n_in_zone)`. The SQL check uses `COUNT`, `MAX` and `SUM` with WHERE, without IN, ILIKE, GROUP BY, JOIN or window functions. Python detects episodes in the retrieved series.
+- Local Cosmos3-Edge makes one advisory zone-label, risk and control suggestion per clip.
+- Cosmos-Embed1 and Canary ASR are not used. The mp4 footage stays local.
 
 ## Results on test footage
 All numbers from `results.json`. Zone counts = person boxes with bottom-centre inside the polygon, per-second median of ~12-15 fps detections. Trigger: S = 3 s, literal rule (no dips forgiven), N = ceil(P95 of the 1 Hz series).
@@ -41,7 +29,7 @@ Areas (25 / 450 / 30 / 40 m2) are guesses, so the hero no longer shows a density
 
 Sweeps (N: fires / seconds at or above N). retail: 5: 5/93, 6: 9/68, 7: 7/47, 8: 5/25, 9: 2/12, 10: 0/1. yonge: 4: 3/52 (most fires at any N), 10: 2/21, 11: 2/17, 12: 0/5. store: 3: 2/48, 4: 1/40, 5: 3/26, 6: 0/2. Fire counts are not monotone in N (episodes split and merge), which is exactly why the sweep, not a single number, goes in the plan.
 
-Effect of the trigger fix (review finding): with the earlier 1 s dip merge, Yonge N>=12 "fired once" on the series 12, 11, 12. Literal rule: 0 fires. retail went 3 -> 2 fires and store_aisle 2 -> 3 (a dip no longer glues episodes together). `test_smoke.py` has a regression test for exactly the 12, 11, 12 case and checks that every reported fire has >= N on every second of its episode.
+Effect of the trigger fix (regression finding): with the earlier 1 s dip merge, Yonge N>=12 "fired once" on the series 12, 11, 12. Literal rule: 0 fires. retail went 3 -> 2 fires and store_aisle 2 -> 3 (a dip no longer glues episodes together). `test_smoke.py` has a regression test for exactly the 12, 11, 12 case and checks that every reported fire has >= N on every second of its episode.
 Alert time = episode start + S; when an episode lasts exactly S seconds (retail #2: 3 s) the alert lands as it ends. That is the cost of a sustain rule, not a bug, and the plan entry says so.
 
 Independent recount of the evidence frames with yolo26l in the same polygon (`--xcheck`, 640 px input, run before the final evidence-frame change): yonge 12/14/11 -> 15/16/10; people 1/2/3 -> 1/2/3; retail 9/10/9 -> 10/9/8. store_aisle was 5/6/5 -> 5/6/5 but its third evidence frame changed with the literal rule and the GPU lock timed out when I re-ran it, so it is stale and not claimed. The two detectors agree within about 3 people and disagree in sign: counts are good to roughly +/-20% in crowds, not exact.
@@ -50,7 +38,7 @@ Pipeline checks (test_smoke.py, 8 tests, about 10 s, all pass): trigger semantic
 
 ## Eyeball checks (frames I viewed, and what I saw)
 - Contact sheets (6 frames each) of all four clips. yonge_dundas: handheld pedestrian-eye view while walking through a scramble crossing, huge foreground faces, far kerb crowd; people_detection: empty office floor, 1-3 people walk through at 4, 21, 29 and 46 s; store_aisle: 1-6 shoppers in a crockery aisle; retail_cctv: busy till queue, 10-15 people.
-- Zone previews and then hero.jpg for all four clips, twice (before and after the review fixes). Final heroes: the zone is tinted amber, everything outside is dimmed to grey with dashed boxes, people on the line get an amber box, the legend is in the corner; the trigger label sits in the legend row of the timeline (it no longer collides with the peak markers); MOVING CAMERA banner on Yonge, sparse banner on people_detection; the stamp reads NO FIRE AT N>=12 (blue) for Yonge instead of a green NEVER FIRED.
+- Zone previews and then hero.jpg for all four clips, twice (before and after the changes). Final heroes: the zone is tinted amber, everything outside is dimmed to grey with dashed boxes, people on the line get an amber box, the legend is in the corner; the trigger label sits in the legend row of the timeline (it no longer collides with the peak markers); MOVING CAMERA banner on Yonge, sparse banner on people_detection; the stamp reads NO FIRE AT N>=12 (blue) for Yonge instead of a green NEVER FIRED.
 - First yonge zone (top edge at 0.58 of the height) counted the crowd waiting on the far kerb: frame at 16.4 s read 13 in zone but only about 4 people were on the roadway. I moved the edge to 0.62 (inside the kerb) and renamed the zone. This is tuning after looking at frames; it shows the count is boundary-sensitive.
 - Ground truth, counted from plain frames with only the zone outline (before looking at boxes, except people_detection, 3 obvious people): `ground_truth.json`, six frames. Rule: feet within about 10 px of the outline count 0.5.
   - yonge 24.0 s (frame 576): I counted 11 (9-13) vs 12 detected.
@@ -61,7 +49,7 @@ Pipeline checks (test_smoke.py, 8 tests, about 10 s, all pass): trigger semantic
   - people_detection 29.4 s (frame 353): 3 vs 3.
   - retail 23.5 s (frame 308), added for the lead clip: 7.5 (6-9) vs 9, +20.0%. 6 clear people (cashier, navy man, black-hat man, blue-jacket woman, red-hat man, a woman with a white bag) plus 3 half-hidden at the line at 0.5 each. HONEST CAVEAT: my first blind pass on the 1100 px frame was only 4 clear + 5 borderline (range 4-9); the 7.5 comes from a zoomed crop that I looked at after seeing the detector overlay, so this one is not a clean blind count.
   - retail 57.5 s (frame 753), added: 8.5 (7-10) vs 9, +5.9%, counted on a zoomed crop before seeing the boxes (7 clear incl. a blonde woman cut off at the bottom edge + 3 half-hidden at 0.5).
-- Review fix check: viewed evidence/zone frames of retail again; the polygon fill and greyed outside make it obvious what counts. On the Yonge frames I confirmed the reviewer's point: the zone mostly holds people walking next to the camera operator (foreground heads cut off by the bottom edge count) plus the far crosswalk; it moves with the cameraman, so it is not a fixed pinch point.
+- Regression check: viewed evidence/zone frames of retail again; the polygon fill and greyed outside make it obvious what counts. The Yonge frames show that the zone mostly holds people walking next to the camera operator (foreground heads cut off by the bottom edge count) plus the far crosswalk; it moves with the cameraman, so it is not a fixed pinch point.
 - Cosmos suggestions read: yonge "Pedestrian crossing / crossing" (right); store "Monitoring Corridor / corridor" (generic but not wrong); people_detection "Management Area / corridor" (wrong name, right type); retail "Central display area / aisle" (wrong: the zone is the till queue). Risks and controls are generic lists.
 
 ## Simulated or faked
@@ -85,6 +73,3 @@ Pipeline checks (test_smoke.py, 8 tests, about 10 s, all pass): trigger semantic
 
 ## Kill test result
 Criterion: zone counts within +/-20% of eyeballed counts on 3 peak frames. PASSED, narrowly: on the three peak/fire frames of the lead clip retail_cctv, errors are +20.0% (23.5 s, exactly on the edge, and not a clean blind count, see eyeball checks), +11.1% (49.5 s), +5.9% (57.5 s). Across all 8 hand-counted frames (yonge x3, retail x3, store aisle, people_detection): 7/8 within 20%, mean absolute error 11.0%; the miss is yonge 48.5 s at +22.2% (range 8-10, detector 11, people on the far lane line); the store aisle frame is also exactly +20.0% (a double detection). Treat as fine for "when is it busy" back-testing, not for exact head counts. Eyeballed numbers are mine, subjective (half-hidden people at 0.5), and detector/eyeball agreement is helped by the boundary tolerance I allowed myself.
-
-## Rebuild plan on the day (hours)
-About 6 h with the real services: confirm what DataEngine/VastDB store (bboxes or counts only) and fall back to our own YOLO on keyframes if needed (1 h); zone drawing UI or config file plus per-second counting query (1.5 h); back-test, sweep and recommendation (1 h); plan-entry export and Cosmos-Reason labelling (1.5 h); hero/report polish and a station-like clip test (1 h).

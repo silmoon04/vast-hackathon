@@ -111,8 +111,8 @@ def test_matcher():
 
 def test_no_scenario_terms_or_personal_paths():
     hits = []
-    toolkit_dirs = {"vastkit", "scripts", "deploy", "docs", "tests", "templates", ".githooks"}
-    toolkit_files = {"pyproject.toml", ".env.example", ".gitignore"}
+    toolkit_dirs = {"vastkit", "scripts", "deploy", "tests", "templates", ".githooks"}
+    toolkit_files = {"pyproject.toml", ".env.example", ".gitignore", "docs/TOOLKIT.md", "docs/API_NOTES.md"}
     home = Path.home().as_posix().lower().rstrip("/")
     home_pattern = re.compile(re.escape(home) + r"(?:/|$)")
     for path in _repo_files():

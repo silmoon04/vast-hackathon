@@ -1,9 +1,0 @@
-{
-  "what": "python -m vastkit.frames (cv2 decode + ultralytics predict + JSON record), 900 frames, Fri 16 Oct 2026",
-  "hardware": "RTX 4080 Laptop GPU (12 GB), Windows 11; the three local mirrors were resident (9.5 GB VRAM) during the run",
-  "weights": "yolo26s.engine (TensorRT FP16, imgsz 640)",
-  "source": "1920x1080 59.94 fps local sample clip",
-  "every_frame": {"wall_fps": 56.9, "latency_ms": {"p50": 11.81, "p95": 16.64, "max": 31.23}, "dropped": 0},
-  "paced_at_source_fps": {"wall_fps": 60.1, "latency_ms": {"p50": 10.65, "p95": 14.24, "max": 22.37}, "dropped": 2},
-  "note": "latency_ms is per predict() call incl. letterbox of the 1080p frame and NMS; pure TRT inference is ~2.3-3.1 ms (bench_yolo_rtx4080.json). The first call costs ~10 s of TRT/CUDA init, so Detector warms up in __init__."
-}

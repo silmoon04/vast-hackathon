@@ -24,7 +24,7 @@ Use this guide for SDK setup and API behaviour. The [project README](../README.m
 | `deploy/` | `/app` deploy script for the team namespace, a stdlib allowlist proxy and an unstyled deploy-check page. |
 | `scripts/`, `.githooks/` | Secret scanner and its pre-commit hook, Windows SSH/SOCKS tunnel, local smoke test, mock-corpus builder. |
 | `templates/` | SSH configuration example. |
-| `docs/` | `API_NOTES.md` (request/response shapes and quirks from the kit and the blueprint source, and where the mocks differ) and hardware benchmarks. |
+| `docs/` | `API_NOTES.md` (request/response shapes and quirks from the kit and the blueprint source, and where the mocks differ). |
 
 ## Setup
 
@@ -117,7 +117,7 @@ every child (terminate, then kill after 10 s). The YOLO mirror reports `percepti
 python -m vastkit models
 ```
 
-Lists the model ids served by Cosmos and W&B Inference. Ids change, so check on the day.
+Lists the model ids served by Cosmos and W&B Inference. Ids can change; query the configured endpoint before selecting one.
 
 ```bash
 python -m vastkit.frames --source clip.mp4 --weights yolo26s.engine --imgsz 640
@@ -179,8 +179,7 @@ deploy-check page has a field for it):
 backend's S3 credentials can read), so list only `<team>-vss-chunks-segments`: `deploy.sh` defaults
 `VIDEO_BUCKETS` to `$S3_SEGMENTS_BUCKET` from the sourced config and puts it in the Secret. Allowlisted
 reads and `/video` need no token: anyone who can reach the `/app` Ingress can read the team's indexed
-captions and the segments in those buckets. A route your app needs
-during the event goes into `READ_ROUTES`. Calls that can exceed nginx's 60 s timeout go through
+captions and the segments in those buckets. Add routes required by your application to `READ_ROUTES`. Calls that can exceed nginx's 60 s timeout go through
 `POST /jobs/api/v1/...` (same guard; returns a 32-hex `job_id`) and `GET /jobs/<id>`. Only the newest 256
 jobs are kept in memory; an older id polls as 404.
 
@@ -193,21 +192,13 @@ jobs are kept in memory; an older id polls as 404.
   W&B client never does. Never set it as a global `HTTPS_PROXY`.
 - VastDB SQL needs the Linux ADBC driver: run it on the VM.
 
-## Measured (RTX 4080 Laptop, 12 GB, Windows 11)
-
-| What | Result |
-|---|---|
-| yolo26s TensorRT FP16, pure inference | 2.3–3.1 ms; 106.6 fps at 1080p, 146.3 fps at 360p end to end ([bench](bench_yolo_rtx4080.json); its `track=True` rows time ultralytics' built-in tracker, which vastkit does not use) |
-| `vastkit.frames` on a 1080p60 file | 56.9 fps every frame; 60.1 fps paced at source rate with 2/900 dropped ([bench](bench_frames.json)) |
-| Cosmos3-Edge (local) | ~11 s load, 5.8 GB VRAM, 7–9 tokens/s |
-
 ## Rules this repo follows
 
 - Credentials never go in the repo, logs or output. `/config` output, `sql_query` and stream URLs (they
   carry the token) are never logged.
 - `scripts/check_secrets.py` scans the staged content (what `git commit` records) plus untracked, non-ignored
   files; once files are committed, run `scripts/check_secrets.py --all` (every tracked and untracked,
-  non-ignored file) before zipping or pushing a submission. A directory argument follows `.gitignore` inside
+  non-ignored file) before archiving or publishing a checkout. A directory argument follows `.gitignore` inside
   the repo. It prints file:line and the kind of hit only (one per line). A line that holds no secret can
   carry the marker `secret-scan: allow` in a comment (`# secret-scan: allow`, `<!-- secret-scan: allow -->`)
   and is then skipped. The scan also fails on unreadable files and on files over 5 MB ("too large to

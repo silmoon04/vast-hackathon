@@ -8,24 +8,17 @@ Run: `python run.py --all` (about 75 s warm; 2-3 min cold with the local VLM at 
 
 Files per clip in `out/<video>/`: `hero.jpg`, `report.html`, `player.html` (loudness waveform + speech + lines timeline, with/without-description toggle), `ad.mp4`, `plain.mp4`, `descriptions.vtt`, `demo_60s.mp4` (Elephants Dream and dashcam), `lines.json`, `audit_audio.png` (full spectrogram), `audit_lines_N.jpg` (spectrogram strip per line, for my by-eye speech audit), `eyeball_N.jpg` (keyframes + line, for my by-eye accuracy audit). `results.json` has every number below; `eyeball.json` and `spectro_audit.json` hold my by-eye verdicts.
 
-## Demo script (90 s)
-1. (0-20 s) Open `out/elephants_dream/hero.jpg`: red = speech found by our own detector, coloured blocks = drafted lines sitting only in the pauses. Point at the stamp, which says what it measures: 0 s over detected speech (own detector), plus my spectrogram audit of every line. Then the honest bit on the cards: each carries my by-eye verdict (accurate / partly / wrong).
-2. (20-60 s) Play `out/elephants_dream/demo_60s.mp4` (30-90 s of the film, 5 lines: 2 accurate, 3 partly, 0 wrong by eye). The voice speaks only in the pauses; the music/effects duck about 15 dB under it and come back. For the opening, open `player.html` and scrub to 0:04: the title card is voiced ("Title: The orange open movie project presents.").
-3. (60-80 s) Open `out/dashcam_urban/player.html`, click the AMBER line "A black car drives ahead on the right.": the panel says YOLO sees cars at 42-50 % of the frame width, nothing on the right. The writer is sent there first. Also say that AMBER is not a truth detector (see calibration below).
-4. (80-90 s) Close: "On the day Canary gives exact word timestamps and Cosmos3-Reason writes the captions; the writer keeps the pen. On a small local model, 12 of 26 lines were fully accurate, 25 of 26 were accurate or usable with an edit, and one was wrong."
+## Implementation notes
 
-## How it maps to the VAST stack on the day
-| Here (local stand-in) | On the day |
-|---|---|
-| ffmpeg silencedetect + a small CNN speech detector I trained (`vad_net.py`, `train_vad.py`) | Canary ASR word timestamps: dialogue spans become exact, plus a transcript the describer can read. This also removes the circularity of the speech check |
-| YOLO26s + ByteTrack tracks, YOLO26l second opinion | DataEngine YOLO11s counts per 5 s segment, read with VastDB SQL for the segments overlapping each gap (`peak_person`, `n_car` ... columns) |
-| Cosmos3-Edge describing 3 keyframes + a second call that reads on-screen text | Cosmos3-Reason captions (DataEngine segments, or keyframes of the gap) |
-| "What is new" = frame difference + shot cuts + new tracks | Same, or Cosmos-Embed1 distance between the segment before and the segment in the gap |
-| Windows SAPI en-GB Hazel (System.Speech via PowerShell, no download), rate -1 | Same or any TTS; ffmpeg mix unchanged |
-| duckdb | Not used by the core loop (could hold the gap/line tables in VastDB) |
+- ffmpeg silencedetect and the small CNN speech detector in `vad_net.py` / `train_vad.py` estimate dialogue spans.
+- YOLO26s + ByteTrack supply tracks, with YOLO26l as a second opinion.
+- Local Cosmos3-Edge describes three keyframes and makes a second call to read on-screen text.
+- Frame differences, shot cuts and new tracks determine what is new.
+- Windows SAPI en-GB Hazel (`System.Speech` via PowerShell), at rate -1, supplies speech; ffmpeg mixes it into the output.
+- duckdb is not used by the core loop. Canary word timestamps and hosted captioning are not implemented here.
 
 ## Results on test footage
-Real measured numbers (`results.json`). "Eyeball" = my verdicts after viewing the keyframes each line was written from: accurate = every claim checks out; partly = subject/action right but a wrong, invented or missing detail; wrong. I am one reviewer and a few calls are generous (marked in `eyeball.json`).
+Real measured numbers (`results.json`). "Eyeball" = my verdicts after viewing the keyframes each line was written from: accurate = every claim checks out; partly = subject/action right but a wrong, invented or missing detail; wrong. I am one rater and a few calls are generous (marked in `eyeball.json`).
 
 | Clip (analysed) | Gaps (usable s) | Lines | GREEN / UNVERIFIED / AMBER | Over detected speech | Programme ducked | Eyeball accurate / partly / wrong | Spectrogram audit (clear / unclear / speech-like) |
 |---|---|---|---|---|---|---|---|
@@ -64,7 +57,7 @@ Frames I viewed (Read tool): 30 s spectrogram tiles of Elephants Dream 0-180 s, 
 - No real dialogue ground truth exists locally (no ASR weights). "0 s over detected speech" is measured against my own CNN detector, which chose the gaps, so it is circular by itself. What is not circular: the SIMULATED injection test (Windows TTS mixed into the real beds), and my spectrogram audit of each line's window (by eye, no listening): 0 of 26 lines show speech-like structure, 19 clear, 7 unclear (dense harmonic bed in ED 109-127 s, murmur in Yonge). A hand-marked full dialogue ground truth of ED 0-180 s was NOT produced: I cannot listen, and the dense effects in the film do not let me mark speech from a spectrogram reliably.
 - Voice: Windows SAPI, not a broadcast AD voice. Descriptions: Cosmos3-Edge (a weaker stand-in for Cosmos3-Reason). Detector counts: YOLO26s/26l, not the hosted YOLO11s.
 - The speech detector (`vad_model.pt`, 68k parameters) was trained on synthetic speech from two TTS voices over beds from other clips plus synthetic noises; the three test programmes, the Zira voice and the test sentences were held out. It has never been checked against real human speech.
-- `eyeball.json` and `spectro_audit.json` are one reviewer (me), not a panel.
+- `eyeball.json` and `spectro_audit.json` are one rater (me), not a panel.
 
 ## What fails / limits
 - Accuracy: 46 % of lines fully accurate (12 of 26), 96 % accurate or partly, 1 wrong. Strict reading of the kill test still fails. The lines are safe but thin: the local VLM drops the second character, says "runs" for a walk, and cannot confirm verbs.
@@ -80,6 +73,3 @@ Criterion: zero lines overlap dialogue AND at least 60 % of lines judged accurat
 - Dialogue: PASSED on every measure I have: 0 lines and 0.0 s over the detector's speech map (26 lines), 0.0 s over injected speech (SIMULATED), 0 of 26 lines speech-like in my spectrogram audit (7 unclear). Not provable against real dialogue without a transcript.
 - Accuracy: FAILED on the strict reading: 12 of 26 lines (46 %) fully accurate (previous version 28 %). Counting "partly" as usable-with-edit it is 25 of 26 (96 %).
 - Overall: NOT passed. Plumbing (timing, fit, ducking, never over detected speech) is sound and the content is much safer than before (1 wrong line in 26), but still thin and below the 60 % bar with the local model.
-
-## Rebuild plan on the day (hours)
-About 6 h with the real services: Canary word timestamps to gaps (1 h; this also replaces the speech detector and my spectrogram audit), DataEngine/VastDB segment counts and Cosmos3-Reason captions per gap (2 h), draft/fit/flag logic ported from `describe.py` (1 h), TTS plus ffmpeg ducking mix (0.5 h), WebVTT and player (1 h), hero/demo polish (0.5 h). The ducking mix, VTT, player and fit loop port unchanged.

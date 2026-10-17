@@ -7,26 +7,13 @@ Local prototype. Run: `..\..\.venv\Scripts\python.exe run.py --all` (about 1 min
 For care-home night staff and falls reviews: from per-person pose keypoints it answers "when was the resident last upright, when were they first on the floor, how fast was the transition (FAST = fall, slower = deliberate lie/sit), and how long have they been down", then asks Cosmos to verify the key frame (floor vs bed).
 Output per clip: a hero card (verdict stamp, last upright / on the floor / flat frames side by side, posture strip, observed long-lie clock, box-only baseline card), an HTML report, an annotated mp4 and a SIMULATED long-lie clock strip (clock_sim.jpg / .mp4).
 
-## Demo script (90 s)
+## Implementation notes
 
-Corrected from the brief: in `skate_fall` the skater is upright on the board at 00:04 and falls at about **00:07**, and he is only **1.0 s** on the ground in view (he rolls out of frame at 00:08.0), not 6 s. Say that out loud, it is the honest number.
-
-1. 0:00 `out/skate_fall/hero.jpg`: "FALL. Last upright 00:06.4, on the floor 00:07.0, flat 00:07.3: 0.9 s from standing to flat, so a fall, not a lie-down." Three frames left to right (feet planted / hand and hip on the ground / flat), the 0.56 s and 0.32 s steps between them, the posture strip underneath. Point at the corner card: a box-only system also says FALL here but fires 0.4 s early, while he is still airborne.
-2. 0:25 `out/skate_fall/clock_sim.jpg` (or play `clock_sim.mp4`): "this is the clock staff would see: 1.0 s observed, then the same clock at 1 min CHECK NOW, 5 min ESCALATE, 1 h LONG LIE". Say clearly that cards 2-4 are SIMULATED, the footage is 10 s long.
-3. 0:45 `floor_lie` (amber "LYING: CHECK": already down when first seen, so no fall verdict, clock starts at first sight) then `assist_elderly` (blue "LYING IN BED", Cosmos says bed, no floor clock; the corner card shows a box-only system calling the same clip a FALL). This is the Cosmos and pose moment: a wide box cannot tell a bed from the floor.
-4. 1:05 `classroom` and `help_sit`: "NO ALARM". 33 s, 5 people, one stands for 11 s and sits, another stands: zero falls.
-5. 1:20 `out/skate_fall/report.html`: annotated video, the VastDB SQL funnel (only 1 of 3 five-second segments needs a Cosmos call; on `classroom` 0 of 7), ladder rungs "ON FLOOR / +1 min / +5 min / +1 h", configurable; the BGS poster's care-home limits run from 1 h to over 6 h.
-
-## How it maps to the VAST stack on the day
-
-| Local stand-in here | On the day | Note |
-|---|---|---|
-| YOLO26s-pose + ByteTrack (cached, `pk.poses`) | **Not provided by the DataEngine**: its YOLO11s gives COCO boxes and counts only. Run YOLO11-pose (ultralytics) ourselves on the bring-your-own GPU | Biggest gap vs "use the provided services". Box-only fallback (below) is weaker |
-| YOLO26s counts per 5 s segment (`pk.segments`) | DataEngine segment table (person count per segment) | Used as the funnel and as the box-only baseline |
-| duckdb (`pk.vastdb`) | VastDB SQL: `posture_segments`, `posture_events` tables | Query uses only SELECT / WHERE / ORDER BY (no IN, ILIKE, GROUP BY, JOIN, window); test checks this |
-| local Cosmos3-Edge `pk.vlm` | Cosmos3-Reason on the key frame ("is a person lying on the floor?", "floor, bed, sofa or other?") | Can only agree, add context (bed) or disagree; never decides the verdict |
-| Cosmos-Embed1 | optional "find segments like 'person on the floor'" | not built here |
-| Canary ASR | optional: pair a fall with "help" audio | not built here |
+- YOLO26s-pose + ByteTrack provide cached pose tracks through `pk.poses`. The box-only fallback is evaluated separately and is weaker.
+- `pk.segments` provides YOLO26s counts per 5 s segment for the candidate funnel and box-only baseline.
+- `pk.vastdb` provides duckdb queries limited to SELECT, WHERE and ORDER BY; the tests check the restricted dialect.
+- Local Cosmos3-Edge (`pk.vlm`) can agree, disagree or add floor/bed context to a key frame. It does not decide the verdict.
+- Cosmos-Embed1 and Canary ASR are not implemented.
 
 ## Results on test footage
 
@@ -80,16 +67,12 @@ Three times are reported for a fall. **Last upright** = last frame in the smooth
 - Bed vs floor depends on Cosmos, which is sometimes wrong: it called the wall in `sit_down` "floor" and the classroom chairs "sofa" (display only, hidden for no-alarm clips, but it shows how loose the one-word answer is).
 - Tracker ID switches split one person (assist_elderly: 4 person tracks for one man and his carers, and one carer skeleton is drawn on the merged key frame); I merge overlapping lying tracks and stitch short gaps, which is a heuristic.
 - One fixed viewpoint; an overhead or ceiling camera breaks the torso angle. Several people lying close together would merge.
-- Pose is not a provided VAST service: the DataEngine gives YOLO11s boxes and counts only, so on the day we run YOLO11-pose ourselves.
+- Pose is not supplied by the documented DataEngine YOLO11s boxes/counts path; this implementation depends on its own pose model.
 - Cosmos latency on the shared local server was 5 to 70 s per clip; the real hosted service should be faster but is unmeasured.
 
 ## Kill test result
 
 Criterion: correct label on at least 4 of the 5 Pexels clips and zero falls on classroom. **Passed: 5 of 5 and 0 falls** (re-run after the fixes). Read it with the caveats above: it passes for a box-only baseline too (4/5), the thresholds were tuned on the same clips, the one real fall depends on legs-only evidence and sits 0.08 s above a threshold that flips it, and only one unseen negative clip was available. Decision value: the idea works on real pose data and looks convincing, but the pose model is not a provided service, the footage is not care-home footage, and the long-lie clock is a simulated payoff, not a measured one.
-
-## Rebuild plan on the day (hours)
-
-About 6 h with the real services: pose service on our GPU with YOLO11-pose and tracking (1 h), posture rules, hysteresis and events (1.5 h, the logic is about 300 lines), VastDB tables and the SQL funnel (1 h), Cosmos3-Reason key-frame verification (0.5 h), hero card and report (1.5 h), tuning on whatever fall footage exists and demo rehearsal (0.5 h). The pose logic must be written fresh at the event (rule: projects are built during the event).
 
 ## Files
 

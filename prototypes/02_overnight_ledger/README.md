@@ -5,22 +5,13 @@ Pick one parked car on a fixed camera and get a second-by-second ledger: PRESENT
 
 Run: `../../.venv/Scripts/python.exe run.py --all` (about 5 min cold, about 2 min with caches), `--video ptz_parking --tid 3` for one car, then `../../.venv/Scripts/python.exe test_smoke.py` (about 1 s, 13 checks). Open `out/<video>/hero.jpg` first, then `out/<video>/report.html`.
 
-## Demo script (90 s)
-1. (0-15 s) `out/ptz_parking/hero.jpg`: "Was this dark sedan there all night?" Green strip, one grey block, green again. Stamp: THERE, SAME CAR (with the line "damage is NOT checked"). Point at the green badge in the header: the same detector found 36/36 seconds of SIMULATED camera faults with 0 false alarms.
-2. (15-35 s) Point at the grey block: "The PTZ camera went off to a lamp post for 81 s. We do not guess: UNKNOWN 81 s (headline and strip agree). The car is there before and after, SSIM 0.69 vs the same car at a different angle and light, verdict SAME CAR." Show the before/after pair on the hero.
-3. (35-50 s) The contact thumbnail: "One person walked up to the front-left corner at 02:18, 14 px from the car's footprint. Time-stamped, with a picture, and TOUCH? says the car looks the same before and after the visit (SSIM 0.87)." Say it plainly: feet near is not a touch.
-4. (50-65 s) Second strip on the hero: "A black SUV is there until 01:08 and the spot is empty afterwards": red. This is a real jump cut in the clip; for a car park it is "the car left overnight".
-5. (65-85 s) `out/sim_a/hero.jpg`: "Now we sabotage the camera (SIMULATED): black lens cover 10 s, frozen feed 8 s." Blue brackets (injected truth) sit exactly on the grey blocks: 18/18 seconds found, 0 false alarms, causes named.
-6. (85-90 s) Honesty beat: `out/lisbon_parking/hero.jpg` says NO LEDGER POSSIBLE (it is a photo slideshow). Then `out/sim_b/hero.jpg` as the honesty slide: a scratch SIMULATED onto the car is visible in the "after" crop and the hero says in an amber box "NOT detected (known miss)". Fine damage is the Cosmos3-Reason job on the day, not something this prototype does.
+## Implementation notes
 
-## How it maps to the VAST stack on the day
-| Step here (local stand-in) | On the day |
-|---|---|
-| YOLO26s + ByteTrack boxes, cached (`pk.tracks`) | DataEngine YOLO11s step. **Risk:** the DataEngine table described to us holds counts per 5 s segment, not boxes. Per-car matching needs boxes: either the hosted YOLO endpoint returns them, or we run our own YOLO on the clip. Counts still help: a drop in `peak_car` between two segments is a cheap "a car left" pre-filter (SQL on the segment table). |
-| OpenCV: 5 fps luma / sharpness / frame-diff, ORB homography to a reference frame, 64x36 layout correlation (blind causes) | Cosmos-Embed1 video embeddings of 5 s segments as an independent "same view as the reference?" test (cosine distance to the reference segment). Not built or tested here. |
-| SSIM / block-SSIM crop compare (`ledger.compare`) | Same code for gross change, plus **Cosmos3-Reason on the before/after crops** ("any new dent, scratch or missing part?") for the fine damage the SSIM test cannot see. Not built; no VLM is used anywhere in this prototype, so nothing depends on it. |
-| `pk.vastdb` (duckdb) ledger table, VastDB-safe SQL only (`WHERE`, `ORDER BY`, `LIMIT`, plain aggregates) | VastDB table `ledger(video, car, sec, state, cause)`; queries are in `results.json -> sql_demo` (e.g. `SELECT MIN(sec) ... WHERE state = 'G' AND cause = 'covered'` returned 10 on sim_a, the true cover start). |
-| Canary ASR | Not used (no audio in the test set). Possible add-on: car alarm / glass break as "look here" markers. |
+- YOLO26s + ByteTrack boxes are cached through `pk.tracks`.
+- OpenCV measures luma, sharpness and frame difference at 5 fps. ORB homography and 64x36 layout correlation identify blind causes.
+- `ledger.compare` uses SSIM and block-SSIM crop comparisons for gross change; no VLM is used for fine damage detection.
+- `pk.vastdb` provides a duckdb ledger table with restricted SQL (`WHERE`, `ORDER BY`, `LIMIT`, plain aggregates). Example queries and their measured outputs are in `results.json -> sql_demo`.
+- Canary ASR is not used; the test set has no audio.
 
 ## Results on test footage
 All numbers are from `results.json` (run of this folder, nothing hand-edited).
@@ -61,7 +52,7 @@ Frames I looked at myself (images are in `evidence/` and `out/`):
 - `evidence/eye_A.jpg`, `eye_B.jpg` (raw frames, box drawn at the car's place, 18 times each): car A (dark teal sedan) is present at 5, 30, 60, 66, 70, 90, 107, 125, 138, 150 s and again at 256, 270, 300, 312 s; at 162/200/236 s the car is not in the picture; at 138 s a man walks up to its front-left corner; 246 s is a dark transition frame I did not count. Car B (black SUV) is present at 5-66 s, and the spot is empty at 70, 90, 125, 138, 150, 256, 270, 300, 312 s (a car drives across the spot at 107 s, not counted). Written down in `ground_truth.json` before comparing.
 - **Strip vs eyeball, 2 cars: 33 observations, 33 exact, 0 grey, 0 contradictions** (before the dropout fill it was 31 exact + 2 grey, both at second 256 where alignment dropped for 1 s). The fill only applies to 1-2 s gaps whose two neighbours have the same state (here 250 s and 256 s: present for car A, absent for car B); my eyeball frame at 256 s agrees with the filled state for both cars. The 250 s fill is not covered by an eyeball frame.
 - `evidence/tour_pairs.jpg`: before/after crops of 12 cars across the tour: cars 1, 3, 4, 5, 6, 9, 10, 11 look identical (lighting differs); car 2 (far-left dark hatchback) is gone after the tour; car 7's box overlaps a neighbour.
-- After the review fixes I viewed the new `out/ptz_parking/hero.jpg`, `out/sim_a/hero.jpg`, `out/sim_b/hero.jpg`: no grey slivers in either strip, headline 81 s = strip label 81 s, the footer is complete (ellipsized only if too long), the vertical gap between strips and the bottom row is gone, the header badge reads 36/36 with 0 false alarms, the sim_b scratch is visible in the "after" crop next to the amber "NOT detected (known miss)" box, and the TOUCH? line sits under the contact thumbnail (0.87 on ptz, 0.88 on sim_b where both crops already carry the scratch).
+- After the changes I viewed the new `out/ptz_parking/hero.jpg`, `out/sim_a/hero.jpg`, `out/sim_b/hero.jpg`: no grey slivers in either strip, headline 81 s = strip label 81 s, the footer is complete (ellipsized only if too long), the vertical gap between strips and the bottom row is gone, the header badge reads 36/36 with 0 false alarms, the sim_b scratch is visible in the "after" crop next to the amber "NOT detected (known miss)" box, and the TOUCH? line sits under the contact thumbnail (0.87 on ptz, 0.88 on sim_b where both crops already carry the scratch).
 - `out/*/hero.jpg` and `out/ptz_parking/check.jpg` viewed after each fix. Real bugs found this way: the ORB homography was locking onto the camera's on-screen "ID: 001" text (identity transform, a 12 px error) and a false ABSENT for 17 s caused by it; fixed by dropping compact consensus blobs.
 
 ## Simulated or faked (explicit)
@@ -73,7 +64,7 @@ Frames I looked at myself (images are in `evidence/` and `out/`):
 - Nothing else is faked: ptz_parking, lisbon, car_detection and the 10 false-alarm clips are real, unmodified files.
 
 ## What fails / limits
-- **Fine damage is not detected.** Scratch/dent recall 0% (same view) to 10.6% (across the tour) at the shipped false-alarm rate. The verdict is therefore worded "THERE, SAME CAR" with "damage is NOT checked" on the stamp, and sim_b shows the miss openly. The product answers "same car, still there"; "damaged?" needs the VLM pass on the day. TOUCH? has the same blind spot: it scores the car before/after a visit, so a scratch would not move it either.
+- **Fine damage is not detected.** Scratch/dent recall 0% (same view) to 10.6% (across the tour) at the shipped false-alarm rate. The verdict is therefore worded "THERE, SAME CAR" with "damage is NOT checked" on the stamp, and sim_b shows the miss openly. The product answers "same car, still there"; "damaged?" needs an additional check that is not implemented. TOUCH? has the same blind spot: it scores the car before/after a visit, so a scratch would not move it either.
 - Only one real scene supports a parked-car ledger. lisbon_parking and car_detection give none; the three-clip default set is really one clip.
 - ptz_parking is an edited reel: the 01:08 jump cut is what produced the only real ABSENT, and nothing in it is overnight.
 - Contacts are geometry only (feet inside a zone: car box lower half grown by 30% of its width). One event on the main car; 16 across 40 candidate rows. Feet-near is not touching, and small distant people are missed by the detector.
@@ -91,16 +82,6 @@ Criterion: "catches the simulated lens cover and freeze at the right seconds; st
 - **PASSED.** sim_a: lens cover found at 10-20 s (truth 10-20), freeze at 55-63 s (truth 55-63): onset and offset error 0 s. Over both sim clips five injected faults (cover, freeze, cloth, defocus, freeze; 36 blind seconds in 170 s of video): 36/36 found, 0 false blind seconds in 134 clear seconds, cause named correctly for all 36.
 - Strip vs eyeball: 33/33 exact, 0 contradictions, on 2 cars (one stays, one is gone after a cut). Two of those 33 rest on the 1 s dropout fill (see limits).
 - What the kill test does not cover: scratches (missed, and shown as a miss on sim_b), swapped cars (no real example), night (not tried). The planned lisbon fault copy was replaced by ptz windows because lisbon_parking is a photo slideshow. Thresholds were tuned on the same scene, so 36/36 with 0 false alarms in 134 clear seconds is optimistic.
-
-## Rebuild plan on the day (hours)
-About 8 h with the real services, to be rebuilt from scratch (event rule):
-1. 1.0 h: ingest the clip, get per-frame boxes (hosted YOLO if it returns boxes, else our own), pick the parked car (stationary box centre, IDs broken, so match by box IoU).
-2. 2.5 h: per-second ledger: 5 fps health scalars, reference-frame homography with on-screen-display rejection, presence by box IoU in reference coordinates with an appearance fallback.
-3. 1.0 h: blind causes (covered, frozen, blurred, view changed) and the before/after SSIM compare.
-4. 0.5 h: contacts (feet in zone) with thumbnails.
-5. 1.0 h: Cosmos3-Reason on before/after crops for damage, Cosmos-Embed1 view-change cross-check.
-6. 1.0 h: VastDB ledger table and the UI/strip, hero image.
-7. 1.0 h: rehearsal on a fresh clip with injected faults.
 
 ## Files
 `run.py` CLI, `ledger.py` core, `sim.py` simulated faults, `render.py` hero/strip drawing, `calibrate.py` + `calibration.json`, `ground_truth.json` (eyeball), `test_smoke.py`, `results.json`, `out/<video>/{hero.jpg, report.html, strip.png, check.jpg, ledger.csv, thumbs/}`, `evidence/` (contact sheets I viewed).
