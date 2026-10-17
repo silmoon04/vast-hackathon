@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <base href="./">
+  <script>
+    if (!location.pathname.endsWith('/') && !location.pathname.endsWith('.html')) {
+      location.replace(location.pathname + '/' + location.search + location.hash);
+    }
+  </script>
+  <title>Video Atlas | Field desk</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="project-guide.css">
+  <script src="app.js" defer></script>
+  <script src="project-guide.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Video Atlas home"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 10V3h7M22 3h7v7M29 22v7h-7M10 29H3v-7"/><path d="m12 10 10 6-10 6Z"/></svg><span>Video Atlas</span></a>
+    <span class="desk-title">Field desk</span>
+    <span class="connection" id="connection" role="status">Connecting to the catalogue</span>
+  </header>
+  <nav class="desk-nav" role="tablist" aria-label="Field desk views">
+    <button id="inspect-tab" type="button" role="tab" aria-controls="field-workspace" aria-selected="true">Inspect footage</button>
+    <button id="guide-tab" type="button" role="tab" aria-controls="project-guide" aria-selected="false" tabindex="-1">Project guide</button>
+  </nav>
+  <main class="workspace" id="field-workspace" role="tabpanel" aria-labelledby="inspect-tab">
+    <aside class="catalogue panel" aria-labelledby="catalogue-title">
+      <div class="panel-intro"><h1 id="catalogue-title">Find footage</h1><p>Choose a use case, then inspect a matching clip.</p></div>
+      <form id="filter-form" class="filters">
+        <label for="mode">Use case</label>
+        <select id="mode"><option value="people">People and busy areas</option><option value="vehicles">Vehicles in view</option><option value="all">All footage</option></select>
+        <label for="query">Search captions or filenames</label>
+        <input id="query" type="search" placeholder="e.g. crossing, warehouse" maxlength="150">
+        <label for="camera">Camera</label>
+        <select id="camera"><option value="">All cameras</option></select>
+        <button class="primary" type="submit">Find matching clips</button>
+      </form>
+      <div class="list-caption" id="list-caption" aria-live="polite">Reading the indexed archive…</div>
+      <div id="clips" class="clip-list" aria-label="Matching clips"></div>
+      <p class="catalogue-note">Matches use catalogue captions. Open a clip to check its detections.</p>
+    </aside>
+
+    <section class="viewer" aria-labelledby="clip-title">
+      <div class="clip-heading"><div><p id="camera-label" class="subtle">Select a recording</p><h2 id="clip-title">An answer should have a moment you can check.</h2></div><span id="clip-duration" class="duration"></span></div>
+      <div class="stage" id="stage">
+        <video id="video" controls playsinline preload="metadata" aria-label="Selected catalogue video"></video>
+        <canvas id="overlay" aria-label="Detection boxes and analysis region"></canvas>
+        <div id="stage-message" class="stage-message">Find a clip to begin.</div>
+        <span class="region-tag" id="region-tag">Whole image</span>
+      </div>
+      <div class="viewer-controls">
+        <label class="check"><input type="checkbox" id="show-boxes" checked> Show detections</label>
+        <div class="region-controls"><button id="draw-region" type="button" disabled>Draw a region</button><button id="lower-half" type="button" disabled>Lower half</button><button id="reset-region" type="button" disabled>Whole image</button></div>
+      </div>
+      <p class="region-help" id="region-help">Counts use the bottom-centre of each box inside your selected region.</p>
+      <section class="activity panel" aria-labelledby="activity-title">
+        <div class="activity-heading"><h3 id="activity-title">People visible over time</h3><label for="confidence">Minimum confidence <select id="confidence"><option value="0.25">25%</option><option value="0.4">40%</option><option value="0.6">60%</option></select></label></div>
+        <div id="chart" class="chart" aria-label="Occupancy timeline. Click to seek the video."><p>Activity appears after the clip is analysed.</p></div>
+        <div class="analysis-facts" id="analysis-facts"><span>Waiting for a clip</span></div>
+      </section>
+      <details class="method"><summary>What this analysis measures</summary><p>This deploys Pinch Point’s occupancy method on the platform’s YOLO11 detection sidecars. Counts are the rounded median of frame detections in each second. They measure objects visible together, not unique identities. Gaps stay unknown. Captions help select footage; answers are computed from detections.</p><p id="source-note"></p><button id="download" type="button" disabled>Download analysis JSON</button></details>
+    </section>
+
+    <section class="conversation panel" aria-labelledby="ask-title">
+      <div class="panel-intro"><span class="tool-icon" aria-hidden="true">⌕</span><h2 id="ask-title">Ask this clip</h2><p>Counts, busiest moments and sustained activity, with video evidence.</p></div>
+      <div class="messages" id="messages" role="log" aria-live="polite"><div class="message assistant"><p>Open a matching clip. Then ask a question or select one of the examples below.</p></div></div>
+      <div class="suggestions" id="suggestions"><button type="button" data-question="When was it busiest?" disabled>When was it busiest?</button><button type="button" data-question="Were at least 5 people visible for 3 seconds?" disabled>5 people for 3 seconds?</button><button type="button" data-question="What vehicles are here?" disabled>What vehicles are here?</button><button type="button" data-question="How much of this clip was analysed?" disabled>Check data coverage</button></div>
+      <form id="ask-form" class="ask-form"><label for="question">Your question</label><textarea id="question" rows="3" placeholder="How many people between 5 and 15 seconds?" maxlength="400" disabled></textarea><div class="ask-actions"><span id="answer-status">Choose a clip first</span><button class="primary" id="ask-button" type="submit" disabled>Ask clip</button></div></form>
+      <p class="conversation-note">Answers use the occupancy tools. Unsupported questions are explained rather than guessed.</p>
+    </section>
+  </main>
+  <section id="project-guide" role="tabpanel" aria-labelledby="guide-tab" hidden>
+    <p id="guide-load-status" role="status">Loading the project guide…</p>
+    <div id="guide-content"></div>
+  </section>
+  <div id="notice" class="notice" role="alert" hidden></div>
+</body>
+</html>
