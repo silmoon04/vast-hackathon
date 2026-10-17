@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <base href="./">
+  <script>
+    if (!location.pathname.endsWith('/') && !location.pathname.endsWith('.html')) {
+      location.replace(location.pathname + '/' + location.search + location.hash);
+    }
+  </script>
+  <title>Video Atlas | Find a route</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#description">Skip to search</a>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Video Atlas, find a route"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 10V3h7M22 3h7v7M29 22v7h-7M10 29H3v-7"/><path d="m12 10 10 6-10 6Z"/></svg><span>Video Atlas</span></a>
+    <span class="desk-name">Find a route</span>
+    <a class="field-link" href="/field-desk/">Field desk</a>
+    <span id="connection" class="connection" role="status">Checking footage</span>
+  </header>
+
+  <main class="workspace">
+    <section class="camera-bar" aria-labelledby="camera-heading">
+      <div class="camera-bar-heading"><h1 id="camera-heading">Find a route</h1><p id="dataset-title">Connected camera footage</p></div>
+      <div class="camera-strip" id="camera-strip" role="group" aria-label="Search cameras"><span class="muted">Loading cameras...</span></div>
+      <p class="dataset-notice" id="dataset-notice" role="status" hidden></p>
+    </section>
+
+    <section class="search-pane" aria-labelledby="search-heading">
+      <h2 id="search-heading">Who are you looking for?</h2>
+      <p class="intro">Describe an adult's clothes. Check a sighting, then piece together their route.</p>
+      <form id="search-form" class="search-form">
+        <label for="description">Clothing and appearance</label>
+        <textarea id="description" rows="3" maxlength="400" placeholder="Adult in an orange hardhat, coral pink top and light grey trousers" required></textarea>
+        <div class="search-actions"><button id="record-voice" class="voice-button" type="button" disabled aria-pressed="false" title="Record up to 20 seconds for Canary transcription">Record voice</button><button class="primary" id="search-button" type="submit" disabled>Find possible sightings</button></div>
+      </form>
+      <p id="voice-status" class="small-note" role="status">Checking Canary transcription.</p>
+      <div class="search-status" id="search-status" role="status" aria-live="polite">Waiting for footage.</div>
+      <div id="conversation" class="conversation" role="log" aria-label="Search refinements" aria-live="polite"></div>
+      <form id="refine-form" class="refine-form" hidden>
+        <label for="refinement">Narrow the search</label>
+        <textarea id="refinement" rows="2" maxlength="200" placeholder="Add a detail you can see in the clip" required></textarea>
+        <button id="refine-button" type="submit">Search with this detail</button>
+      </form>
+      <button id="restart-search" class="text-button" type="button" hidden>Start a new search</button>
+      <details class="method-note"><summary>How the search works</summary><p id="method-description">VAST searches the indexed footage for your description. Review each possible sighting before adding it to the route.</p><p>Clothing can look similar on different people. A saved route records the sightings you confirm.</p></details>
+    </section>
+
+    <section class="evidence-pane" aria-labelledby="evidence-heading">
+      <div class="evidence-heading"><div><p id="evidence-camera" class="subtle">Video evidence</p><h2 id="evidence-heading">Check the person in the clip</h2></div><span class="scene-clock" id="scene-clock" aria-label="Scene time">--:--:--</span></div>
+      <div class="video-stage" id="video-stage">
+        <video id="video" controls playsinline preload="metadata" aria-label="Selected possible sighting"></video>
+        <div id="stage-message" class="stage-message"><svg viewBox="0 0 88 50" aria-hidden="true"><rect x="1" y="8" width="25" height="34" rx="3"/><rect x="32" y="1" width="25" height="48" rx="3"/><rect x="63" y="8" width="24" height="34" rx="3"/><path d="m11 19 8 6-8 6m31-12 8 6-8 6m31-6 7 6-7 6"/></svg><p>Describe someone to find a moment you can check.</p></div>
+        <span class="sighting-tag" id="sighting-tag" hidden>Possible sighting</span>
+      </div>
+      <div id="evidence-detail" class="evidence-detail" hidden>
+        <div class="evidence-copy"><p id="candidate-caption"></p><p class="small-note" id="candidate-range"></p></div>
+        <button id="confirm-sighting" class="primary" type="button" title="Confirm the person at the current video time">Confirm sighting</button>
+      </div>
+      <div class="results-heading"><h3>Possible sightings</h3><span id="result-count">No search yet</span></div>
+      <div id="candidates" class="candidates" aria-label="Possible sightings"><p class="empty">Results will appear here, with a clip for each sighting.</p></div>
+      <p id="result-limitations" class="result-limitations" hidden></p>
+    </section>
+
+    <aside class="route-pane" aria-labelledby="route-heading">
+      <div class="route-heading"><div><h2 id="route-heading">Your confirmed route</h2><p id="route-count">No sightings confirmed</p></div><button id="clear-route" class="text-button" type="button" disabled>Clear</button></div>
+      <p class="route-help">Confirm the same adult in each view at the moment you see them. Sightings sort by scene time.</p>
+      <ol id="route" class="route"><li class="route-empty">Start with a clear view of their clothes. Your confirmed sightings will connect here.</li></ol>
+      <button id="play-route" class="route-play" type="button" disabled>Play route</button>
+      <p class="small-note" id="route-status" role="status">Saved in this browser.</p>
+    </aside>
+
+    <footer class="source-footer"><span id="source-credit">Footage source and license loading.</span><span id="footage-kind">Scene time comes from the source.</span></footer>
+  </main>
+  <div id="notice" class="notice" role="alert" hidden></div>
+</body>
+</html>

@@ -32,6 +32,7 @@ vast_bc*
 
 # local presentation plans, personal benchmarks and publication backups
 /.local-notes/
+/deploy/find-desk/dataset.json
 /prototypes/PITCHES.md
 /prototypes/render_pitches.py
 /prototypes/gallery.py

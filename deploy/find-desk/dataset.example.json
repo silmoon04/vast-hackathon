@@ -1,0 +1,20 @@
+{
+  "title": "Two views of a synthetic lab",
+  "description": "Two synchronized views of synthetic people. Describe their clothes, review clips, and confirm each sighting.",
+  "ready": false,
+  "location": "route-demo-20261017",
+  "license": {
+    "title": "NVIDIA Physical AI Smart Spaces",
+    "url": "https://huggingface.co/datasets/nvidia/PhysicalAI-SmartSpaces",
+    "license_id": "CC-BY-4.0",
+    "attribution": "Video: NVIDIA Physical AI Smart Spaces dataset, CC BY 4.0",
+    "summary": "Excerpts trimmed and resized. Synthetic people; no endorsement implied.",
+    "rights_note": "Licence: https://creativecommons.org/licenses/by/4.0/"
+  },
+  "limitations": [
+    "Recorded synthetic footage. This demo does not establish performance on real missing-person cases.",
+    "Shared scene time begins at zero. No absolute recording date is supplied.",
+    "You confirm each sighting; the system does not infer identity or fill gaps between cameras."
+  ],
+  "cameras": []
+}
