@@ -1,5 +1,9 @@
 # Overnight Ledger
 
+![Overnight Ledger animated demo](../../docs/demos/overnight-ledger.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#02-overnight-ledger).
+
 ## What it is
 Pick one parked car on a fixed camera and get a second-by-second ledger: PRESENT (green), ABSENT (red), or CAN'T SEE (grey, with the cause: lens covered, frozen feed, out of focus, camera looking elsewhere, spot blocked). Every grey stretch gets a before/after crop comparison ("same car" or "CHANGED: check"), and every person whose feet enter a zone around the car is logged with a thumbnail and a TOUCH? score (the car crop just before vs just after the visit). The verdict is "same car", not "undamaged": damage is not checked. It never guesses through a blind stretch: the answer for those seconds is UNKNOWN.
 

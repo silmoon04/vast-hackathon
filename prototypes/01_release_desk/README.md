@@ -1,5 +1,9 @@
 # 01 RELEASE DESK
 
+![Release Desk animated demo](../../docs/demos/release-desk.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#01-release-desk).
+
 ## What it is
 
 A council information-governance officer answers a CCTV subject access request (SAR) in minutes instead of days: the desk lists the candidate people from a SQL query over the 5 s segment table, trims to the requester's seconds, exports with **everything except the requester pixelated by default**, then checks **every exported frame** with independent detectors (different models, run on the exported file) and forces a human review of every frame where a stranger overlaps the released region. The output is a release record (hashes, leak result, review list, stopwatch), not just a video.

@@ -1,5 +1,9 @@
 # 04 NIGHT EXIT: "who went through the exit since T?"
 
+![Night Exit animated demo](../../docs/demos/night-exit.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#04-night-exit).
+
 Local-footage prototype. Video time is the clock:
 `00:00` is the start of the clip, `--since 00:21` means 21 s into the footage. These times are clip-relative;
 this prototype does not map them to a camera wall clock.

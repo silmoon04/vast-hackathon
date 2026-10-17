@@ -1,5 +1,9 @@
 # 14 LANE CALL: stopped-vehicle alert triage
 
+![Lane Call animated demo](../../docs/demos/lane-call.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#14-lane-call).
+
 Local prototype. Every number below was measured by `run.py` on the local
 clips and is in `results.json`; anything not measured is labelled. The first version used a slideshow trigger, hand-picked positives and self-drawn labels. The implementation changes below describe the corrections and remaining evaluation limits.
 

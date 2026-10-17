@@ -1,5 +1,9 @@
 # 12 Hide & Seek: can our index tell our clips apart?
 
+![Hide and Seek animated demo](../../docs/demos/hide-and-seek.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#12-hide-and-seek).
+
 ## What it is
 A 64-clip archive (5 s segments sampled across the 21 test videos), each clip described by YOLO tracks, frame brightness and Cosmos (indoor/outdoor, setting, caption keywords). A 20-questions engine asks the yes/no question with the most information gain, then asks "Is it this one?", and recovers if an answer or the guess was wrong. With a player choosing a clip it is a game; played with every clip as the secret it is an audit that lists the lookalikes the index cannot separate and the clips the detectors cannot see.
 

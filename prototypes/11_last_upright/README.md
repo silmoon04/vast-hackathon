@@ -1,5 +1,9 @@
 # LAST UPRIGHT
 
+![Last Upright animated demo](../../docs/demos/last-upright.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#11-last-upright).
+
 Local prototype. Run: `..\..\.venv\Scripts\python.exe run.py --all` (about 1 min with a warm Cosmos cache, up to about 4 min cold).
 
 ## What it is

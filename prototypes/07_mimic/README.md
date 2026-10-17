@@ -1,5 +1,9 @@
 # MIMIC: find the object that moved like this
 
+![MIMIC animated demo](../../docs/demos/mimic-path-search.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#07-mimic).
+
 Run: `.venv/Scripts/python.exe prototypes/07_mimic/run.py --all`
 (about 6 min on this loaded machine once the camera-motion caches exist; the first ever run adds about 10 min of camera analysis, `tools/cam.py` does it in parallel).
 Other entry points: `--video NAME`, `--path "x,y;x,y;..." [--rot --pos-w 0.6]`, `test_smoke.py` (about 45 s incl. two real-browser checks), `out/draw.html` (interactive page), `tools/page_drive.py` (drives the page in headless Chrome/Edge over file://, screenshots in `out/_page/`).

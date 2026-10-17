@@ -4,20 +4,29 @@ Video Atlas is a collection of video search and analysis tools: Street Time Mach
 experiments, and the `vastkit` Python toolkit. Draw a motion path to find matching tracks, inspect a camera's
 blind intervals, check a redacted export, or rewind a street scene with visual evidence.
 
+There are **16 apps and prototypes** here: the fifteen numbered experiments and Street Time Machine.
+Street Time Machine combines ten analysis features: synopsis, visibility and parking ledger, day comparison,
+nearby activity, questions with evidence, caption checks, traffic flow, highlights, object search and briefing.
+The shared SDK supports them.
+
 ## See the demos
 
-These animated GIFs come from existing demo videos. Each experiment documents its inputs,
-implementation and evaluation limits.
+All fifteen experiments have an animated preview below. The [full gallery](docs/DEMOS.md) explains what each
+recording shows, its evaluation limits and the footage credits. Smaller GIFs load here; click one for details.
 
-| Street Time Machine: compress a street recording | MIMIC: find matching movement |
+| | |
 |---|---|
-| [![Street Time Machine synopsis showing timestamped moving-object ghosts](docs/demos/street-time-machine.gif)](docs/DEMOS.md#rewind-a-street-scene-in-seconds) | [![MIMIC U-turn search result with moving trajectory overlay](docs/demos/mimic-path-search.gif)](docs/DEMOS.md#draw-a-path-to-search-video) |
-| **Private View:** detect drift in privacy masks | **Release Desk:** keep the selected subject visible |
-| [![Private View changing privacy-mask exposure as the camera moves](docs/demos/private-view.gif)](docs/DEMOS.md#detect-privacy-mask-drift) | [![Release Desk moving redacted export](docs/demos/release-desk.gif)](docs/DEMOS.md#release-only-the-requested-subject) |
+| **01 Release Desk**<br>[![Release Desk animated redacted export](docs/demos/previews/release-desk.gif)](docs/DEMOS.md#01-release-desk) | **02 Overnight Ledger**<br>[![Overnight Ledger animated parking and visibility analysis](docs/demos/previews/overnight-ledger.gif)](docs/DEMOS.md#02-overnight-ledger) |
+| **03 Leak Test**<br>[![Leak Test animated redaction audit](docs/demos/previews/leak-test.gif)](docs/DEMOS.md#03-leak-test) | **04 Night Exit**<br>[![Night Exit animated exit-crossing evidence](docs/demos/previews/night-exit.gif)](docs/DEMOS.md#04-night-exit) |
+| **05 Day 14**<br>[![Day 14 animated driving evidence](docs/demos/previews/day-14.gif)](docs/DEMOS.md#05-day-14) | **06 Blind Time**<br>[![Blind Time animated camera-visibility analysis](docs/demos/previews/blind-time.gif)](docs/DEMOS.md#06-blind-time) |
+| **07 MIMIC**<br>[![MIMIC animated U-turn match](docs/demos/previews/mimic-path-search.gif)](docs/DEMOS.md#07-mimic) | **08 On the Line**<br>[![On the Line animated scene answers](docs/demos/previews/on-the-line.gif)](docs/DEMOS.md#08-on-the-line) |
+| **09 Between the Lines**<br>[![Between the Lines animated audio-description timing](docs/demos/previews/between-the-lines.gif)](docs/DEMOS.md#09-between-the-lines) | **10 Uncut**<br>[![Uncut animated recording comparison](docs/demos/previews/uncut.gif)](docs/DEMOS.md#10-uncut) |
+| **11 Last Upright**<br>[![Last Upright animated posture transitions](docs/demos/previews/last-upright.gif)](docs/DEMOS.md#11-last-upright) | **12 Hide and Seek**<br>[![Hide and Seek animated game interface](docs/demos/previews/hide-and-seek.gif)](docs/DEMOS.md#12-hide-and-seek) |
+| **13 Pinch Point**<br>[![Pinch Point animated zone occupancy counts](docs/demos/previews/pinch-point.gif)](docs/DEMOS.md#13-pinch-point) | **14 Lane Call**<br>[![Lane Call animated stopped-vehicle alert](docs/demos/previews/lane-call.gif)](docs/DEMOS.md#14-lane-call) |
+| **15 Private View**<br>[![Private View animated privacy-mask drift](docs/demos/previews/private-view.gif)](docs/DEMOS.md#15-private-view) | **Street Time Machine**<br>[![Street Time Machine animated street synopsis](docs/demos/previews/street-time-machine.gif)](docs/DEMOS.md#street-time-machine) |
 
-The [full gallery](docs/DEMOS.md) has five moving demos, explanations, limitations and
-[footage credits](docs/DEMOS.md#footage-credits). The GIFs retain the original overlays. Street Time Machine's
-synopsis combines objects from different source times into one view.
+The gallery combines exported video, recorded interface interactions and walkthroughs of saved results.
+Simulation labels remain visible. Street Time Machine's synopsis combines objects from different source times.
 
 Source code, configuration examples, labelled test cases, measured result summaries and run instructions are
 included. Full recordings, model weights, caches and credentials stay local.
@@ -28,7 +37,7 @@ included. Full recordings, model weights, caches and credentials stay local.
 |---|---|
 | [street-time-machine/](street-time-machine/) | Street camera app: synopsis, parked-car changes, nearby tracks, questions with visual evidence and caption checks. See its [README](street-time-machine/README.md) for setup and the module commands. |
 | [prototypes/](prototypes/) | Fifteen experiments, each with a README, implementation and smoke checks. The table below links each one. |
-| [docs/DEMOS.md](docs/DEMOS.md) | Five animated demo previews, with source credits and evaluation limits. |
+| [docs/DEMOS.md](docs/DEMOS.md) | Animated previews for all fifteen experiments and Street Time Machine, with source credits and evaluation limits. |
 | [vastkit/](vastkit/) | VSS and GPU clients, W&B / OpenAI-compatible LLM helpers, VastDB and S3 utilities, media processing, mocks and local model servers. |
 | [docs/TOOLKIT.md](docs/TOOLKIT.md) | Full SDK setup, endpoint configuration, command reference, deployment and operational details. |
 | [docs/API_NOTES.md](docs/API_NOTES.md) | API request and response shapes, known quirks and differences between mocks and hosted services. |
@@ -111,7 +120,7 @@ model inference.
 | [Uncut](prototypes/10_uncut/README.md) | Align and inspect recordings for edits. |
 | [Last Upright](prototypes/11_last_upright/README.md) | Find posture transitions and candidate falls. |
 | [Hide and Seek](prototypes/12_hide_and_seek/README.md) | Turn tracked movement into an interactive search game. |
-| [Pinch Point](prototypes/13_pinch_point/README.md) | Find close interactions between moving objects. |
+| [Pinch Point](prototypes/13_pinch_point/README.md) | Count people in drawn zones and back-test crowd thresholds. |
 | [Lane Call](prototypes/14_lane_call/README.md) | Inspect traffic lanes and candidate incidents. |
 | [Private View](prototypes/15_private_view/README.md) | Detect privacy-mask drift as a camera moves. |
 

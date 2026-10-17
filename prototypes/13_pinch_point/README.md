@@ -1,5 +1,9 @@
 # 13 PINCH POINT REGISTER
 
+![Pinch Point animated demo](../../docs/demos/pinch-point.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#13-pinch-point).
+
 ## What it is
 A zone-based crowd register for station/venue managers: draw a polygon on a camera view, count people (feet inside the polygon) per second, back-test a trigger "N or more people for S seconds or more" over the whole recording, sweep N and recommend a threshold, and export a plan entry (Markdown + JSON with evidence frames at the peaks and an empty actions list).
 It answers the ORR/Euston finding ("pinch points had no recorded, risk-assessed plan") with a plan entry that is backed by what the camera actually saw.

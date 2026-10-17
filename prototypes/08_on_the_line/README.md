@@ -1,5 +1,9 @@
 # 08 ON THE LINE: scene answers for the RVRC operator on the phone
 
+![On the Line animated demo](../../docs/demos/on-the-line.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#08-on-the-line).
+
 ## What it is
 A scene-state engine that follows a live alarm camera, so that when police ask "how many, which way did they go, what are they wearing, are they still there, when did they arrive?" the operator gets a card with the answer and the evidence (thumbnail + timestamp) in milliseconds.
 At hang-up it drafts the incident log with times. Everything is advanced through the clip with a simulated clock and answered from data before "now"; no answer calls a model.

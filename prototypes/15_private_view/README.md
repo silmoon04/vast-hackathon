@@ -1,5 +1,9 @@
 # 15 PRIVATE VIEW: privacy-mask drift monitor
 
+![Private View animated demo](../../docs/demos/private-view.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#15-private-view).
+
 Local prototype. Run: `python run.py --all` (about 6-7.5 min here with other prototypes sharing the CPU: 4 outputs plus the raw-clip knock test), then `python test_smoke.py` (4 s, reads the stored outputs plus a few live maths checks).
 
 ## What it is

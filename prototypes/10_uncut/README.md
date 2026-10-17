@@ -1,5 +1,9 @@
 # UNCUT (cut down): "is this viral clip really from our camera, and what was cut?"
 
+![Uncut animated demo](../../docs/demos/uncut.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#10-uncut).
+
 ## What it is
 A provenance desk for newsrooms and council comms teams. Drop in a viral clip; UNCUT searches an archive of 5 s segments
 (Cosmos-Embed1 vectors shortlist, per-frame dHash sequences align) and answers MATCH / PARTIAL / AMBIGUOUS / NOT IN ARCHIVE with

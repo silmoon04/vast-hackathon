@@ -1,5 +1,9 @@
 # DAY 14: dashcam recording in, Operation Snap packet out
 
+![Day 14 animated demo](../../docs/demos/day-14.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#05-day-14).
+
 ## What it is
 Give it a long dashcam file. It finds the few seconds where another vehicle comes close (close pass, cut-in, fast closing) without anyone scrubbing, ranks the top 5, and for each builds a 10 s clip (5 s before, 5 s after), a boxed key frame, a zoom crop, a Cosmos description and a Snap packet draft with a 14-day clock ("recorded DATE -> deadline DATE+14, N days left"). The recording date is read from the footage's burned-in overlay when there is one (`--recorded` overrides, today is the last fallback).
 Why: West Midlands Police, April 2025: 1,321 of 2,017 Snap reports (65%) got no action before the 14-day window; the force said all but 12 were its own delay (one force; road.cc). Speed of reporting matters.

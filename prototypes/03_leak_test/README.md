@@ -1,5 +1,9 @@
 # 03 LEAK TEST
 
+![Leak Test animated demo](../../docs/demos/leak-test.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#03-leak-test).
+
 ## What it is
 Leak Test is a motivated-intruder second opinion for anyone releasing redacted CCTV (councils, police disclosure, FOI teams). It takes the released export plus the original, finds every face that is still sharp in any single frame, and issues a PASS/FAIL certificate with a leak reel (crops of the exposed faces, with times). The auditor deliberately uses different models (YOLO26l + pose landmarks) from the redactors it checks (YOLO26s).
 

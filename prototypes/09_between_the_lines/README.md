@@ -1,5 +1,9 @@
 # Between The Lines
 
+![Between the Lines animated demo](../../docs/demos/between-the-lines.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#09-between-the-lines).
+
 ## What it is
 For an audio-description (AD) writer: it finds the gaps in a programme's dialogue and drafts a short description line (at most 8 words, at most 2.5 words per usable second) that fits each gap, tells the writer how far each line can be trusted (GREEN / UNVERIFIED / AMBER), and produces a WebVTT track, an HTML player and an audio-described MP4 (voice mixed in at each gap start, programme ducked under it).
 It is a first-draft tool for a human writer (UK AD: Ofcom 2010 estimated about 61,654 audio-described broadcast hours a year), not an auto-describer.

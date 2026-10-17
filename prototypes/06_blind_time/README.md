@@ -1,5 +1,9 @@
 # 06 BLIND TIME: "nothing found" vs "the camera could not see"
 
+![Blind Time animated demo](../../docs/demos/blind-time.gif)
+
+[Animation details and footage credits](../../docs/DEMOS.md#06-blind-time).
+
 Local prototype. Everything runs locally; footage never leaves the laptop.
 Run: `.venv/Scripts/python.exe prototypes/06_blind_time/run.py --all` (warm cache 24 s; cold see "What fails"). Tests: `python test_smoke.py` (5 s, 15 checks). Held-out SIMULATED check only: `run.py --video heldout`.
 
