@@ -1,16 +1,20 @@
 """Health ledger: per-second visibility, parking spots and what changed in each spot.
 
 1 frame per second at 320 px wide is enough to tell when the camera could not see:
-  no_signal    no frame, or a cut in the recording (a jump between two steady stretches)
+  no_signal    no frame, or a cut in the recording (an isolated jump between two steady stretches)
   dark         nearly black (mean luma < 15), or dim (< 35) AND flat (grey std < 10). A dim street with
                lamps and visible structure (dusk, foggy dawn) is NOT dark.
-  frozen       near-zero change vs the previous sample for >= 3 s
+  frozen       near-zero change vs the previous sample for >= 3 s, and no detector box moved to a new place
   moved        the camera itself is moving (PTZ swing, zoom, shake): the view jumps between samples
   turned_away  the camera holds still on a scene that is not its home view (it matches another steady
                view, or it got there by moving): "camera pointed elsewhere"
   blocked      a large area differs from the home view with no camera motion and no detection to explain it
   blur         contrast-normalised sharpness (Laplacian var / grey var) far below this view's own median.
                Fog and low light scale contrast but keep edges, so they do NOT count as blur; real smear does.
+A switch between colour and night infrared (the picture loses all colour in one step) is a lighting change, not
+a cut and not a new view: the infrared stretch keeps the view it switched from, with its own infrared plate, and
+blur is judged per view, day and lighting. Night infrared jumps often (headlights, IR gain), so a jump is a cut
+only when it stands out from the change around it.
 Spots are clusters of parked-vehicle boxes (IoU >= 0.5) inside one home view. A spot is never
 "gone" while the camera is blind or looking elsewhere: those seconds are "unknown".
 ledger.json also carries one blind total (`blind_total_s`) and per-day totals (`blind_by_day`) so every
@@ -36,6 +40,8 @@ DARK_STD = 10.0         # grey std below this = no visible structure (a lit stre
 FROZEN_DIFF = 0.05      # mean abs grey diff (0..255) = "no change at all". A real freeze repeats the frame (0.0);
                         # a quiet street under fog can sit near 0.1 (real cams: >= 0.35), so keep this low
 FROZEN_RUN = 3          # seconds
+FROZEN_BLIP = 0.6       # a step this small for <= BLIP_RUN samples inside a freeze = the encoder refreshing the frame
+BLIP_RUN = 2
 BLUR_FRAC = 0.35        # sharpness below this fraction of the same view's (and day's) median = blur
 MIN_AWAY_S = 3          # a "turned_away" run shorter than this, next to camera motion, is still the move
 CELLS = (8, 6)          # grid for the per-cell "is the home scene still there" check
@@ -48,6 +54,17 @@ REASON_WORDS = {"no_signal": "no picture", "dark": "too dark", "frozen": "pictur
                 "moved": "camera moving", "turned_away": "camera pointed elsewhere",
                 "blocked": "view blocked", "blur": "picture blurred"}
 JUMP_DIFF = 12.0        # mean abs grey diff between 1 s samples = the view jumped
+CUT_ALONE = 2.0         # a cut's jump is >= this many times the biggest change within 3 s of it. A cut stands
+                        # out (Pack D day cut: 28 vs <= 3); night IR headlight sweeps jump in a row (13 vs 10)
+DET_MOVE_PX = 3.0       # a detector box this far (full-res px, any side) from every box of the still stretch =
+                        # something moved: the picture is live. A frozen frame re-encoded still jitters boxes by
+                        # <= 0.6 px and flickers weak ones on and off in place (Pack D), so those do not count
+DET_LAG_S = 8           # box motion only within this many seconds of the start of a pixel-still run...
+DET_SETTLE_S = 20       # ...followed by at least this long with no box motion = detector lag, not a live picture
+MONO_SAT = 2.0          # mean HSV saturation below this = a black-and-white night infrared picture (Pack D IR: 0.0;
+                        # the greyest colour cam, car_detection, never drops below 4.4)
+FLIP_SAT = 10.0         # ...and a switch needs real colour on the other side of the jump (Pack D dusk: ~72)
+FLIP_GAP = 5            # steady stretches this close on either side of a colour<->IR switch are the same view
 CHANGE_PX = 30          # grey level change that counts a pixel as "different from the plate"
 BLOCK_FRAC = 0.35       # unexplained changed area that counts as blocked / view lost
 NCC_MIN = 0.6           # normalised correlation with the home plate below this = the camera looks elsewhere
@@ -70,6 +87,16 @@ class Samples:
     w: int
     h: int
     grey: list[np.ndarray | None] = field(default_factory=list)   # one 320-wide grey frame per second, None = unreadable
+    sat: list[float | None] = field(default_factory=list)         # mean HSV saturation per second (empty = not measured)
+
+
+def _mono(smp: Samples) -> tuple[np.ndarray, np.ndarray]:
+    """(mono, sat) per second: mono = a black-and-white (night infrared) picture. All False without saturation."""
+    n = smp.seconds
+    sat = np.full(n, np.nan)
+    if len(smp.sat) == n:
+        sat = np.array([np.nan if v is None else float(v) for v in smp.sat])
+    return np.nan_to_num(sat, nan=255.0) < MONO_SAT, sat
 
 
 def sample(cam: str, max_s: int | None = None, crops: "CropStore | None" = None) -> Samples:
@@ -83,6 +110,7 @@ def sample(cam: str, max_s: int | None = None, crops: "CropStore | None" = None)
     want = {int(round(s * fps)): s for s in range(secs + 1) if int(round(s * fps)) < n}
     sh = int(round(SAMPLE_W * inf["h"] / inf["w"]))
     grey: list[np.ndarray | None] = [None] * (secs + 1)
+    sat: list[float | None] = [None] * (secs + 1)
     cap = cv2.VideoCapture(str(data.CAMS[cam]["video"]))
     by_f = crops.frames() if crops is not None else {}
     last = max([*want, *by_f]) if (want or by_f) else -1
@@ -96,11 +124,12 @@ def sample(cam: str, max_s: int | None = None, crops: "CropStore | None" = None)
                 if i in want:
                     small = cv2.resize(img, (SAMPLE_W, sh), interpolation=cv2.INTER_AREA)
                     grey[want[i]] = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
+                    sat[want[i]] = float(cv2.cvtColor(small, cv2.COLOR_BGR2HSV)[..., 1].mean())
                 if i in by_f:
                     crops.cut(img, by_f[i])
         i += 1
     cap.release()
-    return Samples(cam, secs + 1, inf["w"], inf["h"], grey)
+    return Samples(cam, secs + 1, inf["w"], inf["h"], grey, sat)
 
 
 # ---------------------------------------------------------------- per-second health
@@ -213,16 +242,67 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
     # contrast-normalised sharpness: fog (I*t + A*(1-t)) and exposure gain scale lap var and grey var alike
     sharp = lap / np.maximum(np.nan_to_num(svar, nan=0.0), 1.0)
     diff = np.full(n, np.nan)      # change vs previous sample, ignoring pixels under detections
+    diff_all = np.full(n, np.nan)  # the same over every pixel: a car driving by proves the feed is live
     for s in range(1, n):
         if g[s] is not None and g[s - 1] is not None:
             keep = ~(masks[s] | masks[s - 1])
             d, keep = _absdiff(g[s], g[s - 1], keep)
             diff[s] = float(d[keep].mean())
+            diff_all[s] = float(np.abs(g[s].astype(np.int16) - g[s - 1].astype(np.int16)).mean())
     dark = (luma < DARK_HARD) | ((luma < DARK_LUMA) & (gstd < DARK_STD))
     nosig = np.array([x is None for x in g])
 
+    # a detector box at a place no box held during this still stretch = something moved: the feed is live (a quiet
+    # street whose pixels barely change). A frozen frame gives the same boxes: sub-pixel jitter from re-encoding and
+    # weak boxes flickering on and off in place are not motion (Pack D: 456 s of real freezes, zero pixel change).
+    def _uniq(b: np.ndarray | None) -> np.ndarray:
+        return np.zeros((0, 4)) if b is None or not len(b) else np.unique(np.round(b, 1), axis=0)
+    px_still = np.nan_to_num(diff_all, nan=99.0) < FROZEN_DIFF
+    # a frozen picture steps a little when the encoder refreshes it (a keyframe, Pack D: 0.09-0.49 grey levels, then
+    # identical again): <= BLIP_RUN such samples between still samples are still the same frozen picture
+    small = np.nan_to_num(diff_all, nan=99.0) < FROZEN_BLIP
+    s = 1
+    while s < n:
+        if px_still[s] or not small[s]:
+            s += 1
+            continue
+        e = s
+        while e + 1 < n and small[e + 1] and not px_still[e + 1]:
+            e += 1
+        if e - s + 1 <= BLIP_RUN and px_still[s - 1] and e + 1 < n and px_still[e + 1]:
+            px_still[s:e + 1] = True
+        s = e + 1
+    det_live = np.zeros(n, bool)
+    seen = _uniq(det_boxes.get(0))     # every box seen since the picture last changed
+    for s in range(1, n):
+        cur = _uniq(det_boxes.get(s))
+        if not px_still[s]:
+            seen = cur
+            continue
+        if len(cur) and len(seen):
+            gap = np.abs(cur[:, None, :] - seen[None, :, :]).max(axis=2).min(axis=1)
+            det_live[s] = bool(gap.max() > DET_MOVE_PX)
+        seen = cur if det_live[s] else (np.unique(np.vstack([seen, cur]), axis=0) if len(cur) else seen)
+    # the detector can lag the picture after a cut: Pack D boxes keep moving for the first 4-7 s of a 40 s freeze and
+    # then sit still. Box motion only in the first DET_LAG_S of a long still run, then none for DET_SETTLE_S, is lag.
+    # (one changed sample between two still runs does not end the run: a freeze includes the sample before it)
+    s = 1
+    while s < n:
+        if not px_still[s]:
+            s += 1
+            continue
+        e = s
+        while e + 1 < n and (px_still[e + 1] or (e + 2 < n and px_still[e + 2])):
+            e += 1
+        lv = det_live[s:e + 1]
+        # motion = two live samples in a row; one alone mid-freeze is a weak box popping up in the re-encoding noise
+        live = np.flatnonzero(lv & (np.r_[False, lv[:-1]] | np.r_[lv[1:], False]))
+        if len(live) and live[-1] < DET_LAG_S and (e - s) - live[-1] >= DET_SETTLE_S:
+            det_live[s:e + 1] = False
+        s = e + 1
+
     # frozen: a run of >= FROZEN_RUN consecutive near-identical samples (the first of the run included)
-    still = np.nan_to_num(diff, nan=99.0) < FROZEN_DIFF
+    still = px_still & ~det_live
     frozen = np.zeros(n, bool)
     s = 1
     while s < n:
@@ -236,12 +316,18 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
         else:
             s += 1
 
-    # stable segments -> views (merged when their plates match) -> one home view per day
+    # colour <-> night infrared switch between two samples (the IR cut filter): a lighting change, not a cut or a move
+    mono, sat = _mono(smp)
+    flip = np.zeros(n, bool)
+    for s in range(1, n):
+        flip[s] = bool(mono[s] != mono[s - 1] and np.nanmax([sat[s], sat[s - 1], 0.0]) >= FLIP_SAT)
+
+    # stable segments -> views (merged when their plates match) -> one home view per day (and per lighting)
     bad = dark | nosig | frozen
     segs: list[tuple[int, int]] = []
     a = None
     for s in range(n):
-        brk = bad[s] or (s > 0 and not np.isnan(diff[s]) and diff[s] > JUMP_DIFF)
+        brk = bad[s] or flip[s] or (s > 0 and not np.isnan(diff[s]) and diff[s] > JUMP_DIFF)
         if brk or a is None:
             if a is not None:
                 segs.append((a, s))
@@ -253,19 +339,31 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
     stable = np.zeros(n, bool)
     for a, b in segs:
         stable[a:b] = True
-    jump = np.nan_to_num(diff, nan=0.0) > JUMP_DIFF
+    jump = (np.nan_to_num(diff, nan=0.0) > JUMP_DIFF) & ~flip
+
+    def _tex(p: np.ndarray) -> float:
+        return float(cv2.resize(p, (80, 45), interpolation=cv2.INTER_AREA).std())
+
+    # a view keeps one plate per lighting: a stretch that matches none of them but follows a colour<->IR switch with
+    # the camera holding still is the same view under new light (IR vs colour plates do not correlate: NCC < 0)
     views: list[dict[str, Any]] = []
+    last_seg: tuple[int, int] | None = None   # (end, view) of the last steady stretch
     for a, b in segs:
         idx = np.linspace(a, b - 1, min(b - a, 40)).round().astype(int)
         plate = np.median(np.stack([g[i] for i in idx]), axis=0).astype(np.uint8)
-        for v in views:
-            if _changed_frac(plate, v["plate"], None) < BLOCK_FRAC and _ncc(plate, v["plate"]) >= NCC_MIN:
-                v["segs"].append((a, b))
-                break
-        else:
-            views.append({"plate": plate, "segs": [(a, b)]})
+        vi = next((i for i, v in enumerate(views)
+                   if any(_changed_frac(plate, p, None) < BLOCK_FRAC and _ncc(plate, p) >= NCC_MIN for p in v["plates"])),
+                  None)
+        if vi is None and last_seg is not None and a - last_seg[0] <= FLIP_GAP and flip[max(0, last_seg[0] - 1):a + 1].any():
+            vi = last_seg[1]
+            views[vi]["plates"].append(plate)
+        if vi is None:
+            views.append({"plate": plate, "plates": [plate], "segs": []})
+            vi = len(views) - 1
+        views[vi]["segs"].append((a, b))
+        last_seg = (b, vi)
     for v in views:
-        v["tex"] = float(cv2.resize(v["plate"], (80, 45), interpolation=cv2.INTER_AREA).std())
+        v["tex"] = _tex(v["plate"])
     home: list[int] = []
     for d in data.days(cam):
         best, best_n = None, 0
@@ -275,11 +373,25 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
                 best, best_n = vi, k
         if best is not None and best not in home:
             home.append(best)
+        # a day that switches to infrared: the colour and the infrared stretch each keep their own home view
+        lo, hi = int(np.ceil(d["start"])), min(n, int(np.ceil(d["end"])))
+        if mono[lo:hi].any():
+            seg_view = np.full(n, -1)
+            for vi, v in enumerate(views):
+                for a, b in v["segs"]:
+                    seg_view[a:b] = vi
+            for md in (False, True):
+                sel = seg_view[lo:hi][(mono[lo:hi] == md) & (seg_view[lo:hi] >= 0)]
+                if len(sel) >= min_view:
+                    bv = int(np.bincount(sel).argmax())
+                    if bv not in home:
+                        home.append(bv)
     if not home:   # no stable stretch at all: fall back to the median background plate of the whole clip
         bg = data.background(cam)
         bg = cv2.cvtColor(cv2.resize(bg, (SAMPLE_W, g[0].shape[0] if g[0] is not None else bg.shape[0])), cv2.COLOR_BGR2GRAY)
-        views.append({"plate": bg, "segs": [], "tex": float(cv2.resize(bg, (80, 45)).std())})
+        views.append({"plate": bg, "plates": [bg], "segs": [], "tex": float(cv2.resize(bg, (80, 45)).std())})
         home = [len(views) - 1]
+    home_pl = [(v, p, _tex(p)) for v in home for p in views[v]["plates"]]     # every lighting plate of every home view
 
     view_of = np.full(n, -1)
     block = np.ones(n)
@@ -288,26 +400,32 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
         if g[s] is None:
             continue
         sc = []
-        for v in home:
-            pl = views[v]["plate"]
+        for v, pl, tex in home_pl:
             m = masks[s]
             fr = _changed_frac(g[s], pl, m)
             # detected objects do not count as "view lost"; bare low-texture plates make NCC meaningless
-            nc = _ncc(g[s], pl, m if m.any() else None) if views[v]["tex"] >= NCC_TEX else 1.0
+            nc = _ncc(g[s], pl, m if m.any() else None) if tex >= NCC_TEX else 1.0
             sc.append((max(fr / BLOCK_FRAC, (1 - nc) / (1 - NCC_MIN)), fr, nc))
         k = int(np.argmin([x[0] for x in sc]))
         block[s] = max(sc[k][1], 1 - sc[k][2])
         if sc[k][0] < 1.0:
-            view_of[s] = home[k]
+            view_of[s] = home_pl[k][0]
             continue
         # pixel-level check failed: is the home scene still there under fog / low light / a partial block?
-        cm = [_cell_match(g[s], views[v]["plate"], masks[s]) for v in home]
+        cm = [_cell_match(g[s], pl, masks[s]) for _, pl, _ in home_pl]
         home_cells[s] = max(cm)
         if home_cells[s] >= HOME_CELLS:
-            view_of[s] = home[int(np.argmax(cm))]
+            view_of[s] = home_pl[int(np.argmax(cm))][0]
     not_home = (view_of < 0) & ~nosig
-    # an isolated jump between two stable stretches = a cut in the recording (time we never saw)
-    cut = np.array([bool(jump[s] and s > 0 and stable[s - 1] and stable[s]) for s in range(n)])
+    # an isolated jump between two stable stretches = a cut in the recording (time we never saw). Isolated = at least
+    # CUT_ALONE x the biggest change within 3 s around it: at night headlights and IR gain make jumps in a row
+    near = np.where(flip, np.nan, diff)
+    alone = np.array([bool(diff[s] >= CUT_ALONE * np.nanmax(np.r_[near[max(0, s - 3):s], near[s + 1:s + 4], 0.0]))
+                      for s in range(n)])
+    # a frozen stretch is steady too: Pack D jumps into a frozen recording at a chunk start (1 s, then the freeze)
+    steady = stable | frozen
+    cut = np.array([bool(jump[s] and s > 0 and alone[s] and steady[s - 1]
+                         and (steady[s] or (s + 1 < n and steady[s + 1]))) for s in range(n)])
     cut[:-1] |= cut[1:]     # the cut lies somewhere between samples s-1 and s: neither side is trustworthy
     # unsteady: not inside any stable stretch and jumping = the camera itself is moving (PTZ / handheld)
     moving = np.array([bool(not stable[s] and (jump[s] or (s + 1 < n and jump[s + 1]))) for s in range(n)])
@@ -319,9 +437,12 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
             continue
         m = masks[s]
         for v in others:
-            nc = _ncc(g[s], v["plate"], m if m.any() else None) if v["tex"] >= NCC_TEX else 1.0
-            if _changed_frac(g[s], v["plate"], m) < BLOCK_FRAC and nc >= NCC_MIN:
-                other[s] = True
+            for p in v["plates"]:
+                nc = _ncc(g[s], p, m if m.any() else None) if _tex(p) >= NCC_TEX else 1.0
+                if _changed_frac(g[s], p, m) < BLOCK_FRAC and nc >= NCC_MIN:
+                    other[s] = True
+                    break
+            if other[s]:
                 break
     # a not-home run that the camera reached by moving (or that matches another view) is "turned away";
     # one with no camera motion around it is something in front of the lens: "blocked"
@@ -340,7 +461,8 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
             away_run[s:e + 1] = True
         s = e + 1
 
-    # blur: sharpness vs the median of the same home view on the same day (fallback: view, then camera)
+    # blur: sharpness vs the median of the same home view on the same day in the same lighting (colour / infrared)
+    # (fallback: view and day, then view, then camera)
     day_ix = np.zeros(n, int)
     for k, d in enumerate(data.days(cam)):
         day_ix[int(np.ceil(d["start"])):] = k
@@ -352,7 +474,12 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
             v_ref = float(np.median(x[in_v]))
             for k in set(int(d) for d in day_ix[in_v]):
                 in_vd = in_v & (day_ix == k)
-                out[(view_of == v) & (day_ix == k)] = float(np.median(x[in_vd])) if in_vd.sum() >= 10 else v_ref
+                vd_ref = float(np.median(x[in_vd])) if in_vd.sum() >= 10 else v_ref
+                out[(view_of == v) & (day_ix == k)] = vd_ref
+                for md in set(bool(b) for b in mono[in_vd]):
+                    in_vdm = in_vd & (mono == md)
+                    if in_vdm.sum() >= 10:
+                        out[(view_of == v) & (day_ix == k) & (mono == md)] = float(np.median(x[in_vdm]))
         return out
 
     ref, lap_ref = refs(sharp), refs(lap)
@@ -368,7 +495,7 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
         elif dark[s]:
             r, sc = "dark", 1.0 - luma[s] / DARK_LUMA
         elif frozen[s]:
-            r, sc = "frozen", 1.0 - min(1.0, np.nan_to_num(diff[s], nan=0.0) / FROZEN_DIFF)
+            r, sc = "frozen", 1.0 - min(1.0, np.nan_to_num(diff_all[s], nan=0.0) / FROZEN_DIFF)
         elif cut[s]:
             r, sc = "no_signal", min(1.0, diff[s] / (4 * JUMP_DIFF))
         elif moving[s]:
@@ -411,10 +538,13 @@ def health(cam: str, smp: Samples, det_boxes: dict[int, np.ndarray] | None = Non
                       "score": round(float(np.mean(score[s:e + 1])), 2)})
         s = e + 1
     per_second = [{"t": s, "visible": reason[s] is None, "reason": reason[s]} for s in range(n)]
+    # when the picture switched between colour and night infrared (seen, not blind: the camera kept looking)
+    lighting = [{"t": float(s), "to": "infrared" if mono[s] else "colour"} for s in np.flatnonzero(flip)]
     return {"blind": spans, "per_second": per_second, "reason": reason, "view_of": view_of, "home": home,
-            "views": views, "stable": stable, **totals(cam, spans, np.where([r is None for r in reason], view_of, -1)),
+            "views": views, "stable": stable, "lighting_changes": lighting,
+            **totals(cam, spans, np.where([r is None for r in reason], view_of, -1)),
             "stats": {"luma": luma, "std": gstd, "lap": lap, "sharp": sharp, "sharp_ref": ref, "diff": diff,
-                      "block": block}}
+                      "block": block, "sat": sat, "px_still": px_still, "det_live": det_live}}
 
 
 def totals(cam: str, spans: list[dict[str, Any]], view_of: np.ndarray) -> dict[str, Any]:
@@ -808,6 +938,8 @@ def run(cam: str) -> dict[str, Any]:
              f" by reason: {hl['blind_by_reason'] or 'none'}",
              f"blind by day: {per_day}",
              f"home views: {len(hl['home'])} (of {len(hl['views'])} stable views found): {hv or 'none'}",
+             "lighting changes (not blind): " + (", ".join(f"to {x['to']} at {x['t']:.0f}s" for x in hl["lighting_changes"])
+                                                 or "none"),
              "reasons: " + ", ".join(f"{k} = {v}" for k, v in REASON_WORDS.items()),
              f"parked tracks: {n_parked}; spots: {len(spots)}; changes: {kinds or 'none'}",
              f"runtime: {time.time() - t0:.1f}s (sample+health {t_health:.1f}s, spots+crops {t2 - t1:.1f}s)"]

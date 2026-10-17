@@ -5,11 +5,13 @@ dist/index.html = ui/index.html with
 injected right before the page's main (inline) <script>.
 
 __STM__        maps every JSON URL the UI requests ("api/cams", "out/<cam>/<name>.json",
-               "out/captions/captions.json") to its parsed content. Missing files are skipped.
+               "out/captions/captions.json", "out/captions/<cam>.json") to its parsed content. Missing files are
+               skipped. Caption JSONs go through stm.captions.scrub_doc first, so no description of a person's
+               clothing or looks reaches the page even from a file written before the scrub existed.
 __STM_FILES__  maps every image path the UI requests ("out/<cam>/<rel>", "out/captions/<rel>") to a
                JPEG data URI. Image paths are collected by walking every JSON value and keeping strings
                that end in .jpg/.png (relative to that JSON's folder), plus the ones the UI builds itself
-               (background.jpg, crops/<ghost id>.jpg).
+               (background.jpg, background_<day id>.jpg for every meta.days entry, crops/<ghost id>.jpg).
 Videos are copied, not inlined: dist/out/<cam>/synopsis.mp4.
 Cam order (also the order of "api/cams"): any event cam (e.g. Pack D "neighborhood_cam-1", found by its
 out/<cam>/meta.json even when it is not in data.CAMS) first, then ptz_parking (the rehearsed fallback),
@@ -39,6 +41,7 @@ from typing import Any
 import cv2
 
 from stm import data
+from stm.captions import scrub_doc
 
 ROOT = data.ROOT
 OUT = data.OUT
@@ -136,11 +139,21 @@ def available_cams(cams: list[str] | None = None) -> list[str]:
     return demo_order(keep)
 
 
-def cam_entry(cam: str, meta: Any) -> dict[str, Any]:
-    """The same shape stm.server's /api/cams returns for one cam."""
+def cam_entry(cam: str, meta: Any, default: bool = False) -> dict[str, Any]:
+    """The same shape stm.server's /api/cams returns for one cam. A static page never answers live, so `ask` is
+    "precomputed" (qa.json is baked in) or "none"."""
     m = meta if isinstance(meta, dict) else {}
+    has_qa = (OUT / cam / "qa.json").exists()
     return {"camera": cam, "title": m.get("title"), "duration": m.get("duration"), "days": m.get("days"),
-            "simulated": m.get("simulated", []), "has_qa": (OUT / cam / "qa.json").exists()}
+            "simulated": m.get("simulated", []), "has_qa": has_qa, "ask": "precomputed" if has_qa else "none",
+            "default": default}
+
+
+def day_ids(meta: Any) -> list[str]:
+    """Day ids from meta.days ([{"id": ...}, ...] or plain ids), in order, as the UI stringifies them."""
+    days = meta.get("days") if isinstance(meta, dict) else None
+    ids = [d.get("id") if isinstance(d, dict) else d for d in days] if isinstance(days, list) else []
+    return [str(i) for i in ids if i is not None and str(i) != ""]
 
 
 def ui_json_names(cam: str, html: str) -> list[str]:
@@ -236,19 +249,34 @@ def collect(cams: list[str], log: list[str], missing: dict[str, str] | None = No
                     if isinstance(g, dict) and g.get("object_id") is not None:
                         add_img(f"{folder}/crops/{g['object_id']}.jpg", f"{url} (ghost crops)", "synopsis-ghost")
         add_img(f"{folder}/background.jpg", "ui (ask view plate)", "ui")
-        stm["api/cams"].append(cam_entry(cam, stm.get(f"{folder}/meta.json")))
+        meta = stm.get(f"{folder}/meta.json")
+        days = day_ids(meta)
+        for d in days:
+            # the UI builds background_<day id>.jpg itself (ask plate, day views). A one-day cam falls back to
+            # background.jpg, so only a cam with two or more days reports a missing day plate.
+            u = _url_for(folder, f"background_{d}.jpg")
+            if u and (len(days) >= 2 or (ROOT / u).is_file()):
+                add_img(u, "ui (day plate)", "ui")
+        stm["api/cams"].append(cam_entry(cam, meta, default=not stm["api/cams"]))
         people |= {u for u in images if is_person_image(u, folder, person_ids)}
         v = OUT / cam / "synopsis.mp4"
         if v.is_file():
             videos.append(v)
 
-    cp = ROOT / CAPTIONS_URL
-    if cp.exists():
+    # the practice corpus plus each cam's own captions (out/captions/<cam>.json, e.g. the Pack D Cosmos captions)
+    for url in [CAPTIONS_URL] + [f"out/captions/{c}.json" for c in cams]:
+        cp = ROOT / url
+        if not cp.is_file():
+            continue
+        if cp.stat().st_size > MAX_JSON_BYTES:
+            log.append(f"skipped {url}: {cp.stat().st_size / 2**20:.1f} MB is over the "
+                       f"{MAX_JSON_BYTES / 2**20:.0f} MB per-JSON limit")
+            continue
         obj = _read_json(cp, log)
         if obj is not None:
-            stm[CAPTIONS_URL] = obj
+            stm[url] = scrub_doc(obj)
             for s in image_strings(obj):
-                add_img(_url_for("out/captions", s), CAPTIONS_URL, "captions")
+                add_img(_url_for("out/captions", s), url, "captions")
     return stm, images, videos
 
 

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sample-a",
+    "group": "sample-scene",
+    "group_name": "Sample scene",
+    "camera": "A",
+    "label": "Camera A",
+    "synthetic": false,
+    "file": "clips/camera-a.mp4",
+    "duration": 95,
+    "width": 1280,
+    "height": 720,
+    "preview_start": 0,
+    "preview_end": 30,
+    "credit": "Replace with your clip attribution.",
+    "source_url": "https://example.org/source",
+    "license": "See source terms",
+    "license_url": "https://example.org/terms"
+  },
+  {
+    "id": "sample-b",
+    "group": "sample-scene",
+    "group_name": "Sample scene",
+    "camera": "B",
+    "label": "Camera B",
+    "synthetic": false,
+    "file": "clips/camera-b.mp4",
+    "duration": 95,
+    "width": 1920,
+    "height": 1080,
+    "preview_start": 0,
+    "preview_end": 30,
+    "credit": "Replace with your clip attribution.",
+    "source_url": "https://example.org/source",
+    "license": "See source terms",
+    "license_url": "https://example.org/terms"
+  }
+]

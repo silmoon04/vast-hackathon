@@ -46,13 +46,14 @@ CONC = 6.0             # otherwise aim for about this many moving ghosts on scre
 VIEW_FIRST = ("ptz_parking",)        # cams whose camera turns away: render the first home view only
 VIEW_BREAK_S = 20.0    # a blocked/blur run this long = the camera pointed elsewhere
 VIEW_MARGIN = 1.0      # seconds trimmed either side of a view break (the ledger is per second)
+BREAK_REASONS = ("blocked", "blur", "moved", "turned_away")   # ledger blind reasons that mean "not this view"
 MIN_OUT = 15.0         # shortest auto output (few ghosts), unless half the window is shorter
 MERGE_GAP = 30.0       # fragments at one spot closer than this in time are the same stay
 HEAD_FRAC = 0.25       # top share of a person box that is blurred
 CUT_HEAD_FRAC = 1.0    # a person cut off by the bottom of the frame is right at the lens: blur all of it
 CLOSE_FRAC = 0.45      # people taller than this share of the frame (median box) walk right past the lens,
 CLOSE_MAX_FRAC = 0.55  # ... or at their biggest: not replayed (giant heads, real faces), counted instead
-DEFAULT_CAMS = ["ptz_parking", "person_bicycle_car_detection", "yonge_dundas"]
+DEFAULT_CAMS = [c for c in ("neighborhood_cam-1", "ptz_parking", "person_bicycle_car_detection", "yonge_dundas") if c in D.CAMS]
 GRID = 8               # occupancy grid cell size in output pixels
 
 
@@ -78,7 +79,7 @@ def _box(r: dict[str, Any]) -> tuple[float, float, float, float]:
 def view_windows(blind: list[dict[str, Any]], dur: float, break_s: float = VIEW_BREAK_S,
                  margin: float = VIEW_MARGIN) -> list[tuple[float, float]]:
     """Split [0, dur] at long stretches where the camera looked elsewhere (merged blocked/blur runs)."""
-    spans = sorted((float(b["start"]), float(b["end"])) for b in blind if b.get("reason") in ("blocked", "blur"))
+    spans = sorted((float(b["start"]), float(b["end"])) for b in blind if b.get("reason") in BREAK_REASONS)
     runs: list[list[float]] = []
     for a, b in spans:
         if runs and a <= runs[-1][1] + 1.0:
@@ -102,9 +103,19 @@ def choose_view(cam: str) -> dict[str, Any]:
     if cam not in VIEW_FIRST:
         return {"window": (0.0, round(dur, 2)), "view": "fixed", "label": ""}
     lp = D.OUT / cam / "ledger.json"
-    blind = json.loads(lp.read_text(encoding="utf-8")).get("blind", []) if lp.exists() else []
-    wins = view_windows(blind, dur) if blind else [(days[0]["start"], days[0]["end"])]
-    w0, w1 = next((w for w in wins if w[1] - w[0] >= 30.0), wins[0])
+    try:
+        led = json.loads(lp.read_text(encoding="utf-8")) if lp.exists() else {}
+    except (OSError, ValueError):
+        led = {}
+    # the ledger's own home views when it has them, else split at its long camera-elsewhere stretches
+    hv = [h for h in led.get("home_views") or [] if float(h.get("end", 0)) - float(h.get("start", 0)) >= 30.0]
+    if hv:
+        w0 = float(hv[0]["start"]) + (VIEW_MARGIN if float(hv[0]["start"]) > 0 else 0.0)
+        w1 = float(hv[0]["end"]) - (VIEW_MARGIN if float(hv[0]["end"]) < dur - 0.5 else 0.0)
+    else:
+        blind = led.get("blind") or []
+        wins = view_windows(blind, dur) if blind else [(days[0]["start"], days[0]["end"])]
+        w0, w1 = next((w for w in wins if w[1] - w[0] >= 30.0), wins[0])
     d = next((d for d in days if d["start"] <= w0 < d["end"]), days[0])
     w1 = min(w1, d["end"])
     return {"window": (round(w0, 2), round(w1, 2)), "view": d["id"], "label": f"{d['label']} view"}
@@ -222,16 +233,20 @@ def select(cam: str, blocks: list[dict[str, Any]] | None = None, cap: int | None
 
 
 def blur_head(crop: np.ndarray, frac: float = HEAD_FRAC) -> np.ndarray:
-    """Gaussian-blur the top `frac` of a person crop (where the face is). Returns a new array."""
+    """Blur the top `frac` of a person crop (where the face is): average it down to a few cells across, scale
+    back up and Gaussian-smooth the cell edges. Cost is linear in the area (no huge kernels). Returns a copy."""
     h, w = crop.shape[:2]
     hh = int(np.ceil(h * frac))
     if hh < 1 or w < 1:
         return crop
     out = crop.copy()
-    k = max(5, int(round(max(hh, w * 0.5))) | 1)
-    top = min(h, hh + k // 2)  # blur a little past the cut, then keep only the head band
-    blurred = cv2.GaussianBlur(cv2.GaussianBlur(crop[:top], (k, k), 0), (k, k), 0)
-    out[:hh] = blurred[:hh]
+    band = crop[:hh]
+    sw = max(1, min(w, 5))
+    sh = max(1, min(hh, int(round(hh * sw / w))))
+    small = cv2.resize(band, (sw, sh), interpolation=cv2.INTER_AREA)
+    big = cv2.resize(small, (w, hh), interpolation=cv2.INTER_LINEAR)
+    k = int(min(31, max(3, (min(w, hh) // 3) | 1)))
+    out[:hh] = cv2.GaussianBlur(big, (k, k), 0)
     return out
 
 

@@ -138,6 +138,9 @@ def test_view_windows_split_at_long_turn_away():
              {"start": 237, "end": 251, "reason": "blur"}, {"start": 290, "end": 295, "reason": "blocked"}]
     assert S.view_windows(blind, 316.13) == [(0.0, 155.0), (252.0, 316.13)]
     assert S.view_windows([], 40.0) == [(0.0, 40.0)]
+    newer = [{"start": 156, "end": 168, "reason": "moved"}, {"start": 168, "end": 206, "reason": "turned_away"},
+             {"start": 206, "end": 251, "reason": "moved"}]
+    assert S.view_windows(newer, 316.13) == [(0.0, 155.0), (252.0, 316.13)]
 
 
 def _row(i, day, t0, t1, box, name="car", parked=False, travel=2.0):
@@ -185,3 +188,70 @@ def test_head_blur_only_touches_the_head():
     assert out.shape == crop.shape and out is not crop
     assert out[:hh].astype(float).std() < 0.35 * crop[:hh].astype(float).std()
     assert np.array_equal(out[hh:], crop[hh:])
+
+
+def test_people_redacted_in_source_frame_before_any_crop():
+    """A face never rides along inside another ghost's crop: every person box is head-blurred in the frame."""
+    rng = np.random.default_rng(1)
+    img = rng.integers(0, 255, (200, 300, 3), dtype=np.uint8)
+    orig = img.copy()
+    S.redact_people(img, [(10, 20, 50, 140), (200, 120, 260, 200)])  # second one is cut off by the bottom edge
+    head = slice(20, 20 + int(np.ceil(120 * S.HEAD_FRAC)))
+    assert img[head, 10:50].astype(float).std() < 0.35 * orig[head, 10:50].astype(float).std()
+    assert np.array_equal(img[60:140, 10:50], orig[60:140, 10:50])        # body untouched
+    assert img[120:200, 200:260].astype(float).std() < 0.35 * orig[120:200, 200:260].astype(float).std()
+    assert np.array_equal(img[:, 100:190], orig[:, 100:190])              # nothing else touched
+
+
+def test_two_day_fixed_camera_end_to_end(monkeypatch, tmp_path):
+    """Dry run of the Pack D path on a real small clip split into two dated days: one segment per day, in
+    order, each on its own day plate, ghosts never cross into the other day's segment, day ids read from data."""
+    real = D.tracks
+    days = [("20260901", "1 Sep", 0.0, 27.0), ("20260902", "2 Sep", 27.0, None)]
+    monkeypatch.setitem(D.CAMS, "packd_dry", {**D.CAMS[CAM], "days": days, "simulated": [], "title": "dry"})
+    monkeypatch.setattr(D, "OUT", tmp_path)
+
+    def fake_tracks(cam):
+        df = real(CAM if cam == "packd_dry" else cam).copy()
+        if cam == "packd_dry":
+            df["day"] = np.where(df.t < 27.0, "20260901", "20260902")
+        return df
+    monkeypatch.setattr(D, "tracks", fake_tracks)
+    res = S.build("packd_dry", verbose=False)
+    j = json.loads((tmp_path / "packd_dry" / "synopsis.json").read_text(encoding="utf-8"))
+    assert j["view"] == "fixed" and j["src_window"][0] == 0.0
+    segs = j["segments"]
+    assert [s["day"] for s in segs] == ["20260901", "20260902"]
+    assert [s["plate"] for s in segs] == ["background_20260901.jpg", "background_20260902.jpg"]
+    assert all((tmp_path / "packd_dry" / s["plate"]).exists() for s in segs)
+    assert segs[0]["out_start"] == 0.0 and segs[0]["out_end"] <= segs[1]["out_start"] + 1e-6
+    assert j["out_duration"] <= S.MAX_OUT and abs(segs[-1]["out_end"] - j["out_duration"]) < 0.3
+    for g in j["ghosts"]:
+        s = next(s for s in segs if s["day"] == g["day"])
+        assert s["out_start"] - 1e-6 <= g["out_start"] and g["out_end"] <= s["out_end"] + S.STEP + 1e-6
+        assert s["src_start"] - 1e-6 <= g["src_start"] and g["src_end"] <= s["src_end"] + 1e-6
+    assert {g["day"] for g in j["ghosts"]} == {"20260901", "20260902"}
+    assert res["skipped"]["other_view_tracks"] == 0
+
+
+def test_packd_output_if_built():
+    """Pack D (fixed residential camera, two real days): <= 60 s, one segment per real day in meta order,
+    one static ghost per parked stay, day ids taken from meta.json (never A/B)."""
+    od = D.OUT / "neighborhood_cam-1"
+    if not (od / "synopsis.json").exists() or not (od / "meta.json").exists():
+        pytest.skip("Pack D synopsis not built here")
+    j = json.loads((od / "synopsis.json").read_text(encoding="utf-8"))
+    if "segments" not in j:
+        pytest.skip("Pack D synopsis was built by an older stm.synopsis: re-run it on the VM")
+    meta = json.loads((od / "meta.json").read_text(encoding="utf-8"))
+    ids = [d["id"] for d in meta["days"]]
+    assert 0 < j["out_duration"] <= 60.0 and j["view"] == "fixed"
+    assert [s["day"] for s in j["segments"]] == [i for i in ids if any(g["day"] == i for g in j["ghosts"])] or \
+        [s["day"] for s in j["segments"]] == ids
+    assert {g["day"] for g in j["ghosts"]} <= set(ids)
+    parked = [g for g in j["ghosts"] if g["parked"]]
+    for i, a in enumerate(parked):
+        assert len({tuple(b[1:]) for b in a["boxes"]}) == 1
+        for b in parked[i + 1:]:
+            if a["day"] == b["day"] and S._iou(a["boxes"][0][1:], b["boxes"][0][1:]) >= 0.4:
+                assert a["out_end"] <= b["out_start"] + S.STEP or b["out_end"] <= a["out_start"] + S.STEP

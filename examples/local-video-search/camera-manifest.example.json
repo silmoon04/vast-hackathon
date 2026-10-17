@@ -1,0 +1,7 @@
+{
+  "source_clock_offset_seconds": 0,
+  "cameras": [
+    {"id": "camera-a", "file": "./camera-a.mp4", "duration_seconds": 30, "fps": 30, "sha256": ""},
+    {"id": "camera-b", "file": "./camera-b.mp4", "duration_seconds": 45, "fps": 30, "sha256": ""}
+  ]
+}

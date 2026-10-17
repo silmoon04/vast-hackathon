@@ -8,7 +8,8 @@ Run: serve.cmd   (or: <py> -m uvicorn stm.server:app --host 127.0.0.1 --port 878
 * /api/ask answers live from the tracks when this machine has them ("live"). A camera without local tracks
   (e.g. the event camera built on the lab VM) is answered from out/<cam>/qa.json by question match
   ("precomputed", latency_ms null because nothing was computed here), else 404 with a message.
-  The X-STM-Source response header says which ("live" | "precomputed").
+  The X-STM-Source response header says which ("live" | "precomputed"). Both carry the same keys: type, answer,
+  sentence, latency_ms, evidence, honesty, last_seen, blind, refused.
 * At startup a background thread asks every qa.json question of every listed camera once, so the first
   live question does not pay the cold load. The server serves immediately; the thread logs p50/max.
   GET /api/health shows the warm-up state. Set STM_WARM=0 to skip it.
@@ -35,7 +36,6 @@ from fastapi.staticfiles import StaticFiles
 from stm import ask, data
 
 PREFERRED = ("neighborhood_cam-1", "ptz_parking", "yonge_dundas", "synthetic_demo")
-# A source checkout can show the interface without event footage or model inference.
 OUT: Path = data.OUT
 if "STM_OUT" not in os.environ and not any(OUT.glob("*/meta.json")):
     OUT = data.ROOT / "examples" / "synthetic"
@@ -97,10 +97,10 @@ SCAN_MAX_S = 600.0     # without a fresh ask_index.json the engine scans the who
 
 def _index_ok(cam: str) -> bool:
     """ask_index.json is current, or the clip is short enough to scan in the background warm-up."""
-    idx = _read(data.OUT / cam / "ask_index.json")
+    idx = _read(OUT / cam / "ask_index.json")
     if isinstance(idx, dict) and idx.get("version") == getattr(ask, "INDEX_VERSION", None):
         return True
-    dur = (_read(data.OUT / cam / "meta.json") or {}).get("duration") or 0.0
+    dur = (_read(OUT / cam / "meta.json") or {}).get("duration") or 0.0
     return float(dur) <= SCAN_MAX_S
 
 
@@ -133,6 +133,18 @@ def cam_entry(cam: str, i: int) -> dict[str, Any]:
     return _clean({"camera": cam, "title": m.get("title"), "credit": m.get("credit"), "duration": m.get("duration"),
                    "w": m.get("w"), "h": m.get("h"), "days": days, "simulated": m.get("simulated") or [],
                    "has_qa": (OUT / cam / "qa.json").exists(), "ask": ask_mode(cam), "default": i == 0})
+
+
+# ----------------------------------------------------------------------------- answers
+
+ANSWER_KEYS = ("type", "answer", "sentence", "latency_ms", "evidence", "honesty", "last_seen", "blind", "refused")
+_DEFAULTS = {"last_seen": None, "blind": [], "refused": None}    # what an older stored answer lacks
+
+
+def answer_json(a: dict[str, Any]) -> dict[str, Any]:
+    """The answer keys the UI reads, live or stored. A qa.json from an older engine gets the defaults for the
+    honesty keys it predates (last_seen null, blind [], refused null)."""
+    return _clean({k: a.get(k) if a.get(k) is not None else _DEFAULTS.get(k) for k in ANSWER_KEYS})
 
 
 # ----------------------------------------------------------------------------- precomputed answers
@@ -293,7 +305,7 @@ def api_ask(cam: str = Query(..., min_length=1, max_length=64), q: str = Query(.
         try:
             with _engine(cam):
                 res = ask.answer(cam, q, t)
-            out = _clean({k: res.get(k) for k in ("type", "answer", "sentence", "latency_ms", "evidence", "honesty")})
+            out = answer_json(res)
             engine = out["latency_ms"]
             out["latency_ms"] = _ms(t0)     # what the user waited, measured here (includes any queueing)
             return JSONResponse(out, headers={"X-STM-Source": "live", "X-STM-Engine-Ms": str(engine)})
@@ -302,7 +314,7 @@ def api_ask(cam: str = Query(..., min_length=1, max_length=64), q: str = Query(.
             _log(f"ask {cam} {q!r}: engine failed: {failed}")
     a = qa_match(cam, q, t)
     if a is not None:
-        out = _clean({k: a.get(k) for k in ("type", "answer", "sentence", "evidence", "honesty")})
+        out = answer_json(a)
         out["latency_ms"] = None            # stored answer: nothing was computed here, so no speed claim
         return JSONResponse(out, headers={"X-STM-Source": "precomputed", "X-STM-Lookup-Ms": str(_ms(t0))})
     if failed:
@@ -311,6 +323,14 @@ def api_ask(cam: str = Query(..., min_length=1, max_length=64), q: str = Query(.
                              "sample questions. Pick one of them.")
 
 
+from stm import find  # noqa: E402  (Find & Follow: /api/find/route and /api/find/health)
+
+app.include_router(find.router)
+
+from stm import scene_library  # noqa: E402
+
+app.include_router(scene_library.router)
+
 OUT.mkdir(parents=True, exist_ok=True)
-app.mount("/out", StaticFiles(directory=str(OUT)), name="out")
+app.mount("/out",StaticFiles(directory=str(OUT)), name="out")
 app.mount("/", StaticFiles(directory=str(data.ROOT / "ui"), html=True), name="ui")

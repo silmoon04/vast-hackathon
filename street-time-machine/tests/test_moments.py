@@ -34,6 +34,16 @@ def test_merge_blind_joins_close_spans():
     assert m[0]["by_reason"] == {"blur": 1.5, "blocked": 29}
 
 
+def test_blind_titles_cover_camera_motion():
+    """The ledger records camera motion as moved / turned_away; the reel names it, never 'Camera blind'."""
+    df = pd.DataFrame({"t": np.arange(0.0, 300.0, 1.0)})
+    spans = [{"start": 10.0, "end": 60.0, "reason": "turned_away"}, {"start": 60.0, "end": 65.0, "reason": "moved"},
+             {"start": 200.0, "end": 230.0, "reason": "moved"}]
+    titles = [m["title"] for m in M.blind_moments("x", spans, df, 300.0)]
+    assert titles == ["Camera turned away for 55 s", "Camera moving for 30 s"]
+    assert M.BLIND_TITLE["turned_away"] == "Camera turned away" and M.BLIND_TITLE["moved"] == "Camera moving"
+
+
 def test_select_caps_order_and_diversity():
     c = [{"t": float(i), "kind": "close_pass", "score": 0.9 - i * 0.001, "object_ids": [i], "box": [i * 50, 0, i * 50 + 10, 10]}
          for i in range(30)]

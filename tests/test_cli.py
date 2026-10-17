@@ -78,7 +78,8 @@ def test_mock_exits_nonzero_when_port_in_use():
         busy = held.getsockname()[1]
         rc, out = _run_mock(["--vss-port", str(busy), "--gpu-port", str(_free_port())], needle="Ctrl+C")
     assert rc == 1, out
-    assert f"VSS mock on 127.0.0.1:{busy} (port in use?)" in out
+    assert f"VSS mock on 127.0.0.1:{busy}" in out
+    assert "port in use?" in out
     assert "Ctrl+C to stop" not in out
 
 

@@ -44,6 +44,59 @@ def test_claim_rules(text, want):
     assert counts(text) == want
 
 
+@pytest.mark.parametrize("text, want", [
+    ("A person wearing a white top and pink shorts is walking on the sidewalk.",
+     "A person is walking on the sidewalk."),
+    ("A woman with long blonde hair, wearing a black long-sleeved shirt, a gray skirt, and black heels, is walking "
+     "across a room.", "A woman is walking across a room."),
+    ("A man in a black jacket, blue jeans, and a cap is walking in a parking lot.", "A man is walking in a parking lot."),
+    ("Two people walk in. The man is wearing a black T-shirt, while the woman is wearing a blue skirt. They leave.",
+     "Two people walk in. They leave."),
+    ("A woman in a blue t-shirt and white skirt, with her hair tied in a ponytail, walks into a room. "
+     "She is wearing black shoes.", "A woman walks into a room."),
+    ("Another woman stands next to the woman in green.", "Another woman stands next to the woman."),
+    ("An elderly man and a tall, blonde woman cross the street.", "A man and a woman cross the street."),
+    ("A man is wearing a cap and smiling.", "A man is smiling."),
+    ("A man wears a red cap and walks to the car.", "A man walks to the car."),
+    ("A man walks his dog while wearing a hat.", "A man walks his dog."),
+    ("A cyclist dressed in black rides past.", "A cyclist rides past."),
+    ("The man is wearing a hat and the woman walks.", "The woman walks."),
+])
+def test_scrub_appearance(text, want):
+    got, n = C.scrub_appearance(text)
+    assert got == want and n >= 1
+    assert C.scrub_appearance(got) == (got, 0)            # scrubbing twice changes nothing more
+
+
+@pytest.mark.parametrize("text", [
+    "A white car drives in the top left corner of the frame.",
+    "A man walks into a dress shop with a dog.",
+    "A table with wine glasses and plates.",
+    "A person walks a small white dog on a leash.",
+    "Two vehicles are parked: a dark-colored SUV and a white sedan.",
+    "A car with its hood up sits in the lot.",
+    "A man in a car waits. A woman in the top half of the frame waves.",
+    "There are no pedestrians or moving vehicles present in the scene.",
+    "A dog runs.\nA dog  runs.",
+])
+def test_scrub_keeps_everything_else(text):
+    assert C.scrub_appearance(text) == (text, 0)          # byte for byte
+
+
+def test_scrub_keeps_claims_and_doc():
+    cap = "A person in a black outfit and a white helmet is riding a bicycle in a parking lot."
+    clean, _ = C.scrub_appearance(cap)
+    assert counts(clean) == counts(cap) == {"person": 1, "bicycle": 1}
+    doc = {"camera": "c", "rows": [{"id": "1", "caption": cap, "claims": [{"text": "a tall man", "object": "person"}]},
+                                   {"id": "2", "caption": "A car parks."}], "totals": {}}
+    out = C.scrub_doc(doc)
+    assert out["rows"][0]["caption"] == clean and out["rows"][0]["appearance_removed"] == 1
+    assert out["rows"][0]["claims"][0] == {"text": "a man", "object": "person"}
+    assert out["rows"][1]["caption"] == "A car parks." and out["rows"][1]["appearance_removed"] == 0
+    assert doc["rows"][0]["caption"] == cap                # the input is not modified
+    assert C.scrub_doc(out) == out and C.scrub_doc([1]) == [1]
+
+
 def test_judge_rules():
     c = C.extract_claims
     assert C.judge(c("Two cars park."), {"car": 2}, None, "Two cars park.")["verdict"] == "consistent"
@@ -106,7 +159,8 @@ def test_full_run_matches_contract(tmp_path: Path):
         assert keys <= set(r)
         assert r["verdict"] in out["totals"] and r["why"]
         assert r["pipeline_counts"] == json.loads(src["object_counts"])
-        assert r["caption"] == src["reasoning_content"].strip()
+        assert r["caption"] == C.scrub_appearance(src["reasoning_content"].strip())[0]
+        assert C.scrub_appearance(r["caption"])[1] == 0 and "wearing" not in r["caption"]
         assert 0 <= r["start"] < r["end"]
         for cl in r["claims"]:
             assert set(cl) == {"text", "object", "count", "negated"}
@@ -145,7 +199,8 @@ def _pack(tmp_path: Path) -> Path:
     pack = {"chunks": [f"s3://x/{a}.mp4", f"s3://x/{b}.mp4"], "segments": [
         row(a, 1, "A person walks a dog past two parked cars.", {"person": 1, "car": 2}),
         row(a, 2, "There are no people. A car is parked.", {"car": 3}),
-        row(b, 1, "A person is seen walking along the street.", {"car": 3, "donut": 1}),
+        row(b, 1, "A person wearing a white top and pink shorts is seen walking along the street.",
+            {"car": 3, "donut": 1}),
     ]}
     (tmp_path / "segments.json").write_text(json.dumps(pack), encoding="utf-8")
     offs = {"offsets": {a: 0.0, b: 100.0}, "days": [["20250901", "1 Sep", 0.0, 100.0], ["20250902", "2 Sep", 100.0, None]]}
@@ -165,6 +220,11 @@ def test_event_pack_shape_without_video(tmp_path: Path):
     assert r1["verdict"] == "contradiction" and "dog" in r1["why"]          # the detector saw no dog
     assert r2["verdict"] == "consistent" and r2["count_differs"]            # "a car" vs 3: count differs only
     assert r3["verdict"] == "contradiction" and r3["detector_suspect"]       # person unseen; donut on a street?
+    # clothing is cut before the caption is judged or saved; the saved file never has it
+    assert r3["caption"] == "A person is seen walking along the street." and r3["appearance_removed"] == 1
+    assert r1["appearance_removed"] == 0
+    saved = json.loads((tmp_path / "o" / "cam-x.json").read_text(encoding="utf-8"))
+    assert not any("shorts" in json.dumps(r) for r in saved["rows"])
     assert "same YOLO" in out["witness_note"]
     assert out["totals"] == {"consistent": 1, "contradiction": 2, "unverifiable": 0}
 

@@ -15,14 +15,8 @@ KEYS = {"type", "answer", "sentence", "latency_ms", "evidence", "honesty", "last
 EV_KEYS = {"object_id", "t", "crop", "box"}
 
 
-BASE_KEYS = {"type", "answer", "sentence", "latency_ms", "evidence", "honesty"}
-
-
-def check_contract(cam: str, a: dict, server: bool = False) -> None:
-    if server:      # stm/server.py passes on a subset; the extra keys appear once it forwards them
-        assert BASE_KEYS <= set(a) <= KEYS
-        a = {"last_seen": None, "blind": [], "refused": None, **a}
-    assert set(a) == KEYS
+def check_contract(cam: str, a: dict) -> None:
+    assert set(a) == KEYS       # stm/server.py forwards every key too
     assert a["type"] in ask.TYPES or a["type"] == "unknown"
     assert isinstance(a["answer"], str) and a["answer"]
     assert isinstance(a["sentence"], str) and a["sentence"]
@@ -249,6 +243,88 @@ def test_appearance_refusal(q, refuse):
         assert a["answer"] == "UNKNOWN" and a["honesty"] == "by design" and "never describes" in a["sentence"]
 
 
+def test_ledger_reason_words():
+    """The ledger's camera-motion reasons read as 'camera turned away', like the scan's cut / camera_moving."""
+    assert {"moved", "turned_away", "cut", "camera_moving"} <= set(ask.AWAY_REASONS)
+    assert ask.reason_word("moved") == ask.reason_word("turned_away") == "camera turned away"
+    runs = ask.blind_runs([{"start": 10, "end": 30, "reason": "moved"}, {"start": 30, "end": 35, "reason": "turned_away"}])
+    assert runs == [{"start": 10.0, "end": 35.0, "reason": "camera turned away"}]
+    assert "moved" not in ask.describe_blind(runs)
+
+
+def test_night_frames_have_no_colour(monkeypatch):
+    """A crop from a night / infrared day has no colour: never 'black', never matched by a colour word."""
+    cam = "ptz_parking"
+    ds = ask.days_of(cam)
+    col = ask.index(cam)["colours"]
+    monkeypatch.setattr(ask, "night_days", lambda c: {ds[-1]["id"]})      # as if the last day were infrared
+    ask.objs.cache_clear()
+    try:
+        o = ask.objs(cam)
+        late = [ds[-1]["start"] <= col[str(int(i))]["t"] <= ds[-1]["end"] for i in o.id]
+        assert any(late) and not all(late)
+        assert o.night.tolist() == late
+        for i, n, c in zip(o.id, o.night, o.colour):
+            c = c if isinstance(c, str) else None       # pandas keeps a missing colour as NaN
+            assert c is None if n else c == col[str(int(i))]["colour"]
+        night_veh = o[o.night & o.name.isin(data.VEHICLES)]
+        assert len(night_veh)
+        r = next(night_veh.itertuples())
+        assert ask._label(r) == f"{r.name} #{int(r.id)}"                    # no colour word in its label
+        a = ask.answer(cam, "How many black cars came by?")
+        check_contract(cam, a)
+        if len(night_veh[night_veh.moved]):
+            assert "night or in infrared" in (a["honesty"] or "")
+        for e in ask.answer(cam, "Is the black car still there?")["evidence"][:1]:
+            assert not o.loc[o.id == e["object_id"], "night"].iat[0]
+    finally:
+        ask.objs.cache_clear()
+
+
+def test_real_night_clip_never_names_a_colour():
+    cam = "rochester_night"
+    if cam not in data.CAMS or not ask.night_days(cam):
+        pytest.skip("no rochester_night index.json (night days)")
+    o = ask.objs(cam)
+    veh = o[o.name.isin(data.VEHICLES)]
+    assert len(veh) and veh.night.all() and veh.colour.isna().all()
+    a = ask.answer(cam, "Is the black car still there?")
+    check_contract(cam, a)
+    assert a["answer"] == "UNKNOWN" and "night" in a["sentence"] and "black car #" not in a["sentence"]
+
+
+def test_demo_questions_use_the_cameras_day_labels(monkeypatch):
+    cam = "ptz_parking"
+    qs = [q for q, _ in ask.demo_questions(cam)]
+    assert "What changed between Day A and Day B?" in qs            # simulated camera: its own labels
+    real = tuple(dict(d, id=i, label=lab) for d, i, lab in zip(ask.days_of(cam), ("20260901", "20260902"),
+                                                                ("1 Sep", "2 Sep")))
+    monkeypatch.setattr(ask, "days_of", lambda c: real)
+    qs = [q for q, _ in ask.demo_questions(cam)]
+    assert "What changed between 1 Sep and 2 Sep?" in qs
+    assert not any(re.search(r"\bday [ab]\b", q.lower()) for q in qs), qs
+
+
+def test_demo_has_a_cant_tell_still_there(monkeypatch):
+    """When the plain 'Is X still there?' is answerable, the demo adds one asked while the spot was not visible."""
+    cam = "ptz_parking"
+    r, ph = ask._demo_target(cam)
+    real = ask.answer
+    plain = f"Is {ph} still there?"
+    monkeypatch.setattr(ask, "answer", lambda c, q, t=None: dict(real(c, q, t), answer="YES") if q == plain
+                        else real(c, q, t))
+    q = ask._unseen_still_there(cam, r, ph)
+    assert q and q.startswith(f"Is {ph} still there at "), q
+    assert q in [x for x, _ in ask.demo_questions(cam)]
+    a = real(cam, q)
+    check_contract(cam, a)
+    assert a["type"] == "still_there" and a["answer"] == "UNKNOWN" and a["blind"]
+    t = ask.parse(q)["at"]
+    assert any(b["start"] <= t <= b["end"] for b in ask.index(cam)["blind"])
+    monkeypatch.setattr(ask, "answer", real)
+    assert ask._unseen_still_there(cam, r, ph) is None             # plain one is already UNKNOWN on ptz
+
+
 def test_warm_latency():
     cam = "ptz_parking"
     qs = [q for q, _ in ask.demo_questions(cam)]
@@ -283,7 +359,7 @@ def test_server_routes():
     assert any(x["camera"] == "car_detection" for x in cams)
     r = c.get("/api/ask", params={"cam": "car_detection", "q": "Which way did the car go?"})
     assert r.status_code == 200
-    check_contract("car_detection", r.json(), server=True)
+    check_contract("car_detection", r.json())
     assert c.get("/api/ask", params={"cam": "nope", "q": "x"}).status_code == 404
     assert c.get("/out/car_detection/meta.json").status_code == 200
     assert c.get("/").status_code == 200

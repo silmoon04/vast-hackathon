@@ -14,6 +14,8 @@ Honesty rules:
   near plus "it can't say who did it". Every time is printed as mm:ss.
 * Day words (yesterday, today, first/second day, Day A, '1 Sep') map onto the camera's days in order; day ids
   and labels are read from meta.json, never assumed. Day-to-day answers come from diff.json when it exists.
+* A colour read off a night or infrared frame is unknown, never "black": stm.index's night test per crop, its
+  per-object 'night' flag, and night / infrared days (diff.json 'infrared', index.json 'night_days') all null it.
 
 The per-camera scan (colours, views, blind spans, best-frame crops) is cached in out/<cam>/ask_index.json.
 CLI: python -m stm.ask [cams...]  -> out/<cam>/qa.json + out/<cam>/ask_summary.txt
@@ -32,8 +34,9 @@ import numpy as np
 import pandas as pd
 
 from stm import data
+from stm import index as stm_index    # its night / infrared test decides when a colour can't be read
 
-TYPES = ("still_there", "when_left", "which_way", "who_near", "count_since", "what_changed")
+TYPES =("still_there", "when_left", "which_way", "who_near", "count_since", "what_changed")
 DEMO_CAMS = ("ptz_parking", "person_bicycle_car_detection", "car_detection")
 INDEX_VERSION = 7
 CROPS = "ask_crops"     # own folder: other modules rewrite crops/
@@ -53,9 +56,12 @@ NEAR_REL = 0.5         # who_near: edge-to-edge gap / target height
 BLIND_PAD = 2.0        # a sighting this close to blind time cannot prove a departure
 
 # plain words for blind reasons (ledger + scan vocabularies)
-REASON_WORDS = {"turned_away": "camera turned away", "cut": "camera turned away", "camera_moving": "camera turned away",
-                "view_changed": "camera turned away", "blocked": "view blocked", "dark": "too dark", "blur": "blurred",
-                "frozen": "picture frozen", "no_signal": "no signal", "blind": "camera blind"}
+REASON_WORDS = {"turned_away": "camera turned away", "moved": "camera turned away", "cut": "camera turned away",
+                "camera_moving": "camera turned away", "view_changed": "camera turned away", "blocked": "view blocked",
+                "dark": "too dark", "blur": "blurred", "frozen": "picture frozen", "no_signal": "no signal",
+                "blind": "camera blind"}
+# reasons meaning the camera itself moved or pointed elsewhere (scan: cut / camera_moving; ledger: moved / turned_away)
+AWAY_REASONS = ("cut", "camera_moving", "view_changed", "moved", "turned_away")
 REFUSE_LOOKS = ("Street Time Machine never describes or searches people by how they look: no clothing, skin, gender "
                 "or face. Ask about vehicles, or who came near a car.")
 PERSON_WORDS = {"person", "persons", "people", "man", "men", "woman", "women", "guy", "guys", "girl", "girls", "boy",
@@ -268,7 +274,10 @@ def _scan(cam: str) -> dict[str, Any]:
                         continue
                     cv2.imwrite(str(crops_dir / f"{int(r.tid)}.jpg"), c, [cv2.IMWRITE_JPEG_QUALITY, 85])
                     fr = colour_of(img[int(r.y1):int(r.y2), int(r.x1):int(r.x2)], r.name)
-                    colours[str(int(r.tid))] = {"colour": dominant(fr), "fracs": fr, "t": r2(r.t)}
+                    # a night or infrared frame has no readable paint colour (stm.index's test): stored as unknown
+                    night = stm_index.is_night(stm_index.frame_light(img, (r.x1, r.y1, r.x2, r.y2)))
+                    colours[str(int(r.tid))] = {"colour": None if night else dominant(fr), "fracs": {} if night else fr,
+                                                "t": r2(r.t), "night": bool(night)}
         i += 1
     cap.release()
     cv2.setNumThreads(nthreads)
@@ -387,7 +396,7 @@ def index(cam: str) -> dict[str, Any]:
     # moments the camera itself moved (scan): not counted as blind time when the ledger rules, but a departure
     # or a "new" track right at one is the camera turning, never a seen exit or a real arrival
     idx["view_changes"] = [dict(b, source="scan") for b in idx["scan_blind"]
-                           if idx["ledger"] and any(k in b["reason"] for k in ("cut", "camera_moving"))]
+                           if idx["ledger"] and any(k in b["reason"] for k in AWAY_REASONS)]
     bm = np.zeros(len(T), bool)
     for b in idx["blind"]:
         bm |= (T >= b["start"]) & (T <= b["end"])
@@ -420,7 +429,10 @@ def objs(cam: str) -> pd.DataFrame:
         return o
     col = index(cam)["colours"]
     o = o.copy()
-    o["colour"] = [col.get(str(i), {}).get("colour") for i in o.id]
+    night = night_ids(cam, o)
+    o["night"] = [int(i) in night for i in o.id]
+    # a colour read off a night or infrared frame is unknown, never "black" (ask_index.json keeps its own colours)
+    o["colour"] = [None if n else col.get(str(i), {}).get("colour") for i, n in zip(o.id, o.night)]
     o["bw"] = o.x2 - o.x1
     # moved = the centre really went somewhere (5-95 % spread), not summed jitter of a parked box
     tr = data.tracks(cam)
@@ -467,6 +479,40 @@ def _ir(cam: str, t: float) -> bool:
         if d["start"] <= t <= d["end"]:
             return bool(ir.get(d["id"], False))
     return False
+
+
+def night_days(cam: str) -> set[str]:
+    """Day ids recorded at night or in infrared: diff.json 'infrared', index.json 'night_days', meta.json day flags."""
+    out: set[str] = set()
+    D = _json_file(cam, "diff.json")
+    ir = D.get("infrared") if isinstance(D, dict) else None
+    if isinstance(ir, dict):
+        out |= {str(k) for k, v in ir.items() if v}
+    I = _json_file(cam, "index.json")
+    if isinstance(I, dict):
+        out |= {str(d) for d in I.get("night_days") or []}
+    out |= {str(d.get("id")) for d in _meta(cam).get("days") or []
+            if isinstance(d, dict) and (d.get("night") or d.get("infrared"))}
+    return out
+
+
+def night_ids(cam: str, o: pd.DataFrame) -> set[int]:
+    """Objects whose colour crop is a night or infrared frame, so their colour can't be read (stm.index's rule).
+    Any of: the scan's own per-crop test ('night' in ask_index.json), stm.index's per-object 'night' flag, or the
+    crop's time falling in a night / infrared day."""
+    col = index(cam)["colours"]
+    I = _json_file(cam, "index.json")
+    rows = I.get("objects") if isinstance(I, dict) else None
+    out = {int(r["object_id"]) for r in rows or [] if isinstance(r, dict) and r.get("object_id") is not None
+           and (r.get("night") or r.get("colour_why") == "night")}
+    nd = night_days(cam)
+    ds = [d for d in days_of(cam) if d["id"] in nd]
+    for i, a, b in zip(o.id, o.first_t, o.last_t):
+        c = col.get(str(int(i)), {})
+        t = float(c["t"]) if c.get("t") is not None else (float(a) + float(b)) / 2
+        if c.get("night") or any(d["start"] <= t <= d["end"] for d in ds):
+            out.add(int(i))
+    return out
 
 
 def unseen_between(cam: str, a: float, b: float) -> list[dict[str, Any]]:
@@ -705,11 +751,14 @@ def pick(cam: str, p: dict[str, Any], t_now: float, want: str) -> tuple[Any, str
     if c.empty:
         return None, f"no {what} seen before {mmss(t_now)}"
     if p["colour"]:
-        fr = [index(cam)["colours"].get(str(i), {}).get("fracs", {}).get(p["colour"], 0.0) for i in c.id]
+        col = index(cam)["colours"]
+        fr = [0.0 if nt else col.get(str(i), {}).get("fracs", {}).get(p["colour"], 0.0) for i, nt in zip(c.id, c.night)]
+        dark = int((c.night & c.name.isin(data.VEHICLES)).sum())    # night / infrared: no colour, never matched
         c = c.assign(cscore=fr, dom=(c.colour == p["colour"]).astype(float))
         c = c[(c.cscore >= 0.15) | (c.dom > 0)]
         if c.empty:
-            return None, f"no {what} found (colour judged from each crop's dominant colour)"
+            return None, (f"no {what} found (colour judged from each crop's dominant colour"
+                          + (f"; {dark} vehicle(s) seen at night or in infrared have no colour)" if dark else ")"))
         c = c.sort_values(["dom", "n", "cscore"], ascending=False)
         return _row(c), None
     c = c.assign(seen=np.minimum(c.last_t, t_now)).sort_values(["seen", "n"], ascending=False)
@@ -985,7 +1034,7 @@ def a_still_there(cam: str, p, t_now: float) -> dict[str, Any]:
         tail = (f", then it pointed at a different view until {mmss(t_now)}"
                 if other and runs and t_now - runs[-1]["end"] > 2.0 else "")
         return _res("UNKNOWN", f"Can't tell. The {lab} was last seen at {mmss(t_last)}. After that the camera never "
-                    f"showed its spot again" + (f" ({bl}{tail})." if bl else f" before {mmss(t_now)}."), ev,
+                    f"showed its spot again before {mmss(t_now)}" + (f" ({bl}{tail})." if bl else "."), ev,
                     f"From {mmss(t_last)} to {mmss(t_now)} the camera was pointed elsewhere or could not see, and it "
                     "never answers 'gone' for time it could not see.", t_last, runs)
     if st["state"] == "unknown_gap":
@@ -1161,7 +1210,9 @@ def a_count_since(cam: str, p, t_now: float) -> dict[str, Any]:
     if o.empty:
         return _res("0", f"No {plural} tracked.", [], None)
     c = o[o.name.isin(names) & o.moved & (o.first_t >= since) & (o.first_t <= until)].sort_values("first_t")
+    n_night = 0
     if p["colour"] and what in data.VEHICLES:
+        n_night = int(c.night.sum())          # night / infrared: colour unknown, so never counted as any colour
         c = c[c.colour == p["colour"]]
     # births right after a cut / camera move are things coming into view, not arrivals
     bl = index(cam)["blind"] + index(cam)["view_changes"]
@@ -1200,6 +1251,9 @@ def a_count_since(cam: str, p, t_now: float) -> dict[str, Any]:
     frag = sum(len(ch) - 1 for ch in chains)
     if frag:
         notes.append(f"{frag} broken track fragment(s) merged")
+    if n_night:
+        notes.append(f"{n_night} {plural if n_night != 1 else what} seen at night or in infrared: colour can't be "
+                     "read, so not in this count")
     col = f"{p['colour']} " if p["colour"] and what in data.VEHICLES else ""
     ev = [_ev(cam, ch[0]["id"], ch[0]["first_t"], ch[0]["box"]) for ch in chains[:8]]
     when = f"{daylab} ({span(since, until)})" if daylab else f"between {mmss(since)} and {mmss(until)}"
@@ -1464,9 +1518,37 @@ def _demo_target(cam: str) -> tuple[Any, str] | None:
     return r, _phrase(cam, r, dur, "who_near")
 
 
+def _unseen_still_there(cam: str, r, ph: str) -> str | None:
+    """A 'still there' question asked while the camera could not see a parked vehicle's spot, so its honest answer
+    is UNKNOWN. None when the plain 'Is X still there?' is already UNKNOWN or no blind moment gives one."""
+    if answer(cam, f"Is {ph} still there?")["answer"] == "UNKNOWN":
+        return None
+    runs = [b for b in blind_runs(index(cam)["blind"]) if b["end"] - b["start"] >= 4.0]
+    if not runs:
+        return None
+    o = objs(cam)
+    others = o[o.name.isin(data.VEHICLES) & ~o.moved & (o.id != r.id)].sort_values("n", ascending=False).head(3)
+    cands = [(r, ph)] + [(x, _phrase(cam, x, duration(cam), "still_there")) for x in others.itertuples(index=False)]
+    tried = 0
+    for x, phx in cands:
+        # blind runs that start while it is tracked first (its spot was just seen), then the longest
+        mine = sorted((b for b in runs if b["start"] > float(x.first_t) + 1.0),
+                      key=lambda b: (not b["start"] <= float(x.last_t) + 2.0, b["start"] - b["end"]))
+        for b in mine:
+            q = f"Is {phx} still there at {mmss((b['start'] + b['end']) / 2)}?"
+            if answer(cam, q)["answer"] == "UNKNOWN":
+                return q
+            tried += 1
+            if tried >= 6:
+                return None
+    return None
+
+
 def demo_questions(cam: str) -> list[tuple[str, float | None]]:
     """8 questions built from what this camera actually contains, in demo order. Day names come from the
-    camera's own day labels; colour words are used only when they resolve back to the intended vehicle."""
+    camera's own day labels (meta.json: '1 Sep', or 'Day A' only on a simulated camera); colour words are used only
+    when they resolve back to the intended vehicle. At least one 'still there' comes out UNKNOWN when the camera
+    has a blind moment that hides the target's spot."""
     o = objs(cam)
     dur = duration(cam)
     ds = days_of(cam)
@@ -1474,18 +1556,20 @@ def demo_questions(cam: str) -> list[tuple[str, float | None]]:
     has_person = bool(len(o) and (o.name == "person").any())
     qs: list[tuple[str, float | None]] = []
     tgt = _demo_target(cam)
+    unseen = None
     if tgt:
         r, ph = tgt
         qs.append((f"Who came near {ph}?", None))
         qs.append((f"Is {ph} still there?", None))
         qs.append((f"Who dented {ph}?", None))
+        unseen = _unseen_still_there(cam, r, ph)
     if two:
         qs.append((f"What changed between {ds[0]['label']} and {ds[-1]['label']}?", None))
     else:
         qs.append((f"What changed since {mmss(dur * 0.1)}?", None))
     qs.append(("How many people walked by?", None) if has_person else ("How many cars came by?", None))
     qs.append(("Which way did the person go?", None) if has_person else ("Which way did the car go?", None))
-    qs.append((f"How many cars came by since {mmss(dur * 0.25)}?", None))
+    qs.append((unseen, None) if unseen else (f"How many cars came by since {mmss(dur * 0.25)}?", None))
     qs.append(("Find the man in the black shirt", None))     # the appearance refusal, on purpose
     while len(qs) < 8:
         qs.append(("How many cars came by?", None))
@@ -1518,7 +1602,10 @@ def run(cam: str) -> dict[str, Any]:
         k = it["answer"]["answer"] if it["answer"]["answer"] in ("YES", "NO", "UNKNOWN") else "value"
         by[k] = by.get(k, 0) + 1
     lat = sorted(it["answer"]["latency_ms"] for it in items)
-    lines = [f"ask: {cam}", f"objects indexed: {len(idx['colours'])} (colour from best-frame crop)",
+    o = objs(cam)
+    n_night = int(o.night.sum()) if len(o) else 0
+    lines = [f"ask: {cam}", f"objects indexed: {len(idx['colours'])} (colour from best-frame crop; {n_night} in a "
+             f"night or infrared frame get no colour)",
              f"camera views found: {idx['n_views']}; blind spans: {len(idx['blind'])} from "
              f"{'ledger.json only' if idx['ledger'] else 'own scan (no ledger.json)'}; blind total {total:.1f} s",
              f"days: {', '.join(d['label'] for d in days_of(cam))}",

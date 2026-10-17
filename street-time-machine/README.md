@@ -1,4 +1,4 @@
-# Street Time Machine
+# Time Search
 
 Browse a camera recording by event, compare parked vehicles across days, and ask questions with a timestamp and crop attached to the answer. A visibility ledger records dark, blurred, frozen and blocked intervals so the app can answer UNKNOWN when it could not see.
 
@@ -67,7 +67,18 @@ python scripts/build_packd.py --pack data/packd
 
 The fetcher reads `INGRESS_URL`, `USERNAME` and `PASSWORD` from the selected config. Alternatively set `VSS_INGRESS_URL`, `VSS_USERNAME` and `VSS_PASSWORD`; `STM_VSS_CONFIG` can select the config file. Credentials stay in memory. The endpoint must use HTTPS. The fetcher logs in and downloads chunks, segment rows and sidecars; it does not upload or re-ingest footage. Keep the downloaded files and config private.
 
-The builder uses ffprobe and ffmpeg, joins chunks in recording order, offsets segment timestamps, creates tracks, updates `cams.local.json` and writes metadata. Its `--camera` option selects the camera ID. These helpers target the documented Pack D filename and API formats. They have not been run as part of this source import, and downloading or transcoding an entire pack may take time and disk space.
+The builder uses ffprobe and ffmpeg, joins chunks in recording order, offsets segment timestamps, creates tracks, updates `cams.local.json` and writes metadata. Its `--camera` option selects the camera ID. These helpers target the documented Pack D filename and API formats. Downloading or transcoding an entire pack may take time and disk space.
+
+
+## Find & Follow demo
+
+Open `/demo.html` on the same server for the camera desk, route timeline and footage catalogue. `/demo.html?showcase=1` also shows related clips, data, pipeline and robot views. It reads bundled scene files from `ui/demo/scenes/<scene>/scene.json` and indexed library scenes from `out/find/<scene>/scene.json`; the source checkout does not include those videos or generated scene indexes. The original interface at `/` still opens the illustrated fixture when no outputs exist.
+
+The demo's chat uses `POST /api/find/route` to turn a question into a supported search action. Set `STM_FIND_LLM` to an OpenAI-compatible chat-completions relay; its default is `http://127.0.0.1:8782/v1/chat/completions`. `STM_FIND_MODELS` selects a comma-separated model list, starting with `deepseek-ai/DeepSeek-V4.1-Flash` by default. The UI reports when the router falls back to local rules. Keep provider credentials on the relay, outside the browser.
+
+Optional push-to-talk uses `STM_FIND_STT`, which must point to a working transcription service. Typed questions remain available when it is absent. `GET /api/find/health` reports the reasoning connection; `/api/find/speech` reports speech availability. Camera clocks and scene topology must be configured for the footage being used; a similar appearance alone does not confirm that two cameras saw the same person.
+
+`POST /api/find/scene` accepts a local video upload and starts the scene builder. The scene-library endpoints under `/api/find/library` list configured footage and index a selected scene. Set `STM_SCENE_CATALOGS` to your local catalogue paths and `STM_FOOTAGE_ROOT` to the media root. Raw videos, catalogue paths and generated indexes stay local.
 
 ## Saved analysis snapshots
 
@@ -97,5 +108,8 @@ The other tests cover module logic, synthetic fixtures and prepared video output
 | `stm.ask`, `stm.brief` | Rule-based questions and summaries from computed outputs |
 | `stm.captions` | Rule-based comparison of caption claims and detector evidence |
 | `stm.server`, `stm.export` | Local API/UI serving and static export |
+| `stm.find`, `stm.follow`, `stm.fastindex` | Query routing, route evidence and local scene indexing |
+| `stm.scene_library`, `stm.items`, `stm.seams` | Footage library, object events and recording boundaries |
+| `stm.agent`, `stm.vss`, `stm.caption`, `stm.audit` | Grounded answers, VSS access, captions and evidence checks |
 
 Nearness alone does not establish responsibility. Detector agreement is not independent ground truth. Label staged material and keep footage credits with each camera.

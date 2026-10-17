@@ -30,6 +30,10 @@ Everything is plain rules, listed below, so a judge can read exactly why a row g
              the caption names a non-COCO object the detector is known to force into that class (LOOKALIKE),
              the class is implausible for the scene the caption describes (SCENE), or the other detector
              did not see it either.
+  * appearance: descriptions of people's clothing and looks are removed from every caption before it is
+             checked, saved or shown ("a man in a red jacket and a cap walks" -> "a man walks");
+             nothing here checks them, and they make a passer-by easier to single out. appearance_removed = how
+             many phrases were cut from that row.
 Output: out/captions/captions.json (practice corpus), out/captions/<camera_id>.json (event pack),
         out/captions/frames/..., out/captions/*summary.txt. Contradiction rows get a 6-frame strip.
 """
@@ -163,6 +167,147 @@ _NOUN[("pickup", "truck")] = _NOUN[("pickup", "trucks")] = "truck"
 _MAXN = max(len(k) for k in _NOUN)
 _IRREGULAR_PLURAL = {"people", "men", "women", "children", "persons"}
 _WORD = re.compile(r"[a-z]+(?:-[a-z]+)*|\d+|[.,;:!?]")
+
+
+# ---------------------------------------------------------------- appearance scrub
+CLOTHING = ("shirt", "t-shirt", "tshirt", "tee", "top", "tank top", "blouse", "sweater", "jumper", "sweatshirt",
+            "hoodie", "jacket", "coat", "raincoat", "parka", "vest", "uniform", "outfit", "attire", "clothes",
+            "clothing", "garment", "dress", "skirt", "shorts", "pants", "trousers", "jeans", "leggings", "bottoms",
+            "tights", "overalls", "tracksuit", "suit", "apron", "robe", "sleeves", "shoes", "sneakers", "heels",
+            "boots", "sandals", "slippers", "socks", "hat", "cap", "beanie", "helmet", "scarf", "gloves", "mask",
+            "sunglasses", "glasses", "backpack", "hijab", "headscarf", "turban", "bandana")
+LOOKS_NOUNS = ("hair", "beard", "mustache", "moustache", "goatee", "stubble", "ponytail", "bun", "braid", "dreadlocks",
+               "bangs", "curls", "afro", "tattoo", "piercing", "skin", "complexion", "bald head")
+# adjectives that describe a person's body, age or looks ("a tall blonde woman" -> "a woman")
+LOOKS_ADJ = ("blonde", "blond", "brunette", "redheaded", "redhead", "bald", "balding", "bearded", "tall", "short",
+             "heavyset", "overweight", "stocky", "slim", "slender", "thin", "skinny", "fat", "chubby", "muscular",
+             "petite", "elderly", "old", "older", "young", "younger", "middle-aged", "teenage", "asian", "caucasian",
+             "hispanic", "latino", "latina", "african", "african-american")
+_APP_COLOURS = COLOURS | {"navy", "maroon", "tan", "khaki", "cream", "olive", "teal", "turquoise", "violet", "gold",
+                          "burgundy", "lavender", "colourful", "colorful", "striped", "checkered", "plaid", "floral"}
+_SCRUB_PEOPLE = ("person", *SYNONYMS["person"], "driver", "drivers", "rider", "riders", "jogger", "joggers", "runner",
+                 "runners", "skateboarder", "skateboarders", "someone", "somebody", "figure", "figures", "teenager",
+                 "teenagers", "toddler")
+
+
+def _alt(words) -> str:
+    return "|".join(re.escape(w).replace(r"\ ", r"\s+") for w in sorted(set(words), key=len, reverse=True))
+
+
+_C = rf"(?:{_alt(_APP_COLOURS)})"
+_FN = ("is", "are", "was", "were", "and", "or", "but", "while", "whereas", "with", "in", "on", "at", "to", "from", "of",
+       "the", "a", "an", "who", "that", "which", "as", "into", "onto", "near", "by", "for", "his", "her", "their",
+       "its", "he", "she", "they", "it", "has", "have", "had")
+_W = rf"(?!(?:{_alt(_FN)})\b)[a-z]+(?:-[a-z]+)*"                       # one modifier word: "long-sleeved", "straw"
+_MODS = rf"(?:(?:{_C}\s+and\s+{_C}|{_W})\s+){{0,3}}"                 # "a white and brown skirt"
+_DET = r"(?:(?:a|an|the|his|her|their|some|matching|two)\s+)?"
+# a garment noun is not one when a place word follows ("in the top left corner", "in a dress shop")
+_END = (r"(?![-\w])(?!\s+(?:of|left|right|corner|half|part|edge|portion|section|side|centre|center|middle|row|lane|"
+        r"shelf|shelves|rack|shop|store|aisle|display|stand|area|frame|level|floor|price|tag)\b)")
+_DETAIL = r"(?:\s+with\s+(?:\w+\s+){0,2}(?:stripes|logo|print|pattern|hood|collar|sleeves|writing|lettering|design))?"
+_LOOKS_TAIL = (r"(?:\s+(?:tied|pulled|styled|worn|done|swept|slicked)(?:\s+(?:up|back|down|over))?"
+               r"(?:\s+(?:in|into)\s+(?:a|an|two)\s+[a-z]+)?)?")
+_GARMENT = rf"{_DET}{_MODS}(?:{_alt(CLOTHING)})(?:e?s)?{_END}{_DETAIL}"
+_LOOK = rf"{_DET}{_MODS}(?:{_alt(LOOKS_NOUNS)})s?{_END}{_LOOKS_TAIL}"
+_SEP = r"(?:\s*,\s*(?:and\s+)?|\s+and\s+)"
+_WORN = rf"(?:{_GARMENT}(?:{_SEP}{_GARMENT})*|(?:all\s+)?{_C}(?:\s+and\s+{_C})?(?![-\w]))"   # or "dressed in black"
+_HAS = rf"(?:{_GARMENT}|{_LOOK})(?:{_SEP}(?:{_GARMENT}|{_LOOK}))*"
+_WEAR_VERB = r"(?:wearing|dressed\s+(?:all\s+)?in|clad\s+in)"
+_PEOPLE_RE = rf"(?:{_alt(_SCRUB_PEOPLE)})"
+_SUBJ = r"(?:(?!(?:and|or|but|while|whereas|who|that|which)\b)[A-Za-z-]+\s+){0,6}?"
+# "The man is wearing a black T-shirt, ..., while the woman is wearing ..." / "She has long hair": the whole clause
+_APP_CLAUSE = re.compile(
+    rf"(?P<lead>^|[,;]\s*(?:(?:and|while|whereas|but)\s+)?|\s+(?:and|while|whereas|but)\s+)(?P<subj>{_SUBJ})"
+    rf"(?:(?P<aux>(?:is|are|was|were)\s+)(?:also\s+)?{_WEAR_VERB}\s+{_WORN}|wears?\s+{_WORN}|(?:has|have|had)\s+{_LOOK}"
+    rf"(?:{_SEP}{_LOOK})*)(?P<tail>\s+and\s+(?!(?:the|a|an|his|her|their|its|she|he|they|it|another|this|that|"
+    rf"these|those|one|two|three|both)\b)(?=(?P<next>[a-z]+)))?", re.I)
+# "a person wearing a white top and pink shorts", "a woman, dressed in black,", "a man who is wearing a cap"
+_APP_WEAR = re.compile(rf"(?P<comma>\s*,)?(?:\s+(?:while|and))?\s+(?:who\s+(?:is|was|are|were)\s+)?{_WEAR_VERB}\s+"
+                       rf"{_WORN}(?P<post>\s*,)?", re.I)
+# "a man in a black jacket, blue jeans, and a cap", "a woman with long blonde hair", "the woman in green"
+_APP_WITH = re.compile(rf"\b(?P<who>{_PEOPLE_RE})(?P<comma>\s*,)?\s+(?:in\s+(?:{_WORN})|with\s+(?:{_HAS}))"
+                       rf"(?P<post>\s*,)?", re.I)
+_LOOKS_ADJ_RE = rf"(?:{_alt(LOOKS_ADJ)}|{_C}|[a-z]+-(?:dressed|clad|haired|skinned|bearded|looking)|\w+-year-old|" \
+                rf"(?:casually|smartly|formally|warmly|well|neatly|brightly)\s+dressed)"
+_APP_ADJ = re.compile(rf"\b(?P<det>an?\s+)?(?:{_LOOKS_ADJ_RE})(?:(?:\s*,\s*|\s+and\s+|\s+)(?:{_LOOKS_ADJ_RE}))*\s+"
+                      rf"(?P<noun>{_alt(w for w in _SCRUB_PEOPLE if w not in ('someone', 'somebody'))})\b", re.I)
+
+
+def _cut_appearance(s: str) -> tuple[str, int]:
+    """One sentence: cut one appearance phrase at a time (leftmost first) until none is left."""
+    n = 0
+    while True:
+        m = _APP_CLAUSE.search(s)
+        if m:
+            keep = ""                  # the clause only described clothing: drop it with its "while"/", and"
+            if m["tail"]:              # "is wearing a cap and smiling" -> "is smiling"; "wears a cap and walks" -> "walks"
+                keep = m["lead"] + m["subj"] + (m["aux"] if m["aux"] and m["next"].lower().endswith("ing") else "")
+            s = s[:m.start()] + keep + s[m.end():]
+            n += 1
+            continue
+        m = _APP_WEAR.search(s) or _APP_WITH.search(s)
+        if m:
+            who = m.groupdict().get("who") or ""
+            # an appositive loses both commas; "a woman with blonde hair, walks" keeps the one after it
+            keep = who + ("" if m["comma"] else (m["post"] or ""))
+            s = s[:m.start()] + keep + s[m.end():]
+            n += 1
+            continue
+        m = _APP_ADJ.search(s)
+        if m:
+            det = m["det"] or ""
+            if det:
+                art = "an" if m["noun"][:1].lower() in "aeiou" else "a"
+                det = (art.capitalize() if det[:1].isupper() else art) + " "
+            s = s[:m.start()] + det + m["noun"] + s[m.end():]
+            n += 1
+            continue
+        return s, n
+
+
+def _tidy(s: str, capital: bool) -> str:
+    s = re.sub(r"\s+([,.;:!?])", r"\1", s)
+    s = re.sub(r",\s*(?=[,.;:!?])", "", s)
+    s = re.sub(r"\s{2,}", " ", s).strip()
+    s = re.sub(r"^(?:[,;:]\s*|(?:and|while|whereas|but)\s+)+", "", s, flags=re.I)
+    return s[:1].upper() + s[1:] if capital else s
+
+
+def scrub_appearance(text: str) -> tuple[str, int]:
+    """Remove descriptions of people's clothing and looks, keep the rest of each sentence. Returns (text, phrases
+    removed). A sentence that only described clothing ("She is wearing black shoes.") is dropped. Untouched
+    sentences stay byte for byte; scrubbing twice changes nothing more."""
+    if not text:
+        return text, 0
+    parts = re.split(r"((?<=[.!?])\s+)", text)
+    out, total = [], 0
+    for i in range(0, len(parts), 2):
+        sent, sep = parts[i], parts[i + 1] if i + 1 < len(parts) else ""
+        new, n = _cut_appearance(sent)
+        if n:
+            total += n
+            new = _tidy(new, sent.lstrip()[:1].isupper())
+            if not re.search(r"[A-Za-z]{2}", new):
+                continue
+        out.append(new + sep)
+    return "".join(out).strip() if total else text, total
+
+
+def scrub_doc(obj: Any) -> Any:
+    """A captions JSON (captions.json / <camera_id>.json) with every row's caption and claim texts scrubbed.
+    For files written before the scrub existed (e.g. synced from the lab VM); a fresh run is already clean."""
+    if not isinstance(obj, dict) or not isinstance(obj.get("rows"), list):
+        return obj
+    rows = []
+    for r in obj["rows"]:
+        if isinstance(r, dict) and isinstance(r.get("caption"), str):
+            cap, n = scrub_appearance(r["caption"])
+            r = dict(r, caption=cap, appearance_removed=int(r.get("appearance_removed") or 0) + n)
+            if isinstance(r.get("claims"), list):
+                r["claims"] = [dict(c, text=scrub_appearance(c["text"])[0]) if isinstance(c, dict)
+                               and isinstance(c.get("text"), str) else c for c in r["claims"]]
+        rows.append(r)
+    return dict(obj, rows=rows)
 
 
 def _tokens(text: str) -> list[str]:
@@ -587,8 +732,8 @@ def _judge_segments(segs: list[dict[str, Any]], root: Path, frames: bool, sub: s
     res = []
     for sg in segs:
         r, rid, start, end = sg["row"], sg["id"], sg["start"], sg["end"]
-        caption = (r.get("reasoning_content") or "").strip()
-        pipe = {str(k): int(v) for k, v in json.loads(r.get("object_counts") or "{}").items()}
+        caption, n_app = scrub_appearance((r.get("reasoning_content") or "").strip())   # before it is judged or saved
+        pipe ={str(k): int(v) for k, v in json.loads(r.get("object_counts") or "{}").items()}
         cam = sg["ours_cam"]
         ours = our_counts(cam, start, end) if cam else None
         claims = extract_claims(caption)
@@ -619,7 +764,7 @@ def _judge_segments(segs: list[dict[str, Any]], root: Path, frames: bool, sub: s
                "claimed_counts": claimed_counts(claims), "checks": j["checks"],
                "pipeline_counts": pipe, "our_counts": ours, "our_camera": cam if ours is not None else None,
                "verdict": j["verdict"], "why": j["why"], "count_differs": j["count_differs"],
-               "class_differs": j["class_differs"], "repeats": _repeats(caption),
+               "class_differs": j["class_differs"], "repeats": _repeats(caption), "appearance_removed": n_app,
                "detector_suspect": j["detector_suspect"], "detector_reason": j["detector_reason"],
                "detector_notes": j["detector_notes"], "model": r.get("cosmos_model"),
                "detector": r.get("perception_source"),

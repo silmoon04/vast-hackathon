@@ -32,6 +32,16 @@ vast_bc*
 
 # local presentation plans, personal benchmarks and publication backups
 /.local-notes/
+/output/
+/.playwright-cli/
+
+# Earlier experiments remain local; the public repo focuses on Time Search.
+/prototypes/
+/docs/demos/
+/docs/DEMOS.md
+/docs/time-search/palette.png
+/deploy/field-desk/
+/tests/test_field_desk.py
 /deploy/find-desk/dataset.json
 /prototypes/PITCHES.md
 /prototypes/render_pitches.py
@@ -94,3 +104,9 @@ wandb/
 /street-time-machine/cams.local.json
 /street-time-machine/orders/
 /street-time-machine/PRE-EXISTING.md
+/street-time-machine/ui/demo/scenes/
+/street-time-machine/ui/demo/assets/illustrated/asset-manifest.json
+
+# Deployment build output and local validation receipts
+/deploy/street-time-machine/source.tgz.b64
+/deploy/street-time-machine/VALIDATION.md

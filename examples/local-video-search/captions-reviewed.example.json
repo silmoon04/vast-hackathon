@@ -1,0 +1,4 @@
+[
+  {"id":"demo-a-001","camera":"demo-a","clip_start":0,"clip_end":5,"source_start":30,"source_end":35,"source_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","reviewed":true,"caption":"Invented demo: a person wearing a yellow jacket walks beside a red bicycle."},
+  {"id":"demo-b-001","camera":"demo-b","clip_start":0,"clip_end":5,"source_start":80,"source_end":85,"source_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","reviewed":true,"caption":"Invented demo: a person carries a blue parcel toward a stone doorway."}
+]

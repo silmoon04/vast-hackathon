@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Local Camera Gallery</title>
+<style>
+:root{color-scheme:light;--ink:#152439;--muted:#586579;--paper:#f3f6fa;--line:#ced8e4;--blue:#244eb2;--violet:#635096}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 "Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer;color:inherit}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #a36915;outline-offset:3px}header,main{max-width:1600px;margin:auto;padding:26px 36px}header{padding-bottom:12px}h1{font-size:clamp(28px,3vw,42px);font-weight:650;letter-spacing:-.025em;margin:0 0 10px}p{max-width:850px;margin:5px 0 14px;color:var(--muted)}.top{display:flex;justify-content:space-between;gap:24px;align-items:center}.count{font-weight:600;color:var(--blue);white-space:nowrap}nav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 10px}.tab,.action{border:1px solid var(--line);background:white;border-radius:6px;padding:9px 15px}.tab[aria-pressed=true],.primary{background:var(--blue);color:white;border-color:var(--blue)}.tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}.small{font-size:14px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:24px 18px}.clip{background:white;overflow:hidden;border:1px solid var(--line);border-radius:6px}.clip.chosen{outline:2px solid var(--blue);outline-offset:1px}.screen{position:relative;aspect-ratio:16/9;background:#131b25}.screen video{width:100%;height:100%;display:block;object-fit:contain}.play{position:absolute;inset:auto 12px 12px auto;background:#ffffffee;border:0;border-radius:5px;padding:6px 11px;font-size:14px}.details{padding:12px 14px}.row{display:flex;justify-content:space-between;gap:12px;align-items:center}.row h2{font-size:17px;margin:0;font-weight:650}.meta{font-size:13px;color:var(--muted);margin:3px 0 11px}.choice{display:flex;align-items:center;gap:7px;font-size:14px}.choice input{accent-color:var(--blue);width:17px;height:17px}.compare{font-size:14px;border:1px solid var(--line);border-radius:5px;padding:5px 10px;background:white}.compare[aria-pressed=true]{border-color:var(--blue);color:var(--blue);background:#eef3ff}.credit{margin-top:26px;font-size:13px;color:var(--muted)}a{color:var(--blue)}.review{display:none;background:#e6edf7;padding:18px;border-radius:7px;margin-bottom:25px}.review.open{display:block}.review h2{font-size:20px;margin:0 0 12px}.views{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.view video{width:100%;max-height:380px;display:block;background:#131b25}.view strong{font-size:14px;display:block;margin:4px 0}.transport{display:flex;align-items:center;gap:14px;margin-top:14px}.transport input{flex:1}.status{min-height:23px;font-size:14px;color:#43546c;margin:10px 0}footer{padding:30px 36px;color:var(--muted)}@media(max-width:700px){header,main{padding:20px 16px}.top{display:block}.count{margin-top:10px}.views{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.transport{flex-wrap:wrap}}
+</style>
+<header><div class="top"><div><h1>Local Camera Gallery</h1><p id="intro">Loading local clips…</p></div><div class="count" id="count"></div></div>
+<nav aria-label="Camera sets"><button class="tab" data-group="kept" aria-pressed="false">Kept clips <span id="kept-count">0</span></button></nav></header>
+<main><div class="tools"><button class="action primary" id="compare">Compare cameras</button><button class="action" id="export">Export kept clips</button><span class="small">Choose up to five cameras from one scene to compare.</span></div>
+<p class="status" id="status" role="status"></p>
+<p class="small" id="route-note"></p>
+<section class="review" id="review" aria-label="Synchronized camera comparison"><div class="row"><h2>Same event, shared clock</h2><button class="action" id="close">Close comparison</button></div><div class="views" id="views"></div><div class="transport"><button class="action primary" id="play-all">Play together</button><input aria-label="Shared event time" type="range" id="clock" min="0" step="0.1" value="120"><output id="time">2:00</output></div><p class="small">Time is measured from the start of the synchronized source recordings. Matching views do not establish a person's identity.</p></section>
+<div class="grid" id="grid"></div><div class="credit" id="credit"></div></main><footer>Your selections stay in this browser. Media is served from your local machine.</footer>
+<script>
+let items=[], group=new URLSearchParams(location.search).get('set')||'', compared=new Set(), kept=new Set(), playing=false;
+try { kept=new Set(JSON.parse(localStorage.getItem('vast-footage-kept')||'[]')); } catch {}
+const $=s=>document.querySelector(s), fmt=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+function status(s){$('#status').textContent=s}
+function save(){localStorage.setItem('vast-footage-kept',JSON.stringify([...kept]));$('#kept-count').textContent=kept.size;}
+function pauseAll(){document.querySelectorAll('video').forEach(v=>v.pause());playing=false;$('#play-all').textContent='Play together';}
+function close(){pauseAll();$('#review').classList.remove('open');$('#views').replaceChildren()}
+function render(){
+ $('#grid').replaceChildren();
+ let visible=items.filter(i=>group==='kept'?kept.has(i.id):i.group===group);
+ for(const item of visible){
+  const card=document.createElement('article');card.className='clip'+(kept.has(item.id)?' chosen':'');
+  const previewLabel=`${Math.round(item.preview_end-item.preview_start)}-second`;
+  const screen=document.createElement('div');screen.className='screen';
+  const video=document.createElement('video');video.playsInline=true;video.muted=true;video.preload='none';video.setAttribute('aria-label',`${item.group_name}, ${item.label}`);
+  const play=document.createElement('button');play.className='play';play.textContent=`Play ${previewLabel} preview`;
+  screen.append(video,play);
+  const details=document.createElement('div');details.className='details';
+  const titleRow=document.createElement('div');titleRow.className='row';
+  const title=document.createElement('h2');title.textContent=item.label;
+  const id=document.createElement('span');id.className='small';id.textContent=item.id;
+  titleRow.append(title,id);
+  const meta=document.createElement('div');meta.className='meta';meta.textContent=`${item.width}×${item.height} · ${fmt(item.duration)} recording · ${item.synthetic?'Synthetic':'Local recording'}`;
+  const controls=document.createElement('div');controls.className='row';
+  const choice=document.createElement('label');choice.className='choice';
+  const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=kept.has(item.id);
+  choice.append(checkbox,document.createTextNode('Keep this camera'));
+  const compareButton=document.createElement('button');compareButton.className='compare';compareButton.setAttribute('aria-pressed',String(compared.has(item.id)));compareButton.textContent='Compare';
+  controls.append(choice,compareButton);details.append(titleRow,meta,controls);card.append(screen,details);
+  play.onclick=async()=>{if(!video.paused){video.pause();play.textContent=`Play ${previewLabel} preview`;return}document.querySelectorAll('#grid video').forEach(v=>{if(v!==video)v.pause()});if(!video.src){video.src='/video/'+encodeURIComponent(item.id);video.addEventListener('loadedmetadata',()=>{video.currentTime=item.preview_start},{once:true});video.load()}else if(video.currentTime<item.preview_start||video.currentTime>=item.preview_end)video.currentTime=item.preview_start;video.controls=true;try{await video.play();play.textContent='Pause'}catch{status('Press play on the video to start.')}};
+  video.addEventListener('timeupdate',()=>{if(video.currentTime>=item.preview_end)video.currentTime=item.preview_start});
+  video.onpause=()=>play.textContent=`Play ${previewLabel} preview`;
+  checkbox.onchange=e=>{e.target.checked?kept.add(item.id):kept.delete(item.id);card.classList.toggle('chosen',e.target.checked);save()};
+  compareButton.onclick=e=>{if(compared.has(item.id)){compared.delete(item.id)}else{let first=items.find(x=>compared.has(x.id));if(first&&first.group!==item.group){status('Choose cameras from the same event. Clear the current comparison first.');return}if(compared.size===5){status('Five cameras are selected. Remove one before adding another.');return}compared.add(item.id)}compareButton.setAttribute('aria-pressed',compared.has(item.id));status(`${compared.size} cameras selected for comparison.`)};
+  $('#grid').append(card);
+ }
+ if(!visible.length)status('No kept clips yet. Tick “Keep this camera” on the views you like.');
+ const source=items.find(i=>i.group===group);
+ $('#route-note').textContent=source?.route_note||'';
+ const credit=$('#credit');credit.replaceChildren();
+ if(source){credit.append(document.createTextNode(source.credit||''));for(const [field,label] of [['source_url','Dataset'],['license_url','Licence']]){const url=source[field];if(typeof url==='string'&&['http:','https:'].includes(new URL(url,location.href).protocol)){credit.append(document.createTextNode(' · '));const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent=label;credit.append(link)}}}
+ else credit.textContent='Kept selections retain source and licence details in the export.';
+ save();
+}
+function bindTabs(){document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{close();group=b.dataset.group;compared.clear();document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-pressed',x===b));status('');render()});}
+bindTabs();
+$('#compare').onclick=()=>{if(compared.size<2){status('Choose at least two cameras using their Compare buttons.');return}close();const selected=items.filter(i=>compared.has(i.id));$('#clock').max=Math.min(...selected.map(i=>i.duration));$('#clock').value=selected[0].preview_start;$('#time').value=fmt(+$('#clock').value);for(const item of selected){const wrap=document.createElement('div');wrap.className='view';const label=document.createElement('strong');label.textContent=item.group_name+' — '+item.label;const video=document.createElement('video');video.muted=true;video.playsInline=true;video.preload='metadata';video.src='/video/'+encodeURIComponent(item.id);video.addEventListener('loadedmetadata',()=>video.currentTime=+$('#clock').value,{once:true});wrap.append(video,label);$('#views').append(wrap)}$('#review').classList.add('open');$('#review').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});status('Compare the same moment across these cameras.');};
+$('#close').onclick=close;
+$('#clock').oninput=()=>{const t=+$('#clock').value;document.querySelectorAll('#views video').forEach(v=>{v.currentTime=t});$('#time').value=fmt(t)};
+$('#play-all').onclick=async()=>{const videos=[...document.querySelectorAll('#views video')];if(playing){videos.forEach(v=>v.pause());playing=false}else{await Promise.all(videos.map(v=>v.play().catch(()=>status('A camera could not start. Try moving the clock.'))));playing=videos.some(v=>!v.paused)}$('#play-all').textContent=playing?'Pause together':'Play together'};
+setInterval(()=>{const videos=[...document.querySelectorAll('#views video')];if(!playing||!videos.length)return;const t=videos[0].currentTime;$('#clock').value=t;$('#time').value=fmt(t);for(const v of videos.slice(1))if(Math.abs(v.currentTime-t)>.35)v.currentTime=t;if(videos[0].ended){playing=false;$('#play-all').textContent='Play together'}},250);
+$('#export').onclick=()=>{const chosen=items.filter(i=>kept.has(i.id)).map(({file,...i})=>i);if(!chosen.length){status('Keep at least one camera before exporting.');return}const url=URL.createObjectURL(new Blob([JSON.stringify({selected_at:new Date().toISOString(),clips:chosen},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='vast-selected-footage.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status(`Exported ${chosen.length} kept camera streams with source and licence details.`)};
+fetch('/catalog.json').then(r=>r.json()).then(data=>{items=data;if(!items.some(i=>i.group===group))group=items[0]?.group||'';const nav=$('nav');for(const item of items){if([...nav.querySelectorAll('.tab')].some(b=>b.dataset.group===item.group))continue;const b=document.createElement('button');b.className='tab';b.dataset.group=item.group;b.textContent=item.group_name;b.setAttribute('aria-pressed','false');nav.insertBefore(b,nav.querySelector('[data-group="kept"]'));}bindTabs();const sets=new Set(items.map(i=>i.group)).size;$('#intro').textContent=`${items.length} local clips across ${sets} scenes. Compare views on their shared source clock.`;$('#count').textContent=`${items.length} clips`;document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-pressed',b.dataset.group===group));render()}).catch(()=>status('The footage catalogue could not load. Refresh the page.'));
+</script></html>

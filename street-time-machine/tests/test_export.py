@@ -11,6 +11,7 @@ import cv2
 import numpy as np
 import pytest
 
+from stm import captions as C
 from stm import data, export
 
 TAG_RE = re.compile(r"<script>window\.__STM__=(.*?);window\.__STM_FILES__=(.*?)</script>\n", re.S)
@@ -130,6 +131,14 @@ def test_real_page_contents(real):
     for cam in cams:
         if (data.OUT / cam / "background.jpg").exists():
             assert f"out/{cam}/background.jpg" in files
+        for d in export.day_ids(stm.get(f"out/{cam}/meta.json")):  # the UI builds background_<day id>.jpg itself
+            if (data.OUT / cam / f"background_{d}.jpg").exists():
+                assert f"out/{cam}/background_{d}.jpg" in files or f"out/{cam}/background_{d}.jpg" in rep["dropped"]
+        if (data.OUT / "captions" / f"{cam}.json").exists():         # e.g. the Pack D Cosmos captions
+            assert f"out/captions/{cam}.json" in stm or f"out/captions/{cam}.json" in skipped
+    assert [e["default"] for e in entries] == [True] + [False] * (len(entries) - 1)
+    for url in [u for u in stm if u.startswith("out/captions/")]:  # no clothing / looks reach the page
+        assert all(C.scrub_appearance(r["caption"])[1] == 0 for r in stm[url]["rows"]), url
 
     # data URIs are JPEGs within the size tier for their kind
     assert len(files) == rep["n_images_inlined"] > 0
@@ -293,6 +302,62 @@ def test_event_cam_first_people_blurred_and_cap(tmp_path, monkeypatch):
         assert f"out/{c}/near/2_10.0.jpg" in files and f"out/{c}/crops/1.jpg" in files
         assert (tmp_path / "d2" / "out" / c / "crops" / "5.jpg").is_file()  # still reachable as a file
     assert any(line.startswith(f"capped {pd_cam}") for line in r["log"])
+
+
+def test_day_plates_and_cam_captions_baked(tmp_path, monkeypatch):
+    root = tmp_path / "repo"
+    out = root / "out"
+    rng = np.random.default_rng(2)
+
+    def jpg(p: Path, w: int = 320, h: int = 180):
+        p.parent.mkdir(parents=True, exist_ok=True)
+        cv2.imwrite(str(p), rng.integers(0, 255, (h, w, 3), dtype=np.uint8))
+
+    ev = "neighborhood_cam-1"
+    days = [{"id": "20260901", "label": "1 Sep"}, {"id": "20260902", "label": "2 Sep"}]
+    for cam, ds in ((ev, days), ("ptz_parking", [{"id": "A", "label": "Day A"}, {"id": "B", "label": "Day B"}]),
+                    ("yonge_dundas", [{"id": "A", "label": "Clip"}])):
+        jpg(out / cam / "background.jpg")
+        (out / cam / "meta.json").write_text(json.dumps({"camera": cam, "days": ds, "simulated": []}))
+    (out / "ptz_parking" / "qa.json").write_text(json.dumps({"items": []}))
+    for d in days:
+        jpg(out / ev / f"background_{d['id']}.jpg")
+    jpg(out / "ptz_parking" / "background_A.jpg")                    # background_B.jpg is missing
+    jpg(out / "captions" / "frames" / ev / "x.jpg")
+    cap = "A person wearing a white top and pink shorts is walking on the sidewalk."
+    (out / "captions" / f"{ev}.json").write_text(json.dumps({"camera": ev, "rows": [
+        {"id": "x", "caption": cap, "claims": [{"text": "a person", "object": "person"}],
+         "frame": f"frames/{ev}/x.jpg"}]}))
+    (out / "captions" / "captions.json").write_text(json.dumps({"rows": [{"id": "p", "caption": "A man in a red cap "
+                                                                          "walks.", "frame": None}]}))
+    (out / "captions" / "rochester_night.json").write_text(json.dumps({"rows": []}))   # cam not exported
+    ui = tmp_path / "ui.html"
+    ui.write_text("<p>hi</p>\n<script>\ninit();\n</script>\n")
+    monkeypatch.setattr(export, "ROOT", root)
+    monkeypatch.setattr(export, "OUT", out)
+
+    r = export.build(dist=tmp_path / "d", ui=ui, quiet=True)
+    assert r["cams"] == [ev, "ptz_parking", "yonge_dundas"]
+    stm, files, _ = _parse_page((tmp_path / "d" / "index.html").read_text(encoding="utf-8"))
+    for d in days:
+        assert f"out/{ev}/background_{d['id']}.jpg" in files
+    assert "out/ptz_parking/background_A.jpg" in files
+    # a two-day cam that lacks a day plate says so; a one-day cam falls back to background.jpg silently
+    assert r["missing"] == ["out/ptz_parking/background_B.jpg"]
+    # the cam's own captions are baked next to the practice corpus, with their frames, and scrubbed
+    assert f"out/captions/{ev}.json" in stm and "out/captions/captions.json" in stm
+    assert "out/captions/rochester_night.json" not in stm
+    assert f"out/captions/frames/{ev}/x.jpg" in files
+    row = stm[f"out/captions/{ev}.json"]["rows"][0]
+    assert row["caption"] == "A person is walking on the sidewalk." and row["appearance_removed"] == 1
+    assert stm["out/captions/captions.json"]["rows"][0]["caption"] == "A man walks."
+    assert "pink shorts" not in (tmp_path / "d" / "index.html").read_text(encoding="utf-8")
+    assert r["per_cam"]["captions"]["json"] == 2
+    # api/cams carries the server's ask/default keys: a static page only has precomputed answers
+    e = {x["camera"]: x for x in stm["api/cams"]}
+    assert [x["default"] for x in stm["api/cams"]] == [True, False, False]
+    assert e["ptz_parking"]["ask"] == "precomputed" and e[ev]["ask"] == "none"
+    assert export.day_ids({"days": ["A", {"id": "B"}, {"label": "x"}, ""]}) == ["A", "B"]
 
 
 # ---------- scripts/freeze_demo.py ----------

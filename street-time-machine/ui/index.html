@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>Street Time Machine</title>
+<title>Time Search</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -165,7 +165,9 @@ html.stm-demo #camsel,html.stm-demo footer,html.stm-demo .mode[data-mode="flow"]
 </style>
 <style data-owner="ui-rewind">
 /* ui-rewind: Rewind view only. Every selector sits under .syn-desk, or body:has(.syn-desk) for the thesis clamp. */
-.syn-desk .syn-screen{--syn-ar:1.7778;aspect-ratio:var(--syn-ar);width:100%;max-width:max(320px,calc((100svh - 236px) * var(--syn-ar)));margin-inline:auto}
+.syn-desk .syn-screen{--syn-ar:1.7778;aspect-ratio:var(--syn-ar);width:100%;max-width:max(420px,calc((100svh - var(--syn-top,166px) - 64px) * var(--syn-ar)));margin-inline:auto}
+.syn-desk .syn-legend svg{width:14px;height:10px;display:inline-block;flex:none}
+.syn-desk .syn-legend{gap:4px 12px}
 .syn-desk .syn-screen video{width:100%;height:100%;object-fit:contain}
 .syn-desk .syn-controls{gap:8px 12px;padding-block:8px}
 .syn-desk .syn-spot{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
@@ -218,6 +220,7 @@ body:has(.syn-desk) .thesis p{display:-webkit-box;-webkit-box-orient:vertical;-w
 .dv-root .dv-ncd summary{cursor:pointer}
 .dv-root .dv-ncd ul{margin:6px 0 0;padding-left:18px;font-size:.84rem;color:#C4CDD9;display:flex;flex-direction:column;gap:3px}
 .dv-root .dv-pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0}
+@media (max-width:560px){.dv-plate .dv-tag{top:6px;font-size:.62rem;padding:1px 5px}.dv-plate .dv-tag.dv-l{left:6px}.dv-plate .dv-tag.dv-r{right:6px}.dv-plate.dv-blinking .dv-tag{font-size:.72rem}}
 </style>
 <style data-owner="ui-near">
 /* ui-near: Who came near. Every selector is prefixed .nr- */
@@ -283,6 +286,7 @@ body:has(.syn-desk) .thesis p{display:-webkit-box;-webkit-box-orient:vertical;-w
 .cx .cx-mini p{margin:0}
 .cx .cx-row{grid-template-columns:200px minmax(0,1fr)}
 @media (max-width:560px){.cx .cx-mini,.cx .cx-row{grid-template-columns:minmax(0,1fr)}}
+.cx .cx-row.cx-nopic{grid-template-columns:minmax(0,1fr)}
 .cx .cx-rowstrip{width:100%;height:auto}
 .cx .cx-body{display:flex;flex-direction:column;gap:8px;min-width:0}
 .cx .cx-cap{margin:0}
@@ -295,7 +299,7 @@ body:has(.syn-desk) .thesis p{display:-webkit-box;-webkit-box-orient:vertical;-w
 <body>
 <svg class="shell-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#2A3442"/><line y2="6" stroke="#8C99AB" stroke-width="2"/></pattern></defs></svg>
 <header class="bar">
-  <div class="brand"><h1>STREET <b>TIME MACHINE</b></h1><span class="shell-camtag" id="camid">—</span><span class="shell-badge" id="databadge" hidden></span></div>
+  <div class="brand"><h1>TIME <b>SEARCH</b></h1><span class="shell-camtag" id="camid">—</span><span class="shell-badge" id="databadge" hidden></span></div>
   <label class="cams" id="camsel"><span class="label" style="margin-right:6px">Camera</span><select id="cams" aria-label="Camera"></select></label>
   <nav class="modes" role="tablist" aria-label="Views">
     <button class="mode" role="tab" data-mode="near" aria-selected="true">Who came near</button>
@@ -310,17 +314,33 @@ body:has(.syn-desk) .thesis p{display:-webkit-box;-webkit-box-orient:vertical;-w
 
 <section class="thesis"><h2 id="thesis">Every car that passed, all on screen at once.</h2><p id="sub"></p></section>
 <main id="view"></main>
-<footer><span id="credit"></span><span id="provenance">Built during the Real-Time Video Agents Hack, 17 Oct 2026. Every number on this page is computed from the footage; anything marked SIMULATED is a test we staged.</span></footer>
+<footer><span id="credit"></span><span id="provenance">Results come from prepared footage outputs. Material marked SIMULATED is staged.</span></footer>
 
 <script>
 const S = {cams: [], cam: null, mode: 'synopsis', meta: null, cache: {}};
 const $ = (s, el=document) => el.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const mmss = t => { t = Math.max(0, +t || 0); const m = Math.floor(t/60), s = t - m*60; return `${String(m).padStart(2,'0')}:${s.toFixed(1).padStart(4,'0')}`; };
+// Round to tenths first, then split: 59.96 s reads 01:00.0, never 00:60.0.
+const mmss = t => { const d = Math.round(Math.max(0, +t || 0) * 10), m = Math.floor(d / 600), s = (d - m * 600) / 10; return `${String(m).padStart(2,'0')}:${s.toFixed(1).padStart(4,'0')}`; };
 const COL = {person:'#F2A93B', car:'#7FB6FF', truck:'#9AD1FF', bus:'#9AD1FF', bicycle:'#F28FB4', motorcycle:'#F28FB4'};
 const colOf = n => COL[n] || '#C9D3E0';
 const WHY = {dark: 'too dark', blur: 'picture blurred', frozen: 'picture froze', blocked: 'view blocked or camera turned away', no_signal: 'no picture', turned_away: 'camera turned away', moved: 'camera moving'};
 const why = r => WHY[r] || r || 'unknown';
+// Blind seconds: the ledger's own totals first (blind_total_s, blind_by_day), else the union of its blind spans, else a count of blind seconds.
+const spanUnion = (spans, a = -Infinity, b = Infinity) => { let tot = 0, end = -Infinity;
+  for (const [s, e] of (spans || []).map(x => [Math.max(a, +x.start), Math.min(b, +x.end)]).filter(x => x[1] > x[0]).sort((x, y) => x[0] - y[0])) {
+    if (e > end) { tot += e - Math.max(s, end); end = e; } }
+  return tot; };
+function blindTotal(L){
+  if (!L) return 0;
+  if (L.blind_total_s != null && isFinite(+L.blind_total_s)) return +L.blind_total_s;
+  if (Array.isArray(L.blind)) return spanUnion(L.blind);
+  return (L.per_second || []).filter(p => !p.visible).length;
+}
+function blindByDay(L, days){   // [{id, label, s}] per recording day
+  if (L && Array.isArray(L.blind_by_day) && L.blind_by_day.length) return L.blind_by_day.map(x => ({id: x.day, label: x.label || String(x.day ?? ''), s: +x.blind_s || 0}));
+  return (days || []).map(d => ({id: d.id, label: d.label || String(d.id ?? ''), s: L && Array.isArray(L.blind) ? spanUnion(L.blind, +d.start || 0, d.end != null ? +d.end : Infinity) : 0}));
+}
 const BAKED = window.__STM__ || null, FILES = window.__STM_FILES__ || {};
 const F = p => (p && FILES[p]) || p;
 const asset = (cam, p) => p ? F(`out/${cam}/${p}`) : '';
@@ -437,8 +457,8 @@ function shellCamUI(cam){   // header title, honest data badge and footer credit
   bd.className = 'shell-badge ' + (sim ? 'sim' : ev ? 'real' : 'sample');
   bd.textContent = synthetic ? 'SYNTHETIC DEMO' : sim ? 'SIMULATED days' : ev ? `Event footage · ${days.length} real day${days.length === 1 ? '' : 's'}` : 'Sample clip';
   bd.title = sim ? M.simulated.join('; ') : ev ? days.map(d => d.label || d.id).join(' and ') : 'Public sample footage used to build and test this';
-  $('#credit').textContent = M.credit ? synthetic ? `Fixture: ${M.credit}.` : `Footage: ${M.credit}.${ev ? '' : ' Development stand-in for the event\'s neighbourhood camera.'}` : '';
-  $('#provenance').textContent = synthetic ? 'Synthetic demo: an illustrated scene and preset events. This fixture uses no video or model inference.' : 'Built during the Real-Time Video Agents Hack, 17 Oct 2026. Every number on this page is computed from the footage; anything marked SIMULATED is a test we staged.';
+  $('#credit').textContent = M.credit ? synthetic ? `Fixture: ${M.credit}.` : `Footage: ${M.credit}.` : '';
+  $('#provenance').textContent = synthetic ? 'Synthetic demo: an illustrated scene and preset events. This fixture uses no video or model inference.' : 'Results come from prepared footage outputs. Material marked SIMULATED is staged.';
 }
 function markMode(m){
   if (!THESIS[m] || (m === 'flow' && !S.all)) m = 'near';
@@ -534,13 +554,13 @@ function ledgerStrip(L, dur, marks=[]){
   }
   if (run) rects.push(run);
   const x = t => (t / n) * W;
-  const blindS = rects.filter(r => r.st === 'blind').reduce((a, r) => a + (r.end - r.start), 0);
+  const blindS = Math.round(blindTotal(L));
   return `<div class="strip"><div class="legend"><span class="label">Every second of the recording</span><span><i style="background:var(--present)"></i>camera could see</span><span><i style="background:var(--blind)"></i>could not see (${blindS} s)</span>${marks.length ? '<span><i style="background:var(--sodium)"></i>selected</span>' : ''}</div>
   <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Visibility for each second">
   ${rects.map(r => `<rect x="${x(r.start).toFixed(1)}" y="6" width="${Math.max(1, x(r.end) - x(r.start)).toFixed(1)}" height="16" fill="${r.st === 'ok' ? 'var(--present)' : 'var(--blind)'}" opacity="${r.st === 'ok' ? .55 : 1}"><title>${r.st === 'ok' ? 'visible' : 'could not see: ' + esc(why(r.reason))} ${mmss(r.start)}–${mmss(r.end)}</title></rect>`).join('')}
   ${marks.map(m => `<rect x="${x(m[0]).toFixed(1)}" y="2" width="${Math.max(2, x(m[1]) - x(m[0])).toFixed(1)}" height="24" fill="none" stroke="var(--sodium)" stroke-width="2"/>`).join('')}
   <text x="0" y="33" font-size="9" fill="var(--dim)" font-family="IBM Plex Mono, monospace">00:00</text>
-  <text x="${W}" y="33" font-size="9" fill="var(--dim)" text-anchor="end" font-family="IBM Plex Mono, monospace">${mmss(n)}</text></svg></div>`;
+  <text x="${W}" y="33" font-size="9" fill="var(--dim)" text-anchor="end" font-family="IBM Plex Mono, monospace">${mmss(+dur || n).slice(0, 5)}</text></svg></div>`;
 }
 
 /* ---------- Rewind (video synopsis) ---------- */
@@ -557,14 +577,14 @@ function findIds(I, q, J){
   if (!q || !String(q).trim()) return null;
   const w = String(q).toLowerCase().split(/[^a-z]+/).filter(Boolean);
   const out = (ids, reason) => { const s = new Set(ids || []); if (reason) s.reason = reason; return s; };
-  const WHO = /^(man|men|woman|women|guys?|girls?|boys?|lady|ladies|gentlem[ae]n|males?|females?|kids?|child|children|teens?|teenagers?|elderly|old|young|he|she|him|her|his|hers)$/;
+  const WHO = /^(man|men|woman|women|guys?|girls?|boys?|lady|ladies|gentlem[ae]n|males?|females?|kids?|child|children|teens?|teenagers?|elderly|he|she|him|her|his|hers)$/;
   const PEOPLE = /^(persons?|people|pedestrians?|walkers?|someone|somebody|anyone|anybody|cyclists?|riders?|drivers?)$/;
-  const LOOKS = /^(pink|purple|beige|navy|dark|light|pale|bright|blond|blonde|ginger|bald|brunette|shirts?|tshirts?|tee|tops?|jackets?|coats?|hoodies?|hood|hats?|caps?|beanie|dress|skirt|trousers|pants|jeans|shorts|shoes|trainers|sneakers|boots|bags?|backpacks?|rucksacks?|hair|beard|glasses|sunglasses|masks?|scarf|hijab|uniform|wearing|wears|wore|dressed|clothes|clothing|outfit|skin|skinned|tall|short|fat|thin|slim|faces?|race|ethnic|ethnicity|asian|african|caucasian|gender)$/;
+  const LOOKS = /^(old|older|young|younger|pink|purple|beige|navy|dark|light|pale|bright|blond|blonde|ginger|bald|brunette|shirts?|tshirts?|tee|tops?|jackets?|coats?|hoodies?|hood|hats?|caps?|beanie|dress|skirt|trousers|pants|jeans|shorts|shoes|trainers|sneakers|boots|bags?|backpacks?|rucksacks?|hair|beard|glasses|sunglasses|masks?|scarf|hijab|uniform|wearing|wears|wore|dressed|clothes|clothing|outfit|skin|skinned|tall|short|fat|thin|slim|faces?|race|ethnic|ethnicity|asian|african|caucasian|gender)$/;
   const cols = w.filter(x => COLOURS.includes(x)).map(x => x === 'gray' ? 'grey' : x);
   const cls = w.map(x => SYN[x]).filter(Boolean);
   const aboutPeople = w.some(x => WHO.test(x) || PEOPLE.test(x)) || cls.some(c => ['person', 'bicycle', 'motorcycle'].includes(c));
   if (w.some(x => WHO.test(x)) || (aboutPeople && (cols.length || w.some(x => LOOKS.test(x)))))
-    return out([], 'Street Time Machine never describes or searches people by how they look: no clothing, skin, gender or face. Ask about vehicles, or who came near a car.');
+    return out([], 'Time Search never describes or searches people by how they look: no clothing, skin, gender or face. Ask about vehicles, or who came near a car.');
   if (w.includes('dark')) cols.push('black', 'grey');
   if (w.includes('light')) cols.push('white', 'silver');
   if (!cols.length && !cls.length) return out([], 'Try a vehicle and a colour (white van, red car, truck), or a kind of road user (people, bikes).');
@@ -581,20 +601,21 @@ function findIds(I, q, J){
 async function viewSynopsis(v){
   const cam = S.cam;
   const [J, L, M, I, B] = await Promise.all(['synopsis', 'ledger', 'moments', 'index', 'brief'].map(n => getJSON(`out/${cam}/${n}.json`)));
-  if (cam !== S.cam) return;  // camera changed while loading
+  if (cam !== S.cam || !v.isConnected) return;  // camera or view changed while loading
   if (!J || !Array.isArray(J.ghosts)) { v.innerHTML = empty('The rewind for this camera has not been built yet.'); return; }
   let calm = false; try { calm = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
   const ms = t => mmss(t).slice(0, -2);
   const days = (S.meta && S.meta.days) || [], multiDay = days.length > 1;
-  const dayLab = id => { const d = days.find(d => String(d.id) === String(id)); return d ? d.label : String(id ?? ''); };
+  // Day names: the rewind's own segments[i].label first, then the camera's meta.json label.
+  const segs = Array.isArray(J.segments) ? J.segments : [], segLab = id => (segs.find(s => String(s.day) === String(id)) || {}).label;
+  const dayLab = id => { const d = days.find(d => String(d.id) === String(id)); return segLab(id) || (d && d.label) || String(id ?? ''); };
   const ghosts = J.ghosts, byId = new Map(ghosts.map(g => [g.object_id, g]));
-  const sugg = ['cars', 'people', 'bikes'];
-  const isParked = g => g.parked ?? ((g.out_end - g.out_start) >= J.out_duration * 0.9);
+  // Parked = synopsis.json's own per-ghost flag. Only a file written before that flag existed falls back to "on screen for 90% of the rewind".
+  const isParked = g => typeof g.parked === 'boolean' ? g.parked : (g.out_end - g.out_start) >= J.out_duration * 0.9;
   const parked = ghosts.filter(isParked).length, moving = ghosts.length - parked;
   const win = Array.isArray(J.src_window) && J.src_window.length === 2 ? J.src_window : null;
   const srcSpan = win ? win[1] - win[0] : J.src_duration;
   const fast = srcSpan / Math.max(1, J.out_duration), fastS = fast >= 10 ? fast.toFixed(0) : fast.toFixed(1);
-  const whyS = r => r === 'turned_away' ? 'camera pointed elsewhere' : why(r);
   const VEH = ['car', 'truck', 'bus'];
   // Spotlight: single-select. Everything outside the spotlight sits under a dark veil.
   const SPOT = {moving: ['moving', g => !isParked(g)], people: ['people', g => g.name === 'person'], cars: ['cars', g => VEH.includes(g.name)], all: ['everything', null]};
@@ -609,30 +630,44 @@ async function viewSynopsis(v){
   const runs = [];
   for (const p of per) { const st = p.visible ? 'ok' : 'blind', last = runs[runs.length - 1];
     if (last && last.st === st && last.end === p.t && (st === 'ok' || last.reason === p.reason)) last.end = p.t + 1; else runs.push({st, start: p.t, end: p.t + 1, reason: p.reason}); }
-  const blindS = L ? Math.round(L.blind_total_s ?? per.filter(p => !p.visible).length) : 0;
-  const SHORT = {turned_away: 'turned away', blocked: 'blocked', blur: 'blurred', dark: 'too dark', frozen: 'frozen', no_signal: 'no picture'};
-  const rs = [...new Set(per.filter(p => !p.visible).map(p => SHORT[p.reason] || 'unclear'))];
-  const rsTxt = rs.length > 1 ? rs.slice(0, -1).join(', ') + ' or ' + rs[rs.length - 1] : (rs[0] || '');
+  const blindS = L ? Math.round(blindTotal(L)) : 0;
+  const blindDays = L && multiDay ? blindByDay(L, days).map(x => `${segLab(x.id) || x.label} ${Math.round(x.s)} s`).join(', ') : '';
+  const rs = [...new Set(per.filter(p => !p.visible).map(p => why(p.reason)))];
+  const rsTxt = rs.length > 1 && !rs.some(x => / or /.test(x)) ? rs.slice(0, -1).join(', ') + ' or ' + rs[rs.length - 1] : rs.join(', ');
   const BINS = 250, act = new Array(BINS).fill(0), bw = SW / BINS;
   for (const g of ghosts) { if (isParked(g)) continue; const a = Math.max(0, Math.floor(g.src_start / N * BINS)), b = Math.min(BINS - 1, Math.floor(g.src_end / N * BINS)); for (let i = a; i <= b; i++) act[i]++; }
   const amax = Math.max(1, ...act), mono = 'font-family="IBM Plex Mono, monospace"';
-  const other = win ? [[0, win[0]], [win[1], N]].filter(([a, b]) => b - a > 0.5) : [];
+  // Measured against the real duration, not N (rounded up): a window ending at 1853.22 of 1853.22 s leaves no "other view" sliver.
+  const other = win ? [[0, win[0]], [win[1], +J.src_duration || N]].filter(([a, b]) => b - a > 1) : [];
   let stripSVG = `<svg id="synstrip" viewBox="0 0 ${SW} 52" role="img" aria-label="Every second of the recording. Click to replay what was there.">
     <defs><pattern id="synhatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#2A3442"/><line x1="0" y1="0" x2="0" y2="6" stroke="#8C99AB" stroke-width="2"/></pattern></defs>
     ${act.map((c, i) => c ? `<rect x="${(i * bw).toFixed(1)}" y="${(16 - 14 * c / amax).toFixed(1)}" width="${(bw - .6).toFixed(1)}" height="${(14 * c / amax).toFixed(1)}" fill="var(--dim)" opacity=".5"/>` : '').join('')}
     ${L ? `<rect x="0" y="20" width="${SW}" height="14" fill="var(--line)"><title>camera could see</title></rect>` : ''}
-    ${runs.filter(r => r.st === 'blind').map(r => `<rect x="${X(r.start).toFixed(1)}" y="20" width="${Math.max(1.5, X(r.end) - X(r.start)).toFixed(1)}" height="14" fill="url(#synhatch)"><title>camera could NOT see ${ms(r.start)}–${ms(r.end)}: ${esc(whyS(r.reason))}</title></rect>`).join('')}`;
-  //@Q5@
-  v.innerHTML = `<div class="desk"><div class="stage">
-    ${I ? `<form class="ask" id="findf" style="border-top:0;border-bottom:1px solid var(--line)"><input id="find" autocomplete="off" placeholder="Find… e.g. white car, people, bikes" aria-label="Find in the rewind"><button class="btn">Find</button>
-      <span style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${sugg.map(s => `<button type="button" class="chip" data-f="${esc(s)}" aria-pressed="false">${esc(s)}</button>`).join('')}</span></form>` : ''}
-    <div class="screen"><video id="syn" src="out/${cam}/synopsis.mp4" muted playsinline loop preload="auto"></video><canvas id="ov"></canvas>
-      <div class="osd" id="osd">REWIND ${mmss(0)}</div><div class="osd r">${mmss(J.src_duration).slice(0, 5)} of footage in ${Math.round(J.out_duration)} s</div>
+    ${runs.filter(r => r.st === 'blind').map(r => `<rect x="${X(r.start).toFixed(1)}" y="20" width="${Math.max(1.5, X(r.end) - X(r.start)).toFixed(1)}" height="14" fill="url(#synhatch)"><title>camera could NOT see ${ms(r.start)}–${ms(r.end)}: ${esc(why(r.reason))}</title></rect>`).join('')}`;
+  stripSVG += `
+    ${other.map(([a, b]) => { const x = X(a).toFixed(1), w = Math.max(1.5, X(b) - X(a)).toFixed(1); return `<g><rect x="${x}" y="20" width="${w}" height="14" fill="var(--night)" opacity=".55"/><rect x="${x}" y="20.5" width="${w}" height="13" fill="none" stroke="var(--dim)" stroke-dasharray="4 3"/>${X(b) - X(a) > 150 ? `<text x="${((X(a) + X(b)) / 2).toFixed(1)}" y="30.5" text-anchor="middle" fill="var(--dim)" font-size="10" ${mono}>other view · not in this rewind</text>` : ''}<title>${ms(a)}–${ms(b)}: the camera pointed at another view, so this is not in the rewind</title></g>`; }).join('')}
+    ${multiDay ? days.filter(d => d.start > 0).map(d => `<line x1="${X(d.start).toFixed(1)}" x2="${X(d.start).toFixed(1)}" y1="0" y2="38" stroke="var(--sodium)" stroke-width="1.5" stroke-dasharray="3 2"/>`).join('') : ''}
+    <path id="synticks" d="" stroke="var(--sodium)" stroke-width="2.5" fill="none"/>
+    <rect id="synmark" x="0" y="17" width="0" height="20" fill="none" stroke="var(--sodium)" stroke-width="2" visibility="hidden"/>
+    ${multiDay ? days.map(d => `<text x="${(X(d.start || 0) + (d.start > 0 ? 4 : 0)).toFixed(1)}" y="49" fill="var(--dim)" font-size="11" ${mono}>${esc(dayLab(d.id))}${d.start > 0 ? ' · ' + ms(d.start) : ''}</text>`).join('') : `<text x="0" y="49" fill="var(--dim)" font-size="11" ${mono}>${ms(0)}</text>`}
+    <text x="${SW}" y="49" text-anchor="end" fill="var(--dim)" font-size="11" ${mono}>${ms(J.src_duration || N)}</text></svg>`;
+  const hatchKey = '<svg width="14" height="10" aria-hidden="true" style="margin-right:5px;vertical-align:-1px"><rect width="14" height="10" rx="2" fill="url(#synhatch)"/></svg>';
+  const simB = (S.meta && (S.meta.simulated || []).length) ? ` <span class="sim">SIMULATED: ${esc(S.meta.simulated.join('; '))}</span>` : '';
+  const legend = `<div class="legend syn-legend"><span class="label">Every second of the recording · click to replay</span>
+    <span><i style="background:var(--dim);opacity:.6"></i>came and went</span><span><i style="background:var(--sodium)"></i>on screen now</span>
+    ${L ? `<span><i style="background:var(--line)"></i>camera could see</span>${blindS ? `<span>${hatchKey}camera could NOT see (${blindS} s${blindDays ? ' · ' + esc(blindDays) : ''})${rsTxt ? ': ' + esc(rsTxt) : ''}</span>` : '<span>camera could see every second</span>'}` : '<span>visibility not checked for this camera</span>'}
+    ${other.length ? '<span><i style="border:1px dashed var(--dim);background:transparent"></i>other view · not in this rewind</span>' : ''}${simB}</div>`;
+  v.innerHTML = `<div class="desk syn-desk"><div class="stage">
+    <div class="screen syn-screen" style="--syn-ar:${(J.w / Math.max(1, J.h)).toFixed(4)}"><video id="syn" src="out/${cam}/synopsis.mp4" muted playsinline loop preload="auto"${calm ? '' : ' autoplay'}></video><canvas id="ov"></canvas>
+      <div class="osd" id="osd">REWIND ${mmss(0)}</div><div class="osd r">${ms(srcSpan)} of footage → ${ms(J.out_duration)}</div>
       <div id="tip" class="osd" hidden></div></div>
-    <div class="controls"><button class="btn primary" id="play">Play</button>
-      <input id="scrub" type="range" min="0" max="${J.out_duration}" step="0.05" value="0" aria-label="Rewind position" style="flex:1 1 200px">
-      <span class="mono" id="found" style="font-size:.82rem;color:var(--sodium)"></span></div>
-    ${ledgerStrip(L, J.src_duration)}
+    <div class="controls syn-controls"><button type="button" class="btn primary" id="play" aria-pressed="false">Play</button>
+      <input id="scrub" type="range" min="0" max="${J.out_duration}" step="0.05" value="0" aria-label="Rewind position" style="flex:1 1 140px">
+      <span class="syn-spot" role="group" aria-label="Spotlight"><span class="label">Spotlight</span>${chips}</span>
+      <span class="mono syn-found" id="found" aria-live="polite"></span></div>
+    <div class="strip syn-strip">${legend}${stripSVG}</div>
+    <form class="ask syn-find" id="findf"><input id="find" autocomplete="off" placeholder="Find a vehicle… e.g. white van, truck, bikes" aria-label="Find in the rewind"><button class="btn">Find</button></form>
+    <p class="honesty syn-msg" id="synmsg" role="status" hidden></p>
   </div>
   <aside class="inspector" id="insp"></aside></div>`;
   const vid = $('#syn'), cv = $('#ov'), ctx = cv.getContext('2d'), tip = $('#tip'), msg = $('#synmsg'), playB = $('#play');
@@ -661,7 +696,7 @@ async function viewSynopsis(v){
     sel = g; focus = g; say('');
     const off = (tSrc != null && !isParked(g)) ? Math.max(0, (tSrc - g.src_start) / (g.speed || 1)) : 0, t = vid.currentTime || 0;
     if (!isParked(g) || t < g.out_start || t > g.out_end) vid.currentTime = Math.min(Math.max(g.out_start, g.out_end - 0.1), g.out_start + off);
-    play(); inspectGhost(g, L, home); draw();
+    play(); inspectGhost(g, L, home, dayLab); draw();
   };
   const jump = m => {
     if (!m) return;
@@ -720,7 +755,13 @@ async function viewSynopsis(v){
   }
   const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
   if (window.__synOff) window.__synOff();
-  const onResize = () => draw(); addEventListener('resize', onResize); window.__synOff = () => removeEventListener('resize', onResize);
+  // Fit 1366x768: the video may only be as tall as the space left under the header, so Play stays above the fold.
+  const desk = v.querySelector('.syn-desk'), scr = v.querySelector('.syn-screen'); let topPx = -1;
+  const fit = () => { if (!desk.isConnected) return; const tp = Math.max(0, Math.round(scr.getBoundingClientRect().top + scrollY)); if (tp !== topPx) { topPx = tp; desk.style.setProperty('--syn-top', tp + 'px'); } };
+  const onResize = () => { fit(); draw(); }; addEventListener('resize', onResize);
+  let ro = null; try { ro = new ResizeObserver(onResize); document.querySelectorAll('header.bar, .shell-brief, .thesis').forEach(el => ro.observe(el)); } catch (e) {}
+  window.__synOff = () => { removeEventListener('resize', onResize); if (ro) ro.disconnect(); };
+  fit();
   vid.addEventListener('play', () => { sync(); kick(); }); vid.addEventListener('pause', () => { sync(); draw(); });
   vid.addEventListener('seeked', draw); vid.addEventListener('loadeddata', () => { draw(); play(); });
   playB.onclick = () => { if (vid.paused) vid.play().catch(() => {}); else vid.pause(); };
@@ -736,28 +777,45 @@ async function viewSynopsis(v){
   };
   cv.onmouseleave = () => { hov = null; tip.hidden = true; draw(); };
   cv.onclick = e => { const h = pick(e); if (h) focusOn(h.g); else home(); };
-  const ff = $('#findf');
-  if (ff) {
-    const run = q => { findSet = findIds(I, q, J); v.querySelectorAll('.chip[data-f]').forEach(c => c.setAttribute('aria-pressed', c.dataset.f === q)); if (findSet && vid.paused) { vid.play().catch(() => {}); $('#play').textContent = 'Pause'; } draw(); };
-    ff.onsubmit = e => { e.preventDefault(); run($('#find').value); };
-    $('#find').oninput = e => { if (!e.target.value.trim()) run(''); };
-    v.querySelectorAll('.chip[data-f]').forEach(c => c.onclick = () => { const on = c.getAttribute('aria-pressed') === 'true'; $('#find').value = on ? '' : c.dataset.f; run(on ? '' : c.dataset.f); });
-  }
+  const pressChips = () => v.querySelectorAll('.chip[data-spot]').forEach(c => c.setAttribute('aria-pressed', String(!findSet && c.dataset.spot === spot)));
+  v.querySelectorAll('.chip[data-spot]').forEach(c => c.onclick = () => { spot = c.dataset.spot; S.synSpot = spot; spotSet = spotIds(spot); findSet = null; $('#find').value = ''; say(''); pressChips(); play(); home(); });
+  const runFind = q => {
+    const res = findIds(I, q, J); focus = null;
+    if (!res) { findSet = null; say(''); }
+    else { const inRewind = new Set([...res].filter(id => byId.has(id)));
+      if (res.reason) { findSet = null; say(res.reason); }
+      else if (!inRewind.size) { findSet = null; say(res.size ? `${res.size} matched, but none of them are in this rewind.` : `Nothing matched “${String(q).trim()}”.`); }
+      else { findSet = inRewind; say(''); play(); } }
+    pressChips(); if (sel) home(); else draw();
+  };
+  $('#findf').onsubmit = e => { e.preventDefault(); runFind($('#find').value); };
+  $('#find').oninput = e => { if (!e.target.value.trim()) runFind(''); };
+  $('#synstrip').onclick = e => {
+    const r = e.currentTarget.getBoundingClientRect(); if (!r.width) return;
+    const t = (e.clientX - r.left) / r.width * N, ps = per[Math.floor(t)], outside = win && (t < win[0] || t > win[1]);
+    const mv = ghosts.filter(g => !isParked(g));
+    let g = mv.filter(g => g.src_start <= t && t <= g.src_end).sort((a, b) => b.src_start - a.src_start)[0];
+    if (!g && !outside && !(ps && !ps.visible)) { const near = mv.slice().sort((a, b) => Math.abs(a.src_start - t) - Math.abs(b.src_start - t))[0]; if (near && Math.abs(near.src_start - t) <= Math.max(10, N / 100)) g = near; }
+    if (g) return focusOn(g, Math.max(g.src_start, Math.min(g.src_end, t)));
+    say(outside ? `At ${ms(t)} the camera pointed at another view, so that part is not in this rewind.` : ps && !ps.visible ? `At ${ms(t)} the camera could not see (${why(ps.reason)}), so there is nothing to replay.` : `Nothing moved near ${ms(t)}.`);
+  };
   home();
+  const want = S.synFocus; S.synFocus = null;
+  if (want != null && byId.has(+want)) focusOn(byId.get(+want));
+  sync();
 }
-function inspectGhost(g, L, back){
+function inspectGhost(g, L, back, dayName){
   const box = $('#insp'); if (!box || !g) return;
   const ms = t => mmss(t).slice(0, -2);
   const days = (S.meta && S.meta.days) || [], d = days.find(d => String(d.id) === String(g.day));
-  const whyS = r => r === 'turned_away' ? 'camera pointed elsewhere' : why(r);
   const blind = ((L && L.blind) || []).filter(b => b.end > g.src_start && b.start < g.src_end);
   const blindS = blind.reduce((a, b) => a + Math.min(b.end, g.src_end) - Math.max(b.start, g.src_start), 0);
   const sped = g.speed && g.speed > 1 ? ` · ${(+g.speed).toFixed(1)}× faster` : '';
   box.innerHTML = `<div class="label">In the spotlight</div><h3>${esc(g.name)} #${esc(g.object_id)}</h3>
     ${img(asset(S.cam, `crops/${g.object_id}.jpg`), 'crop', g.name)}
     <dl class="kv"><dt>Really there</dt><dd>${mmss(g.src_start)} – ${mmss(g.src_end)}</dd><dt>For</dt><dd>${(g.src_end - g.src_start).toFixed(1)} s${g.parked ? ' · parked' : ''}</dd>
-    ${days.length > 1 ? `<dt>Day</dt><dd>${esc(d ? d.label : g.day)}</dd>` : ''}<dt>In the rewind</dt><dd>${ms(g.out_start)} – ${ms(g.out_end)}${sped}</dd></dl>
-    ${blind.length ? `<p class="honesty">The camera could not see for ${Math.round(blindS)} s while this ${esc(g.name)} was there (${esc([...new Set(blind.map(b => whyS(b.reason)))].join(', '))}).</p>` : ''}
+    ${days.length > 1 ? `<dt>Day</dt><dd>${esc(dayName ? dayName(g.day) : d ? d.label : g.day)}</dd>` : ''}<dt>In the rewind</dt><dd>${ms(g.out_start)} – ${ms(g.out_end)}${sped}</dd></dl>
+    ${blind.length ? `<p class="honesty">The camera could not see for ${Math.round(blindS)} s while this ${esc(g.name)} was there (${esc([...new Set(blind.map(b => why(b.reason)))].join(', '))}).</p>` : ''}
     ${g.name === 'person' ? '<p class="empty">Shown so you know who was there, never who did anything. Rewind never describes people by how they look.</p>' : ''}
     <button class="btn" id="back" type="button">Back to everyone</button>`;
   $('#back').onclick = () => back ? back() : render();
@@ -779,35 +837,10 @@ async function viewFlow(v){
 }
 
 /* ---------- Yesterday vs today ---------- */
-/* DV-OLD
-async function viewDiff(v){
-  const cam = S.cam, D = await getJSON(`out/${cam}/diff.json`);
-  if (!D) { v.innerHTML = empty((S.meta.days || []).length < 2 ? 'This camera has one recording, so there is no yesterday to compare with.' : 'The comparison for this camera has not been built yet.'); return; }
-  const kinds = ['same', 'arrived', 'left', 'moved', 'swapped'];
-  const kc = {same: '#93A3B8', arrived: '#3CC488', left: '#F0645A', moved: '#E9C84A', swapped: '#B48CF2'};
-  const W = S.meta.w || 1280, H = S.meta.h || 720;
-  v.innerHTML = `<div class="desk"><div class="stage">
-    <div class="reveal" id="rv"><img src="${asset(cam, D.background_a)}" alt="Day A street">
-      <div class="top" id="rvtop"><img src="${asset(cam, D.background_b)}" alt="Day B street"></div>
-      <svg viewBox="0 0 ${W} ${H}" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">${D.changes.filter(c => c.kind !== 'same').map((c, i) => `<rect data-i="${i}" x="${c.box[0]}" y="${c.box[1]}" width="${c.box[2] - c.box[0]}" height="${c.box[3] - c.box[1]}" fill="none" stroke="${kc[c.kind]}" stroke-width="4"/>`).join('')}</svg>
-      <div class="handle" id="rvh"></div><span class="tag" style="left:10px">${esc((S.meta.days[0] || {}).label || 'Day A')}</span><span class="tag" style="right:10px">${esc((S.meta.days[1] || {}).label || 'Day B')}</span></div>
-    <div class="controls"><span class="label">Drag</span><input id="rvx" type="range" min="0" max="100" value="50" style="flex:1 1 240px" aria-label="Compare position"></div>
-    <div class="controls"><div class="stats">${kinds.map(k => `<div class="stat"><b class="mono" style="color:${kc[k]}">${D.counts[k] ?? 0}</b><span>${k}</span></div>`).join('')}</div></div>
-  </div>
-  <aside class="inspector"><div class="label">Changes</div><div class="list" id="chg">${D.changes.filter(c => c.kind !== 'same').concat(D.changes.filter(c => c.kind === 'same')).map(c => `
-    <div class="item" style="cursor:default;grid-template-columns:minmax(0,1fr)"><div><span class="pill ${c.kind}">${c.kind}</span> <span class="s mono">${c.similarity != null ? 'match ' + c.similarity.toFixed(2) : ''}</span></div>
-    <div class="pair"><figure>${img(c.a && asset(cam, c.a.crop), 'crop')}<figcaption>${c.a ? 'A ' + mmss(c.a.t) : 'A: empty'}</figcaption></figure><figure>${img(c.b && asset(cam, c.b.crop), 'crop')}<figcaption>${c.b ? 'B ' + mmss(c.b.t) : 'B: empty'}</figcaption></figure></div>
-    <div class="s">${esc(c.note)}</div></div>`).join('')}</div></aside></div>`;
-  const set = p => { $('#rvtop').style.clipPath = `inset(0 0 0 ${p}%)`; $('#rvh').style.left = p + '%'; };
-  $('#rvx').oninput = e => set(+e.target.value);
-  const rv = $('#rv'); let drag = false;
-  const mv = e => { if (!drag) return; const r = rv.getBoundingClientRect(); const p = Math.min(100, Math.max(0, (e.clientX - r.left) / r.width * 100)); set(p); $('#rvx').value = p; };
-  rv.onpointerdown = e => { drag = true; rv.setPointerCapture(e.pointerId); mv(e); }; rv.onpointermove = mv; rv.onpointerup = () => drag = false;
-}
-// DV-OLD */
 async function viewDiff(v){
   clearInterval(viewDiff._blink); cancelAnimationFrame(viewDiff._raf); clearTimeout(viewDiff._fl);
   const cam = S.cam, D = await getJSON(`out/${cam}/diff.json`), days = S.meta.days || [];
+  if (cam !== S.cam || !v.isConnected) return;  // camera or view changed while loading
   if (!D) {
     const others = (S.cams || []).filter(c => c !== cam), ds = await Promise.all(others.map(c => getJSON(`out/${c}/diff.json`)));
     const two = others.filter((c, i) => ds[i] && ds[i].status !== 'UNKNOWN');
@@ -820,12 +853,12 @@ async function viewDiff(v){
   const dayOf = id => days.find(d => String(d.id) === String(id)) || {};
   const dA = dayOf(D.day_a), dB = dayOf(D.day_b);
   const labA = dA.label || `Day ${D.day_a ?? 'A'}`, labB = dB.label || `Day ${D.day_b ?? 'B'}`;
-  const nice = s => String(s ?? '').split(`day ${D.day_a}`).join(labA).split(`day ${D.day_b}`).join(labB);
+  const nice = s => String(s ?? '').replace(/\s*Tracker also used ids? [^.]*\./g, '').split(`day ${D.day_a}`).join(labA).split(`day ${D.day_b}`).join(labB).split(`Day ${D.day_a}`).join(labA).split(`Day ${D.day_b}`).join(labB);
   const sim = (S.meta.simulated || []).length > 0;
   const place = /car ?park|parking/i.test(`${S.meta.title || ''} ${cam}`) ? 'car park' : 'street';
   const kc = {same: '#93A3B8', arrived: '#3CC488', left: '#F0645A', moved: '#E9C84A', swapped: '#B48CF2'};
   const noun = c => ((/\b(truck|bus|van|motorcycle|bicycle)\b/i.exec(c.note || '') || [0, 'car'])[1]).toLowerCase();
-  const partly = c => c.kind === 'same' && /partly visible/i.test(c.note || '');
+  const partly = c => c.kind === 'same' && (c.unconfirmed || /partly visible/i.test(c.note || ''));
   const pillOf = c => c.kind === 'same' ? (partly(c) ? 'same?' : `same ${noun(c)}`) : c.kind === 'left' ? 'gone' : c.kind === 'arrived' ? 'new' : c.kind === 'swapped' ? `different ${noun(c)}` : String(c.kind || '');
   // Day B's frame corners pushed through the homography: the part of Day A's picture Day B also saw.
   const Hm = Al.ok !== false && Array.isArray(Al.H_b_to_a) && Al.H_b_to_a.length === 3 ? Al.H_b_to_a : null;
@@ -847,27 +880,33 @@ async function viewDiff(v){
   }
   const hl = spot && spot.d >= 70 ? (() => { const fs = Math.min(30, spot.d / 5), L = [`On ${labB} the camera`, 'never looked here:', 'NOT COMPARED'];
     return `<text class="dv-hl" x="${spot.x}" y="${f1(spot.y - fs * 0.85)}" font-size="${f1(fs)}" text-anchor="middle">${L.map((s, i) => `<tspan x="${spot.x}" dy="${i ? f1(fs * 1.2) : 0}">${esc(s)}</tspan>`).join('')}</text>`; })() : '';
-  const span = w => w && w.end != null ? ` · ${mmss(w.start).slice(0, 5)}–${mmss(w.end).slice(0, 5)}` : '';
-  const TA = labA + span(Al.view_a || dA), TB = labB + span(Al.view_b || dB) + (sim ? ' · SIMULATED' : '');
+  const ir = D.infrared || {}, irDay = [D.day_a, D.day_b].find(id => ir[id] && !Object.values(ir).every(Boolean)), irTag = id => id === irDay ? ' · night infrared' : '';
+  const span = w => !w || w.end == null ? '' : sim ? ` · ${mmss(w.start).slice(0, 5)}–${mmss(w.end).slice(0, 5)}` : ` · ${Math.max(1, Math.round((w.seconds ?? (w.end - w.start)) / 60))} min of footage`;
+  const TA = labA + span(Al.view_a || dA) + irTag(D.day_a), TB = labB + span(Al.view_b || dB) + irTag(D.day_b) + (sim ? ' · SIMULATED' : '');
   const nOut = NC.filter(n => /outside|cut off/i.test(n.reason || '')).length, nOther = NC.length - nOut;
   const cars = n => `${n} parked ${n === 1 ? 'car' : 'cars'}`, were = n => n === 1 ? 'was' : 'were';
-  const line = D.status === 'UNKNOWN' ? `CAN'T TELL: ${nice(D.reason || 'the two days could not be compared')}. No car is called gone or new.`
+  const line = (D.status === 'UNKNOWN' ? `CAN'T TELL: ${nice(D.reason || 'the two days could not be compared')}. No car is called gone or new.`
     : moved ? `Only ${pct}% of the ${place} was seen on both days; ${nOut ? `${cars(nOut)} outside it ${were(nOut)} not compared, never called gone.` : 'only that part is compared.'}${nOther ? ` ${nOther} more could not be checked reliably (dashed).` : ''}`
-    : `The camera framing matches on both days, so the whole picture is compared.${NC.length ? ` ${cars(NC.length)} could not be checked reliably (dashed), never called gone.` : ''}`;
+    : `The camera framing matches on both days, so the whole picture is compared.${NC.length ? ` ${NC.length} more ${NC.length === 1 ? 'vehicle' : 'vehicles'} could not be checked reliably (dashed), never called gone.` : ''}`)
+    + (irDay != null && D.status !== 'UNKNOWN' ? ` ${dayOf(irDay).label || irDay} is night infrared with no colour, so a car in the same spot is marked "same?": it can't confirm it is the same car.` : '');
   const STAT = {left: 'gone', arrived: 'new', swapped: 'different car', moved: 'moved', same: 'same car'};
-  const stats = ['left', 'arrived', 'swapped', 'moved', 'same'].filter(k => cnt[k]).map(k => `<div class="stat"><b class="mono" style="color:${kc[k]}">${cnt[k]}</b><span>${STAT[k]}</span></div>`).join('')
+  const unc = CH.filter(c => c.kind === 'same' && c.unconfirmed).length, cn = {...cnt, same: (cnt.same || 0) - unc};
+  const stats = ['left', 'arrived', 'swapped', 'moved', 'same'].filter(k => cn[k] > 0).map(k => `<div class="stat"><b class="mono" style="color:${kc[k]}">${cn[k]}</b><span>${STAT[k]}</span></div>`).join('')
+    + (unc ? `<div class="stat"><b class="mono" style="color:${kc.same}">${unc}</b><span>same spot, car unconfirmed</span></div>` : '')
     + (NC.length ? `<div class="stat"><b class="mono" style="color:var(--blind)">${NC.length}</b><span>not compared</span></div>` : '');
   const parked = D.parked ? `Parked: ${labA} ${D.parked[D.day_a] ?? '?'} · ${labB} ${D.parked[D.day_b] ?? '?'}` : '';
   const alignLine = Al.ok && moved ? `${labB} was lined up onto ${labA} by matching ${Al.inliers} background points (${f1(Al.reproj_px)} px error). Every box is drawn in ${labA}'s picture.`
+    : Al.fixed_view && Al.fixed_view.ok ? `Framing checked by lining up the edges of both days: they differ by ${f1(Math.hypot(Al.fixed_view.dx || 0, Al.fixed_view.dy || 0))} px.`
     : Al.ok ? `Framing checked: ${Al.inliers} background points match between the two days.` : '';
   const ncG = {}; for (const n of NC) { const k = nice(n.reason || 'not compared').replace(/\s*\((?:look )?similarity [^)]*\)/i, ''); ncG[k] = (ncG[k] || 0) + 1; }
   const ix = CH.map((_, i) => i), chg = ix.filter(i => CH[i].kind !== 'same'), same = ix.filter(i => CH[i].kind === 'same');
   const box = i => { const c = CH[i], [x1, y1, x2, y2] = c.box; return `<rect class="dv-chg dv-${esc(c.kind)}" data-i="${i}" x="${x1}" y="${y1}" width="${Math.max(1, x2 - x1)}" height="${Math.max(1, y2 - y1)}" stroke="${kc[c.kind] || '#C9D3E0'}"><title>${esc(pillOf(c))}: ${esc(nice(c.note))}</title></rect>`; };
   const ncRects = NC.filter(n => Array.isArray(n.box)).map(n => { const [x1, y1, x2, y2] = n.box; return `<rect class="dv-nc" x="${x1}" y="${y1}" width="${Math.max(1, x2 - x1)}" height="${Math.max(1, y2 - y1)}"><title>Not compared: ${esc(nice(n.reason))}</title></rect>`; }).join('');
-  const fig = (o, lab) => `<span class="dv-fig">${o && o.crop ? img(asset(cam, o.crop), '', lab) : '<span class="dv-none">empty spot</span>'}<span class="dv-cap">${esc(lab)}${o && o.t != null ? ' ' + mmss(o.t).slice(0, 5) : ''}</span></span>`;
+  const when = (t, d) => sim ? ' ' + mmss(t).slice(0, 5) : ` · ${mmss(t - (d.start || 0)).slice(0, 5)} in`;
+  const fig = (o, lab, d) => `<span class="dv-fig">${o && o.crop ? img(asset(cam, o.crop), '', lab) : '<span class="dv-none">empty spot</span>'}<span class="dv-cap">${esc(lab)}${o && o.t != null ? when(o.t, d) : ''}</span></span>`;
   const card = i => { const c = CH[i]; return `<button class="item dv-card" data-i="${i}" aria-current="false">
     <span class="dv-head"><span class="pill dv-pill dv-${esc(c.kind)}${partly(c) ? ' dv-q' : ''}">${esc(pillOf(c))}</span>${c.similarity != null ? `<span class="s mono">look match ${(+c.similarity).toFixed(2)}</span>` : ''}</span>
-    <span class="dv-pair">${fig(c.a, labA)}${fig(c.b, labB)}</span><span class="s">${esc(nice(c.note))}</span></button>`; };
+    <span class="dv-pair">${fig(c.a, labA, dA)}${fig(c.b, labB, dB)}</span><span class="s">${esc(nice(c.note))}</span></button>`; };
   v.innerHTML = `<div class="desk dv-root"><div class="stage">
     <div class="dv-plate" id="dv-rv">
       <svg id="dv-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`${labA} and ${labB} of the same ${place}, one picture over the other`)}">
@@ -937,7 +976,6 @@ async function viewDiff(v){
     viewDiff._raf = requestAnimationFrame(step);
   }
 }
-// DV-BUILD */
 
 /* ---------- Who came near ---------- */
 async function viewNear(v){
@@ -970,7 +1008,8 @@ async function viewNear(v){
   }
   const cam = S.cam;
   const [N, L, J, D] = await Promise.all(['near', 'ledger', 'synopsis', 'diff'].map(n => getJSON(`out/${cam}/${n}.json`)));
-  if (!N || !(N.targets || []).length) { v.innerHTML = empty('No parked or long-staying vehicles on this camera yet.'); return; }
+  if (cam !== S.cam || !v.isConnected) return;  // camera or view changed while loading
+  if (!N ||!(N.targets || []).length) { v.innerHTML = empty('No parked or long-staying vehicles on this camera yet.'); return; }
   const sub = $('#sub'); if (sub && sub.innerHTML.includes('came within half a car-length')) sub.innerHTML = sub.innerHTML.replace('came within half a car-length', 'came close to it in the picture');
   const M = S.meta || {}, W = M.w || 1280, H = M.h || 720, k = W / 1280; nrSpot.L = L; const T = nrSpots(N.targets, M);
   const ms = t => { t = Math.max(0, Math.floor(+t || 0)); return `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}`; };
@@ -1001,8 +1040,8 @@ async function viewNear(v){
     && (g.day == null || !d || !dayIds.has(String(g.day)) || String(g.day) === String(d.id))
     && (g.src_start == null || (g.src_start <= u.exit_t + 1 && g.src_end >= u.enter_t - 1)));
   const area = t => t.box ? (t.box[2] - t.box[0]) * (t.box[3] - t.box[1]) : 0;
-  const blindOf = t => (t.blind || []).reduce((a, b) => a + Math.max(0, b.end - b.start), 0);
-  const RS = {view_changed: 'camera turned away', blocked: 'camera turned away', turned_away: 'camera turned away', moved: 'camera moving', no_signal: 'no picture', blur: 'picture blurred', dark: 'too dark', frozen: 'picture froze', cut: 'recording cut'};
+  const blindOf = t => spanUnion(t.blind);   // union, so a second covered by two pieces' spans counts once
+  const RS = {...WHY, view_changed: 'camera turned away', blocked: 'camera turned away', cut: 'recording cut'};   // shared WHY words; a blocked view here reads as turned away
   const rtxt = r => [...new Set(String(r || 'unknown').split('+').map(x => RS[x] || why(x)))].join(', ');
   const away = b => /view_changed|blocked|turned_away|moved/.test(b.reason || '') ? 'the camera turned away' : `the camera could not see (${rtxt(b.reason)})`;
   const stay = (t, d) => {
@@ -1086,15 +1125,19 @@ async function viewNear(v){
   const row = (u, t, i, kd) => {
     const o = others(u, i), gg = ghostOf(u, tDay[i]), dur = Math.max(1, Math.round(u.exit_t - u.enter_t));
     const extra = kd === 'past' ? (o.length ? ` · also near ${pl(o.length, 'other parked car', 'other parked cars')}` : ` · near it for ${dur} s`) : kd === 'stop' ? ` · near it for ${dur} s` : '';
-    return `<div class="item nr-v" data-o="${u.object_id}" role="button" tabindex="0" aria-pressed="${hi === u.object_id}">${img(asset(cam, u.crop), '', u.name)}<span><span class="t">${esc(u.name)} #${u.object_id} · closest at <span class="mono">${ms(u.closest_t)}</span></span><br><span class="s">${esc(gapTxt(u, t))} · in view <span class="mono">${ms(u.enter_t)}–${ms(u.exit_t)}</span>${extra}</span>${gg ? `<br><button type="button" class="btn nr-rw" data-rw="${u.object_id}">Show in Rewind</button>` : ''}</span></div>`;
+    const iv = ms(u.enter_t) === ms(u.exit_t) ? `at ${ms(u.enter_t)}` : `${ms(u.enter_t)}–${ms(u.exit_t)}`;   // a 1-second visit reads "at 07:29", not "07:29–07:29"
+    return `<div class="item nr-v" data-o="${u.object_id}" role="button" tabindex="0" aria-pressed="${hi === u.object_id}">${img(asset(cam, u.crop), '', u.name)}<span><span class="t">${esc(u.name)} #${u.object_id} · closest at <span class="mono">${ms(u.closest_t)}</span></span><br><span class="s">${esc(gapTxt(u, t))} · in view <span class="mono">${iv}</span>${extra}</span>${gg ? `<br><button type="button" class="btn nr-rw" data-rw="${u.object_id}">Show in Rewind</button>` : ''}</span></div>`;
   };
   const grp = (g, t, i, kd, title, note, none) => `<section class="nr-g"><div class="nr-gh"><span class="nr-dot ${kd}"></span><b>${title} (${g[kd].length})</b><span class="s">${note}</span></div>
         ${g[kd].length ? `<div class="list nr-list">${g[kd].map(u => row(u, t, i, kd)).join('')}</div>` : `<p class="empty">${none}</p>`}</section>`;
   const pastGrp = (t, g, i) => g.past.length ? `<details class="nr-g nr-past"${g.past.some(u => u.object_id === hi) ? ' open' : ''}><summary><span class="nr-dot past"></span><b>Drove past (${g.past.length})</b><span class="s">${esc(pastNote(g, i))}</span></summary><div class="list nr-list">${g.past.map(u => row(u, t, i, 'past')).join('')}</div></details>` : '';
   const groups = (t, g, i) => grp(g, t, i, 'foot', 'On foot', 'closest first', 'Nobody on foot came this close while it was parked.')
     + grp(g, t, i, 'stop', 'Stopped or lingered', 'a vehicle beside it for 5 s or more, not just driving along the row', 'No vehicle stopped or lingered beside it.') + pastGrp(t, g, i);
+  // Touching or overlapping spans (the ledger splits one freeze at chunk seams) read as one stretch: "05:17–07:04", not seven pieces.
+  const joinB = bl => (bl || []).slice().sort((a, b) => a.start - b.start).reduce((o, b) => { const p = o[o.length - 1];
+    if (p && b.start <= p.end + 1) { p.end = Math.max(p.end, b.end); p.reason = `${p.reason || ''}+${b.reason || ''}`; } else o.push({...b}); return o; }, []);
   const blindNote = t => blindOf(t) >= 0.5
-    ? `<p class="honesty">The camera could not see this ${esc(t.name)} for ${Math.round(blindOf(t))} s while it was parked: ${(t.blind || []).map(b => `${ms(b.start)}–${ms(b.end)} (${esc(rtxt(b.reason))})`).join(', ')}. Anyone near it then is not on this list.</p>`
+    ? `<p class="honesty">The camera could not see this ${esc(t.name)} for ${Math.round(blindOf(t))} s while it was parked: ${joinB(t.blind).map(b => `${ms(b.start)}–${ms(b.end)} (${esc(rtxt(b.reason))})`).join(', ')}. Anyone near it then is not on this list.</p>`
     : (t.gaps || []).length ? '' : `<p class="honesty" style="border-color:var(--present)">The camera could see this ${esc(t.name)} for every second it was parked.</p>`;
   const tlLegend = '<div class="legend"><span class="label">While it was parked</span><span><i style="background:#F2A93B"></i>on foot</span><span><i style="background:#7FB6FF"></i>stopped or lingered</span><span><i style="background:rgba(127,182,255,.35)"></i>drove past</span><span><i style="background:repeating-linear-gradient(45deg,#8C99AB 0 2px,#2A3442 2px 5px)"></i>camera could not see</span></div>';
   const body = () => {
@@ -1161,7 +1204,9 @@ async function viewNear(v){
     nb.onkeydown = e => { const r = e.target.closest('.nr-v'); if (r && e.target === r && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setHi(+r.dataset.o); } };
   };
   layout(); wire(); wire2();
-  pick(best(T.map((_, i) => i)));
+  const f = S.focus, fi = f && f.object_id != null && !f.done ? T.findIndex(s => s.parts.some(p => p.object_id === +f.object_id)) : -1;
+  if (fi >= 0) f.done = true;
+  pick(fi >= 0 ? fi : best(T.map((_, i) => i)));
 }
 async function viewNearOld(v){
   const cam = S.cam, N = await getJSON(`out/${cam}/near.json`), L = await getJSON(`out/${cam}/ledger.json`);
@@ -1194,7 +1239,6 @@ async function viewNearOld(v){
 /* ---------- Ask ---------- */
 async function viewAsk(v){
   const cam = S.cam, meta = S.meta || {};
-  const sourceLabel = (meta.simulated || []).some(s => /synthetic/i.test(s)) ? 'SYNTHETIC DEMO' : 'RECORDED';
   const [Q, L] = await Promise.all([getJSON(`out/${cam}/qa.json`), getJSON(`out/${cam}/ledger.json`)]);
   if (S.cam !== cam || S.mode !== 'ask') return;
   const raw = Q ? (Array.isArray(Q) ? Q : (Q.items || Q.questions || [])) : [];
@@ -1216,7 +1260,7 @@ async function viewAsk(v){
   const chips = [], add = c => { if (c && c.q && !chips.some(x => norm(x.q) === norm(c.q))) chips.push(c); };
   add(near0); add(still0); add({q: `Who dented ${defPhrase}?`, t: null}); add({q: 'Find the man in the black shirt', t: null}); items.forEach(add);
   v.innerHTML = `<div class="desk askv"><div class="stage">
-    <div class="screen" style="aspect-ratio:${+meta.w || 1280}/${+meta.h || 720}"><img class="plate" id="aplate" alt="The street, empty background for the day shown"><canvas id="aov" style="cursor:default"></canvas><div class="osd" id="aosd">${sourceLabel} · ${esc(meta.title || cam)}</div></div>
+    <div class="screen" style="aspect-ratio:${+meta.w || 1280}/${+meta.h || 720}"><img class="plate" id="aplate" alt="The street, empty background for the day shown"><canvas id="aov" style="cursor:default"></canvas><div class="osd" id="aosd">RECORDED · ${esc(meta.title || cam)}</div></div>
     <form class="ask" id="askf"><input id="q" autocomplete="off" placeholder="${esc(`Is ${defPhrase} still there?`)}" aria-label="Your question"><button class="btn primary">Ask</button></form>
     <div class="controls">${chips.slice(0, 9).map(c => `<button class="chip" type="button" aria-pressed="false" data-q="${esc(c.q)}"${c.t != null ? ` data-t="${esc(c.t)}"` : ''}>${esc(c.q)}</button>`).join('')}</div>
     <div class="answer" id="ans"><p class="empty">Ask anything about what the camera saw. Try one of the questions above.</p></div></div>
@@ -1287,7 +1331,7 @@ async function viewAsk(v){
     v.querySelectorAll('.chip[data-q]').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.q === q)));
     if (byLooks(q)) {
       ans.innerHTML = `<div class="label">people · refused by design</div><div class="askv-v sm askv-hatch">WON'T SEARCH BY LOOKS</div>
-        <p class="askv-lead">Street Time Machine never describes or searches people by how they look: no clothing, skin, gender or face. Ask about vehicles, or who came near a car.</p>`;
+        <p class="askv-lead">Time Search never describes or searches people by how they look: no clothing, skin, gender or face. Ask about vehicles, or who came near a car.</p>`;
       drawEvidence({evidence: []}); return;
     }
     if (BLAME.test(q)) {
@@ -1333,11 +1377,9 @@ async function drawEvidence(r, opt = {}){
     const n = new Map(); for (const e of ev) { const d = dayAt(+e.t); n.set(d, (n.get(d) || 0) + 1); }
     day = [...n.entries()].sort((a, b) => b[1] - a[1] || (+b[0].start) - (+a[0].start))[0][0];
   }
-  const fb = meta.background ? asset(cam, meta.background) : (!day || !(meta.simulated || []).length) ? asset(cam, 'background.jpg') : '';
-  const customBackground = (day && day.background) || (days.length <= 1 && meta.background);
-  const want = customBackground ? asset(cam, customBackground) : day ? asset(cam, `background_${day.id}.jpg`) : fb;
-  const sourceLabel = (meta.simulated || []).some(s => /synthetic/i.test(s)) ? 'SYNTHETIC DEMO' : 'RECORDED';
-  if (osd) osd.textContent = `${sourceLabel} · ${meta.title || cam}${day ? ' · ' + (day.label || day.id) : ''}`;
+  const fb = (!day || !(meta.simulated || []).length) ? asset(cam, 'background.jpg') : '';
+  const want = day ? asset(cam, `background_${day.id}.jpg`) : fb;
+  if (osd) osd.textContent = `RECORDED · ${meta.title || cam}${day ? ' · ' + (day.label || day.id) : ''}`;
   if (plate && want && plate.dataset.want !== want) {
     plate.dataset.want = want; plate.dataset.fb = want === fb ? '' : fb; plate.style.visibility = '';
     plate.onerror = () => { const f = plate.dataset.fb; plate.dataset.fb = ''; if (f) plate.src = f; else plate.style.visibility = 'hidden'; };
@@ -1405,11 +1447,10 @@ async function viewCaptions(v){
     : r.class_differs ? `<span class="pill cx-amber" title="The two AIs split car / van / truck differently">Backed up · car/truck split</span>`
     : r.count_differs ? `<span class="pill cx-amber" title="Same things seen, numbers differ">Backed up · count differs</span>`
     : `<span class="pill consistent">Backed up</span>`;
-  const dayStart = {};
-  for (const r of (R && R.rows) || []) if (r.day && !(r.day in dayStart && dayStart[r.day] <= r.start)) dayStart[r.day] = r.start;
-  const when = r => r.day ? `${esc(r.day_label || r.day)} · ${mmss(r.start - (dayStart[r.day] || 0))}–${mmss(r.end - (dayStart[r.day] || 0))}` : `${esc(r.clip)} · ${mmss(r.start)}–${mmss(r.end)}`;
-  const row = (r, live) => `<div class="row cx-row">${r.strip ? img(cap(r.strip), 'cx-rowstrip', '6 frames from this segment') : img(cap(r.frame), '', 'frame from this segment')}
-    <div class="cx-body"><div>${verdict(r)} <span class="counts">${when(r)}</span>${r.detector_suspect ? ' <span class="pill moved" title="' + esc(r.detector_reason || '') + '">detector suspect</span>' : ''}${r.repeats ? ` <span class="pill unverifiable">caption repeats itself ×${r.repeats + 1}</span>` : ''}</div>
+  // Event rows sit on the camera timeline, the same clock as Who came near, Ask and Rewind ("2 Sep · 18:09" there means 18:09 here too).
+  const when = r => r.day ? `${esc(r.day_label || r.day)} · ${mmss(r.start)}–${mmss(r.end)}` : `${esc(r.clip)} · ${mmss(r.start)}–${mmss(r.end)}`;
+  const row = (r, live) => `<div class="row cx-row${r.strip || r.frame ? '' : ' cx-nopic'}">${r.strip ? img(cap(r.strip), 'cx-rowstrip', '6 frames from this segment') : img(cap(r.frame), '', 'frame from this segment')}
+    <div class="cx-body"><div>${verdict(r)} <span class="counts">${when(r)}</span>${r.detector_suspect ? ' <span class="pill moved" title="' + esc(r.detector_reason || '') + '">detector suspect</span>' : ''}${r.repeats ? ` <span class="pill unverifiable">caption repeats ${r.repeats} sentence${r.repeats > 1 ? 's' : ''}</span>` : ''}</div>
       <p class="cx-cap">${hl(r.caption, r)}</p>
       <div class="cx-cols"><div><span class="label">Video AI said</span><b>${esc(said(r))}</b></div>
         <div><span class="label">${live ? 'Detector counted' : "Pipeline's detector counted"}</span><b>${esc(counts(r.pipeline_counts))}</b></div>

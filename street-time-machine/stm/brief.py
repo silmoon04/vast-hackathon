@@ -3,7 +3,8 @@
 Built by plain rules from whatever outputs already exist under out/<cam>/ (ledger, diff, near,
 moments, flow, synopsis, index; meta for duration and SIMULATED notes). Missing or half-written
 inputs are skipped and listed. Every number in the text is copied (or summed/rounded) from an
-input file or from stm.data.objects(cam); nothing is guessed.
+input file or from stm.data.objects(cam); nothing is guessed. Blind time is the ledger's own
+blind_total_s (per day: blind_by_day) when it has one, so the brief prints the same number as every view.
 
     python -m stm.brief [cams...]      -> out/<cam>/brief.json + out/<cam>/brief_summary.txt
 """
@@ -24,7 +25,9 @@ MAX_BULLETS = 6
 REASON_WORDS = {
     "dark": "too dark", "blur": "blurry picture", "frozen": "picture froze", "blocked": "view blocked",
     "no_signal": "no picture", "camera_moving": "camera moving", "view_changed": "camera pointed elsewhere",
+    "turned_away": "camera turned away", "moved": "camera moving",
 }
+NO_COLOUR = {None, "", "null", "none", "None", "unknown"}  # index rows with no readable colour (night infrared, ...)
 PLURAL = {"person": "people", "bus": "buses", "stretch": "stretches"}
 
 
@@ -130,6 +133,51 @@ def stretches(spans: list[tuple[float, float, str]]) -> list[tuple[float, float]
         else:
             out.append([s, e])
     return [(s, e) for s, e in out]
+
+
+def ledger_blind_total(ledger: dict[str, Any]) -> float:
+    """The ledger's own blind total (`blind_total_s`, the one number every view prints) when it has one,
+    else the merged sum of its spans."""
+    v = ledger.get("blind_total_s")
+    if v is not None:
+        try:
+            return float(v)
+        except (TypeError, ValueError):
+            pass
+    return blind_seconds(merged_blind(ledger))
+
+
+def ledger_blind_by_reason(ledger: dict[str, Any]) -> Counter:
+    """Blind seconds per reason: `blind_by_reason`, else summed over `blind_by_day`, else over the spans."""
+    by: Counter = Counter()
+    if isinstance(ledger.get("blind_by_reason"), dict):
+        for r, v in ledger["blind_by_reason"].items():
+            by[str(r)] += float(v or 0)
+    elif isinstance(ledger.get("blind_by_day"), list):
+        for d in ledger["blind_by_day"]:
+            for r, v in (d.get("by_reason") or {}).items():
+                by[str(r)] += float(v or 0)
+    else:
+        for s, e, r in merged_blind(ledger):
+            by[r] += e - s
+    return Counter({r: v for r, v in by.items() if v > 0})
+
+
+def colour_counts(index: dict[str, Any]) -> tuple[list[tuple[str, int]], int]:
+    """Vehicle colours, most common first, and how many vehicles have one. Null colours are skipped.
+
+    Uses the index's own `colours` / `n_coloured` (vehicles only). An older index without `n_coloured`
+    also coloured people, so its vehicle rows are counted directly."""
+    objs = index.get("objects") or []
+    if index.get("n_coloured") is None and any("colour" in o and "name" in o for o in objs):
+        c = Counter(str(o["colour"]) for o in objs
+                    if o.get("colour") not in NO_COLOUR and o.get("name") in data.VEHICLES)
+        cols = list(c.items())
+    else:
+        cols = [(str(k), int(v)) for k, v in (index.get("colours") or {}).items() if k not in NO_COLOUR and int(v or 0)]
+    cols.sort(key=lambda kv: (-kv[1], kv[0]))
+    n = int(index["n_coloured"]) if index.get("n_coloured") is not None else sum(v for _, v in cols)
+    return cols, n
 
 
 def blind_seconds(spans: list[tuple[float, float, str]]) -> float:
@@ -305,12 +353,15 @@ def build(cam: str, inputs: dict[str, Any], counts: dict[str, Any] | None = None
     # ---- highlight moments
     if moments and moments.get("moments"):
         used.append("moments.json")
-        skip = {"blind"} | ({"arrival", "departure"} if diff else set())
-        prio = {"crowd": 21, "close_pass": 23, "long_stay": 30}
+        # "Person stays N s" (long_stay) is not news on its own: it is dropped here, at the source
+        skip = {"blind", "long_stay"} | ({"arrival", "departure"} if diff else set())
+        prio = {"crowd": 21, "close_pass": 23}
         best: dict[str, dict[str, Any]] = {}  # best-scoring moment of each kind, so kinds do not repeat
         for m in moments["moments"]:
             k = m.get("kind")
-            if k not in skip and (k not in best or float(m.get("score") or 0) > float(best[k].get("score") or 0)):
+            if k in skip or str(m.get("title") or "").startswith("Person stays"):
+                continue
+            if k not in best or float(m.get("score") or 0) > float(best[k].get("score") or 0):
                 best[k] = m
         ms = sorted(best.values(), key=lambda m: (prio.get(m.get("kind"), 35), -float(m.get("score") or 0)))
         for i, m in enumerate(ms[:3]):
@@ -342,35 +393,55 @@ def build(cam: str, inputs: dict[str, Any], counts: dict[str, Any] | None = None
         gn = [str(g.get("name")) for g in syn["ghosts"] if g.get("name")]
         what = breakdown(gn) if len(gn) == G and len(set(gn)) <= 3 else f"{G} people and vehicles"
         if G:
-            bullets.append(_bullet(f"A {dur(syn.get('out_duration', 0))} replay shows {what} "
-                                   f"from the {dur(syn.get('src_duration', 0))} recording at once.", "replay", None, None, 38))
+            src = float(syn.get("src_duration") or 0)
+            frm = f"the {dur(src)} recording"
+            win = syn.get("src_window")
+            if isinstance(win, (list, tuple)) and len(win) == 2 and None not in win:
+                span = max(0.0, float(win[1]) - float(win[0]))  # the replay only shows this stretch
+                if src and span < src - 1.0:
+                    lab = str(syn.get("view_label") or "").strip()
+                    frm = f"{dur(span)} of the {dur(src)} recording" + (f" ({lab})" if lab else "")
+                else:
+                    frm = f"the {dur(span)} recording"
+            bullets.append(_bullet(f"A {dur(syn.get('out_duration', 0))} replay shows {what} from {frm} at once.",
+                                   "replay", None, None, 38))
 
     # ---- colours
-    if index and index.get("colours"):
+    if index and (index.get("colours") or index.get("n_vehicles")):
         used.append("index.json")
-        cols = sorted(index["colours"].items(), key=lambda kv: (-int(kv[1]), kv[0]))
-        n_obj = len(index.get("objects", [])) or sum(int(v) for _, v in cols)
-        bullets.append(_bullet(f"Most common colour: {join_and([f'{c} ({n})' for c, n in cols[:3]])}"
-                               f" of {n_obj} people and vehicles.", "colour", None, None, 39))
+        cols, n_col = colour_counts(index)
+        if cols and n_col:
+            bullets.append(_bullet(f"Most common colour: {join_and([f'{c} ({n})' for c, n in cols[:3]])}"
+                                   f" of {n_col} {noun('vehicle', n_col)}.", "colour", None, None, 39))
+        n_veh = index.get("n_vehicles")
+        if n_veh is not None and int(n_veh) > n_col:
+            nc = int(n_veh) - n_col
+            honesty.append(f"{nc} of {int(n_veh)} vehicles {'has' if nc == 1 else 'have'} no colour (seen at night "
+                           f"or too dark or small to read), so the colour count leaves {'it' if nc == 1 else 'them'} out.")
 
     # ---- can the camera see? (honesty + headline tail)
     tail = None
     if ledger is not None:
         used.append("ledger.json")
         spans = merged_blind(ledger)
-        tot = blind_seconds(spans)
+        tot = ledger_blind_total(ledger)  # the ledger's own total when it has one, so every view agrees
         if tot >= 0.5:
-            by = Counter()
-            for s, e, r in spans:
-                by[r] += e - s
+            by = ledger_blind_by_reason(ledger)
             why = join_and([f"{dur(v)} {REASON_WORDS.get(r, r.replace('_', ' '))}" for r, v in by.most_common()])
             runs = stretches(spans)
-            longest = max(runs, key=lambda x: x[1] - x[0])
             most = duration is not None and duration > 0 and tot >= 0.9 * duration
             tail = f"the camera could not see for {dur(tot)}" + (f" of the {dur(duration)}" if most else "")
-            first_notes.append(f"The camera could not see for {dur(tot)} in total, in {len(runs)} "
-                               f"{noun('stretch', len(runs))} ({why}); the longest was "
-                               f"{mmss(longest[0])} to {mmss(longest[1])}. Anything that happened then is unknown.")
+            days = [d for d in ledger.get("blind_by_day") or [] if d.get("blind_s") is not None]
+            per_day = (" (" + join_and([f"{dur(float(d['blind_s']))} on {d.get('label') or d.get('day')}"
+                                        for d in days]) + ")") if len(days) > 1 else ""
+            note = f"The camera could not see for {dur(tot)} in total{per_day}"
+            if runs:
+                longest = max(runs, key=lambda x: x[1] - x[0])
+                note += (f", in {len(runs)} {noun('stretch', len(runs))} ({why}); the longest was "
+                         f"{mmss(longest[0])} to {mmss(longest[1])}")
+            elif why:
+                note += f" ({why})"
+            first_notes.append(note + ". Anything that happened then is unknown.")
             if most and counts and counts.get("total", 0) > 0:
                 first_notes.append(f"The camera check says the view was hidden for most of the clip, but the detector "
                                f"still found {counts['total']} {noun('thing', counts['total'])}; one of the two is wrong.")
@@ -417,14 +488,14 @@ def run(cam: str) -> dict[str, Any]:
         sim = data.CAMS.get(cam, {}).get("simulated", [])
     b = build(cam, inputs, counts, sim, missing, root)
     data.write_json(root / "brief.json", b)
-    blind = blind_seconds(merged_blind(inputs["ledger"])) if "ledger" in inputs else None
+    blind = ledger_blind_total(inputs["ledger"]) if "ledger" in inputs else None
     lines = [f"brief for {cam}",
              f"headline: {b['headline']}",
              f"bullets: {len(b['bullets'])} {dict(Counter(x['kind'] for x in b['bullets']))}",
              f"honesty notes: {len(b['honesty'])}",
              f"generated from: {', '.join(b['generated_from']) or 'nothing'}",
              f"missing: {', '.join(b['missing']) or 'none'}",
-             f"blind seconds (ledger, merged): {'not available' if blind is None else round(blind, 2)}"]
+             f"blind seconds (ledger total): {'not available' if blind is None else round(blind, 2)}"]
     if "diff" in inputs:
         lines.append(f"diff counts: {inputs['diff'].get('counts')}")
     if counts is not None:

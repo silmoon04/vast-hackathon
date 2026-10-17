@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 
 import cv2
 import numpy as np
@@ -15,15 +16,17 @@ VISITOR_KEYS = {"object_id", "name", "closest_t", "gap_px", "gap_rel", "enter_t"
 
 
 @pytest.fixture(scope="module")
-def blind():
-    """Real blind spans, kept fast: our own check over 60-260 s (covers the 68 s cut and the
-    155-252 s PTZ swing) plus the ledger's spans when the ledger module has run."""
-    spans = near.own_blind(CAM, 60.0, 260.0)
-    p = data.OUT / CAM / "ledger.json"
-    if p.exists():
-        spans += [{"start": float(b["start"]), "end": float(b["end"]), "reason": str(b["reason"]),
-                   "score": float(b.get("score") or 0.0)} for b in json.loads(p.read_text(encoding="utf-8"))["blind"]]
-    return spans, "own 60-260 s + ledger"
+def own():
+    """Our own fallback check, kept fast: 60-260 s covers the 68 s cut and the 155-252 s PTZ swing."""
+    return near.own_blind(CAM, 60.0, 260.0)
+
+
+@pytest.fixture(scope="module")
+def blind(own):
+    """What scan uses: the ledger's spans alone when the ledger module has run, else our own check."""
+    if (data.OUT / CAM / "ledger.json").exists():
+        return near.blind_spans(CAM)
+    return own, "own 60-260 s"
 
 
 @pytest.fixture(scope="module")
@@ -52,16 +55,46 @@ def test_merge_spans_joins_overlaps():
     assert m[0]["reason"] == "frozen+dark"
 
 
-def test_view_change_found_on_ptz(blind):
+def test_view_change_found_on_ptz(own, blind):
     spans, src = blind
     # the PTZ camera swings away between ~155 s and ~252 s; that must be blind, the stable start must not be
     merged = near.merge_spans(spans)
     away = sum(max(0.0, min(252, s["end"]) - max(158, s["start"])) for s in merged)
     assert away >= 0.5 * (252 - 158), merged
-    # the small re-aim at ~68 s is caught by our own check
-    assert any(s["reason"] == "view_changed" and s["start"] <= 69 and s["end"] >= 68 for s in spans), spans
-    assert not any(s["start"] < 50 and s["end"] > 1 for s in merged), merged
+    for sp in (spans, own):
+        assert not any(s["start"] < 50 and s["end"] > 1 for s in near.merge_spans(sp)), sp
+    # the small re-aim at ~68 s is caught by our own (fallback) check
+    assert any(s["reason"] == "view_changed" and s["start"] <= 69 and s["end"] >= 68 for s in own), own
     assert src
+
+
+def _ledger_dir(tmp_path, monkeypatch, blind):
+    (tmp_path / "ledger.json").write_text(json.dumps({"camera": "x", "blind": blind}), encoding="utf-8")
+    monkeypatch.setattr(near.data, "out_dir", lambda cam: tmp_path)
+
+
+def test_ledger_spans_only_when_ledger_exists(tmp_path, monkeypatch):
+    """The ledger records camera motion itself (moved / turned_away): no own view_changed spans on top."""
+    _ledger_dir(tmp_path, monkeypatch, [{"start": 156.0, "end": 168.0, "reason": "moved", "score": 0.75},
+                                        {"start": 168.0, "end": 206.0, "reason": "turned_away", "score": 1.0}])
+
+    def boom(*a, **k):
+        raise AssertionError("own check must not run when the ledger exists")
+    monkeypatch.setattr(near, "own_blind", boom)
+    spans, src = near.blind_spans("x")
+    assert src == "ledger.json"
+    assert [(s["start"], s["end"], s["reason"]) for s in spans] == [(156.0, 168.0, "moved"),
+                                                                     (168.0, 206.0, "turned_away")]
+
+
+def test_own_check_when_ledger_missing_or_unreadable(tmp_path, monkeypatch):
+    own = [{"start": 1.0, "end": 2.0, "reason": "view_changed", "score": 0.3}]
+    monkeypatch.setattr(near, "own_blind", lambda cam: own)
+    monkeypatch.setattr(near.data, "out_dir", lambda cam: tmp_path)
+    spans, src = near.blind_spans("x")
+    assert spans == own and "not found" in src
+    (tmp_path / "ledger.json").write_text('{"camera": "x", "bli', encoding="utf-8")  # half-written
+    assert near.blind_spans("x")[0] == own
 
 
 def test_contract_and_truth(result, blind):
@@ -69,7 +102,7 @@ def test_contract_and_truth(result, blind):
     objs = near.objects(CAM).set_index("id")
     assert result["camera"] == CAM
     tg = result["targets"]
-    assert 0 < len(tg) <= near.MAX_TARGETS
+    assert near.MAX_TARGETS is None and len(tg) == len(near.pick_targets(near.objects(CAM))[0]) > 0  # all written
     counts = [len(t["visitors"]) for t in tg]
     assert counts == sorted(counts, reverse=True)
     for t in tg:
@@ -130,4 +163,8 @@ def test_written_output_if_present():
             img = cv2.imread(str(data.OUT / CAM / rel))
             assert img is not None and img.shape[0] > 4 and img.shape[1] > 4, rel
     summ = (data.OUT / CAM / "near_summary.txt").read_text(encoding="utf-8")
-    assert "capped at 40" in summ
+    if "capped at 40" in summ:
+        pytest.skip("near.json predates the uncapped writer: rerun python -m stm.near " + CAM)
+    found, written = map(int, re.search(r"targets found: (\d+); written: (\d+)", summ).groups())
+    assert found == written == len(r["targets"])
+    assert "own view-change" not in summ  # one blind record: the ledger's, when it exists

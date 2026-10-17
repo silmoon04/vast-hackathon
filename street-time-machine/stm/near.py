@@ -3,8 +3,10 @@
 Targets  = parked vehicles (objects(cam).parked); on cameras with none, vehicles on screen >= 10 s.
 Visitors = other *moving* tracks whose edge-to-edge box gap to the target, divided by the target's
            box height, drops to <= 0.5 at a moment the camera could actually see (not blind).
-Blind    = ledger.json spans when the ledger module has run, plus our own cheap check
-           (dark / frozen / camera moving or cutting), so a camera pan never manufactures visitors.
+Blind    = ledger.json spans when the ledger module has run (it records camera motion itself as
+           "moved" / "turned_away"), else our own cheap check (dark / frozen / camera moving or cutting),
+           so a camera pan never manufactures visitors.
+Every target is written (no cap), sorted by number of visitors.
 The summary says who was near. It never says who did anything.
 
 CLI: python -m stm.near [cams...]
@@ -25,7 +27,7 @@ import pandas as pd
 from stm import data
 
 NEAR_REL = 0.5          # visitor if gap / target box height <= this
-MAX_TARGETS = 40        # per camera, sorted by number of visitors
+MAX_TARGETS = None      # per camera cap (None = write every target), sorted by number of visitors
 LONG_LIVED_S = 10.0     # fallback target rule on cameras with no parked vehicle
 DUP_IOU = 0.5           # a track overlapping the target this much is the target re-detected
 MOVE_REL = 0.5          # a vehicle visitor must travel >= this x its own box width (outside blind time)
@@ -123,21 +125,20 @@ def merge_spans(spans: list[dict[str, Any]], gap: float = 0.0) -> list[dict[str,
 
 
 def blind_spans(cam: str) -> tuple[list[dict[str, Any]], str]:
-    """Ledger blind spans if the ledger ran, plus our own view-change check (else our full check).
+    """Ledger blind spans if the ledger ran (it records camera motion as "moved" / "turned_away"),
+    else our own full check. Never both: one camera, one blind record.
 
     Returned unmerged, one reason per entry, so a target only reports reasons inside its own window."""
-    own = own_blind(cam)
     lp = data.out_dir(cam) / "ledger.json"
     if lp.exists():
         try:
             led = json.loads(lp.read_text(encoding="utf-8")).get("blind", [])
             led = [{"start": float(b["start"]), "end": float(b["end"]), "reason": str(b.get("reason") or "blind"),
                     "score": float(b.get("score") or 0.0)} for b in led]
-            # the ledger has no camera-motion reason; keep ours for that
-            return led + [b for b in own if b["reason"] == "view_changed"], "ledger.json + own view-change check"
-        except (ValueError, KeyError, TypeError):
+            return led, "ledger.json"
+        except (OSError, ValueError, KeyError, TypeError, AttributeError):
             pass
-    return own, "own check (dark / frozen / view changed), ledger.json not found"
+    return own_blind(cam), "own check (dark / frozen / view changed), ledger.json not found or unreadable"
 
 
 def in_spans(t: np.ndarray, spans: list[dict[str, Any]]) -> np.ndarray:
@@ -246,7 +247,7 @@ def plural(n: int, name: str) -> str:
     return f"{n} {word[0] if n == 1 else word[1]}"
 
 
-def scan(cam: str, crops: bool = True, max_targets: int = MAX_TARGETS, write: bool = True) -> dict[str, Any]:
+def scan(cam: str, crops: bool = True, max_targets: int | None = MAX_TARGETS, write: bool = True) -> dict[str, Any]:
     t0 = time.time()
     df = data.tracks(cam)
     df = df[df.tid >= 0]
@@ -286,7 +287,8 @@ def scan(cam: str, crops: bool = True, max_targets: int = MAX_TARGETS, write: bo
 
     found.sort(key=lambda x: (-len(x["visitors"]), -(x["end"] - x["start"]), x["object_id"]))
     total = len(found)
-    found = found[:max_targets]
+    if max_targets is not None:
+        found = found[:max_targets]
     for tg in found:
         groups: dict[str, set[int]] = {}
         for v in tg["visitors"]:
@@ -324,7 +326,8 @@ def scan(cam: str, crops: bool = True, max_targets: int = MAX_TARGETS, write: bo
     lines = [
         f"near: {cam}",
         f"target rule: {rule}",
-        f"targets found: {total}; written: {len(found)} (capped at {max_targets}, sorted by number of visitors)",
+        f"targets found: {total}; written: {len(found)} "
+        f"({'no cap' if max_targets is None else f'capped at {max_targets}'}, sorted by number of visitors)",
         f"targets with >= 1 visitor: {sum(1 for t in found if t['visitors'])}",
         f"visitor entries (gap <= {NEAR_REL} x target box height, seen while camera visible): {nvis} {by}",
         f"moving candidate tracks: {len(cands)}",

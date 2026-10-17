@@ -1,0 +1,18 @@
+{
+  "segments": "./segments.json",
+  "captions": "./captions-reviewed.json",
+  "index": "./caption-index.sqlite3",
+  "html": "index.html",
+  "camera_manifest": "./camera-manifest.json",
+  "prepared_dir": "./segments",
+  "detections": "./detections.json",
+  "caption_vectors": "./caption-vectors.npz",
+  "visual_vectors": "./visual-vectors.npz",
+  "videos": {},
+  "port": 18806,
+  "top_k": 8,
+  "embedding": {"url": "http://127.0.0.1:8003/v1/embeddings", "model": "nvidia/cosmos-embed1", "checkpoint": "787e0b996f5260a71ad474a283c90539a2e12986", "timeout": 20, "video_timeout": 300, "batch_size": 4},
+  "segment_seconds": 5,
+  "yolo": {"weights": "./models/yolo.pt", "stride": 3, "device": 0, "image_size": 640, "confidence": 0.25, "torch_threads": 4},
+  "ssh": {"target": "user@example-host", "command": "python3 ~/deepseek_worker.py --stdin", "timeout": 90}
+}

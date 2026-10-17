@@ -1,0 +1,458 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Pipeline Audit</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="A clip with known truth pushed through the VSS pipeline, scored segment by segment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Judge-facing audit of the VSS pipeline. Same night-street palette and type as ui/index.html (its :root tokens are
+   copied unchanged); picture states reuse its semantic colours: live = present green, frozen = moved yellow,
+   black = no picture, ir = pale steel (a black-and-white picture). Every number comes from out/stm-test-honesty/audit.json. */
+:root{
+  --night:#0F1724; --panel:#162131; --raised:#1D2A3D; --line:#2A3A52; --ink:#E6ECF4; --dim:#93A3B8;
+  --sodium:#F2A93B; --sodium-ink:#1B1406; --present:#3CC488; --gone:#F0645A; --blind:#6B778A; --moved:#E9C84A; --swap:#B48CF2;
+  --ir:#9FB3C8; --black:#04060A;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--night);color:var(--ink)}
+body{margin:0;font:15px/1.5 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px;overflow-x:hidden}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;text-wrap:balance}
+button{font:inherit;color:inherit}
+a{color:var(--sodium)}
+:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.label{font-family:var(--display);font-weight:600;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+header.bar{border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding-block:12px}
+.brand{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;min-width:0}
+.brand h1{font-size:1.45rem;font-weight:700;letter-spacing:.02em}
+.brand h1 b{color:var(--sodium)}
+.bar .back{margin-left:auto;font-size:.82rem;color:var(--dim)}
+.badge{font-family:var(--mono);font-size:.72rem;padding:1px 7px;border-radius:3px;border:1px solid rgba(60,196,136,.55);color:var(--present);white-space:nowrap}
+.thesis{display:flex;flex-direction:column;gap:8px;padding-block:20px 14px}
+.thesis h2{font-size:clamp(1.45rem,3.6vw,2.2rem);font-weight:600;max-width:30ch}
+.thesis p{margin:0;color:var(--dim);max-width:72ch}
+.thesis p b{color:var(--ink);font-weight:500}
+section{margin-top:16px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0}
+.pad{padding:14px}
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 14px;margin-bottom:10px}
+.head h3{font-size:1.2rem;font-weight:600}
+.head p{margin:0;font-size:.84rem;color:var(--dim)}
+
+/* score cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card.key{border-left:3px solid var(--sodium)}
+.card .big{font-family:var(--display);font-weight:700;font-size:2.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.card .big small{font-size:1.2rem;color:var(--dim);font-weight:600}
+.card p{margin:0;font-size:.84rem;color:#C4CDD9}
+.card .yn{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;align-items:center;font-size:.9rem}
+.pill{display:inline-block;font-family:var(--display);font-weight:600;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.pill.yes{background:rgba(60,196,136,.16);color:var(--present)}
+.pill.no{background:rgba(240,100,90,.18);color:var(--gone)}
+.pill.na{background:rgba(107,119,138,.22);color:#B5C0CE}
+.pill.st-live{background:rgba(60,196,136,.16);color:var(--present)}
+.pill.st-frozen{background:rgba(233,200,74,.16);color:var(--moved)}
+.pill.st-black{background:#000;color:#C9D3E0;box-shadow:inset 0 0 0 1px var(--line)}
+.pill.st-ir{background:rgba(159,179,200,.18);color:var(--ir)}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:118px minmax(0,1fr);column-gap:10px;row-gap:0}
+.tl-lab{height:34px;display:flex;align-items:center;justify-content:flex-end;text-align:right;font-family:var(--display);font-weight:600;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);line-height:1.1}
+.tl-body{position:relative;min-width:0}
+.tl-row{position:relative;height:34px}
+.tl-c{position:absolute;top:4px;bottom:4px;border-radius:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--mono);font-size:.68rem;line-height:26px;padding:0 4px;color:#0F1724;font-weight:500}
+.tl-c.st-live{background:var(--present)}
+.tl-c.st-frozen{background:var(--moved)}
+.tl-c.st-black{background:var(--black);color:#9AA7B8;box-shadow:inset 0 0 0 1px var(--line)}
+.tl-c.st-ir{background:var(--ir)}
+.tl-c.ok{background:rgba(60,196,136,.16);color:var(--present);box-shadow:inset 0 0 0 1px rgba(60,196,136,.4)}
+.tl-c.bad{background:rgba(240,100,90,.28);color:#FFB3AC;box-shadow:inset 0 0 0 1px var(--gone)}
+.tl-c.yolo{background:var(--raised);color:#C4CDD9}
+.tl-c.yolo.held{background:repeating-linear-gradient(135deg,rgba(233,200,74,.35) 0 4px,rgba(233,200,74,.1) 4px 8px);color:var(--ink);box-shadow:inset 0 0 0 1px var(--moved)}
+.tl-c.none{background:transparent;color:var(--dim);box-shadow:inset 0 0 0 1px var(--line)}
+.tl-c.flag{background:rgba(242,169,59,.3);color:var(--ink);box-shadow:inset 0 0 0 1px var(--sodium)}
+.tl-c.flag.info{background:rgba(107,119,138,.25);box-shadow:inset 0 0 0 1px var(--blind);color:#C4CDD9}
+.tl-pt{position:absolute;top:2px;bottom:2px;width:3px;margin-left:-1px;background:var(--sodium);border-radius:2px}
+.tl-pt span{position:absolute;left:6px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:.7rem;white-space:nowrap;color:var(--sodium);background:var(--panel);padding:0 3px;border-radius:2px}
+.tl-pt.end span{left:auto;right:6px}
+.tl-pt.hi span{top:28%}.tl-pt.lo span{top:74%}
+.tl-axis{position:relative;height:22px;border-top:1px solid var(--line);margin-top:2px}
+.tl-axis span{position:absolute;top:3px;transform:translateX(-50%);font-family:var(--mono);font-size:.68rem;color:var(--dim)}
+.tl-hit{position:absolute;inset:0 0 22px 0}
+.tl-hit button{position:absolute;top:0;bottom:0;background:transparent;border:0;border-radius:4px;cursor:pointer;padding:0}
+.tl-hit button:hover{background:rgba(230,236,244,.06)}
+.tl-hit button[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--sodium);background:rgba(242,169,59,.07)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--dim);margin-top:10px}
+.legend i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+#tip{position:fixed;z-index:20;pointer-events:none;max-width:300px;background:#0B111C;border:1px solid var(--line);border-radius:5px;padding:8px 10px;font-size:.8rem;line-height:1.4;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+#tip[hidden]{display:none}
+#tip b{font-family:var(--display);font-weight:600;letter-spacing:.04em}
+@media (max-width:560px){.tl{grid-template-columns:72px minmax(0,1fr);column-gap:6px}.tl-lab{font-size:.62rem;letter-spacing:.06em}.tl-c{font-size:.6rem;padding:0 2px}.tl-pt span{font-size:.6rem}}
+
+/* inspector */
+.desk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.desk{grid-template-columns:minmax(0,1fr)}}
+.insp{display:flex;flex-direction:column;gap:12px}
+.insp figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.insp img,.ev img{width:100%;aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:4px;border:1px solid var(--line);display:block}
+figcaption{font-family:var(--mono);font-size:.74rem;color:var(--dim)}
+.verd{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.verd>div{background:var(--raised);border-radius:5px;padding:8px 10px;display:flex;flex-direction:column;gap:4px;min-width:0}
+blockquote.cap{margin:0;border-left:3px solid var(--blind);padding:4px 12px;font-size:1rem;line-height:1.45;color:var(--ink)}
+.small{font-size:.78rem;color:var(--dim);margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);border-radius:99px;padding:2px 10px;font-size:.78rem;color:var(--dim)}
+.chip.on{border-color:var(--dim);color:var(--ink);background:var(--raised)}
+.chip.on::before{content:"\2713\00a0";color:var(--sodium)}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:.86rem;margin:0}
+.kv dt{color:var(--dim)}.kv dd{margin:0;font-family:var(--mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+ul.notes{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:.88rem;color:#C4CDD9}
+ul.notes li.miss{color:#FFC9C4}
+.ev{display:flex;flex-direction:column;gap:12px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.flag-list{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.flag-list li{background:var(--raised);border-radius:5px;padding:8px 10px;display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px;font-size:.86rem}
+.flag-list li.alarm{box-shadow:inset 3px 0 0 var(--sodium)}
+.flag-list .t{font-family:var(--mono);color:var(--sodium)}
+.flag-list li.info .t{color:var(--dim)}
+.flag-list .who{font-size:.76rem;color:var(--dim);margin-top:2px}
+.flag-list .who .pill{font-size:.66rem;padding:1px 6px}
+
+/* table view */
+.tbl{width:100%;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.82rem;min-width:720px}
+th,td{text-align:left;vertical-align:top;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{font-family:var(--display);font-weight:600;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+td.mono{white-space:nowrap}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:rgba(230,236,244,.04)}
+tbody tr[aria-selected="true"]{background:rgba(242,169,59,.08)}
+.method{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:.88rem;color:#C4CDD9}
+.method b{color:var(--ink);font-weight:500}
+.honest{border-left:3px solid var(--blind);padding:4px 10px;color:#C4CDD9;font-size:.88rem;margin:0}
+.empty{color:var(--dim)}
+footer{color:var(--dim);font-size:.78rem;padding-block:24px 0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="bar">
+  <div class="brand"><h1>STREET <b>TIME MACHINE</b></h1><span class="label">Pipeline audit</span><span class="badge" id="badge" hidden></span></div>
+  <a class="back" href="index.html">Open the camera desk</a>
+</header>
+<main id="view"><p class="empty" style="padding-top:20px">Loading audit.json&hellip;</p></main>
+<div id="tip" role="tooltip" hidden></div>
+<footer id="foot">Every number on this page is computed by <span class="mono">stm/audit.py</span> from the uploaded clip, its ground truth and what the VSS pipeline returned.</footer>
+
+<script>
+'use strict';
+const BASE = '../out/stm-test-honesty/';
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const STATE = {live:'Live', frozen:'Frozen', black:'Black', ir:'Night IR'};
+const FLAG = {clock_runs_on_frozen:'Clock runs on frozen picture', clock_runs_on_black:'Clock runs over black',
+  splice:'Splice', date_change_at_cut:'Date jumps at cut', clock_jump:'Clock jump',
+  resume_consistent:'Resume consistent', resume_unchecked:'Resume unchecked'};
+const STATE_SHORT = {live:'Live', frozen:'Frz', black:'', ir:'IR'};
+const SHORT = {clock_runs_on_frozen:'clock runs, frozen', clock_runs_on_black:'clock, black',
+  splice:'splice', date_change_at_cut:'date jump', clock_jump:'clock jump', resume_consistent:'ok', resume_unchecked:'?'};
+const EVENT = {clock_runs_on_frozen:'Clock runs while the picture is frozen', clock_runs_on_black:'Clock runs over a black screen',
+  splice:'Picture resumes where it froze while the clock ran on', date_change_at_cut:'Date jumps at a hard cut', clock_jump:'Clock jump'};
+const S = {doc: null, sel: 0};
+
+async function load(){
+  try { const r = await fetch(BASE + 'audit.json', {cache: 'no-store'}); if (r.ok) return await r.json(); } catch (e) {}
+  // opened from file:// (fetch is blocked there): the same object, written by stm/audit.py as audit.js
+  return new Promise(res => {
+    const s = document.createElement('script');
+    s.src = BASE + 'audit.js';
+    s.onload = () => res(window.__STM_AUDIT__ || null);
+    s.onerror = () => res(null);
+    document.head.appendChild(s);
+  });
+}
+
+const pct = (t, dur) => `${Math.max(0, Math.min(100, t / dur * 100)).toFixed(3)}%`;
+const wid = (a, b, dur) => `calc(${Math.max(0, (b - a) / dur * 100).toFixed(3)}% - 2px)`;
+const mmss = t => `${Math.floor(t)} s`;
+const yn = (v, yes = 'Yes', no = 'No') => v == null ? '<span class="pill na">n/a</span>' : `<span class="pill ${v ? 'yes' : 'no'}">${v ? yes : no}</span>`;
+const counts = c => Object.entries(c || {}).map(([k, v]) => `${k} ${v}`).join(' · ') || 'nothing';
+
+function spans(labels, dur){
+  const out = [];
+  labels.forEach((l, i) => { const p = out[out.length - 1]; if (p && p.state === l) p.end = i + 1; else out.push({start: i, end: i + 1, state: l}); });
+  if (out.length) out[out.length - 1].end = Math.max(out[out.length - 1].end, dur);
+  return out;
+}
+
+function timeline(c, id){
+  const dur = c.video_s, segs = c.segments;
+  // each cell carries a full and a short text; fitCells() picks the one that fits (or none: colour + legend carry it)
+  const cell = (cls, a, b, full, short) =>
+    `<div class="tl-c ${cls}" data-full="${esc(full)}" data-short="${esc(short)}" style="left:${pct(a, dur)};width:${wid(a, b, dur)}">${esc(full)}</div>`;
+  const stateRow = labels => spans(labels, dur).map(s =>
+    cell(`st-${esc(s.state)}`, s.start, s.end, STATE[s.state] || s.state, STATE_SHORT[s.state] || '')).join('');
+  const capRow = segs.map(r => cell(r.caption_honest ? 'ok' : 'bad', r.start, r.end,
+    r.caption_honest ? '✓ honest' : '✗ wrong', r.caption_honest ? '✓' : '✗')).join('');
+  const yoloRow = segs.map(r => {
+    const y = r.yolo, n = Object.values(y.counts || {}).reduce((a, b) => a + b, 0);
+    const cls = y.boxes_frozen ? 'yolo held' : n ? 'yolo' : 'none';
+    const txt = y.boxes_frozen ? `held ${y.static_pairs}/${y.pairs}` : n ? Object.entries(y.counts).map(([k, v]) => `${v} ${k}`).join(' ') : 'none';
+    return cell(cls, r.start, r.end, txt, y.boxes_frozen ? 'held' : n ? String(n) : '0');
+  }).join('');
+  const flagRow = c.flags.filter(f => f.kind !== 'resume_consistent').map(f => {
+    const info = f.severity !== 'alarm' ? ' info' : '';
+    if (f.end > f.start) return cell(`flag${info}`, f.start, f.end, SHORT[f.kind] || f.kind, 'clock');
+    return `<div class="tl-pt${f.start > dur * 0.8 ? ' end' : ''}" style="left:${pct(f.start, dur)}"><span>${esc(SHORT[f.kind] || f.kind)}</span></div>`;
+  }).join('');
+  const ticks = [];
+  for (let t = 0; t <= dur + 0.01; t += 5) ticks.push(`<span style="left:${pct(t, dur)}">${t}</span>`);
+  const hits = segs.map((r, i) => `<button type="button" data-i="${i}" style="left:${pct(r.start, dur)};width:${pct(r.end - r.start, dur)}" aria-pressed="false"
+     aria-label="Segment ${r.seg}, ${r.start} to ${r.end} seconds: truth ${esc(STATE[r.truth] || r.truth)}, caption ${r.caption_honest ? 'honest' : 'not honest'}, our ledger ${r.ours_correct ? 'right' : 'wrong'}"></button>`).join('');
+  return `<div class="tl" id="${id}">
+    <div class="tl-labels"><div class="tl-lab">Truth</div><div class="tl-lab">Cosmos caption</div><div class="tl-lab">YOLO sidecar</div><div class="tl-lab">Our ledger</div><div class="tl-lab">Clock vs picture</div></div>
+    <div class="tl-body">
+      <div class="tl-row">${stateRow(c.truth.per_second)}</div>
+      <div class="tl-row">${capRow}</div>
+      <div class="tl-row">${yoloRow}</div>
+      <div class="tl-row">${stateRow(c.ours.per_second)}</div>
+      <div class="tl-row">${flagRow}</div>
+      <div class="tl-axis">${ticks.join('')}</div>
+      <div class="tl-hit">${hits}</div>
+    </div></div>`;
+}
+
+function legend(){
+  return `<div class="legend">
+    <span><i style="background:var(--present)"></i>live picture</span><span><i style="background:var(--moved)"></i>frozen picture</span>
+    <span><i style="background:var(--black);box-shadow:inset 0 0 0 1px var(--line)"></i>black, no picture</span><span><i style="background:var(--ir)"></i>night infrared (black and white)</span>
+    <span>✓ / ✗ caption honest about the picture</span>
+    <span><i style="background:repeating-linear-gradient(135deg,rgba(233,200,74,.6) 0 3px,rgba(233,200,74,.15) 3px 6px)"></i>YOLO boxes identical frame to frame</span>
+    <span><i style="background:var(--sodium)"></i>clock contradicts picture</span><span><i style="background:var(--blind)"></i>clock note</span>
+    <span>x axis: seconds into the uploaded clip</span></div>`;
+}
+
+function card(label, big, body, key){
+  return `<div class="card${key ? ' key' : ''}"><span class="label">${esc(label)}</span><div class="big">${big}</div>${body}</div>`;
+}
+
+function cards(c, d){
+  const sc = c.scores, tm = c.timing, cr = sc.clock_read, wb = c.clock.wandb;
+  const sp = sc.splice, dc = sc.date_change;
+  const wrong = c.segments.filter(r => !r.caption_honest);
+  const wrongTxt = wrong.length ? `Wrong: ${wrong.map(r => `${r.start}–${r.end} s (${STATE[r.truth] || r.truth})`).join(', ')}.` : 'Every caption matched the picture state.';
+  const evRow = (lab, e) => e ? `<div class="yn"><span>Ours</span>${yn(e.ours)}<span>Cosmos</span>${yn(e.cosmos)}</div><p>${esc(lab)} at ${e.t} s.</p>` : '<p>No such event in this clip.</p>';
+  const spFlag = c.flags.find(f => f.kind === 'splice');
+  return `<div class="cards">
+    ${card('Cosmos captions honest', `${sc.cosmos_honest}<small>/${sc.segments}</small>`, `<p>${esc(wrongTxt)}</p>`, true)}
+    ${card('Our ledger right', `${sc.ours_correct}<small>/${sc.segments}</small>`, `<p>${sc.ours_seconds_correct}/${sc.seconds} seconds labelled right; ${sc.false_flags_ours} false alarm${sc.false_flags_ours === 1 ? '' : 's'}.</p>`)}
+    ${card('Splice caught', sp ? (sp.ours && !sp.cosmos ? 'Only us' : sp.ours ? 'Both' : sp.cosmos ? 'Only Cosmos' : 'Nobody') : 'n/a',
+      evRow('Picture resumes where it froze while the clock ran on', sp) + (spFlag ? `<p>${esc(`At least ${Math.round(spFlag.missing_min_s)} s of footage missing.`)}</p>` : ''), true)}
+    ${card('Date change at the cut', dc ? (dc.ours && !dc.cosmos ? 'Only us' : dc.ours ? 'Both' : dc.cosmos ? 'Only Cosmos' : 'Nobody') : 'n/a', evRow('The clock jumps a day', dc))}
+    ${card('Time to searchable', `${Math.round(tm.indexed_after_min)}<small> min</small>`,
+      `<p>Upload took ${tm.upload_s} s. Fully indexed ${tm.indexed_after_s} s later: ${tm.x_realtime}× the clip's ${tm.video_s} s.${tm.batch ? ' Both test clips appeared in the same poll: batch, not streaming.' : ''}</p>`)}
+    ${card('Burned-in clock read', `${cr.exact}<small>/${cr.n}</small>`,
+      `<p>Template match, no model.${cr.held_out_n ? ` ${cr.held_out_exact}/${cr.held_out_n} on seconds it never trained on.` : ''}${wb ? ` ${esc(wb.model)} on W&amp;B agrees ${wb.agree_with_ours}/${wb.n}.` : ' No W&amp;B cross-check.'}</p>`)}
+  </div>`;
+}
+
+function inspector(c, i){
+  const r = c.segments[i], dur = c.video_s;
+  if (!r) return '<p class="empty">Pick a segment on the timeline.</p>';
+  const cl = r.claims;
+  const chip = (on, txt) => `<span class="chip${on ? ' on' : ''}">${esc(txt)}</span>`;
+  const reads = c.clock.per_second.filter(x => x.t + 0.5 >= r.start && x.t + 0.5 < r.end);
+  const ourClock = reads.length ? `${reads[0].text ?? 'unreadable'} → ${(reads[reads.length - 1].text ?? 'unreadable').slice(11)}` : '—';
+  const tc = r.truth_clock || [];
+  const notes = r.notes.map(n => `<li${n.startsWith('caption missed') ? ' class="miss"' : ''}>${esc(n)}</li>`).join('');
+  const flags = c.flags.filter(f => (f.end > f.start ? Math.min(r.end, f.end) - Math.max(r.start, f.start) > 0 : f.start >= r.start && f.start < r.end));
+  return `<div class="insp">
+    <div class="head" style="margin:0"><h3>Segment ${r.seg} · ${r.start}–${r.end} s</h3><p class="mono">${esc(c.file)}</p></div>
+    ${r.thumb ? `<figure><img src="${esc(BASE + r.thumb)}" alt="Frame at ${r.start + 2.5} s of segment ${r.seg}" onerror="this.hidden=true"><figcaption>frame at ${r.start + 2.5} s · truth: ${esc(STATE[r.truth] || r.truth)}</figcaption></figure>` : ''}
+    <div class="verd">
+      <div><span class="label">Truth</span><span class="pill st-${esc(r.truth)}">${esc(STATE[r.truth] || r.truth)}</span></div>
+      <div><span class="label">Cosmos caption</span>${yn(r.caption_honest, 'Honest', 'Wrong')}</div>
+      <div><span class="label">Our ledger</span><span class="pill st-${esc(r.ours)}">${esc(STATE[r.ours] || r.ours)}</span>${r.ours_correct ? '' : ' <span class="pill no">Wrong</span>'}</div>
+    </div>
+    <div><span class="label">What Cosmos wrote (excerpt)</span>
+      <blockquote class="cap">“${esc(r.caption)}”</blockquote>
+      <p class="small">${r.caption.length} of ${r.caption_chars} characters; sentences about people removed.</p></div>
+    <div><span class="label">Does the caption say&hellip;</span>
+      <div class="chips">${chip(cl.frozen, 'frozen')}${chip(cl.black, 'black screen')}${chip(cl.dark, 'dark / night')}${chip(cl.ir, 'black & white / IR')}${chip(cl.clock, 'clock')}${chip(cl.movement, 'something moves')}${chip(cl.still, 'nothing moves')}${chip(cl.cut, 'cut / jump / gap')}</div></div>
+    <dl class="kv">
+      <dt>YOLO counts</dt><dd>${esc(counts(r.yolo.counts))} (${r.yolo.detections} boxes, ${r.yolo.frames} frames)</dd>
+      <dt>Identical boxes</dt><dd>${r.yolo.static_pairs}/${r.yolo.pairs} frame pairs${r.yolo.boxes_frozen ? ' — a held picture' : ''}</dd>
+      <dt>Clock, true</dt><dd>${esc(tc[0] ?? '—')} → ${esc((tc[1] ?? '').slice(11))}</dd>
+      <dt>Clock, our read</dt><dd>${esc(ourClock)}</dd>
+      ${cl.clock_values.length ? `<dt>Clock, Cosmos</dt><dd>${esc(cl.clock_values.join(', '))}</dd>` : ''}
+      <dt>Clock vs picture</dt><dd>${flags.length ? esc(flags.map(f => FLAG[f.kind] || f.kind).join('; ')) : 'nothing'}</dd>
+    </dl>
+    ${notes ? `<ul class="notes">${notes}</ul>` : ''}
+  </div>`;
+}
+
+function evidence(c){
+  const sp = c.flags.find(f => f.kind === 'splice');
+  const curve = c.lag_curve || [];
+  const at = s => curve.find(x => x.lag_s === s);
+  let pair = '';
+  if (sp && sp.thumbs){
+    const c1 = at(1.0), c15 = at(15.0);
+    pair = `<div class="pair">
+      <figure style="margin:0"><img src="${esc(BASE + sp.thumbs[0])}" alt="Frame at ${sp.ref_t} s" onerror="this.hidden=true"><figcaption>${sp.ref_t} s · clock ${esc((sp.clock_ref || '').slice(11))}</figcaption></figure>
+      <figure style="margin:0"><img src="${esc(BASE + sp.thumbs[1])}" alt="Frame at ${sp.start} s" onerror="this.hidden=true"><figcaption>${sp.start} s · clock ${esc((sp.clock_resume || '').slice(11))}</figcaption></figure></div>
+      <p class="small">The two pictures differ by <span class="mono">${sp.picture_diff}</span> grey levels. On this clip's own live footage, 90% of frame pairs ${sp.picture_elapsed_max_s} s apart differ by more${c1 ? ` (1 s apart: median ${c1.median})` : ''}${c15 && c15.n ? `; 15 s apart: median ${c15.median}` : ''}. The clock says ${sp.clock_elapsed_s} s passed.</p>`;
+  }
+  const sev = k => (c.flags.find(f => f.kind === k) || {}).severity === 'alarm' ? 'alarm' : 'info';
+  const evs = c.events.map(e => `<li class="${sev(e.kind)}"><span class="t">${e.start === e.end ? e.start : `${e.start}–${e.end}`} s</span><div>${esc(EVENT[e.kind] || e.kind)}<div class="who">Ours ${yn(e.ours)} · Cosmos ${yn(e.cosmos)}</div><div class="who">${esc(e.text)}</div></div></li>`).join('');
+  return `<div class="ev">
+    <div class="head" style="margin:0"><h3>Clock vs picture</h3><p>${c.events.length} planted events</p></div>
+    ${pair}
+    ${evs ? `<ul class="flag-list">${evs}</ul>` : '<p class="empty">Nothing planted in this clip.</p>'}
+    <p class="honest">The recorder's clock keeps running whatever the camera does.${sp ? ` A caption written one ${esc(S.doc.pipeline.segment_s)} s segment at a time cannot see that the picture at ${sp.start} s continues from ${sp.ref_t} s, ${+(sp.start - sp.ref_t).toFixed(2)} s earlier in another segment.` : ''}</p>
+  </div>`;
+}
+
+function table(c, id){
+  const rows = c.segments.map((r, i) => `<tr data-i="${i}" tabindex="0" aria-selected="false">
+    <td class="mono">${r.seg}</td><td class="mono">${r.start}–${r.end}</td>
+    <td><span class="pill st-${esc(r.truth)}">${esc(STATE[r.truth] || r.truth)}</span></td>
+    <td><span class="pill st-${esc(r.ours)}">${esc(STATE[r.ours] || r.ours)}</span></td>
+    <td>${yn(r.caption_honest, 'Honest', 'Wrong')}</td>
+    <td>${esc(r.caption)}</td>
+    <td class="mono">${esc(r.yolo.boxes_frozen ? `same boxes ${r.yolo.static_pairs}/${r.yolo.pairs}` : counts(r.yolo.counts))}</td>
+    <td>${esc(r.flags.map(k => FLAG[k] || k).join('; '))}</td></tr>`).join('');
+  return `<div class="tbl"><table id="${id}"><thead><tr><th>Seg</th><th>Seconds</th><th>Truth</th><th>Our ledger</th><th>Cosmos</th><th>Caption excerpt</th><th>YOLO</th><th>Clock vs picture</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function baseline(b){
+  if (!b) return '';
+  const sc = b.scores, mw = S.doc.clip.mood_words, bm = b.mood_words;
+  const liveMood = (mw.live?.with || 0) + (bm.live?.with || 0), liveN = (mw.live?.of || 0) + (bm.live?.of || 0);
+  return `<section class="panel pad" aria-labelledby="bh">
+    <div class="head"><h3 id="bh">Control: a plain live clip</h3><p class="mono">${esc(b.file)} · ${b.video_s} s · ${sc.segments} segments</p></div>
+    ${timeline(b, 'tlb')}
+    <div class="cards" style="margin-top:12px">
+      ${card('Cosmos captions honest', `${sc.cosmos_honest}<small>/${sc.segments}</small>`, `<p>${b.truth.per_second.every(x => x === 'live') ? 'The picture is live throughout. ' : ''}Captions claiming a frozen, black or cut picture: ${b.segments.filter(r => r.claims.frozen || r.claims.black || r.claims.cut).length}.</p>`)}
+      ${card('Our ledger right', `${sc.ours_correct}<small>/${sc.segments}</small>`, `<p>${sc.false_flags_ours} false alarm${sc.false_flags_ours === 1 ? '' : 's'}; clock read ${sc.clock_read.exact}/${sc.clock_read.n} blind.</p>`)}
+      ${card('Calm words, live street', `${liveMood}<small>/${liveN}</small>`, `<p>Live segments (both clips) called quiet, calm or still. The frozen ones: ${mw.frozen?.with ?? 0}/${mw.frozen?.of ?? 0}. The words cannot tell a frozen picture from a live one.</p>`)}
+    </div></section>`;
+}
+
+function method(d){
+  const m = d.method, c = d.clip;
+  const ff = c.ours.ffmpeg;
+  return `<section class="panel pad" aria-labelledby="mh"><div class="head"><h3 id="mh">How each row was computed</h3></div>
+    <ul class="method">
+      <li><b>Truth</b>: the clip was built from known parts (ground_truth.json): live, a frozen frame held 10 s, 5 s of black, live again from the frozen moment, then a hard cut to night infrared from another day. A recorder-style clock is burned in and keeps running.</li>
+      <li><b>Cosmos caption</b>: ${esc(d.pipeline.captioner || 'the captioner')}'s text for each ${d.pipeline.segment_s} s segment, checked by keyword rules. A frozen segment needs a word like frozen or still image; a black one, black screen; a night one, black and white. A live segment is honest unless it claims frozen or black. Any clock time it quotes must be within 1 s of the true clock.</li>
+      <li><b>YOLO sidecar</b>: ${esc(d.pipeline.detector || 'detector')} object counts as returned, and how many frame pairs had exactly the same boxes. At least ${Math.round(m.yolo_static * 100)}% identical means a held picture.</li>
+      <li><b>Our ledger</b>: ${esc(m.sample)}. Black when mean brightness is under ${m.black_luma}. Frozen when the change between seconds stays under ${m.frozen_diff} grey levels for ${m.frozen_run_s}+ s (ffmpeg freezedetect n=0.0005). Night IR when colour saturation is under ${m.ir_saturation}. No model is used.${ff && ff.freezedetect ? ` ffmpeg agrees: freezedetect ${esc(ff.freezedetect.map(x => `${x[0]}–${x[1]} s`).join(', '))}; scdet cuts at ${esc(ff.scdet.map(x => x.t + ' s').join(', '))}.` : ''}</li>
+      <li><b>Clock vs picture</b>: the clock box (x ${m.clock_box[0]}–${m.clock_box[2]}, y ${m.clock_box[1]}–${m.clock_box[3]} at 1280×720) is read once a second by template matching against glyphs cut from the first 20 s. A splice is flagged when the picture resumes so close to the last picture that at most a few seconds of motion separate them while the clock says ${m.splice_min_s}+ s more passed.</li>
+      <li><b>Timing</b>: the upload script polled the VSS API every ${c.timing.poll_s} s, so "indexed after" is accurate to one poll.${c.timing.poller_restarts_s.length ? ` The poller was restarted ${c.timing.poller_restarts_s.length === 1 ? 'once' : c.timing.poller_restarts_s.length + ' times'} (at ${c.timing.poller_restarts_s.join(', ')} s) without re-uploading; the clips were first seen long after that.` : ''}</li>
+    </ul>
+    <p class="honest" style="margin-top:12px">Not checked here: what the captions say about cars and people (that is the caption lie detector on the main desk), and any other camera. One test clip, two uploads; the scores describe this run only. Captions are shown as excerpts of at most ${m.excerpt_max} characters.</p>
+  </section>`;
+}
+
+function fitCells(){
+  document.querySelectorAll('.tl-c[data-full]').forEach(e => {
+    e.textContent = e.dataset.full;
+    if (e.scrollWidth > e.clientWidth + 1) e.textContent = e.dataset.short;
+    if (e.scrollWidth > e.clientWidth + 1) e.textContent = '';
+  });
+  document.querySelectorAll('.tl-row').forEach(row => {
+    const pts = [...row.querySelectorAll('.tl-pt')];
+    pts.forEach(p => p.classList.remove('hi', 'lo'));
+    for (let i = 1; i < pts.length; i++) {
+      const a = pts[i - 1].firstElementChild.getBoundingClientRect(), b = pts[i].firstElementChild.getBoundingClientRect();
+      if (a.right + 4 > b.left && b.right + 4 > a.left) { pts[i - 1].classList.add('hi'); pts[i].classList.add('lo'); }
+    }
+  });
+}
+let fitQueued = false;
+addEventListener('resize', () => { if (!fitQueued) { fitQueued = true; requestAnimationFrame(() => { fitQueued = false; if (S.doc) fitCells(); }); } });
+
+function render(){
+  const d = S.doc, c = d.clip;
+  const parts = [];
+  const wrong = c.segments.filter(r => !r.caption_honest).length;
+  const missed = [[c.scores.splice, 'the splice'], [c.scores.date_change, 'the day change']].filter(([e]) => e && !e.cosmos).map(([, w]) => w);
+  $('#badge').hidden = false;
+  $('#badge').textContent = `camera ${d.camera_id || '?'} · ${String(d.is_public) === 'false' ? 'private' : 'public'}`;
+  parts.push(`<section class="thesis"><h2>We pushed a clip with known truth through the VSS pipeline</h2>
+    <p>A <b>${c.video_s} s</b> street clip in which we planted a <b>frozen picture</b>, a <b>black gap</b>, a <b>splice</b> and a <b>jump to another day</b>, uploaded through the team VSS. ${esc(d.pipeline.captioner || 'Cosmos')} wrote one caption per ${d.pipeline.segment_s} s segment and YOLO counted objects. ${wrong} of ${c.segments_n} captions describe a picture that was not there${missed.length ? `, and no caption noticed ${missed.join(' or ')}` : ''}.</p></section>`);
+  parts.push(`<section aria-label="Scores">${cards(c, d)}</section>`);
+  parts.push(`<section class="panel pad" aria-labelledby="th"><div class="head"><h3 id="th">The ${c.video_s} s clip, second by second</h3><p>Click a segment to see what was written about it.</p></div>${timeline(c, 'tlm')}${legend()}</section>`);
+  parts.push(`<section class="desk"><div class="panel pad" id="insp"></div><div class="panel pad">${evidence(c)}</div></section>`);
+  parts.push(`<section class="panel pad" aria-labelledby="tbh"><div class="head"><h3 id="tbh">All ${c.segments_n} segments</h3><p>Same data as the timeline, as a table.</p></div>${table(c, 'tbm')}</section>`);
+  parts.push(baseline(d.baseline));
+  parts.push(method(d));
+  $('#view').innerHTML = parts.join('');
+  $('#foot').textContent = `Generated ${d.generated} by stm/audit.py from the uploaded clip, its ground truth and what the VSS pipeline returned. Every number on this page is computed; none is typed in.`;
+  wire('tlm', 'tbm', c, true);
+  wire('tlb', null, d.baseline, false);
+  select(S.sel);
+  fitCells();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitCells);
+}
+
+function tipText(c, r){
+  return `<b>Segment ${r.seg} · ${r.start}–${r.end} s</b><br>Truth: ${esc(STATE[r.truth] || r.truth)} · ours: ${esc(STATE[r.ours] || r.ours)}<br>Caption: ${r.caption_honest ? 'honest' : 'wrong'} · YOLO: ${esc(r.yolo.boxes_frozen ? 'identical boxes' : counts(r.yolo.counts))}${r.flags.length ? `<br>Clock vs picture: ${esc(r.flags.map(k => FLAG[k] || k).join('; '))}` : ''}`;
+}
+
+function wire(tlId, tblId, c, main){
+  const tl = document.getElementById(tlId);
+  if (!tl || !c) return;
+  const tip = $('#tip');
+  tl.querySelectorAll('.tl-hit button').forEach(b => {
+    const r = c.segments[+b.dataset.i];
+    const show = e => {
+      tip.innerHTML = tipText(c, r); tip.hidden = false;
+      const rect = b.getBoundingClientRect();
+      const x = e && e.clientX != null && e.type !== 'focus' ? e.clientX : rect.left + rect.width / 2;
+      const y = e && e.clientY != null && e.type !== 'focus' ? e.clientY : rect.top;
+      const w = tip.offsetWidth, h = tip.offsetHeight;
+      tip.style.left = `${Math.max(8, Math.min(innerWidth - w - 8, x + 12))}px`;
+      tip.style.top = `${Math.max(8, y - h - 12)}px`;
+    };
+    b.addEventListener('mousemove', show); b.addEventListener('focus', show);
+    b.addEventListener('mouseleave', () => tip.hidden = true); b.addEventListener('blur', () => tip.hidden = true);
+    if (main) b.addEventListener('click', () => select(+b.dataset.i, true));
+  });
+  if (tblId) document.querySelectorAll(`#${tblId} tbody tr`).forEach(tr => {
+    const go = () => select(+tr.dataset.i, true);
+    tr.addEventListener('click', go);
+    tr.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+}
+
+function select(i, scroll){
+  const c = S.doc.clip;
+  S.sel = Math.max(0, Math.min(c.segments.length - 1, i));
+  document.querySelectorAll('#tlm .tl-hit button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.i === S.sel)));
+  document.querySelectorAll('#tbm tbody tr').forEach(tr => tr.setAttribute('aria-selected', String(+tr.dataset.i === S.sel)));
+  $('#insp').innerHTML = inspector(c, S.sel);
+  try { history.replaceState(null, '', `#seg=${c.segments[S.sel].seg}`); } catch (e) {}
+  if (scroll && innerWidth <= 900) $('#insp').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+(async () => {
+  const d = await load();
+  if (!d || !d.clip) {
+    $('#view').innerHTML = `<section class="thesis"><h2>No audit yet</h2><p>Run <span class="mono">python -m stm.audit</span> to write out/stm-test-honesty/audit.json, then reload. Opened from disk? Keep this page in ui/ next to out/.</p></section>`;
+    return;
+  }
+  S.doc = d;
+  const m = /seg=(\d+)/.exec(location.hash || '');
+  const firstWrong = d.clip.segments.findIndex(r => !r.caption_honest);
+  S.sel = m ? +m[1] - 1 : Math.max(0, firstWrong);
+  render();
+})();
+</script>

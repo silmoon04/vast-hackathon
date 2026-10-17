@@ -1,0 +1,4 @@
+[
+  {"id":"demo-a-001","camera":"demo-a","clip_start":0,"clip_end":5,"source_start":30,"source_end":35,"source_file":"./invented-demo-a.mp4","source_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+  {"id":"demo-b-001","camera":"demo-b","clip_start":0,"clip_end":5,"source_start":80,"source_end":85,"source_file":"./invented-demo-b.mp4","source_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
+]

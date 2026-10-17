@@ -113,6 +113,8 @@ def test_no_scenario_terms_or_personal_paths():
     hits = []
     toolkit_dirs = {"vastkit", "scripts", "deploy", "tests", "templates", ".githooks"}
     toolkit_files = {"pyproject.toml", ".env.example", ".gitignore", "docs/TOOLKIT.md", "docs/API_NOTES.md"}
+    application_paths = ("deploy/find-desk/", "deploy/street-time-machine/")
+    application_tests = {"tests/test_find_desk.py", "tests/test_find_desk_planner.py"}
     home = Path.home().as_posix().lower().rstrip("/")
     home_pattern = re.compile(re.escape(home) + r"(?:/|$)")
     for path in _repo_files():
@@ -122,6 +124,8 @@ def test_no_scenario_terms_or_personal_paths():
         toolkit = (relative.parts[0] in toolkit_dirs or relative.as_posix() in toolkit_files
                    or (len(relative.parts) == 1 and relative.name.startswith("requirements")
                        and relative.suffix == ".txt"))
+        # Product clothing examples are valid app content; the reusable SDK stays scenario-free.
+        toolkit = toolkit and not relative.as_posix().startswith(application_paths) and relative.as_posix() not in application_tests
         text = path.read_text(encoding="utf-8", errors="replace")
         for n, line in enumerate(text.splitlines(), 1):
             normalized = re.sub(r"/+", "/", line.lower().replace("\\", "/"))

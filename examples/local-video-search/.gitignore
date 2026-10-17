@@ -1,0 +1,16 @@
+config.json
+camera-manifest.json
+caption-index.sqlite3*
+segments.json
+captions-reviewed.json
+captions/
+segments/
+sheets/
+detections*.json
+*-timing.json
+*-vectors.npz
+*.building
+query-payload.json
+deepseek-results.json
+__pycache__/
+*.py[cod]

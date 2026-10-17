@@ -156,7 +156,8 @@ def spot_change(cam: str, box: list[float], t_with: float, t_other: list[float],
 
 
 BLIND_TITLE = {"dark": "Picture too dark", "blur": "Picture blurred", "frozen": "Picture frozen",
-               "blocked": "View blocked", "no_signal": "No signal"}
+               "blocked": "View blocked", "no_signal": "No signal", "turned_away": "Camera turned away",
+               "moved": "Camera moving"}
 
 
 def blind_moments(cam: str, spans: list[dict], df: pd.DataFrame, dur: float) -> list[dict]:

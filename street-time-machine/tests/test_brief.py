@@ -261,9 +261,12 @@ def test_real_outputs_ptz_parking():
         if left:
             assert b["headline"].startswith(f"{left} ")
     if "ledger" in ins:
-        tot = brief.blind_seconds(brief.merged_blind(ins["ledger"]))
+        tot = brief.ledger_blind_total(ins["ledger"])
         if tot >= 0.5:
             assert brief.dur(tot) in b["headline"]
+        if ins["ledger"].get("blind_total_s") is not None:
+            assert tot == float(ins["ledger"]["blind_total_s"])
+    assert not any(x["kind"] == "long_stay" or x["text"].startswith("Person stays") for x in b["bullets"])
 
 
 def test_bullet_inside_blind_time_is_flagged():
@@ -303,3 +306,59 @@ def test_still_tracks_are_not_counted_as_going_by():
     b = brief.build("fx", {}, c, [], [])
     assert b["headline"].startswith("1 car went by")
     assert any(h.startswith("1 more track hardly moved") for h in b["honesty"])
+
+
+def test_ledger_totals_and_camera_motion_words():
+    """The ledger's own blind_total_s / blind_by_reason / blind_by_day win over summing spans."""
+    led = fx_ledger(blind=((68.0, 70.0, "no_signal"), (156.0, 168.0, "moved"), (168.0, 206.0, "turned_away")))
+    led.update(blind_total_s=97.0, blind_by_reason={"turned_away": 50.0, "moved": 45.0, "no_signal": 2.0},
+               blind_by_day=[{"day": "A", "label": "Day A", "start": 0.0, "end": 158.0, "blind_s": 4.0,
+                              "by_reason": {"no_signal": 2.0, "moved": 2.0}},
+                             {"day": "B", "label": "Day B", "start": 158.0, "end": 316.13, "blind_s": 93.0,
+                              "by_reason": {"moved": 43.0, "turned_away": 50.0}}])
+    b = brief.build("fx", {"ledger": led}, None, [], [])
+    assert b["headline"].endswith("the camera could not see for 1 min 37 s.")
+    h = b["honesty"][0]
+    assert h.startswith("The camera could not see for 1 min 37 s in total (4 s on Day A and 1 min 33 s on Day B), in 2 stretches")
+    assert "50 s camera turned away, 45 s camera moving and 2 s no picture" in h
+    assert brief.REASON_WORDS["turned_away"] == "camera turned away" and brief.REASON_WORDS["moved"] == "camera moving"
+    del led["blind_by_reason"]  # by_day only: reasons summed across days
+    assert brief.ledger_blind_by_reason(led) == {"turned_away": 50.0, "moved": 45.0, "no_signal": 2.0}
+    del led["blind_total_s"], led["blind_by_day"]  # old ledger: spans summed
+    assert brief.ledger_blind_total(led) == pytest.approx(52.0)
+
+
+def test_colour_bullet_counts_coloured_vehicles_only():
+    ix = {"camera": "fx", "colours": {"black": 40, "white": 20, "null": 3},
+          "n_coloured": 60, "n_vehicles": 84,
+          "objects": [{"object_id": i, "name": "car", "colour": None} for i in range(24)]}
+    b = brief.build("fx", {"index": ix}, None, [], [])
+    c = next(x for x in b["bullets"] if x["kind"] == "colour")
+    assert c["text"] == "Most common colour: black (40) and white (20) of 60 vehicles."
+    assert "null" not in c["text"] and "people" not in c["text"]
+    assert any(h.startswith("24 of 84 vehicles have no colour") for h in b["honesty"])
+    # an older index (no n_coloured) also coloured people: only its coloured vehicle rows count
+    old = {"camera": "fx", "colours": {"grey": 3, "black": 1},
+           "objects": [{"object_id": 1, "name": "car", "colour": "grey"}, {"object_id": 2, "name": "car", "colour": "grey"},
+                       {"object_id": 3, "name": "person", "colour": "grey"}, {"object_id": 4, "name": "truck", "colour": "black"},
+                       {"object_id": 5, "name": "car", "colour": None}]}
+    assert brief.colour_counts(old) == ([("grey", 2), ("black", 1)], 3)
+
+
+def test_replay_uses_synopsis_window():
+    syn = fx_synopsis() | {"src_duration": 316.13, "src_window": [0.0, 155.0], "view_label": "Day A view"}
+    b = brief.build("fx", {"synopsis": syn}, None, [], [])
+    r = next(x for x in b["bullets"] if x["kind"] == "replay")
+    assert r["text"] == "A 30 s replay shows 13 cars from 2 min 35 s of the 5 min 16 s recording (Day A view) at once."
+    syn["src_window"] = [0.0, 316.13]
+    r = next(x for x in brief.build("fx", {"synopsis": syn}, None, [], [])["bullets"] if x["kind"] == "replay")
+    assert r["text"] == "A 30 s replay shows 13 cars from the 5 min 16 s recording at once."
+
+
+def test_long_stay_is_never_a_bullet():
+    m = fx_moments()
+    m["moments"].append({"t": 106.47, "end": 125.0, "kind": "long_stay", "title": "Person stays 19 s", "detail": "",
+                         "object_ids": [20], "thumb": "moments/4.jpg", "box": None, "score": 0.99})
+    b = brief.build("fx", {"moments": m}, None, [], [])
+    assert not any(x["kind"] == "long_stay" or x["text"].startswith("Person stays") for x in b["bullets"])
+    assert [x["kind"] for x in b["bullets"]] == ["crowd", "close_pass"]

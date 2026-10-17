@@ -1,0 +1,9 @@
+Describe only visible footage in each chronological contact sheet. Each sheet represents one five-second segment and labels its camera and source clock. Write concise structured records with segment ID, camera, clip/source intervals, caption, visible people/clothing/actions, objects and uncertainties.
+
+Inspect every frame. Before stating left or right, compare the subject's x-position within the first and last visible frame tiles. A changing screen direction across cameras does not establish a different physical route: cameras have different orientations. If motion is too blurred or the subject is too small, omit a direction or mark it uncertain.
+
+Keep camera-local track IDs separate from cross-camera identity. Do not infer names, intent, ownership, crimes, an exact object type, or a continuous cross-camera route from clothing alone. Describe possible carried objects as uncertain when their form is unclear.
+
+Base each caption on the supplied frames and time labels. Do not use answer keys, prior captions, or route assumptions as evidence, and do not copy annotation labels or boxes into the caption.
+
+Before indexing, review directional claims against first/last frame coordinates. Preserve the raw pass and save corrections separately. Index only the reviewed record and retain its provenance.
