@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Last Seen</title>
+  <script>
+    // Ingress strips /app; without a trailing slash, relative URLs resolve against "/".
+    if (/\/(app|last-seen)$/.test(location.pathname)) {
+      location.replace(location.pathname + '/' + location.search);
+    }
+  </script>
+  <style>
+    :root {
+      --bg: #0c0f14;
+      --bg-elev: #141a22;
+      --bg-card: #1a222d;
+      --bg-card-hover: #212b38;
+      --line: #2a3544;
+      --text: #e8eef6;
+      --muted: #8b9bb0;
+      --accent: #3d9cf0;
+      --accent-dim: #1e4f7a;
+      --best: #e8a838;
+      --ok: #3ecf8e;
+      --bad: #e85d5d;
+      --hl-people: #7ec8ff;
+      --hl-clothing: #c9a0ff;
+      --hl-phone: #ffd27a;
+      --hl-bag: #8fd4a8;
+      --hl-bike: #ff9b7a;
+      --radius: 10px;
+      --font: "Segoe UI", "Helvetica Neue", sans-serif;
+      --mono: "Cascadia Code", "Consolas", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #1a2a3d 0%, transparent 55%),
+        radial-gradient(900px 500px at 90% 0%, #1a2530 0%, transparent 50%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+
+    header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+    }
+    header p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .pill.ok { color: var(--ok); border-color: #2a6a4a; }
+    .pill.bad { color: var(--bad); border-color: #6a2a2a; }
+
+    .search-panel {
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 22px;
+    }
+    label.q {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 88px;
+      resize: vertical;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font: inherit;
+      outline: none;
+    }
+    textarea:focus { border-color: var(--accent); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+      align-items: center;
+    }
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: 1px solid var(--line);
+      background: var(--bg-card);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 9px 14px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    button:hover:not(:disabled) { background: var(--bg-card-hover); border-color: #3a4a5c; }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    button.primary {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: #dff0ff;
+      font-weight: 600;
+    }
+    button.primary:hover:not(:disabled) { background: #266399; }
+    button.example {
+      font-size: 0.82rem;
+      color: var(--muted);
+      max-width: 100%;
+      text-align: left;
+    }
+    button.ghost {
+      background: transparent;
+    }
+
+    .status {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      min-height: 1.3em;
+    }
+    .status.working { color: var(--accent); }
+
+    .synth {
+      background: linear-gradient(135deg, #152033, #1a2838);
+      border: 1px solid #2e4560;
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+    }
+    .synth.error {
+      border-color: #6a2a2a;
+      background: #1a1214;
+      color: #f0b0b0;
+    }
+    .synth h2 {
+      margin: 0 0 8px;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.12s;
+      text-align: left;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .card:hover, .card.selected {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .card video {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      background: #000;
+      display: block;
+      pointer-events: none;
+    }
+    .card-body { padding: 12px 14px 14px; }
+    .card-body .fname {
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin: 0 0 6px;
+      word-break: break-all;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .meta span { white-space: nowrap; }
+    .sim {
+      color: var(--ok);
+      font-weight: 600;
+    }
+    .reason {
+      font-size: 0.84rem;
+      color: #c5d0dc;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .detail {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .detail[hidden] { display: none !important; }
+    .player-wrap {
+      background: #000;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .player-wrap video {
+      width: 100%;
+      max-height: 480px;
+      display: block;
+      background: #000;
+    }
+    .detail-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .detail-head h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .timeline-bar {
+      display: flex;
+      gap: 3px;
+      margin: 14px 0 18px;
+      height: 36px;
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 4px;
+      overflow: hidden;
+    }
+    .tl-seg {
+      flex: 1 1 0;
+      min-width: 0;
+      border: none;
+      border-radius: 4px;
+      background: #2a3544;
+      color: transparent;
+      padding: 0;
+      cursor: pointer;
+      position: relative;
+    }
+    .tl-seg:hover { background: #3a4a5c; }
+    .tl-seg.best {
+      background: var(--best);
+      box-shadow: inset 0 0 0 1px #f0c060;
+    }
+    .tl-seg.active {
+      outline: 2px solid var(--accent);
+      outline-offset: -1px;
+    }
+    .tl-seg .tip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0a0e14;
+      color: var(--text);
+      font-size: 0.7rem;
+      padding: 3px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .tl-seg:hover .tip { opacity: 1; }
+
+    .seg-list { display: flex; flex-direction: column; gap: 10px; }
+    .seg-item {
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+    }
+    .seg-item:hover, .seg-item.active { border-color: var(--accent); }
+    .seg-item.best { border-left: 3px solid var(--best); }
+    .seg-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: baseline;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+    }
+    .seg-top .time { font-family: var(--mono); color: var(--accent); font-weight: 600; }
+    .seg-top .people { color: var(--muted); }
+    .seg-body { font-size: 0.9rem; color: #c8d2de; }
+
+    mark.hl {
+      background: transparent;
+      border-radius: 2px;
+      padding: 0 1px;
+      font-weight: 650;
+    }
+    mark.hl-people { color: var(--hl-people); box-shadow: inset 0 -1px 0 var(--hl-people); }
+    mark.hl-clothing { color: var(--hl-clothing); box-shadow: inset 0 -1px 0 var(--hl-clothing); }
+    mark.hl-phone { color: var(--hl-phone); box-shadow: inset 0 -1px 0 var(--hl-phone); }
+    mark.hl-bag { color: var(--hl-bag); box-shadow: inset 0 -1px 0 var(--hl-bag); }
+    mark.hl-bike { color: var(--hl-bike); box-shadow: inset 0 -1px 0 var(--hl-bike); }
+
+    .report {
+      margin-top: 28px;
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+    .report[hidden] { display: none !important; }
+    .report h2 {
+      margin: 0 0 12px;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--best);
+    }
+    .report-body {
+      white-space: pre-wrap;
+      font-size: 0.95rem;
+      color: #d6dee8;
+    }
+
+    .empty {
+      color: var(--muted);
+      text-align: center;
+      padding: 36px 12px;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+    }
+
+    @media (max-width: 640px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .wrap { padding: 18px 14px 48px; }
+      header h1 { font-size: 1.45rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Last Seen</h1>
+        <p>Find the moment someone was last captured on camera.</p>
+      </div>
+      <span id="health" class="pill">checking…</span>
+    </header>
+
+    <section class="search-panel">
+      <label class="q" for="query">What happened?</label>
+      <textarea id="query" placeholder="Describe the person, clothing, or moment…" spellcheck="true"></textarea>
+      <div class="actions">
+        <button type="button" class="primary" id="find">Find the moment</button>
+        <button type="button" class="example" data-q="man in a black shirt and khaki pants looking at his phone at the crosswalk">man in a black shirt and khaki pants looking at his phone at the crosswalk</button>
+        <button type="button" class="example" data-q="woman in a black jacket and white skirt">woman in a black jacket and white skirt</button>
+        <button type="button" class="example" data-q="person carrying a white handbag">person carrying a white handbag</button>
+      </div>
+      <div id="status" class="status"></div>
+    </section>
+
+    <div id="synth" class="synth" hidden></div>
+    <div id="cards" class="cards"></div>
+    <div id="empty" class="empty" hidden>No matching moments yet. Try a search.</div>
+
+    <section id="detail" class="detail" hidden>
+      <div class="detail-head">
+        <h2 id="detail-title">Moment</h2>
+        <button type="button" class="primary" id="report-btn">Generate report</button>
+      </div>
+      <div class="player-wrap">
+        <video id="player" controls playsinline preload="metadata"></video>
+      </div>
+      <div id="timeline" class="timeline-bar" aria-label="Segment timeline"></div>
+      <div id="seg-list" class="seg-list"></div>
+    </section>
+
+    <section id="report" class="report" hidden>
+      <h2>LAST-SEEN REPORT</h2>
+      <div id="report-body" class="report-body"></div>
+    </section>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
