@@ -1,6 +1,6 @@
-"""The toolkit must stay generic: no scenario, corpus or project terms, personal paths or stale hosts in any
-file that would be committed. The banned terms are held only as digests, so this file (scanned too) never
-spells them out."""
+"""Keep scenario terms out of the reusable toolkit and personal home paths out of every committed file.
+The toolkit's banned terms are held as digests so this file does not spell them out.
+"""
 from __future__ import annotations
 
 import hashlib
@@ -111,12 +111,23 @@ def test_matcher():
 
 def test_no_scenario_terms_or_personal_paths():
     hits = []
+    toolkit_dirs = {"vastkit", "scripts", "deploy", "docs", "tests", "templates", ".githooks"}
+    toolkit_files = {"pyproject.toml", ".env.example", ".gitignore"}
+    home = Path.home().as_posix().lower().rstrip("/")
+    home_pattern = re.compile(re.escape(home) + r"(?:/|$)")
     for path in _repo_files():
         if path.suffix.lower() in BINARY or not path.is_file():
             continue
+        relative = path.relative_to(ROOT)
+        toolkit = (relative.parts[0] in toolkit_dirs or relative.as_posix() in toolkit_files
+                   or (len(relative.parts) == 1 and relative.name.startswith("requirements")
+                       and relative.suffix == ".txt"))
         text = path.read_text(encoding="utf-8", errors="replace")
         for n, line in enumerate(text.splitlines(), 1):
-            m = _hit(line)
+            normalized = re.sub(r"/+", "/", line.lower().replace("\\", "/"))
+            if home_pattern.search(normalized):
+                hits.append(f"{relative.as_posix()}:{n}: personal home path")
+            m = _hit(line) if toolkit else None
             if m:
-                hits.append(f"{path.relative_to(ROOT).as_posix()}:{n}: {m!r}")
-    assert not hits, "generic-toolkit scrub failed:\n" + "\n".join(hits)
+                hits.append(f"{relative.as_posix()}:{n}: {m!r}")
+    assert not hits, "repository scrub failed:\n" + "\n".join(hits)

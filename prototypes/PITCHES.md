@@ -32,7 +32,7 @@ Built and tested on local stand-ins and openly licensed clips. Each pitch was wr
 
 ## 1. ON THE LINE: Police ask five questions in ten seconds, and the camera answers every one in milliseconds, with the evidence attached.
 
-*STRONG BACKUP, win score 6/10. Folder: 08_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/08_on_the_line/out/person_bicycle_car_detection/hero.jpg*
+*STRONG BACKUP, win score 6/10. Folder: 08_*, hero: 08_on_the_line/out/person_bicycle_car_detection/hero.jpg*
 
 You are a remote video response operator. An alarm fires, police are on the phone, and they always ask the same things: how many, which way did they go, what colour, are they still there, when did they arrive? Today you squint and scrub through footage while they wait. ON THE LINE listens to the call and follows the camera live, so each question pops a card on the next frame: "NO: the car was last seen 2.8 s ago, left via the LEFT edge", with the crop, the drawn path and a latency chip. When you hang up, the incident log is already drafted. It is a real job with a real pain, the demo is visceral, and Canary is the obvious way in. On the held-out clips it scored 16/17, and the slowest answer took 5.3 ms.
 
@@ -51,7 +51,7 @@ You are a remote video response operator. An alarm fires, police are on the phon
 
 ## 2. OVERNIGHT LEDGER: Your car, every second of the night: there, gone, or "we couldn't see", with the reason. Never a guess.
 
-*STRONG BACKUP, win score 5/10. Folder: 02_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/02_overnight_ledger/out/ptz_parking/hero.jpg*
+*STRONG BACKUP, win score 5/10. Folder: 02_*, hero: 02_overnight_ledger/out/ptz_parking/hero.jpg*
 
 You park on the street and walk away. Next morning the question is simple: was it there all night, and did anyone go near it? Today's answer is hours of scrubbing footage. You click one car and get a second-by-second strip instead: green for present, red for gone, grey for "can't see" with the cause named (lens covered, frozen feed, blurred, camera pointing elsewhere). Every grey gap gets a before/after crop that says SAME CAR or CHANGED, and every person whose feet came near the car shows up as a time-stamped thumbnail. It never fills a blind stretch with a guess. Pack D is two days of a neighbourhood camera that mostly sees cars, which is the overnight-parking case this ledger was built for. The honest UNKNOWN is the part a judge will remember.
 
@@ -70,7 +70,7 @@ You park on the street and walk away. Next morning the question is simple: was i
 
 ## 3. RELEASE DESK: Release only the person who asked: everyone else is hidden by default, and every exported frame is checked before it goes out.
 
-*STRONG BACKUP, win score 6/10. Folder: 01_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/01_release_desk/out/retail_cctv/hero.jpg*
+*STRONG BACKUP, win score 6/10. Folder: 01_*, hero: 01_release_desk/out/retail_cctv/hero.jpg*
 
 You are a council information-governance officer. A resident wants every clip of themselves, and the law gives you one month. Redacting by hand takes about nine hours per hour of footage (Home Office figure). You type the request. SQL over the 5 s segment table narrows hours of footage to a list of candidates. You click the person, and the desk exports them sharp while everyone else is blurred. The exported file is then checked a second time, frame by frame, by detectors that played no part in making it. Any frame where a stranger overlaps the requester goes to a person for review. You end up with a release record: hashes, a leak result, a review list and a stopwatch. It wins because it solves a real legal problem, uses the whole provided stack, and shows the system catching its own mistakes on stage.
 
@@ -89,7 +89,7 @@ You are a council information-governance officer. A resident wants every clip of
 
 ## 4. MIMIC: You remember how it moved, not what it looked like: draw the path and MIMIC finds who moved that way, or tells you plainly that nobody did.
 
-*STRONG BACKUP, win score 5.5/10. Folder: 07_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/07_mimic/out/hero.jpg*
+*STRONG BACKUP, win score 5.5/10. Folder: 07_*, hero: 07_mimic/out/hero.jpg*
 
 You're an investigator with two days of street-camera footage and one memory: "it came in, turned round and went back." You can't type that into a search box. With MIMIC you draw it. Sketch a U-turn on the canvas and about 0.1-0.2 s later you get eight cards. Each card shows the real trajectory drawn on the frame, green at the start and red at the end, along with a cost, a "turned 180 deg" chip and a clip to play. Draw something that never happened and you get a red NO MATCH banner, not a confident wrong answer. Judges get to grab the mouse and test it themselves, and that hands-on moment is what wins. Pack D is a fixed camera that sees mostly cars, which suits MIMIC: the camera-compensation step isn't needed, and a real car U-turn over 2 days is a plausible find. Cosmos-Embed1 can then add "white van" on top of the drawn path.
 
@@ -108,7 +108,7 @@ You're an investigator with two days of street-camera footage and one memory: "i
 
 ## 5. UNCUT (cut down): "Only 50% of this clip is ours." UNCUT finds the exact source second of a viral clip and shows every second that was cut or spliced in.
 
-*STRONG BACKUP, win score 5/10. Folder: 10_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/10_uncut/out/t4_splice_ptz_sitdown/hero.jpg*
+*STRONG BACKUP, win score 5/10. Folder: 10_*, hero: 10_uncut/out/t4_splice_ptz_sitdown/hero.jpg*
 
 You run comms for a council, and a clip "from your street cam" is all over social media. It has been cropped, sped up and cut, and the comments are getting angry. You drop it into UNCUT. Seconds later you see a stamp: MATCH, the source camera, the exact window, "CROPPED 80%" and "3.0 s REMOVED @ clip 00:07". A ribbon shows the missing seconds in red. When someone splices in footage from elsewhere, the amber PARTIAL stamp says "Only 50% of this clip is ours". UNCUT never guesses: Cosmos-Embed1 vectors in VastDB narrow down the candidates, then frame hashes are aligned and every number is measured. Judges see real camera footage used to fight misinformation, with numbers anyone can check.
 
@@ -127,7 +127,7 @@ You run comms for a council, and a clip "from your street cam" is all over socia
 
 ## 6. BLIND TIME: "Nothing found" is a lie if the camera wasn't looking. Blind Time says COULD NOT SEE.
 
-*FOLD INTO ANOTHER, win score 4/10. Folder: 06_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/06_blind_time/out/ptz_parking/hero.jpg*
+*FOLD INTO ANOTHER, win score 4/10. Folder: 06_*, hero: 06_blind_time/out/ptz_parking/hero.jpg*
 
 You're the investigator asking the footage "was anyone in the car park between 02:40 and 04:00?" Today's search says NOTHING FOUND, and you write it in your report. That's wrong: the PTZ swung away at 02:35 and never came back, so it was blind for all 80 seconds. Blind Time puts a health verdict on every second (OK, DARK, FROZEN, BLUR, MOVED, OCCLUDED) and answers in four states: SEEN, SEEN IN OTHER VIEW, NOTHING FOUND, or COULD NOT SEE, with the coverage % and the blind spans. It even catches a frozen feed where plain search says SEEN from a stale frame. Every verdict is plain WHERE/COUNT/SUM SQL next to the DataEngine segment table in VastDB. Fold it in as the trust layer under the winning search/query project. It answers the judge's real-world-impact question for the whole stack: "we never say nothing happened unless we could see."
 
@@ -146,7 +146,7 @@ You're the investigator asking the footage "was anyone in the car park between 0
 
 ## 7. LANE CALL: Every stopped car makes an alert. Lane Call tells you in half a second which ones are actually blocking the road.
 
-*STRONG BACKUP, win score 5/10. Folder: 14_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/14_lane_call/out/motorway_a40_inject/hero.jpg*
+*STRONG BACKUP, win score 5/10. Folder: 14_*, hero: 14_lane_call/out/motorway_a40_inject/hero.jpg*
 
 You run a traffic control room. Every parked car, every queue at a red light and every car seen again by another camera preset raises its own alert, and the one that matters is buried among them. National Highways checked only 564 of 3,850 alerts. Lane Call puts a triage step in front of you. Each stopped vehicle gets a white ground-contact line traced from its segmentation mask and a call: IN LANE, AT KERB or CAN'T SEE, with a stated reason. Cars blocking a lane go to the top. Kerb-parked cars are lowered automatically. A stack of cars at a red light becomes one QUEUE card. Each card comes with an 8 s clip in about half a second. When the ground contact is cut off by the frame edge, the system says so instead of guessing. It is a real operator workflow, and judges get a clear before-and-after: 104 alerts become 100 cards, with the in-lane ones first.
 
@@ -165,7 +165,7 @@ You run a traffic control room. Every parked car, every queue at a red light and
 
 ## 8. NIGHT EXIT: "Last seen 00:12" becomes a ranked list of who went out the door after that, with direction and proof.
 
-*FOLD INTO ANOTHER, win score 4/10. Folder: 04_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/04_night_exit/out/one_by_one_person_detection/hero.jpg*
+*FOLD INTO ANOTHER, win score 4/10. Folder: 04_*, hero: 04_night_exit/out/one_by_one_person_detection/hero.jpg*
 
 You're the night carer. A resident is missing, last seen 00:12, wearing "grey top". You don't have time to scrub hours of footage. You type the time and the description, and NIGHT EXIT gives you a card for every person who crossed the exit line after 00:12: OUT or IN, the time, a sharp crop, a zoomed frame with the crossing dot on the line, colours, a Cosmos one-liner, and a rank against your words. When three people really do wear grey, it says "best of 3 close matches, not a sure thing" instead of pretending to be sure. When someone steps out and comes straight back, it says "back in 1 s later", so nobody raises a false alarm. Every part of the stack has a job: VastDB shortlists the segments, Cosmos describes each person and Embed1 ranks them. Best used as the "who crossed the line since T?" feature of the main search idea.
 
@@ -184,7 +184,7 @@ You're the night carer. A resident is missing, last seen 00:12, wearing "grey to
 
 ## 9. PINCH POINT REGISTER: Draw a zone, replay the whole recording, and get a crowd trigger you can defend because the footage already tested it.
 
-*FOLD INTO ANOTHER, win score 4/10. Folder: 13_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/13_pinch_point/out/retail_cctv/hero.jpg*
+*FOLD INTO ANOTHER, win score 4/10. Folder: 13_*, hero: 13_pinch_point/out/retail_cctv/hero.jpg*
 
 You manage a busy space and the regulator's finding stings: your pinch points have "no recorded, risk-assessed plan." You draw an amber polygon on the camera view. Pinch Point Register counts every person whose feet land inside it, second by second, and replays the whole recording against your rule. Nobody guesses N. On a real shop-till CCTV clip, N>=9 for 3 s would have fired twice, N>=10 never, and N>=6 fires 9 times. You can watch the threshold trade-off happen. It then exports a plan entry with the polygon, trigger, back-test, three evidence frames and blank action rows for the owner to fill in. The real deliverable is an auditable rule. On Pack D, fold this zone back-test and threshold sweep into the main neighbourhood-camera project as its alert-rule feature, counting cars or people in a zone.
 
@@ -203,7 +203,7 @@ You manage a busy space and the regulator's finding stings: your pinch points ha
 
 ## 10. PRIVATE VIEW: The camera moved, the privacy masks didn't, and nobody noticed. PRIVATE VIEW notices to the second.
 
-*FOLD INTO ANOTHER, win score 4/10. Folder: 15_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/15_private_view/out/rochester_real/hero.jpg*
+*FOLD INTO ANOTHER, win score 4/10. Folder: 15_*, hero: 15_private_view/out/rochester_real/hero.jpg*
 
 You run a control room that watches cameras pointed at people's homes. Static privacy masks hide their windows. Then a van clips the pole or the mount sags. The image shifts, the masks stay where they were drawn, and bedroom windows are on screen with nobody aware of it. PRIVATE VIEW compares every frame with the setup frame and moves each window outline to where the window really is now. It shows red where the mask still sits, green where the window is and yellow where the window is exposed, and logs a per-window breach with start and end times. On real hand-held night footage it caught 8 windows 21-27% uncovered, and a second independent estimator agreed to 0.22 px. It is a strong privacy-integrity layer. Fold it into the winning Pack D pipeline as its camera-health and privacy feature.
 
@@ -222,7 +222,7 @@ You run a control room that watches cameras pointed at people's homes. Static pr
 
 ## 11. LEAK TEST: It looked blurred, but 178 of 262 frames showed a readable face. Leak Test catches what playback speed hides.
 
-*STRONG BACKUP, win score 5/10. Folder: 03_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/03_leak_test/out/retail_cctv/hero.jpg*
+*STRONG BACKUP, win score 5/10. Folder: 03_*, hero: 03_leak_test/out/retail_cctv/hero.jpg*
 
 You are the disclosure officer at a council or police force. You blur a CCTV clip, watch it once at full speed, and release it. It looked fine. Leak Test plays the motivated intruder. It takes your export and the original and checks every frame for a face that is still as sharp as in the original. Then it issues a signed PASS/FAIL certificate with SHA-256 hashes of both files. You get four columns with red boxes on the exposed faces, a timeline where a keyframe-only redactor shows up as a red comb, and a leak reel of cropped faces with timestamps. The auditor deliberately uses different models from the redactor it checks. It does not trust the redactor's log. Judges get a privacy-tech story with real consequences and a jaw-drop hero they can read in 5 seconds.
 
@@ -241,7 +241,7 @@ You are the disclosure officer at a council or police force. You blur a CCTV cli
 
 ## 12. HIDE & SEEK: Think of any clip and our video index finds it in about 6 questions, then shows you the clips it cannot tell apart.
 
-*FOLD INTO ANOTHER, win score 3/10. Folder: 12_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/12_hide_and_seek/out/ALL/hero.jpg*
+*FOLD INTO ANOTHER, win score 3/10. Folder: 12_*, hero: 12_hide_and_seek/out/ALL/hero.jpg*
 
 You run a video archive and trust your index, but you never check whether it can tell two clips apart. A judge picks a secret clip from a 64-tile grid. The page asks yes/no questions chosen by information gain ("Is it outdoor?", "Does a truck or bus appear?"), and the grid halves each time: 64, 32, 16, 8. One tile glows: "Is it this one?" If the judge lies once, the page notices the contradiction and still finds the clip. Then comes the honest part, the lookalike report: these clips are identical to your index, and these the detectors cannot see at all. It is a live stage moment and a real audit, and every question is a SQL COUNT over YOLO, Cosmos tags and caption keywords. Use it as the "audit your index" feature of the main search project.
 
@@ -260,7 +260,7 @@ You run a video archive and trust your index, but you never check whether it can
 
 ## 13. LAST UPRIGHT: Not just "someone fell": when they were last standing, how fast they went down, and how long they've been on the floor.
 
-*FOLD INTO ANOTHER, win score 3/10. Folder: 11_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/11_last_upright/out/skate_fall/hero.jpg*
+*FOLD INTO ANOTHER, win score 3/10. Folder: 11_*, hero: 11_last_upright/out/skate_fall/hero.jpg*
 
 You're on a night shift with 30 residents, and a camera alarm just said "FALL". Your first questions are when it happened and how long they've been down. LAST UPRIGHT answers both on a single card. It shows the last-upright frame, the ground-contact frame and the flat frame side by side, a stand-to-flat time that separates a fall from someone deliberately lying down, and a long-lie clock that moves through CHECK NOW, ESCALATE and LONG LIE. Cosmos checks the key frame, so a resident lying in bed doesn't raise a false alarm, which the box-only baseline does. VastDB filters the clips so Cosmos only looks at flagged segments. On Pack D, use it as the "person down" alert inside the winning street-watch project, not as the main project.
 
@@ -279,7 +279,7 @@ You're on a night shift with 30 residents, and a camera alarm just said "FALL". 
 
 ## 14. BETWEEN THE LINES: The AI describer that knows when to shut up: it drafts audio description only in the pauses, and every line shows what the machine could check.
 
-*FOLD INTO ANOTHER, win score 3/10. Folder: 09_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/09_between_the_lines/out/elephants_dream/hero.jpg*
+*FOLD INTO ANOTHER, win score 3/10. Folder: 09_*, hero: 09_between_the_lines/out/elephants_dream/hero.jpg*
 
 You're an audio-description writer facing hours of programme: find every pause, write a line that fits, and never talk over a character. Between The Lines hands you a first draft. Red bars mark speech, coloured blocks sit only in the gaps, and each line is at most 8 words, timed against real TTS, with GREEN, UNVERIFIED or AMBER showing what YOLO could check. Press play and a voice speaks in the silences while the soundtrack drops about 15 dB and comes back. Ofcom estimated about 61,654 audio-described UK broadcast hours a year in 2010, so this is real-world impact judges feel, and on the day Canary, YOLO11s and Cosmos3-Reason fill exactly the slots. On Pack D, a silent-ish street camera, keep its gap-fitting, ducking narrator as the voice layer of the main project.
 
@@ -298,7 +298,7 @@ You're an audio-description writer facing hours of programme: find every pause, 
 
 ## 15. DAY 14: dashcam in, Operation Snap packet out: Two minutes of dashcam in, five close calls ranked, and a 14-day police clock that reads its date straight from the footage.
 
-*SKIP, win score 2/10. Folder: 05_*, hero: C:/Users/hssil/Downloads/03_Programming_Projects/vast-hackathon/prototypes/05_day_14/out/dashcam_urban/hero.jpg*
+*SKIP, win score 2/10. Folder: 05_*, hero: 05_day_14/out/dashcam_urban/hero.jpg*
 
 You are a driver who just got cut up. You have hours of dashcam footage and 14 days to send it to the police. One force got to 65% of Snap reports too late to act on them. You drop the file in. Nobody scrubs through it. You get a risk curve over the whole recording, the five closest moments ranked, a 10 s clip of each, a zoomed key frame, and a draft packet with a SHA-256 of the original. The clock is read from the footage's burned-in date, and it goes red when you are too late. It knows its limits: it stamps REVIEW, never "offence found", and it refuses footage that is not from a dashcam. That honesty is its strongest selling point. The problem is the event footage.
 

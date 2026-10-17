@@ -39,8 +39,11 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parent
 CACHE = ROOT / "_cache"
-MODELS = Path(os.environ.get("PK_MODELS", "S:/vast-hack/models"))
-INTEL = Path(os.environ.get("PK_INTEL", "S:/vast-hack/videos/intel"))
+_PATHS_FILE = ROOT / "paths.local.json"
+_LOCAL_PATHS = json.loads(_PATHS_FILE.read_text(encoding="utf-8")) if _PATHS_FILE.exists() else {}
+MEDIA_ROOT = Path(os.environ.get("PK_VIDEOS", _LOCAL_PATHS.get("videos", ROOT.parent / "data" / "videos"))).expanduser().resolve()
+MODELS = Path(os.environ.get("PK_MODELS", _LOCAL_PATHS.get("models", ROOT.parent / "data" / "models"))).expanduser().resolve()
+INTEL = Path(os.environ.get("PK_INTEL", _LOCAL_PATHS.get("intel", MEDIA_ROOT / "intel"))).expanduser().resolve()
 COSMOS_URL = os.environ.get("PK_COSMOS_URL", "http://127.0.0.1:8001")
 EMBED_URL = os.environ.get("PK_EMBED_URL", "http://127.0.0.1:8003")
 FFMPEG = shutil.which("ffmpeg") or "ffmpeg"
@@ -60,6 +63,10 @@ def videos() -> dict[str, dict[str, Any]]:
     for f in ("videos.json", "videos_extra.json"):
         if (ROOT / f).exists():
             out.update(json.loads((ROOT / f).read_text(encoding="utf-8")))
+    for item in out.values():
+        path = Path(item["path"])
+        if not path.is_absolute():
+            item["path"] = str(MEDIA_ROOT / path)
     return out
 
 

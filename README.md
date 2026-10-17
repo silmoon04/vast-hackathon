@@ -113,6 +113,10 @@ This produces local outputs and can run GPU inference. Inspect the selected READ
 expected inputs, evaluation limits and runtime notes. The numeric results in those README files describe
 their recorded runs. Structured result summaries are included; generated videos and rendered reports stay local.
 
+Prototype assets default to `data/videos/` and `data/models/`. Set `PK_VIDEOS`, `PK_MODELS` or `PK_INTEL` to use
+other locations. An optional ignored `prototypes/paths.local.json` can also supply `videos`, `models` and `intel`
+paths for a particular machine. The video catalogues use paths relative to the selected video root.
+
 ## Checks and publication
 
 Run the toolkit tests and scan the files Git will publish:

@@ -68,6 +68,7 @@ weave/
 wandb/
 
 # prototype source and labels are kept; generated media and workflow records are local
+/prototypes/paths.local.json
 /prototypes/**/*.png
 /prototypes/**/*.jpg
 /prototypes/**/*.jpeg
