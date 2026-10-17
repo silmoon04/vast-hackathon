@@ -1,0 +1,268 @@
+{
+ "camera": "yonge_dundas",
+ "moments": [
+  {
+   "t": 0.0,
+   "end": 21.94,
+   "kind": "long_stay",
+   "title": "Person stays 22 s",
+   "detail": "Person #16 is on screen from 0:00 to 0:21 (22 s), the longest of 188 people tracked; they moved 138 px in total. The next longest person stayed 17 s.",
+   "object_ids": [
+    16
+   ],
+   "thumb": "moments/1.jpg",
+   "box": [
+    575.3,
+    366.4,
+    599.7,
+    437.2
+   ],
+   "score": 0.646
+  },
+  {
+   "t": 1.25,
+   "end": 2.0,
+   "kind": "close_pass",
+   "title": "Person passes close to moving car",
+   "detail": "Person #39 and moving car #21 (133 px/s) were touching boxes at 0:01, 0.00 x the car's height, close for 0.8 s. Image distance only; true distance is not known.",
+   "object_ids": [
+    39,
+    21
+   ],
+   "thumb": "moments/2.jpg",
+   "box": [
+    967.0,
+    375.2,
+    1107.0,
+    478.9
+   ],
+   "score": 0.716
+  },
+  {
+   "t": 6.42,
+   "end": 7.34,
+   "kind": "close_pass",
+   "title": "Person passes close to moving car",
+   "detail": "Person #427 and moving car #243 (139 px/s) were touching boxes at 0:06, 0.00 x the car's height, close for 0.9 s. Image distance only; true distance is not known.",
+   "object_ids": [
+    427,
+    243
+   ],
+   "thumb": "moments/3.jpg",
+   "box": [
+    967.3,
+    366.0,
+    1182.7,
+    469.1
+   ],
+   "score": 0.739
+  },
+  {
+   "t": 12.76,
+   "end": 13.18,
+   "kind": "close_pass",
+   "title": "Person passes close to moving car",
+   "detail": "Person #596 and moving car #314 (140 px/s) were touching boxes at 0:12, 0.00 x the car's height, close for 0.7 s. Image distance only; true distance is not known.",
+   "object_ids": [
+    596,
+    314
+   ],
+   "thumb": "moments/4.jpg",
+   "box": [
+    996.9,
+    368.5,
+    1249.6,
+    497.7
+   ],
+   "score": 0.733
+  },
+  {
+   "t": 12.93,
+   "end": 13.1,
+   "kind": "close_pass",
+   "title": "Person passes close to moving car",
+   "detail": "Person #600 and moving car #698 (337 px/s) were touching boxes at 0:12, 0.00 x the car's height, close for 0.2 s. Image distance only; true distance is not known.",
+   "object_ids": [
+    600,
+    698
+   ],
+   "thumb": "moments/5.jpg",
+   "box": [
+    318.3,
+    341.1,
+    674.6,
+    497.1
+   ],
+   "score": 0.717
+  },
+  {
+   "t": 14.01,
+   "end": 14.26,
+   "kind": "crowd",
+   "title": "14 people at once",
+   "detail": "14 people on screen together for 0.2 s from 14.0 s (0:14); the most at once in this clip is 14.",
+   "object_ids": [
+    16,
+    448,
+    578,
+    596,
+    600,
+    606,
+    617,
+    639,
+    648,
+    775,
+    792,
+    793,
+    803,
+    806
+   ],
+   "thumb": "moments/6.jpg",
+   "box": [
+    0.0,
+    362.6,
+    1280.0,
+    718.1
+   ],
+   "score": 0.9
+  },
+  {
+   "t": 24.19,
+   "end": 25.02,
+   "kind": "close_pass",
+   "title": "Person passes close to moving car",
+   "detail": "Person #1151 and moving car #817 (54 px/s) were touching boxes at 0:24, 0.00 x the car's height, close for 1.2 s. Image distance only; true distance is not known.",
+   "object_ids": [
+    1151,
+    817
+   ],
+   "thumb": "moments/7.jpg",
+   "box": [
+    18.3,
+    356.5,
+    113.5,
+    446.0
+   ],
+   "score": 0.749
+  },
+  {
+   "t": 24.27,
+   "end": 24.44,
+   "kind": "crowd",
+   "title": "14 people at once",
+   "detail": "14 people on screen together for 0.2 s from 24.3 s (0:24); the most at once in this clip is 14.",
+   "object_ids": [
+    606,
+    845,
+    914,
+    966,
+    1054,
+    1069,
+    1079,
+    1151,
+    1184,
+    1185,
+    1198,
+    1242,
+    1247,
+    1250
+   ],
+   "thumb": "moments/8.jpg",
+   "box": [
+    5.2,
+    359.9,
+    1280.0,
+    716.7
+   ],
+   "score": 0.9
+  },
+  {
+   "t": 39.54,
+   "end": 39.96,
+   "kind": "crowd",
+   "title": "14 people at once",
+   "detail": "14 people on screen together for 0.4 s from 39.5 s (0:39); the most at once in this clip is 14.",
+   "object_ids": [
+    1622,
+    1881,
+    1889,
+    1921,
+    1974,
+    2152,
+    2180,
+    2226,
+    2254,
+    2371,
+    2372,
+    2388,
+    2393,
+    2412
+   ],
+   "thumb": "moments/9.jpg",
+   "box": [
+    0.0,
+    311.8,
+    1280.0,
+    717.0
+   ],
+   "score": 0.9
+  },
+  {
+   "t": 41.46,
+   "end": 42.88,
+   "kind": "close_pass",
+   "title": "Person passes close to moving car",
+   "detail": "Person #2226 and moving car #2511 (25 px/s) were touching boxes at 0:41, 0.00 x the car's height, close for 1.4 s. Image distance only; true distance is not known.",
+   "object_ids": [
+    2226,
+    2511
+   ],
+   "thumb": "moments/10.jpg",
+   "box": [
+    896.9,
+    364.2,
+    1017.3,
+    455.6
+   ],
+   "score": 0.729
+  },
+  {
+   "t": 48.3,
+   "end": 48.72,
+   "kind": "close_pass",
+   "title": "Person passes close to moving car",
+   "detail": "Person #2541 and moving car #2780 (30 px/s) were touching boxes at 0:48, 0.00 x the car's height, close for 0.4 s. Image distance only; true distance is not known.",
+   "object_ids": [
+    2541,
+    2780
+   ],
+   "thumb": "moments/11.jpg",
+   "box": [
+    873.1,
+    368.0,
+    975.0,
+    442.6
+   ],
+   "score": 0.731
+  },
+  {
+   "t": 53.64,
+   "end": 53.8,
+   "kind": "close_pass",
+   "title": "Person passes close to moving car",
+   "detail": "Person #2520 and moving car #2980 (718 px/s) were touching boxes at 0:53, 0.00 x the car's height, close for 0.2 s. Image distance only; true distance is not known.",
+   "object_ids": [
+    2520,
+    2980
+   ],
+   "thumb": "moments/12.jpg",
+   "box": [
+    724.5,
+    407.8,
+    1280.0,
+    718.1
+   ],
+   "score": 0.799
+  }
+ ]
+}

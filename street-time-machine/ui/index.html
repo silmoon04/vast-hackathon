@@ -1,0 +1,1467 @@
+<meta charset="utf-8">
+<title>Street Time Machine</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an evidence desk for one street camera. Stage on the left (what the camera saw), inspector on the right (what it means), a ledger strip of every second underneath. Night-street palette: deep road-blue with a sodium-lamp amber accent; presence states use their own semantic colours. */
+:root{
+  --night:#0F1724; --panel:#162131; --raised:#1D2A3D; --line:#2A3A52; --ink:#E6ECF4; --dim:#93A3B8;
+  --sodium:#F2A93B; --sodium-ink:#1B1406; --present:#3CC488; --gone:#F0645A; --blind:#6B778A; --moved:#E9C84A; --swap:#B48CF2;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--night);color:var(--ink)}
+body{margin:0;font:15px/1.5 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;text-wrap:balance}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.label{font-family:var(--display);font-weight:600;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--night);border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;padding-block:12px}
+.brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+.brand h1{font-size:1.45rem;font-weight:700;letter-spacing:.02em}
+.brand h1 b{color:var(--sodium)}
+.rec{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.78rem;color:var(--dim)}
+.rec::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gone);box-shadow:0 0 0 3px rgba(240,100,90,.18)}
+.cams select{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:5px 8px;font-family:var(--mono);font-size:.82rem;max-width:100%}
+.cam{border:1px solid var(--line);background:transparent;border-radius:4px;padding:4px 10px;cursor:pointer;font-family:var(--mono);font-size:.8rem;color:var(--dim)}
+.cam[aria-pressed="true"]{border-color:var(--sodium);color:var(--sodium)}
+nav.modes{display:flex;gap:2px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:auto;max-width:100%}
+nav.modes::-webkit-scrollbar{display:none}
+@media (max-width:900px){header.bar{position:static}.rec{display:none}nav.modes{margin-left:0;width:100%}.thesis{padding-block:12px 8px}.thesis p{font-size:.9rem}}
+.mode{white-space:nowrap;flex:0 0 auto;background:transparent;border:0;border-bottom:2px solid transparent;padding:6px 10px;cursor:pointer;font-family:var(--display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.88rem;color:var(--dim)}
+.mode[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--sodium)}
+.thesis{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 20px;padding-block:18px 12px}
+.thesis h2{font-size:clamp(1.3rem,3.2vw,1.9rem);font-weight:600;max-width:34ch}
+.thesis p{margin:0;color:var(--dim);max-width:60ch}
+.sim{display:inline-block;font-family:var(--mono);font-size:.72rem;color:var(--sodium);border:1px dashed var(--sodium);padding:1px 6px;border-radius:3px}
+.desk{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+@media (max-width:900px){.desk{grid-template-columns:minmax(0,1fr)}}
+.stage{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden;min-width:0}
+.screen{position:relative;background:#000;line-height:0}
+.screen video,.screen img.plate{width:100%;height:auto;display:block}
+.screen canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.osd{position:absolute;left:10px;top:10px;font-family:var(--mono);font-size:.76rem;line-height:1.4;background:rgba(10,15,24,.72);color:var(--ink);padding:4px 8px;border-radius:3px;pointer-events:none}
+.osd.r{left:auto;right:10px}
+#tip{white-space:nowrap;z-index:2}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:10px 12px;border-top:1px solid var(--line)}
+.btn{background:var(--raised);border:1px solid var(--line);border-radius:4px;padding:6px 12px;cursor:pointer;font-weight:500}
+.btn.primary{background:var(--sodium);color:var(--sodium-ink);border-color:var(--sodium);font-weight:600}
+.chip{background:transparent;border:1px solid var(--line);border-radius:99px;padding:3px 10px;cursor:pointer;font-size:.82rem;color:var(--dim)}
+.chip[aria-pressed="true"]{background:var(--raised);color:var(--ink);border-color:var(--dim)}
+.inspector{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.inspector h3{font-size:1.15rem;font-weight:600}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.88rem}
+.kv dt{color:var(--dim)}.kv dd{margin:0;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.crop{width:100%;max-height:220px;object-fit:contain;background:#000;border-radius:4px;border:1px solid var(--line)}
+.empty{color:var(--dim);font-size:.9rem}
+.pill{display:inline-block;font-family:var(--display);font-weight:600;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+.pill.present,.pill.same,.pill.consistent,.pill.yes{background:rgba(60,196,136,.16);color:var(--present)}
+.pill.gone,.pill.left,.pill.contradiction,.pill.no{background:rgba(240,100,90,.16);color:var(--gone)}
+.pill.unknown,.pill.blind,.pill.unverifiable{background:rgba(107,119,138,.22);color:#B5C0CE}
+.pill.arrived{background:rgba(60,196,136,.16);color:var(--present)}
+.pill.moved{background:rgba(233,200,74,.16);color:var(--moved)}
+.pill.swapped{background:rgba(180,140,242,.16);color:var(--swap)}
+.strip{padding:10px 12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.strip svg{width:100%;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.78rem;color:var(--dim)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.stats{display:flex;flex-wrap:wrap;gap:8px 22px}
+.stat b{display:block;font-family:var(--display);font-size:1.6rem;font-weight:600;line-height:1}
+.stat span{font-size:.78rem;color:var(--dim)}
+.list{display:flex;flex-direction:column;gap:6px;max-height:520px;overflow:auto}
+.item{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;align-items:center;background:var(--raised);border:1px solid transparent;border-radius:5px;padding:6px;cursor:pointer;text-align:left;width:100%}
+.item[aria-current="true"]{border-color:var(--sodium)}
+.item img{width:64px;height:48px;object-fit:cover;border-radius:3px;background:#000}
+.item .t{font-size:.86rem}.item .s{font-size:.76rem;color:var(--dim)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pair figure{margin:0;display:flex;flex-direction:column;gap:4px}
+.pair figcaption{font-size:.74rem;color:var(--dim);font-family:var(--mono)}
+.reveal{position:relative;line-height:0;background:#000}
+.reveal img{width:100%;display:block}
+.reveal .top{position:absolute;inset:0;overflow:hidden;clip-path:inset(0 0 0 50%)}
+.reveal .top img{width:100%}
+.reveal .handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--sodium);pointer-events:none}
+.reveal .tag{position:absolute;top:10px;font-family:var(--mono);font-size:.76rem;background:rgba(10,15,24,.75);padding:3px 8px;border-radius:3px;line-height:1.4}
+.ask{display:flex;gap:8px;flex-wrap:wrap;padding:12px;border-top:1px solid var(--line)}
+.ask input{flex:1 1 260px;min-width:0;background:var(--night);border:1px solid var(--line);border-radius:4px;padding:10px 12px;color:var(--ink);font:inherit}
+.answer{display:flex;flex-direction:column;gap:8px;padding:14px;border-top:1px solid var(--line)}
+.answer .verdict{font-family:var(--display);font-size:2.4rem;font-weight:700;line-height:1}
+.answer .verdict.yes{color:var(--present)}.answer .verdict.no{color:var(--gone)}.answer .verdict.unknown{color:#B5C0CE}
+.answer .verdict.other{color:var(--sodium)}
+.honesty{border-left:3px solid var(--blind);padding:4px 10px;color:#C4CDD9;font-size:.88rem}
+.thumbs{display:flex;gap:6px;flex-wrap:wrap}.thumbs img{height:84px;border-radius:3px;border:1px solid var(--line);background:#000}
+.rows{display:flex;flex-direction:column;gap:10px;padding:12px}
+.row{display:grid;grid-template-columns:160px minmax(0,1fr);gap:12px;background:var(--raised);border-radius:5px;padding:10px}
+@media (max-width:560px){.row{grid-template-columns:minmax(0,1fr)}.pair{grid-template-columns:1fr}}
+.row img{width:100%;border-radius:3px;background:#000}
+.row p{margin:0}
+mark{background:rgba(242,169,59,.22);color:var(--ink);padding:0 2px;border-radius:2px}
+mark.bad{background:rgba(240,100,90,.25)}
+.counts{font-family:var(--mono);font-size:.78rem;color:var(--dim)}
+footer{color:var(--dim);font-size:.78rem;padding-block:20px 0;display:flex;flex-direction:column;gap:4px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<style data-owner="ui-shell">
+/* ui-shell: header badge, brief card, presenter mode. Selectors prefixed .shell-/#brief/html.stm-demo. */
+.shell-defs{position:absolute;width:0;height:0;overflow:hidden}
+header.bar .brand{flex-wrap:wrap;row-gap:4px}
+.shell-camtag{font-family:var(--mono);font-size:.78rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:36ch}
+.shell-badge{font-family:var(--mono);font-size:.72rem;letter-spacing:.03em;padding:1px 7px;border-radius:3px;white-space:nowrap;border:1px solid var(--line);color:var(--dim)}
+.shell-badge.sim{color:var(--sodium);border:1px dashed var(--sodium)}
+.shell-badge.real{color:var(--present);border-color:rgba(60,196,136,.55)}
+#brief.shell-brief{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--sodium);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+#brief[hidden]{display:none}
+#brief .shell-brief-head{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
+#brief .shell-brief-tog{flex:0 0 auto;background:transparent;border:1px solid var(--line);border-radius:4px;padding:2px 10px;cursor:pointer;font-size:.78rem;color:var(--dim)}
+#brief .shell-brief-h{margin:0;font-family:var(--display);font-weight:600;font-size:1.6rem;line-height:1.15;text-wrap:balance;max-width:56ch}
+#brief.shell-collapsed .shell-brief-h{font-size:1.2rem}
+#brief.shell-collapsed .shell-brief-list,#brief.shell-collapsed .shell-brief-hon{display:none}
+#brief .shell-brief-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px}
+#brief .shell-bul{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;align-items:center;width:100%;height:100%;text-align:left;background:var(--raised);border:1px solid transparent;border-radius:5px;padding:6px 8px 6px 6px;cursor:pointer}
+#brief .shell-bul.noimg{grid-template-columns:minmax(0,1fr);padding-left:10px}
+#brief .shell-bul:hover{border-color:var(--sodium)}
+#brief .shell-bul img{width:64px;height:48px;object-fit:cover;border-radius:3px;background:#000}
+#brief .shell-bul .t{display:block;font-size:.88rem;line-height:1.35}
+#brief .shell-time{display:inline-block;margin:4px 8px 0 0;font-family:var(--mono);font-size:.74rem;color:var(--sodium);border:1px solid rgba(242,169,59,.45);border-radius:99px;padding:0 7px}
+#brief .shell-go{display:inline-block;margin-top:4px;font-size:.74rem;color:var(--dim)}
+#brief .shell-brief-hon{margin:0;color:var(--dim);font-size:.86rem}
+#brief .shell-brief-hon b{font-family:var(--display);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;margin-right:8px;color:#B5C0CE}
+html.stm-demo{font-size:18px}
+html.stm-demo body{font-size:16.5px}
+html.stm-demo .osd{font-size:.95rem}
+html.stm-demo #camsel,html.stm-demo footer,html.stm-demo .mode[data-mode="flow"]{display:none}
+@media (max-width:560px){#brief .shell-brief-h{font-size:1.3rem}#brief.shell-collapsed .shell-brief-h{font-size:1.05rem}.shell-camtag{max-width:100%}}
+</style>
+<style data-owner="ui-ask">
+.askv .askv-v{font-family:var(--display);font-weight:700;line-height:1;letter-spacing:.01em;font-size:clamp(2.6rem,11vw,4.5rem);max-width:100%;overflow-wrap:anywhere}
+.askv .askv-v.sm{font-size:clamp(1.7rem,7vw,2.8rem)}
+.askv .askv-yes{color:var(--present)}.askv .askv-no{color:var(--gone)}.askv .askv-other{color:var(--sodium)}
+.askv .askv-hatch{display:inline-block;align-self:flex-start;padding:.1em .3em .06em;border:1px solid var(--blind);border-radius:6px;color:var(--ink);background:repeating-linear-gradient(135deg,rgba(107,119,138,.42) 0 10px,rgba(107,119,138,.12) 10px 20px)}
+.askv .askv-plain{margin:0;color:var(--dim);font-size:1rem}
+.askv .askv-plain s{text-decoration-thickness:2px;text-decoration-color:var(--gone)}
+.askv .askv-why{margin:0;font-size:1.12rem;font-weight:600}
+.askv .askv-why b{font-family:var(--mono);font-weight:500;color:var(--sodium);font-variant-numeric:tabular-nums}
+.askv .askv-lead{margin:0;font-size:1.08rem;max-width:56ch}
+.askv .askv-tiles{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:center;max-width:520px}
+.askv .askv-tiles figure{margin:0;display:flex;flex-direction:column;gap:4px;min-width:0}
+.askv .askv-tiles figcaption{font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;color:var(--ink)}
+.askv .askv-tile{width:100%;aspect-ratio:4/3;object-fit:contain;display:block;background:#000;border:1px solid var(--line);border-radius:4px}
+.askv .askv-static{background:repeating-linear-gradient(90deg,rgba(255,255,255,.1) 0 1px,transparent 1px 3px,rgba(0,0,0,.3) 3px 4px,transparent 4px 7px),repeating-linear-gradient(0deg,#5d6573 0 1px,#2b313b 1px 3px,#858fa0 3px 4px,#3b424d 4px 6px);background-size:7px 100%,100% 6px;animation:askv-snow .2s steps(3) infinite}
+@keyframes askv-snow{to{background-position:7px 0,0 6px}}
+.askv .askv-arrow{font-size:1.4rem;color:var(--dim)}
+.askv .askv-mini .strip{padding:0;border-top:0}
+.askv .askv-mini:not(.askv-still) rect[fill="none"]{animation:askv-pulse .9s ease-in-out infinite alternate}
+@keyframes askv-pulse{from{opacity:1}to{opacity:.15}}
+.askv .askv-src{color:var(--dim)}
+.askv .askv-near{display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:12px}
+@media (max-width:560px){.askv .askv-tiles{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.askv .askv-arrow{display:none}}
+</style>
+<style data-owner="ui-rewind">
+/* ui-rewind: Rewind view only. Every selector sits under .syn-desk, or body:has(.syn-desk) for the thesis clamp. */
+.syn-desk .syn-screen{--syn-ar:1.7778;aspect-ratio:var(--syn-ar);width:100%;max-width:max(320px,calc((100svh - 236px) * var(--syn-ar)));margin-inline:auto}
+.syn-desk .syn-screen video{width:100%;height:100%;object-fit:contain}
+.syn-desk .syn-controls{gap:8px 12px;padding-block:8px}
+.syn-desk .syn-spot{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.syn-desk .syn-spot .label{margin-right:2px}
+.syn-desk .syn-spot .chip b{font-family:var(--mono);font-weight:500;font-size:.76rem;color:var(--dim);margin-left:5px}
+.syn-desk .syn-spot .chip[aria-pressed="true"]{border-color:var(--sodium);color:var(--ink)}
+.syn-desk .syn-spot .chip[aria-pressed="true"] b{color:var(--sodium)}
+.syn-desk .syn-found{font-size:.82rem;color:var(--sodium)}
+.syn-desk .syn-strip svg#synstrip{cursor:pointer}
+.syn-desk .syn-k{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.syn-desk .syn-find{border-top:1px solid var(--line);padding-block:10px}
+.syn-desk .syn-msg{margin:0 12px 12px}
+.syn-desk .syn-nothumb{width:64px;height:48px;border-radius:3px;background:repeating-linear-gradient(45deg,#2A3442 0 4px,#3A475A 4px 6px)}
+body:has(.syn-desk) .thesis p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+@media (max-width:900px){.syn-desk .syn-screen{max-width:none}}
+</style>
+<style data-owner="ui-diff">
+/* ui-diff: Yesterday vs today. Selectors prefixed .dv- / #dv-. */
+.dv-plate{position:relative;line-height:0;background:#000;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.dv-plate svg{display:block;width:100%;height:auto}
+.dv-plate .dv-handle{position:absolute;top:0;bottom:0;left:50%;width:2px;margin-left:-1px;background:var(--sodium);pointer-events:none;box-shadow:0 0 0 1px rgba(10,15,24,.45)}
+.dv-plate .dv-handle::after{content:"\2039\00a0\203A";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:var(--sodium);color:var(--sodium-ink);font:700 15px/29px var(--body);text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.5)}
+.dv-plate .dv-tag{position:absolute;top:10px;max-width:calc(50% - 20px);font-family:var(--mono);font-size:.74rem;line-height:1.35;background:rgba(10,15,24,.8);color:var(--ink);padding:3px 8px;border-radius:3px;border:1px solid transparent;pointer-events:none}
+.dv-plate .dv-tag.dv-l{left:10px}.dv-plate .dv-tag.dv-r{right:10px;text-align:right}
+.dv-plate .dv-tag[data-day="b"]{border-color:var(--sodium);color:var(--sodium)}
+.dv-plate.dv-blinking .dv-tag{text-transform:uppercase;font-size:.9rem;font-weight:500;max-width:calc(100% - 20px)}
+.dv-plate .dv-nc{fill:none;stroke:#C9D3E0;stroke-width:1.5;stroke-dasharray:6 5;opacity:.85;vector-effect:non-scaling-stroke}
+.dv-plate .dv-chg{fill:none;stroke-width:3;vector-effect:non-scaling-stroke}
+.dv-plate .dv-chg.dv-same{stroke-width:1.5;opacity:.75}
+.dv-plate .dv-hl{font-family:var(--display);font-weight:600;letter-spacing:.02em;fill:#E6ECF4;paint-order:stroke;stroke:#0F1724;stroke-width:6px;stroke-linejoin:round}
+@keyframes dv-pulse{50%{stroke-width:10;opacity:.5}}
+.dv-plate.dv-blinking .dv-chg:not(.dv-same){animation:dv-pulse .9s ease-in-out infinite}
+.dv-plate .dv-chg.dv-flash{stroke-width:6;opacity:1;animation:dv-pulse .6s ease-in-out 3}
+.dv-root .dv-line{margin:0;padding:10px 12px 0;font-size:.9rem;color:#C4CDD9}
+.dv-root .dv-pluto{margin:0;padding:0 12px 10px;font-size:.8rem;color:var(--dim);font-style:italic}
+.dv-root .btn.dv-blink[aria-pressed="true"]{background:var(--sodium);color:var(--sodium-ink);border-color:var(--sodium)}
+.dv-root .dv-card{grid-template-columns:minmax(0,1fr);gap:6px}
+.dv-root .dv-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dv-root .dv-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dv-root .dv-fig{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dv-root .dv-card .dv-fig img{width:100%;height:92px;object-fit:contain;background:#000;border-radius:3px;border:1px solid var(--line)}
+.dv-root .dv-cap{font-family:var(--mono);font-size:.72rem;color:var(--dim)}
+.dv-root .dv-none{height:92px;display:flex;align-items:center;justify-content:center;border:1px dashed var(--line);border-radius:3px;font-size:.74rem;color:var(--dim)}
+.dv-root .pill.dv-pill{background:rgba(107,119,138,.22);color:#C9D3E0}
+.dv-root .pill.dv-left{background:rgba(240,100,90,.16);color:var(--gone)}
+.dv-root .pill.dv-arrived{background:rgba(60,196,136,.16);color:var(--present)}
+.dv-root .pill.dv-moved{background:rgba(233,200,74,.16);color:var(--moved)}
+.dv-root .pill.dv-swapped{background:rgba(180,140,242,.16);color:var(--swap)}
+.dv-root .pill.dv-q{background:transparent;box-shadow:inset 0 0 0 1px #93A3B8}
+.dv-root .dv-ncd summary{cursor:pointer}
+.dv-root .dv-ncd ul{margin:6px 0 0;padding-left:18px;font-size:.84rem;color:#C4CDD9;display:flex;flex-direction:column;gap:3px}
+.dv-root .dv-pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0}
+</style>
+<style data-owner="ui-near">
+/* ui-near: Who came near. Every selector is prefixed .nr- */
+.nr-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:12px}
+.nr-tap{font-size:1.35rem;font-weight:600}
+.nr-days{display:flex;gap:6px;flex-wrap:wrap}
+.nr-hint{font-size:.8rem;color:var(--dim);margin-left:auto}
+.nr-plate{position:relative;background:#000;line-height:0}
+.nr-plate img.plate{width:100%;height:100%;object-fit:fill;display:block}
+.nr-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.nr-t{cursor:pointer;outline:none}
+.nr-box{fill:transparent;stroke:rgba(255,255,255,.6);stroke-width:1.5;vector-effect:non-scaling-stroke;pointer-events:all}
+.nr-t:hover .nr-box,.nr-t:focus-visible .nr-box{stroke:#fff;stroke-width:2.5;fill:rgba(255,255,255,.1)}
+.nr-badge{pointer-events:none}.nr-badge rect{fill:#F2A93B}.nr-badge text{fill:#1B1406;font-family:var(--mono);font-weight:600}
+.nr-tr{pointer-events:none}
+.nr-tr polyline{fill:none;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.nr-tr text{font-family:var(--mono);font-weight:500;fill:#fff;paint-order:stroke;stroke:rgba(8,12,20,.85);stroke-width:4px;stroke-linejoin:round}
+.nr-foot polyline{stroke:#F2A93B;stroke-width:2.5}.nr-foot circle{fill:#F2A93B;stroke:#1B1406;stroke-width:1.5;vector-effect:non-scaling-stroke}
+.nr-stop polyline{stroke:#7FB6FF;stroke-width:2}.nr-stop circle{fill:#7FB6FF}
+.nr-past polyline{stroke:rgba(127,182,255,.2);stroke-width:2}.nr-past circle{fill:rgba(127,182,255,.3)}
+.nr-svg.has-hi .nr-tr{opacity:.22}.nr-svg.has-hi .nr-tr.hi{opacity:1}
+.nr-tr.hi polyline{stroke-width:4}.nr-past.hi polyline{stroke:#7FB6FF}.nr-past.hi circle{fill:#7FB6FF}
+.nr-sel{pointer-events:none}.nr-selbox{fill:none;stroke:#F2A93B;stroke-width:3;vector-effect:non-scaling-stroke}
+.nr-tag{fill:#F2A93B}.nr-sel text{fill:#1B1406;font-family:var(--display);font-weight:700;letter-spacing:.08em}
+.nr-leg{padding:8px 12px;border-top:1px solid var(--line)}
+.nr-hd{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px;align-items:start}
+.nr-hd .nr-crop{width:100%;max-height:150px;object-fit:contain;border-radius:4px;background:#000;border:1px solid var(--line)}
+.nr-h{font-size:1.35rem;font-weight:600;margin:4px 0 6px}
+.nr-stay{margin:0;color:var(--dim);font-size:.9rem}
+.nr-tl{width:100%;height:auto;display:block}
+.nr-k{cursor:pointer}.nr-k.hi line{stroke-width:6;opacity:1}
+.nr-g{display:flex;flex-direction:column;gap:6px}
+.nr-gh,.nr-past summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font-size:.95rem}
+.nr-gh .s,.nr-past summary .s{font-size:.8rem;color:var(--dim)}
+.nr-past summary{cursor:pointer;list-style:none}.nr-past summary::-webkit-details-marker{display:none}
+.nr-past summary::before{content:"\25B8";color:var(--dim)}.nr-past[open] summary::before{content:"\25BE"}
+.nr-dot{display:inline-block;width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+.nr-dot.foot{background:#F2A93B}.nr-dot.stop{background:#7FB6FF}.nr-dot.past{background:rgba(127,182,255,.35)}
+.nr-list{max-height:none}
+.nr-v[aria-pressed="true"]{border-color:#F2A93B}
+.nr-past .nr-v{opacity:.85}
+.nr-rw{margin-top:4px;padding:3px 9px;font-size:.78rem}
+.nr-never{font-weight:600;color:var(--ink)}
+@media (max-width:560px){.nr-hd{grid-template-columns:96px minmax(0,1fr)}.nr-h{font-size:1.12rem}.nr-hint{margin-left:0}.nr-tap{font-size:1.15rem}}
+</style>
+<style data-owner="captions">
+.cx{display:flex;flex-direction:column;gap:16px}
+.cx .cx-pad{padding:14px;display:flex;flex-direction:column;gap:10px}
+.cx h3{font-size:1.2rem;font-weight:600}
+.cx .cx-stampwrap{position:relative;line-height:0;background:#000}
+.cx .cx-strip{width:100%;height:auto;display:block}
+.cx .cx-stamp{position:absolute;right:14px;top:14px;line-height:1;font-family:var(--display);font-weight:700;font-size:clamp(1rem,3vw,1.6rem);letter-spacing:.12em;color:var(--gone);border:3px solid var(--gone);border-radius:4px;padding:6px 10px;background:rgba(15,23,36,.78);transform:rotate(-4deg)}
+.cx .cx-quote{margin:0;font-size:clamp(1.15rem,3.4vw,1.6rem);line-height:1.3;font-family:var(--display);font-weight:500}
+.cx .cx-lie{color:var(--gone);text-decoration-thickness:3px;text-decoration-color:var(--gone)}
+.cx .cx-tiles,.cx .cx-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.cx .cx-tiles>div,.cx .cx-cols>div{background:var(--raised);border-radius:5px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.cx .cx-tiles b{font-family:var(--display);font-size:1.25rem;font-weight:600}
+.cx .cx-cols>div{background:var(--panel)}
+.cx .cx-cols b{font-family:var(--mono);font-size:.84rem;font-weight:500;overflow-wrap:anywhere}
+.cx .cx-why{margin:0;color:var(--dim);font-size:.84rem}
+.cx .cx-mini{display:grid;grid-template-columns:200px minmax(0,1fr);align-items:center}
+.cx .cx-minifr{width:100%;height:100%;object-fit:cover;max-height:none;border:0;border-radius:0}
+.cx .cx-mini p{margin:0}
+.cx .cx-row{grid-template-columns:200px minmax(0,1fr)}
+@media (max-width:560px){.cx .cx-mini,.cx .cx-row{grid-template-columns:minmax(0,1fr)}}
+.cx .cx-rowstrip{width:100%;height:auto}
+.cx .cx-body{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cx .cx-cap{margin:0}
+.cx .cx-app{color:var(--blind);text-decoration:underline dotted;text-underline-offset:3px}
+.cx .pill.cx-amber{background:rgba(242,169,59,.16);color:var(--sodium)}
+.cx .cx-more{border-top:1px solid var(--line)}
+.cx .cx-more>summary{cursor:pointer;padding:10px 14px;font-family:var(--display);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.84rem;color:var(--dim)}
+</style>
+</head>
+<body>
+<svg class="shell-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#2A3442"/><line y2="6" stroke="#8C99AB" stroke-width="2"/></pattern></defs></svg>
+<header class="bar">
+  <div class="brand"><h1>STREET <b>TIME MACHINE</b></h1><span class="shell-camtag" id="camid">—</span><span class="shell-badge" id="databadge" hidden></span></div>
+  <label class="cams" id="camsel"><span class="label" style="margin-right:6px">Camera</span><select id="cams" aria-label="Camera"></select></label>
+  <nav class="modes" role="tablist" aria-label="Views">
+    <button class="mode" role="tab" data-mode="near" aria-selected="true">Who came near</button>
+    <button class="mode" role="tab" data-mode="diff" aria-selected="false">Yesterday vs today</button>
+    <button class="mode" role="tab" data-mode="ask" aria-selected="false">Ask</button>
+    <button class="mode" role="tab" data-mode="synopsis" aria-selected="false">Rewind</button>
+    <button class="mode" role="tab" data-mode="captions" aria-selected="false">Check the AI</button>
+    <button class="mode" role="tab" data-mode="flow" aria-selected="false" hidden>Where they go</button>
+  </nav>
+</header>
+<section id="brief" class="shell-brief" hidden aria-label="The 10-second answer"></section>
+
+<section class="thesis"><h2 id="thesis">Every car that passed, all on screen at once.</h2><p id="sub"></p></section>
+<main id="view"></main>
+<footer><span id="credit"></span><span id="provenance">Built during the Real-Time Video Agents Hack, 17 Oct 2026. Every number on this page is computed from the footage; anything marked SIMULATED is a test we staged.</span></footer>
+
+<script>
+const S = {cams: [], cam: null, mode: 'synopsis', meta: null, cache: {}};
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mmss = t => { t = Math.max(0, +t || 0); const m = Math.floor(t/60), s = t - m*60; return `${String(m).padStart(2,'0')}:${s.toFixed(1).padStart(4,'0')}`; };
+const COL = {person:'#F2A93B', car:'#7FB6FF', truck:'#9AD1FF', bus:'#9AD1FF', bicycle:'#F28FB4', motorcycle:'#F28FB4'};
+const colOf = n => COL[n] || '#C9D3E0';
+const WHY = {dark: 'too dark', blur: 'picture blurred', frozen: 'picture froze', blocked: 'view blocked or camera turned away', no_signal: 'no picture', turned_away: 'camera turned away', moved: 'camera moving'};
+const why = r => WHY[r] || r || 'unknown';
+const BAKED = window.__STM__ || null, FILES = window.__STM_FILES__ || {};
+const F = p => (p && FILES[p]) || p;
+const asset = (cam, p) => p ? F(`out/${cam}/${p}`) : '';
+
+async function getJSON(url){
+  if (url in S.cache) return S.cache[url];
+  if (BAKED) return (S.cache[url] = BAKED[url] ?? null);
+  let v = null;
+  try { const r = await fetch(url); if (r.ok) v = await r.json(); } catch(e) {}
+  S.cache[url] = v; return v;
+}
+function empty(msg){ return `<div class="stage"><div class="rows"><p class="empty">${esc(msg)}</p></div></div>`; }
+function img(src, cls='crop', alt=''){ return src ? `<img class="${cls}" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" onerror="this.hidden=true">` : ''; }
+
+const THESIS = {
+  synopsis: ['Every car that passed, all on screen at once.', 'The whole recording squeezed into under a minute. Each ghost is a real car or person, stamped with the time it was really there. Click one to see it.'],
+  diff: ['What changed between yesterday and today?', 'Drag across the street. Every parked car is matched across the two days: same car, gone, new, moved, or a different car in the same spot. Where one day\'s camera never looked, nothing is compared.'],
+  near: ['Your car got dented. Who came close?', 'Pick a parked car. You see who came close to it in the picture, on foot or driving past, and every second the camera could not see. It shows who was near, never who did it.'],
+  flow: ['Where does everyone go?', 'Every path walked or driven, drawn as light. The brightest trails are the busiest routes.'],
+  ask: ['Ask the camera. When it could not see, it says so.', 'Answers come from the tracked record of every object, not a video model, so each one is instant and cites a frame and a time. If the camera was turned away it answers CAN\'T TELL, and it never says who did it.'],
+  captions: ['Can you trust the AI\'s descriptions?', 'Each 5-second description written by a video model, checked against what the object detector actually counted. Neither AI is trusted alone.'],
+};
+
+async function init(){
+  const P = new URLSearchParams(location.search);
+  Object.assign(S, {mode: 'near', demo: P.get('demo') === '1', all: P.get('all') === '1', focus: null, askQ: null, leave: [], rt: 0, briefOpen: null});
+  document.documentElement.classList.toggle('stm-demo', S.demo);
+  const fl = $('.mode[data-mode="flow"]'); if (fl) fl.hidden = !S.all;
+  let cams = await getJSON('api/cams');
+  if (!Array.isArray(cams)) cams = await getJSON('out/cams.json');
+  if (cams && !Array.isArray(cams)) cams = cams.cams;
+  const list = ((cams && cams.length) ? cams : ['ptz_parking']).map(c => typeof c === 'string' ? {camera: c} : c).filter(c => c && c.camera);
+  // Titles, days and the simulated flag come from each camera's meta.json (the baked export lists only ids).
+  const all = await Promise.all(list.map(async c => ({...c, ...((await getJSON(`out/${c.camera}/meta.json`)) || {}), camera: c.camera})));
+  const want = P.get('cam');
+  let shown = all.filter(c => S.all || !DEV_HIDE.includes(c.camera) || c.camera === want);
+  if (!shown.length) shown = all;
+  shown.sort((a, b) => isEventCam(b) - isEventCam(a));   // event footage first, otherwise server order
+  S.cams = shown.map(c => c.camera);
+  S.home = S.cams[0];
+  $('#cams').innerHTML = shown.map(c => `<option value="${esc(c.camera)}">${esc(c.title || c.camera.replace(/_/g, ' '))}</option>`).join('');
+  $('#cams').onchange = e => { shellTouched(); setCam(e.target.value); try { const u = new URL(location.href); u.searchParams.set('cam', e.target.value); history.replaceState(null, '', u); } catch(x) {} };
+  $('nav.modes').onclick = e => { const b = e.target.closest('.mode'); if (b) { shellTouched(); setMode(b.dataset.mode); } };
+  const [h, arg] = (location.hash || '').slice(1).split('/');
+  if (THESIS[h] && (h !== 'flow' || S.all)) S.mode = h;
+  if (arg && S.mode === 'near' && /^\d+$/.test(arg)) S.focus = {object_id: +arg};
+  if (arg && S.mode === 'ask') { try { S.askQ = decodeURIComponent(arg); } catch(x) {} }
+  markMode(S.mode);
+  if (S.demo) addEventListener('keydown', shellKeys);
+  await setCam(S.cams.includes(want) ? want : S.home);
+}
+async function setCam(cam){
+  S.cam = cam;
+  const meta = await shellCamPick(cam);
+  if (S.cam !== cam) return;   // a later camera switch won
+  S.meta = meta || {camera: cam, w: 1280, h: 720, duration: 0, days: [], simulated: []};
+  shellCamUI(cam);
+  renderBrief(cam);
+  render();
+}
+function setMode(m){ markMode(m); render(); }
+async function render(){
+  for (const f of (S.leave || []).splice(0)) { try { f(); } catch(e) {} }
+  const [t, s] = THESIS[S.mode] || THESIS.near;
+  $('#thesis').textContent = t;
+  const sim = (S.meta.simulated || []).length ? ` <span class="sim">SIMULATED: ${esc(S.meta.simulated.join('; '))}</span>` : '';
+  $('#sub').innerHTML = esc(s) + sim;
+  // Each render draws into a fresh pane, so a slow earlier view can only write into a detached pane.
+  const v = document.createElement('div'), tok = S.rt = (S.rt || 0) + 1;
+  v.className = 'shell-pane';
+  v.innerHTML = `<p class="empty shell-loading">Loading…</p>`;
+  $('#view').replaceChildren(v);
+  const fn = {synopsis: viewSynopsis, diff: viewDiff, near: viewNear, flow: viewFlow, ask: viewAsk, captions: viewCaptions}[S.mode] || viewNear;
+  try { await fn(v); }
+  catch (e) { console.error(e); if (tok === S.rt && v.querySelector('.shell-loading')) v.innerHTML = empty('This view could not be drawn for this camera. Try another tab.'); }
+  if (tok === S.rt && v.isConnected) shellAfterRender(v);
+}
+
+/* ---------- Shell: presenter keys, deep links, brief (ui-shell) ---------- */
+/* Shell state other views may read: S.demo (presenter mode, ?demo=1), S.all (?all=1), S.home (default camera),
+   S.focus = {object_id} (near: pre-pick this target, then set S.focus.done = true), S.askQ (ask: pre-fill this
+   question and set S.askQ = null; otherwise the shell submits #askf itself), S.leave (push cleanup functions,
+   e.g. () => clearInterval(id); render() runs and empties them before drawing the next view). */
+const DEV_HIDE = ['car_detection', 'rochester_night', 'person_bicycle_car_detection'];
+const isEventCam = m => !!m && (/^neighbou?rhood/i.test(m.camera || '') || (!(m.simulated || []).length && (m.days || []).length >= 2));
+function shellKeys(e){
+  if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+  const el = e.target;
+  if (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName || ''))) return;
+  const k = e.key, go = {'1': 'near', '2': 'diff', '3': 'ask', '4': 'synopsis', '5': 'captions'}[k];
+  if (!go && !['6', '0', 'Escape'].includes(k)) return;
+  e.preventDefault();
+  if (k === '0') { S.briefOpen = true; briefApply(); scrollTo({top: 0, behavior: 'smooth'}); return; }
+  shellTouched(); scrollTo({top: 0});
+  if (go) return setMode(go);
+  S.focus = null; S.askQ = null;
+  const cam = k === '6' ? 'ptz_parking' : S.home;
+  markMode(k === '6' ? 'synopsis' : 'near');
+  if (S.cam !== cam) setCam(cam); else render();
+}
+function shellCamPick(cam){
+  const sel = $('#cams');
+  if (![...sel.options].some(o => o.value === cam)) sel.insertAdjacentHTML('beforeend', `<option value="${esc(cam)}">${esc(cam.replace(/_/g, ' '))}</option>`);
+  sel.value = cam;
+  return getJSON(`out/${cam}/meta.json`);
+}
+function shellCamUI(cam){   // header title, honest data badge and footer credit for the current camera
+  const M = S.meta, sim = (M.simulated || []).length, ev = !sim && isEventCam(M), days = M.days || [];
+  const synthetic = (M.simulated || []).some(s => /synthetic/i.test(s));
+  $('#camid').textContent = M.title || cam.replace(/_/g, ' ');
+  $('#camid').title = `Camera id: ${cam}`;
+  const bd = $('#databadge');
+  bd.hidden = false;
+  bd.className = 'shell-badge ' + (sim ? 'sim' : ev ? 'real' : 'sample');
+  bd.textContent = synthetic ? 'SYNTHETIC DEMO' : sim ? 'SIMULATED days' : ev ? `Event footage · ${days.length} real day${days.length === 1 ? '' : 's'}` : 'Sample clip';
+  bd.title = sim ? M.simulated.join('; ') : ev ? days.map(d => d.label || d.id).join(' and ') : 'Public sample footage used to build and test this';
+  $('#credit').textContent = M.credit ? synthetic ? `Fixture: ${M.credit}.` : `Footage: ${M.credit}.${ev ? '' : ' Development stand-in for the event\'s neighbourhood camera.'}` : '';
+  $('#provenance').textContent = synthetic ? 'Synthetic demo: an illustrated scene and preset events. This fixture uses no video or model inference.' : 'Built during the Real-Time Video Agents Hack, 17 Oct 2026. Every number on this page is computed from the footage; anything marked SIMULATED is a test we staged.';
+}
+function markMode(m){
+  if (!THESIS[m] || (m === 'flow' && !S.all)) m = 'near';
+  S.mode = m;
+  document.querySelectorAll('.mode').forEach(b => b.setAttribute('aria-selected', b.dataset.mode === m));
+  try { history.replaceState(null, '', '#' + m); } catch(e) {}
+}
+function shellAfterRender(v){
+  const f = S.focus;
+  if (S.mode === 'near' && f && f.object_id != null && !f.done) {
+    f.done = true;
+    const el = v.querySelector(`[data-object-id="${f.object_id}"],[data-target="${f.object_id}"]`);
+    if (el) el.click();
+    else getJSON(`out/${S.cam}/near.json`).then(N => {
+      const i = N && N.targets ? N.targets.findIndex(t => t.object_id === f.object_id) : -1;
+      const b = i >= 0 && v.isConnected && v.querySelector(`#tl [data-i="${i}"]`); if (b) b.click(); });
+  }
+  if (S.mode === 'ask' && S.askQ) {
+    const q = S.askQ; S.askQ = null;
+    setTimeout(() => { const inp = v.querySelector('#q'), form = v.querySelector('#askf');
+      const chip = v.isConnected && [...v.querySelectorAll('[data-q]')].find(c => c.dataset.q === q); if (chip) return chip.click();
+      if (!inp || !form || !v.isConnected) return; inp.value = q;
+      if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', {cancelable: true})); }, 350);
+  }
+}
+function briefApply(){
+  const el = $('#brief'); if (!el) return;
+  let open = S.briefOpen;
+  if (open == null) { open = !S.demo; try { if (localStorage.getItem('stm.brief.collapsed') === '1') open = false; } catch(e) {} }
+  el.classList.toggle('shell-collapsed', !open);
+  const tg = el.querySelector('.shell-brief-tog');
+  if (tg) { tg.setAttribute('aria-expanded', open); tg.textContent = open ? 'Hide details' : 'Show details'; }
+}
+function shellTouched(){   // the first navigation collapses the brief to its headline, remembered per viewer
+  if (S.briefOpen === false) return;
+  S.briefOpen = false;
+  if (!S.demo) { try { localStorage.setItem('stm.brief.collapsed', '1'); } catch(e) {} }
+  briefApply();
+}
+async function renderBrief(cam){
+  const el = $('#brief'); if (!el) return;
+  const B = await getJSON(`out/${cam}/brief.json`);
+  if (S.cam !== cam) return;
+  if (!B || !B.headline) { el.hidden = true; el.innerHTML = ''; return; }   // no brief: show nothing, never stand-in numbers
+  const days = (S.meta && S.meta.days) || [];
+  const when = t => { if (t == null || !isFinite(+t)) return '';
+    const d = days.length > 1 ? days.find(d => +t >= d.start && +t < d.end) : null;
+    return (d ? `${d.label || d.id} · ` : '') + mmss(t).slice(0, 5); };
+  const DIFF = ['left', 'arrived', 'moved', 'swapped', 'same', 'diff', 'changed'];
+  const bullets = (B.bullets || []).filter(b => b && b.text && b.kind !== 'long_stay').slice(0, 3);
+  const goes = b => b.kind === 'near' ? 'Who came near' : DIFF.includes(b.kind) ? 'Yesterday vs today' : b.kind === 'blind' ? 'Rewind' : 'Ask';
+  const hon = (B.honesty || []).find(h => /could not see|turned away|blind|unknown/i.test(h)) || (B.honesty || [])[0];
+  el.innerHTML = `<div class="shell-brief-head"><span class="label">Since the start of the recording · ${esc((S.meta && S.meta.title) || cam)}</span>
+      ${bullets.length || hon ? '<button type="button" class="shell-brief-tog" aria-controls="brief">Hide details</button>' : ''}</div>
+    <p class="shell-brief-h">${esc(B.headline)}</p>
+    ${bullets.length ? `<ul class="shell-brief-list">${bullets.map((b, i) => {
+      const th = b.crop && !['lane', 'busiest', 'count'].includes(b.kind) ? img(asset(cam, b.crop), '', '') : '';
+      return `<li><button type="button" class="shell-bul${th ? '' : ' noimg'}" data-b="${i}">${th}<span><span class="t">${esc(b.text)}</span>
+        ${when(b.t) ? `<span class="shell-time">${esc(when(b.t))}</span>` : ''}<span class="shell-go">${esc(goes(b))} ›</span></span></button></li>`; }).join('')}</ul>` : ''}
+    ${hon ? `<p class="shell-brief-hon"><b>What it could not see</b>${esc(hon)}</p>` : ''}`;
+  el.hidden = false;
+  briefApply();
+  const tg = el.querySelector('.shell-brief-tog');
+  if (tg) tg.onclick = () => { S.briefOpen = el.classList.contains('shell-collapsed');
+    if (!S.demo) { try { localStorage.setItem('stm.brief.collapsed', S.briefOpen ? '0' : '1'); } catch(e) {} } briefApply(); };
+  el.querySelectorAll('.shell-bul').forEach(btn => btn.onclick = async () => {
+    const b = bullets[+btn.dataset.b]; if (!b) return;
+    shellTouched(); S.focus = null; S.askQ = null;
+    if (b.kind === 'near') {
+      const m = /(?:^|\/)(\d+)\.jpg$/.exec(b.crop || ''), id = b.object_id ?? (m ? +m[1] : null);
+      S.focus = id != null ? {object_id: id} : null; return setMode('near');
+    }
+    if (DIFF.includes(b.kind)) return setMode('diff');
+    if (b.kind === 'blind') return setMode('synopsis');
+    const people = /\b(people|persons?|pedestrians?)\b/i.test(b.text) && !/\b(cars?|vehicles?|trucks?)\b/i.test(b.text);
+    // Prefer a saved question of the same kind (the baked copy can only answer those); otherwise ask the live engine.
+    const Q = await getJSON(`out/${S.cam}/qa.json`), saved = ((Q && (Q.items || Q.questions)) || []).filter(x => x && x.type === 'count_since' && x.question);
+    const hit = saved.find(x => (people ? /people|person|pedestrian/i : /\b(cars?|vehicles?)\b/i).test(x.question)) || (BAKED ? saved[0] : null);
+    S.askQ = hit ? hit.question : `How many ${people ? 'people' : 'cars'} since 00:00?`; setMode('ask');
+  });
+}
+
+/* ---------- Ledger strip (shared) ---------- */
+function ledgerStrip(L, dur, marks=[]){
+  if (!L || !L.per_second) return '';
+  const W = 1000, H = 34, n = Math.max(1, Math.ceil(dur || L.per_second.length));
+  const rects = [];
+  let run = null;
+  for (const p of L.per_second){
+    const st = p.visible ? 'ok' : 'blind';
+    if (run && run.st === st && p.t === run.end) { run.end = p.t + 1; }
+    else { if (run) rects.push(run); run = {st, start: p.t, end: p.t + 1, reason: p.reason}; }
+  }
+  if (run) rects.push(run);
+  const x = t => (t / n) * W;
+  const blindS = rects.filter(r => r.st === 'blind').reduce((a, r) => a + (r.end - r.start), 0);
+  return `<div class="strip"><div class="legend"><span class="label">Every second of the recording</span><span><i style="background:var(--present)"></i>camera could see</span><span><i style="background:var(--blind)"></i>could not see (${blindS} s)</span>${marks.length ? '<span><i style="background:var(--sodium)"></i>selected</span>' : ''}</div>
+  <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Visibility for each second">
+  ${rects.map(r => `<rect x="${x(r.start).toFixed(1)}" y="6" width="${Math.max(1, x(r.end) - x(r.start)).toFixed(1)}" height="16" fill="${r.st === 'ok' ? 'var(--present)' : 'var(--blind)'}" opacity="${r.st === 'ok' ? .55 : 1}"><title>${r.st === 'ok' ? 'visible' : 'could not see: ' + esc(why(r.reason))} ${mmss(r.start)}–${mmss(r.end)}</title></rect>`).join('')}
+  ${marks.map(m => `<rect x="${x(m[0]).toFixed(1)}" y="2" width="${Math.max(2, x(m[1]) - x(m[0])).toFixed(1)}" height="24" fill="none" stroke="var(--sodium)" stroke-width="2"/>`).join('')}
+  <text x="0" y="33" font-size="9" fill="var(--dim)" font-family="IBM Plex Mono, monospace">00:00</text>
+  <text x="${W}" y="33" font-size="9" fill="var(--dim)" text-anchor="end" font-family="IBM Plex Mono, monospace">${mmss(n)}</text></svg></div>`;
+}
+
+/* ---------- Rewind (video synopsis) ---------- */
+// Class words only. Gender, age and clothing words map to nothing: the detector cannot know them, and Rewind never searches people by how they look.
+const SYN = {car: 'car', cars: 'car', van: 'car', vans: 'car', suv: 'car', suvs: 'car', taxi: 'car', taxis: 'car', vehicle: 'car', vehicles: 'car',
+  truck: 'truck', trucks: 'truck', lorry: 'truck', lorries: 'truck', bus: 'bus', buses: 'bus',
+  person: 'person', persons: 'person', people: 'person', pedestrian: 'person', pedestrians: 'person', walker: 'person', walkers: 'person',
+  bike: 'bicycle', bikes: 'bicycle', bicycle: 'bicycle', bicycles: 'bicycle', cyclist: 'bicycle', cyclists: 'bicycle',
+  motorbike: 'motorcycle', motorbikes: 'motorcycle', motorcycle: 'motorcycle', motorcycles: 'motorcycle', scooter: 'motorcycle', scooters: 'motorcycle'};
+// Colour names the index reads. Find matches them against cars, trucks and buses only, never people or riders.
+const COLOURS = ['white', 'black', 'grey', 'gray', 'silver', 'red', 'blue', 'green', 'yellow', 'orange', 'brown'];
+// Returns null (no query) or a Set of object ids; a Set with .reason means "nothing to show, say this instead".
+function findIds(I, q, J){
+  if (!q || !String(q).trim()) return null;
+  const w = String(q).toLowerCase().split(/[^a-z]+/).filter(Boolean);
+  const out = (ids, reason) => { const s = new Set(ids || []); if (reason) s.reason = reason; return s; };
+  const WHO = /^(man|men|woman|women|guys?|girls?|boys?|lady|ladies|gentlem[ae]n|males?|females?|kids?|child|children|teens?|teenagers?|elderly|old|young|he|she|him|her|his|hers)$/;
+  const PEOPLE = /^(persons?|people|pedestrians?|walkers?|someone|somebody|anyone|anybody|cyclists?|riders?|drivers?)$/;
+  const LOOKS = /^(pink|purple|beige|navy|dark|light|pale|bright|blond|blonde|ginger|bald|brunette|shirts?|tshirts?|tee|tops?|jackets?|coats?|hoodies?|hood|hats?|caps?|beanie|dress|skirt|trousers|pants|jeans|shorts|shoes|trainers|sneakers|boots|bags?|backpacks?|rucksacks?|hair|beard|glasses|sunglasses|masks?|scarf|hijab|uniform|wearing|wears|wore|dressed|clothes|clothing|outfit|skin|skinned|tall|short|fat|thin|slim|faces?|race|ethnic|ethnicity|asian|african|caucasian|gender)$/;
+  const cols = w.filter(x => COLOURS.includes(x)).map(x => x === 'gray' ? 'grey' : x);
+  const cls = w.map(x => SYN[x]).filter(Boolean);
+  const aboutPeople = w.some(x => WHO.test(x) || PEOPLE.test(x)) || cls.some(c => ['person', 'bicycle', 'motorcycle'].includes(c));
+  if (w.some(x => WHO.test(x)) || (aboutPeople && (cols.length || w.some(x => LOOKS.test(x)))))
+    return out([], 'Street Time Machine never describes or searches people by how they look: no clothing, skin, gender or face. Ask about vehicles, or who came near a car.');
+  if (w.includes('dark')) cols.push('black', 'grey');
+  if (w.includes('light')) cols.push('white', 'silver');
+  if (!cols.length && !cls.length) return out([], 'Try a vehicle and a colour (white van, red car, truck), or a kind of road user (people, bikes).');
+  const VEH = ['car', 'truck', 'bus'];
+  const clsOk = n => !cls.length || cls.includes(n) || (cls.includes('car') && VEH.includes(n));
+  if (cols.length) {
+    if (!I || !Array.isArray(I.objects)) return out([], 'Vehicle colours have not been read for this camera yet.');
+    const colOk = c => cols.includes(c) || (cols.includes('grey') && c === 'silver') || (cols.includes('silver') && c === 'grey');
+    return out(I.objects.filter(o => VEH.includes(o.name) && o.colour && o.colour_reliable !== false && colOk(o.colour) && clsOk(o.name)).map(o => o.object_id));
+  }
+  const pool = (J && Array.isArray(J.ghosts) && J.ghosts) || (I && I.objects) || [];
+  return out(pool.filter(o => clsOk(o.name)).map(o => o.object_id));
+}
+async function viewSynopsis(v){
+  const cam = S.cam;
+  const [J, L, M, I, B] = await Promise.all(['synopsis', 'ledger', 'moments', 'index', 'brief'].map(n => getJSON(`out/${cam}/${n}.json`)));
+  if (cam !== S.cam) return;  // camera changed while loading
+  if (!J || !Array.isArray(J.ghosts)) { v.innerHTML = empty('The rewind for this camera has not been built yet.'); return; }
+  let calm = false; try { calm = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+  const ms = t => mmss(t).slice(0, -2);
+  const days = (S.meta && S.meta.days) || [], multiDay = days.length > 1;
+  const dayLab = id => { const d = days.find(d => String(d.id) === String(id)); return d ? d.label : String(id ?? ''); };
+  const ghosts = J.ghosts, byId = new Map(ghosts.map(g => [g.object_id, g]));
+  const sugg = ['cars', 'people', 'bikes'];
+  const isParked = g => g.parked ?? ((g.out_end - g.out_start) >= J.out_duration * 0.9);
+  const parked = ghosts.filter(isParked).length, moving = ghosts.length - parked;
+  const win = Array.isArray(J.src_window) && J.src_window.length === 2 ? J.src_window : null;
+  const srcSpan = win ? win[1] - win[0] : J.src_duration;
+  const fast = srcSpan / Math.max(1, J.out_duration), fastS = fast >= 10 ? fast.toFixed(0) : fast.toFixed(1);
+  const whyS = r => r === 'turned_away' ? 'camera pointed elsewhere' : why(r);
+  const VEH = ['car', 'truck', 'bus'];
+  // Spotlight: single-select. Everything outside the spotlight sits under a dark veil.
+  const SPOT = {moving: ['moving', g => !isParked(g)], people: ['people', g => g.name === 'person'], cars: ['cars', g => VEH.includes(g.name)], all: ['everything', null]};
+  const spotN = k => SPOT[k][1] ? ghosts.filter(SPOT[k][1]).length : ghosts.length;
+  const spotIds = k => SPOT[k][1] ? new Set(ghosts.filter(SPOT[k][1]).map(g => g.object_id)) : null;
+  let spot = SPOT[S.synSpot] ? S.synSpot : 'moving';
+  const chips = Object.keys(SPOT).filter(k => k === 'all' || k === 'moving' || spotN(k)).map(k => `<button type="button" class="chip" data-spot="${k}" aria-pressed="${k === spot}">${SPOT[k][0]}${SPOT[k][1] ? `<b>${spotN(k)}</b>` : ''}</button>`).join('');
+  // Strip: every second of the recording. Bars = moving objects in view; hatch = camera could NOT see; dashed = other view.
+  const per = (L && Array.isArray(L.per_second)) ? L.per_second : [];
+  const N = Math.max(1, Math.ceil(J.src_duration || per.length || 1)), SW = 1000;
+  const X = t => Math.max(0, Math.min(N, t)) / N * SW;
+  const runs = [];
+  for (const p of per) { const st = p.visible ? 'ok' : 'blind', last = runs[runs.length - 1];
+    if (last && last.st === st && last.end === p.t && (st === 'ok' || last.reason === p.reason)) last.end = p.t + 1; else runs.push({st, start: p.t, end: p.t + 1, reason: p.reason}); }
+  const blindS = L ? Math.round(L.blind_total_s ?? per.filter(p => !p.visible).length) : 0;
+  const SHORT = {turned_away: 'turned away', blocked: 'blocked', blur: 'blurred', dark: 'too dark', frozen: 'frozen', no_signal: 'no picture'};
+  const rs = [...new Set(per.filter(p => !p.visible).map(p => SHORT[p.reason] || 'unclear'))];
+  const rsTxt = rs.length > 1 ? rs.slice(0, -1).join(', ') + ' or ' + rs[rs.length - 1] : (rs[0] || '');
+  const BINS = 250, act = new Array(BINS).fill(0), bw = SW / BINS;
+  for (const g of ghosts) { if (isParked(g)) continue; const a = Math.max(0, Math.floor(g.src_start / N * BINS)), b = Math.min(BINS - 1, Math.floor(g.src_end / N * BINS)); for (let i = a; i <= b; i++) act[i]++; }
+  const amax = Math.max(1, ...act), mono = 'font-family="IBM Plex Mono, monospace"';
+  const other = win ? [[0, win[0]], [win[1], N]].filter(([a, b]) => b - a > 0.5) : [];
+  let stripSVG = `<svg id="synstrip" viewBox="0 0 ${SW} 52" role="img" aria-label="Every second of the recording. Click to replay what was there.">
+    <defs><pattern id="synhatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#2A3442"/><line x1="0" y1="0" x2="0" y2="6" stroke="#8C99AB" stroke-width="2"/></pattern></defs>
+    ${act.map((c, i) => c ? `<rect x="${(i * bw).toFixed(1)}" y="${(16 - 14 * c / amax).toFixed(1)}" width="${(bw - .6).toFixed(1)}" height="${(14 * c / amax).toFixed(1)}" fill="var(--dim)" opacity=".5"/>` : '').join('')}
+    ${L ? `<rect x="0" y="20" width="${SW}" height="14" fill="var(--line)"><title>camera could see</title></rect>` : ''}
+    ${runs.filter(r => r.st === 'blind').map(r => `<rect x="${X(r.start).toFixed(1)}" y="20" width="${Math.max(1.5, X(r.end) - X(r.start)).toFixed(1)}" height="14" fill="url(#synhatch)"><title>camera could NOT see ${ms(r.start)}–${ms(r.end)}: ${esc(whyS(r.reason))}</title></rect>`).join('')}`;
+  //@Q5@
+  v.innerHTML = `<div class="desk"><div class="stage">
+    ${I ? `<form class="ask" id="findf" style="border-top:0;border-bottom:1px solid var(--line)"><input id="find" autocomplete="off" placeholder="Find… e.g. white car, people, bikes" aria-label="Find in the rewind"><button class="btn">Find</button>
+      <span style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">${sugg.map(s => `<button type="button" class="chip" data-f="${esc(s)}" aria-pressed="false">${esc(s)}</button>`).join('')}</span></form>` : ''}
+    <div class="screen"><video id="syn" src="out/${cam}/synopsis.mp4" muted playsinline loop preload="auto"></video><canvas id="ov"></canvas>
+      <div class="osd" id="osd">REWIND ${mmss(0)}</div><div class="osd r">${mmss(J.src_duration).slice(0, 5)} of footage in ${Math.round(J.out_duration)} s</div>
+      <div id="tip" class="osd" hidden></div></div>
+    <div class="controls"><button class="btn primary" id="play">Play</button>
+      <input id="scrub" type="range" min="0" max="${J.out_duration}" step="0.05" value="0" aria-label="Rewind position" style="flex:1 1 200px">
+      <span class="mono" id="found" style="font-size:.82rem;color:var(--sodium)"></span></div>
+    ${ledgerStrip(L, J.src_duration)}
+  </div>
+  <aside class="inspector" id="insp"></aside></div>`;
+  const vid = $('#syn'), cv = $('#ov'), ctx = cv.getContext('2d'), tip = $('#tip'), msg = $('#synmsg'), playB = $('#play');
+  const osd = $('#osd'), scrub = $('#scrub'), found = $('#found'), ticks = $('#synticks'), mark = $('#synmark');
+  vid.muted = true;
+  let hits = [], sel = null, hov = null, focus = null, findSet = null, spotSet = spotIds(spot), raf = 0;
+  const say = s => { if (!msg) return; msg.textContent = s || ''; msg.hidden = !s; };
+  const play = () => { if (vid.paused && !calm) vid.play().catch(() => {}); };
+  const sync = () => { playB.textContent = vid.paused ? 'Play' : 'Pause'; playB.setAttribute('aria-pressed', String(!vid.paused)); };
+  const home = () => {
+    sel = null; focus = null;
+    const moms = ((M && M.moments) || []).filter(m => m.kind !== 'long_stay');
+    const thumbOk = m => m.thumb && m.kind !== 'blind' && (!win || (m.t >= win[0] && m.t <= win[1]));
+    const bullets = ((B && B.bullets) || []).filter(b => !/person stays|loiter/i.test(b.text || '')).slice(0, 3);
+    $('#insp').innerHTML = `${B ? `<div class="label">Overnight briefing</div><h3 style="font-size:1.25rem">${esc(B.headline)}</h3>
+      ${bullets.length ? `<ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:.9rem">${bullets.map(b => `<li>${esc(b.text)}</li>`).join('')}</ul>` : ''}` : ''}
+      <div class="stats"><div class="stat"><b class="mono">${moving}</b><span>came and went</span></div><div class="stat"><b class="mono">${parked}</b><span>parked</span></div><div class="stat"><b class="mono">${fastS}×</b><span>faster</span></div></div>
+      ${moms.length ? `<div class="label">Highlights · tap to replay</div><div class="list" id="mlist" style="max-height:360px">${moms.map((m, i) => `
+        <button class="item" data-m="${i}">${thumbOk(m) ? img(asset(cam, m.thumb), '', m.title) : '<span class="syn-nothumb" aria-hidden="true"></span>'}<span><span class="t">${esc(m.title)}</span><br><span class="s mono">${ms(m.t)}</span> <span class="s">${esc(m.detail || '')}</span></span></button>`).join('')}</div>`
+      : '<p class="empty">Hover the video to see who each ghost is. Click one to spotlight it.</p>'}`;
+    const ml = $('#mlist'); if (ml) ml.onclick = e => { const b = e.target.closest('.item'); if (b) jump(moms[+b.dataset.m]); };
+    draw();
+  };
+  // Spotlight one ghost and replay it from out_start to out_end (looping) until Back.
+  const focusOn = (g, tSrc) => {
+    sel = g; focus = g; say('');
+    const off = (tSrc != null && !isParked(g)) ? Math.max(0, (tSrc - g.src_start) / (g.speed || 1)) : 0, t = vid.currentTime || 0;
+    if (!isParked(g) || t < g.out_start || t > g.out_end) vid.currentTime = Math.min(Math.max(g.out_start, g.out_end - 0.1), g.out_start + off);
+    play(); inspectGhost(g, L, home); draw();
+  };
+  const jump = m => {
+    if (!m) return;
+    const g = (m.object_ids || []).map(id => byId.get(id)).find(Boolean);
+    if (g) return focusOn(g, m.t);
+    say(m.kind === 'blind' ? `${m.title}: the camera could not see then, so there is nothing to replay.` : `${m.title}: nothing from then is in this rewind.`);
+  };
+  const boxAt = (g, t) => {
+    const bx = g.boxes; if (!bx || !bx.length) return null;
+    const i = Math.max(0, Math.min(bx.length - 1, Math.round((t - bx[0][0]) / 0.25)));
+    let best = bx[i], bd = Math.abs(best[0] - t);
+    if (bd > 0.13) for (const b of bx) { const d = Math.abs(b[0] - t); if (d < bd) { bd = d; best = b; } }
+    return bd <= 0.6 ? best : null;
+  };
+  function draw(){
+    const r = cv.getBoundingClientRect(), dpr = devicePixelRatio || 1;
+    if (!r.width) return;
+    const CW = Math.round(r.width * dpr), CH = Math.round(r.height * dpr);
+    if (cv.width !== CW || cv.height !== CH) { cv.width = CW; cv.height = CH; }
+    const sx = CW / J.w, sy = CH / J.h, t = vid.currentTime || 0;
+    ctx.clearRect(0, 0, CW, CH); hits = [];
+    for (const g of ghosts) {
+      if (t < g.out_start || t > g.out_end) continue;
+      const b = boxAt(g, t); if (!b) continue;
+      hits.push({g, X: b[1] * sx, Y: b[2] * sy, W: (b[3] - b[1]) * sx, H: (b[4] - b[2]) * sy});
+    }
+    const on = focus ? new Set([focus.object_id]) : (findSet || spotSet);
+    const lit = on ? hits.filter(h => on.has(h.g.object_id)) : hits;
+    if (on) {  // veil the frame, then cut a hole (+4 px) for every spotlit ghost
+      ctx.fillStyle = 'rgba(8,12,20,.6)'; ctx.fillRect(0, 0, cv.width, cv.height);
+      ctx.save(); ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = '#000'; const p = 4 * dpr;
+      for (const h of lit) ctx.fillRect(h.X - p, h.Y - p, h.W + 2 * p, h.H + 2 * p);
+      ctx.restore();
+    }
+    const stroke = (h, c, w) => { ctx.lineWidth = w * dpr; ctx.strokeStyle = c; ctx.strokeRect(h.X, h.Y, h.W, h.H); };
+    if (hov && hov.g !== sel) { const hh = hits.find(h => h.g === hov.g); if (hh) stroke(hh, colOf(hh.g.name), 2); }
+    const sh = sel && hits.find(h => h.g === sel); if (sh) stroke(sh, '#F2A93B', 3);
+    osd.textContent = `REWIND ${mmss(t)} · ${hits.length} on screen`;
+    if (document.activeElement !== scrub) scrub.value = t;
+    found.textContent = focus ? `${focus.name} #${focus.object_id} only · Back for everyone` : findSet ? `${findSet.size} found · ${lit.length} on screen now` : '';
+    if (ticks) ticks.setAttribute('d', lit.filter(h => !isParked(h.g)).map(h => `M${X(Math.min(h.g.src_end, h.g.src_start + (t - h.g.out_start) * (h.g.speed || 1))).toFixed(1)} 1v15`).join(''));
+    const mg = sel || (hov && hov.g);
+    if (mark && mg) { mark.setAttribute('x', X(mg.src_start).toFixed(1)); mark.setAttribute('width', Math.max(2, X(mg.src_end) - X(mg.src_start)).toFixed(1)); mark.setAttribute('visibility', 'visible'); }
+    else if (mark) mark.setAttribute('visibility', 'hidden');
+  }
+  const pick = e => {
+    const r = cv.getBoundingClientRect(), dpr = devicePixelRatio || 1, x = (e.clientX - r.left) * dpr, y = (e.clientY - r.top) * dpr;
+    const on = focus ? null : (findSet || spotSet), dim = h => (on && !on.has(h.g.object_id)) ? 1 : 0;
+    return hits.filter(h => x >= h.X && x <= h.X + h.W && y >= h.Y && y <= h.Y + h.H).sort((a, b) => (dim(a) - dim(b)) || (a.W * a.H - b.W * b.H))[0] || null;
+  };
+  function loop(){
+    raf = 0;
+    if (focus && (focus.out_end - focus.out_start) < J.out_duration - 0.5 && !vid.paused && vid.currentTime > focus.out_end + 0.25) vid.currentTime = focus.out_start;
+    draw();
+    if (!vid.paused && vid.isConnected) raf = requestAnimationFrame(loop);
+  }
+  const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
+  if (window.__synOff) window.__synOff();
+  const onResize = () => draw(); addEventListener('resize', onResize); window.__synOff = () => removeEventListener('resize', onResize);
+  vid.addEventListener('play', () => { sync(); kick(); }); vid.addEventListener('pause', () => { sync(); draw(); });
+  vid.addEventListener('seeked', draw); vid.addEventListener('loadeddata', () => { draw(); play(); });
+  playB.onclick = () => { if (vid.paused) vid.play().catch(() => {}); else vid.pause(); };
+  scrub.oninput = e => { vid.currentTime = +e.target.value; draw(); };
+  cv.onmousemove = e => {
+    hov = pick(e); draw(); cv.style.cursor = hov ? 'pointer' : 'crosshair';
+    if (!hov) { tip.hidden = true; return; }
+    const g = hov.g, r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    tip.hidden = false;
+    tip.textContent = `${g.name} · really there ${ms(g.src_start)}–${ms(g.src_end)}${multiDay ? ' · ' + dayLab(g.day) : ''}${isParked(g) ? ' · parked' : ''}`;
+    tip.style.left = Math.max(4, Math.min(r.width - tip.offsetWidth - 4, x + 14)) + 'px';
+    tip.style.top = (y + 18 + tip.offsetHeight > r.height ? Math.max(4, y - tip.offsetHeight - 10) : y + 14) + 'px';
+  };
+  cv.onmouseleave = () => { hov = null; tip.hidden = true; draw(); };
+  cv.onclick = e => { const h = pick(e); if (h) focusOn(h.g); else home(); };
+  const ff = $('#findf');
+  if (ff) {
+    const run = q => { findSet = findIds(I, q, J); v.querySelectorAll('.chip[data-f]').forEach(c => c.setAttribute('aria-pressed', c.dataset.f === q)); if (findSet && vid.paused) { vid.play().catch(() => {}); $('#play').textContent = 'Pause'; } draw(); };
+    ff.onsubmit = e => { e.preventDefault(); run($('#find').value); };
+    $('#find').oninput = e => { if (!e.target.value.trim()) run(''); };
+    v.querySelectorAll('.chip[data-f]').forEach(c => c.onclick = () => { const on = c.getAttribute('aria-pressed') === 'true'; $('#find').value = on ? '' : c.dataset.f; run(on ? '' : c.dataset.f); });
+  }
+  home();
+}
+function inspectGhost(g, L, back){
+  const box = $('#insp'); if (!box || !g) return;
+  const ms = t => mmss(t).slice(0, -2);
+  const days = (S.meta && S.meta.days) || [], d = days.find(d => String(d.id) === String(g.day));
+  const whyS = r => r === 'turned_away' ? 'camera pointed elsewhere' : why(r);
+  const blind = ((L && L.blind) || []).filter(b => b.end > g.src_start && b.start < g.src_end);
+  const blindS = blind.reduce((a, b) => a + Math.min(b.end, g.src_end) - Math.max(b.start, g.src_start), 0);
+  const sped = g.speed && g.speed > 1 ? ` · ${(+g.speed).toFixed(1)}× faster` : '';
+  box.innerHTML = `<div class="label">In the spotlight</div><h3>${esc(g.name)} #${esc(g.object_id)}</h3>
+    ${img(asset(S.cam, `crops/${g.object_id}.jpg`), 'crop', g.name)}
+    <dl class="kv"><dt>Really there</dt><dd>${mmss(g.src_start)} – ${mmss(g.src_end)}</dd><dt>For</dt><dd>${(g.src_end - g.src_start).toFixed(1)} s${g.parked ? ' · parked' : ''}</dd>
+    ${days.length > 1 ? `<dt>Day</dt><dd>${esc(d ? d.label : g.day)}</dd>` : ''}<dt>In the rewind</dt><dd>${ms(g.out_start)} – ${ms(g.out_end)}${sped}</dd></dl>
+    ${blind.length ? `<p class="honesty">The camera could not see for ${Math.round(blindS)} s while this ${esc(g.name)} was there (${esc([...new Set(blind.map(b => whyS(b.reason)))].join(', '))}).</p>` : ''}
+    ${g.name === 'person' ? '<p class="empty">Shown so you know who was there, never who did anything. Rewind never describes people by how they look.</p>' : ''}
+    <button class="btn" id="back" type="button">Back to everyone</button>`;
+  $('#back').onclick = () => back ? back() : render();
+}
+
+/* ---------- Where they go (flow) ---------- */
+async function viewFlow(v){
+  const cam = S.cam, Fw = await getJSON(`out/${cam}/flow.json`);
+  if (!Fw) { v.innerHTML = empty('The movement map for this camera has not been built yet.'); return; }
+  const pm = Fw.per_minute || [], mx = Math.max(1, ...pm.map(p => p.person + p.vehicle)), W = 1000, bw = W / Math.max(1, pm.length);
+  const bars = pm.map((p, i) => { const hv = 64 * p.vehicle / mx, hp = 64 * p.person / mx, x = (i * bw + 1).toFixed(1), w = Math.max(1, bw - 2).toFixed(1);
+    return `<rect x="${x}" y="${(70 - hv).toFixed(1)}" width="${w}" height="${hv.toFixed(1)}" fill="#7FB6FF"><title>${mmss(p.t)}: ${p.vehicle} vehicles</title></rect><rect x="${x}" y="${(70 - hv - hp).toFixed(1)}" width="${w}" height="${hp.toFixed(1)}" fill="#F2A93B"><title>${mmss(p.t)}: ${p.person} people</title></rect>`; }).join('');
+  v.innerHTML = `<div class="desk"><div class="stage"><div class="screen"><img class="plate" src="${asset(cam, Fw.image)}" alt="Where people and vehicles moved"></div>
+    <div class="strip"><div class="legend"><span class="label">Each minute</span><span><i style="background:#7FB6FF"></i>vehicles</span><span><i style="background:#F2A93B"></i>people</span></div>
+    <svg viewBox="0 0 ${W} 80" role="img" aria-label="Moving objects per minute">${bars}
+    <text x="0" y="79" font-size="9" fill="var(--dim)" font-family="IBM Plex Mono, monospace">${mmss(pm.length ? pm[0].t : 0).slice(0, 5)}</text></svg></div></div>
+  <aside class="inspector"><div class="label">Main routes</div><div class="list">${(Fw.lanes || []).map(l => `<div class="item" style="cursor:default;grid-template-columns:minmax(0,1fr)"><span><span class="t"><b class="mono" style="color:${l.group === 'person' ? '#F2A93B' : '#7FB6FF'}">${l.count}</b> ${l.group === 'person' ? 'people' : 'vehicles'} · ${esc(l.name)}</span><br><span class="s">typical speed ${Math.round(l.median_speed_px_s)} px/s</span></span></div>`).join('') || '<p class="empty">No clear routes.</p>'}</div>
+    ${Fw.busiest ? `<div class="label">Busiest moment · ${mmss(Fw.busiest.t).slice(0, 5)}</div>${img(asset(cam, Fw.busiest.frame), 'crop', 'busiest moment')}<p class="empty">${Fw.busiest.count} moving at once.</p>` : ''}</aside></div>`;
+}
+
+/* ---------- Yesterday vs today ---------- */
+/* DV-OLD
+async function viewDiff(v){
+  const cam = S.cam, D = await getJSON(`out/${cam}/diff.json`);
+  if (!D) { v.innerHTML = empty((S.meta.days || []).length < 2 ? 'This camera has one recording, so there is no yesterday to compare with.' : 'The comparison for this camera has not been built yet.'); return; }
+  const kinds = ['same', 'arrived', 'left', 'moved', 'swapped'];
+  const kc = {same: '#93A3B8', arrived: '#3CC488', left: '#F0645A', moved: '#E9C84A', swapped: '#B48CF2'};
+  const W = S.meta.w || 1280, H = S.meta.h || 720;
+  v.innerHTML = `<div class="desk"><div class="stage">
+    <div class="reveal" id="rv"><img src="${asset(cam, D.background_a)}" alt="Day A street">
+      <div class="top" id="rvtop"><img src="${asset(cam, D.background_b)}" alt="Day B street"></div>
+      <svg viewBox="0 0 ${W} ${H}" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">${D.changes.filter(c => c.kind !== 'same').map((c, i) => `<rect data-i="${i}" x="${c.box[0]}" y="${c.box[1]}" width="${c.box[2] - c.box[0]}" height="${c.box[3] - c.box[1]}" fill="none" stroke="${kc[c.kind]}" stroke-width="4"/>`).join('')}</svg>
+      <div class="handle" id="rvh"></div><span class="tag" style="left:10px">${esc((S.meta.days[0] || {}).label || 'Day A')}</span><span class="tag" style="right:10px">${esc((S.meta.days[1] || {}).label || 'Day B')}</span></div>
+    <div class="controls"><span class="label">Drag</span><input id="rvx" type="range" min="0" max="100" value="50" style="flex:1 1 240px" aria-label="Compare position"></div>
+    <div class="controls"><div class="stats">${kinds.map(k => `<div class="stat"><b class="mono" style="color:${kc[k]}">${D.counts[k] ?? 0}</b><span>${k}</span></div>`).join('')}</div></div>
+  </div>
+  <aside class="inspector"><div class="label">Changes</div><div class="list" id="chg">${D.changes.filter(c => c.kind !== 'same').concat(D.changes.filter(c => c.kind === 'same')).map(c => `
+    <div class="item" style="cursor:default;grid-template-columns:minmax(0,1fr)"><div><span class="pill ${c.kind}">${c.kind}</span> <span class="s mono">${c.similarity != null ? 'match ' + c.similarity.toFixed(2) : ''}</span></div>
+    <div class="pair"><figure>${img(c.a && asset(cam, c.a.crop), 'crop')}<figcaption>${c.a ? 'A ' + mmss(c.a.t) : 'A: empty'}</figcaption></figure><figure>${img(c.b && asset(cam, c.b.crop), 'crop')}<figcaption>${c.b ? 'B ' + mmss(c.b.t) : 'B: empty'}</figcaption></figure></div>
+    <div class="s">${esc(c.note)}</div></div>`).join('')}</div></aside></div>`;
+  const set = p => { $('#rvtop').style.clipPath = `inset(0 0 0 ${p}%)`; $('#rvh').style.left = p + '%'; };
+  $('#rvx').oninput = e => set(+e.target.value);
+  const rv = $('#rv'); let drag = false;
+  const mv = e => { if (!drag) return; const r = rv.getBoundingClientRect(); const p = Math.min(100, Math.max(0, (e.clientX - r.left) / r.width * 100)); set(p); $('#rvx').value = p; };
+  rv.onpointerdown = e => { drag = true; rv.setPointerCapture(e.pointerId); mv(e); }; rv.onpointermove = mv; rv.onpointerup = () => drag = false;
+}
+// DV-OLD */
+async function viewDiff(v){
+  clearInterval(viewDiff._blink); cancelAnimationFrame(viewDiff._raf); clearTimeout(viewDiff._fl);
+  const cam = S.cam, D = await getJSON(`out/${cam}/diff.json`), days = S.meta.days || [];
+  if (!D) {
+    const others = (S.cams || []).filter(c => c !== cam), ds = await Promise.all(others.map(c => getJSON(`out/${c}/diff.json`)));
+    const two = others.filter((c, i) => ds[i] && ds[i].status !== 'UNKNOWN');
+    v.innerHTML = `<div class="stage dv-root"><div class="rows"><p class="empty">${esc(days.length < 2 ? 'This camera has one recording, so there is no yesterday to compare with.' : 'The comparison for this camera has not been built yet.')}</p>
+      ${two.length ? `<p class="dv-pick"><span class="label">Cameras with two days</span>${two.map(c => `<button class="chip" data-cam="${esc(c)}">${esc(c.replace(/_/g, ' '))}</button>`).join('')}</p>` : ''}</div></div>`;
+    v.querySelectorAll('[data-cam]').forEach(b => b.onclick = () => setCam(b.dataset.cam));
+    return;
+  }
+  const W = S.meta.w || 1280, H = S.meta.h || 720, CH = D.changes || [], NC = D.not_compared || [], Al = D.alignment || {}, cnt = D.counts || {};
+  const dayOf = id => days.find(d => String(d.id) === String(id)) || {};
+  const dA = dayOf(D.day_a), dB = dayOf(D.day_b);
+  const labA = dA.label || `Day ${D.day_a ?? 'A'}`, labB = dB.label || `Day ${D.day_b ?? 'B'}`;
+  const nice = s => String(s ?? '').split(`day ${D.day_a}`).join(labA).split(`day ${D.day_b}`).join(labB);
+  const sim = (S.meta.simulated || []).length > 0;
+  const place = /car ?park|parking/i.test(`${S.meta.title || ''} ${cam}`) ? 'car park' : 'street';
+  const kc = {same: '#93A3B8', arrived: '#3CC488', left: '#F0645A', moved: '#E9C84A', swapped: '#B48CF2'};
+  const noun = c => ((/\b(truck|bus|van|motorcycle|bicycle)\b/i.exec(c.note || '') || [0, 'car'])[1]).toLowerCase();
+  const partly = c => c.kind === 'same' && /partly visible/i.test(c.note || '');
+  const pillOf = c => c.kind === 'same' ? (partly(c) ? 'same?' : `same ${noun(c)}`) : c.kind === 'left' ? 'gone' : c.kind === 'arrived' ? 'new' : c.kind === 'swapped' ? `different ${noun(c)}` : String(c.kind || '');
+  // Day B's frame corners pushed through the homography: the part of Day A's picture Day B also saw.
+  const Hm = Al.ok !== false && Array.isArray(Al.H_b_to_a) && Al.H_b_to_a.length === 3 ? Al.H_b_to_a : null;
+  let quad = [[0, 0], [W, 0], [W, H], [0, H]];
+  if (Hm) {
+    const q = quad.map(([x, y]) => { const d = Hm[2][0] * x + Hm[2][1] * y + Hm[2][2]; return [(Hm[0][0] * x + Hm[0][1] * y + Hm[0][2]) / d, (Hm[1][0] * x + Hm[1][1] * y + Hm[1][2]) / d, d]; });
+    if (q.every(p => p[2] > 0 && isFinite(p[0]) && isFinite(p[1]))) quad = q.map(p => [p[0], p[1]]);
+  }
+  const overlap = Al.overlap_frac != null ? +Al.overlap_frac : 1, moved = overlap < 0.97, pct = Math.round(overlap * 100);
+  const f1 = n => (+n).toFixed(1);
+  const hatchD = `M0 0H${W}V${H}H0Z M${quad.map(p => `${f1(p[0])} ${f1(p[1])}`).join(' L')}Z`;
+  const inQ = (x, y) => { let c = false; for (let i = 0, j = 3; i < 4; j = i++) { const [xi, yi] = quad[i], [xj, yj] = quad[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
+  const segD = (px, py, [ax, ay], [bx, by]) => { const dx = bx - ax, dy = by - ay, t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy || 1))); return Math.hypot(px - ax - t * dx, py - ay - t * dy); };
+  let spot = null;
+  if (Hm && moved) for (let y = 16; y < H; y += 16) for (let x = 16; x < W; x += 16) {
+    if (inQ(x, y)) continue;
+    const d = Math.min(x, y, W - x, H - y, ...quad.map((q, i) => segD(x, y, q, quad[(i + 1) % 4])));
+    if (!spot || d > spot.d) spot = {x, y, d};
+  }
+  const hl = spot && spot.d >= 70 ? (() => { const fs = Math.min(30, spot.d / 5), L = [`On ${labB} the camera`, 'never looked here:', 'NOT COMPARED'];
+    return `<text class="dv-hl" x="${spot.x}" y="${f1(spot.y - fs * 0.85)}" font-size="${f1(fs)}" text-anchor="middle">${L.map((s, i) => `<tspan x="${spot.x}" dy="${i ? f1(fs * 1.2) : 0}">${esc(s)}</tspan>`).join('')}</text>`; })() : '';
+  const span = w => w && w.end != null ? ` · ${mmss(w.start).slice(0, 5)}–${mmss(w.end).slice(0, 5)}` : '';
+  const TA = labA + span(Al.view_a || dA), TB = labB + span(Al.view_b || dB) + (sim ? ' · SIMULATED' : '');
+  const nOut = NC.filter(n => /outside|cut off/i.test(n.reason || '')).length, nOther = NC.length - nOut;
+  const cars = n => `${n} parked ${n === 1 ? 'car' : 'cars'}`, were = n => n === 1 ? 'was' : 'were';
+  const line = D.status === 'UNKNOWN' ? `CAN'T TELL: ${nice(D.reason || 'the two days could not be compared')}. No car is called gone or new.`
+    : moved ? `Only ${pct}% of the ${place} was seen on both days; ${nOut ? `${cars(nOut)} outside it ${were(nOut)} not compared, never called gone.` : 'only that part is compared.'}${nOther ? ` ${nOther} more could not be checked reliably (dashed).` : ''}`
+    : `The camera framing matches on both days, so the whole picture is compared.${NC.length ? ` ${cars(NC.length)} could not be checked reliably (dashed), never called gone.` : ''}`;
+  const STAT = {left: 'gone', arrived: 'new', swapped: 'different car', moved: 'moved', same: 'same car'};
+  const stats = ['left', 'arrived', 'swapped', 'moved', 'same'].filter(k => cnt[k]).map(k => `<div class="stat"><b class="mono" style="color:${kc[k]}">${cnt[k]}</b><span>${STAT[k]}</span></div>`).join('')
+    + (NC.length ? `<div class="stat"><b class="mono" style="color:var(--blind)">${NC.length}</b><span>not compared</span></div>` : '');
+  const parked = D.parked ? `Parked: ${labA} ${D.parked[D.day_a] ?? '?'} · ${labB} ${D.parked[D.day_b] ?? '?'}` : '';
+  const alignLine = Al.ok && moved ? `${labB} was lined up onto ${labA} by matching ${Al.inliers} background points (${f1(Al.reproj_px)} px error). Every box is drawn in ${labA}'s picture.`
+    : Al.ok ? `Framing checked: ${Al.inliers} background points match between the two days.` : '';
+  const ncG = {}; for (const n of NC) { const k = nice(n.reason || 'not compared').replace(/\s*\((?:look )?similarity [^)]*\)/i, ''); ncG[k] = (ncG[k] || 0) + 1; }
+  const ix = CH.map((_, i) => i), chg = ix.filter(i => CH[i].kind !== 'same'), same = ix.filter(i => CH[i].kind === 'same');
+  const box = i => { const c = CH[i], [x1, y1, x2, y2] = c.box; return `<rect class="dv-chg dv-${esc(c.kind)}" data-i="${i}" x="${x1}" y="${y1}" width="${Math.max(1, x2 - x1)}" height="${Math.max(1, y2 - y1)}" stroke="${kc[c.kind] || '#C9D3E0'}"><title>${esc(pillOf(c))}: ${esc(nice(c.note))}</title></rect>`; };
+  const ncRects = NC.filter(n => Array.isArray(n.box)).map(n => { const [x1, y1, x2, y2] = n.box; return `<rect class="dv-nc" x="${x1}" y="${y1}" width="${Math.max(1, x2 - x1)}" height="${Math.max(1, y2 - y1)}"><title>Not compared: ${esc(nice(n.reason))}</title></rect>`; }).join('');
+  const fig = (o, lab) => `<span class="dv-fig">${o && o.crop ? img(asset(cam, o.crop), '', lab) : '<span class="dv-none">empty spot</span>'}<span class="dv-cap">${esc(lab)}${o && o.t != null ? ' ' + mmss(o.t).slice(0, 5) : ''}</span></span>`;
+  const card = i => { const c = CH[i]; return `<button class="item dv-card" data-i="${i}" aria-current="false">
+    <span class="dv-head"><span class="pill dv-pill dv-${esc(c.kind)}${partly(c) ? ' dv-q' : ''}">${esc(pillOf(c))}</span>${c.similarity != null ? `<span class="s mono">look match ${(+c.similarity).toFixed(2)}</span>` : ''}</span>
+    <span class="dv-pair">${fig(c.a, labA)}${fig(c.b, labB)}</span><span class="s">${esc(nice(c.note))}</span></button>`; };
+  v.innerHTML = `<div class="desk dv-root"><div class="stage">
+    <div class="dv-plate" id="dv-rv">
+      <svg id="dv-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(`${labA} and ${labB} of the same ${place}, one picture over the other`)}">
+        <defs><clipPath id="dv-quad"><polygon points="${quad.map(p => `${f1(p[0])},${f1(p[1])}`).join(' ')}"/></clipPath>
+          <clipPath id="dv-clip"><rect id="dv-cr" x="${W / 2}" y="0" width="${W / 2}" height="${H}"/></clipPath>
+          <pattern id="dv-hatch" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="16" height="16" fill="#0F1724"/><rect width="5" height="16" fill="#93A3B8"/></pattern></defs>
+        <image href="${esc(asset(cam, D.background_a))}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="none"/>
+        <g clip-path="url(#dv-clip)"><image href="${esc(asset(cam, D.background_b_aligned || D.background_b))}" x="0" y="0" width="${W}" height="${H}" preserveAspectRatio="none" clip-path="url(#dv-quad)"/></g>
+        ${Hm ? `<path d="${hatchD}" fill="url(#dv-hatch)" fill-rule="evenodd" opacity=".55"><title>On ${esc(labB)} the camera never looked here: not compared</title></path>` : ''}
+        ${hl}${ncRects}<g id="dv-boxes">${same.map(box).join('')}${chg.map(box).join('')}</g>
+      </svg>
+      <div class="dv-handle" id="dv-h"></div><span class="dv-tag dv-l" id="dv-ta" data-day="a">${esc(TA)}</span><span class="dv-tag dv-r" id="dv-tb" data-day="b">${esc(TB)}</span></div>
+    <p class="dv-line">${D.status === 'UNKNOWN' ? `<span class="honesty" style="display:block">${esc(line)}</span>` : esc(line)}</p>
+    <div class="controls"><button class="btn dv-blink" id="dv-blink" aria-pressed="false">Blink</button><span class="label">Drag</span>
+      <input id="dv-x" type="range" min="0" max="100" step="0.5" value="50" style="flex:1 1 200px" aria-label="${esc(`Compare position: ${labA} on the left, ${labB} on the right`)}"></div>
+    <p class="dv-pluto">Astronomers found Pluto in 1930 by blinking two photos of the same sky. Same trick, two days of one ${place}.</p>
+    <div class="controls"><div class="stats">${stats}</div>${parked ? `<span class="s mono" style="font-size:.78rem;color:var(--dim)">${esc(parked)}</span>` : ''}</div>
+  </div>
+  <aside class="inspector"><div class="label">What changed (${chg.length})</div><div class="list" id="dv-list">${chg.map(card).join('') || `<p class="empty">${esc(D.status === 'UNKNOWN' ? 'Nothing compared, so nothing is called changed.' : `No parked car changed between ${labA} and ${labB} in the part both days saw.`)}</p>`}
+    ${same.length ? `<div class="label" style="margin-top:6px">Same on both days (${same.length})</div>${same.map(card).join('')}` : ''}</div>
+    ${NC.length ? `<details class="dv-ncd"><summary class="label">Not compared (${NC.length}) · never called gone</summary><ul>${Object.entries(ncG).map(([k, n]) => `<li><b class="mono">${n}</b> ${esc(k)}</li>`).join('')}</ul></details>` : ''}
+    ${alignLine ? `<p class="empty" style="margin:0">${esc(alignLine)}</p>` : ''}</aside></div>`;
+  const wrap = $('#dv-rv'), svg = $('#dv-svg'), cr = $('#dv-cr'), hd = $('#dv-h'), ta = $('#dv-ta'), tb = $('#dv-tb'), rng = $('#dv-x'), bb = $('#dv-blink'), list = $('#dv-list');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let P = 50, blinking = false, showB = false, intro = false, drag = null;
+  const set = p => { P = Math.max(0, Math.min(100, +p || 0)); const x = W * P / 100; cr.setAttribute('x', f1(x)); cr.setAttribute('width', f1(W - x)); hd.style.left = P + '%'; rng.value = P; };
+  const stopIntro = () => { intro = false; cancelAnimationFrame(viewDiff._raf); };
+  const day = b => { showB = b; cr.setAttribute('x', b ? 0 : W); cr.setAttribute('width', b ? W : 0); ta.textContent = b ? TB : TA; ta.dataset.day = b ? 'b' : 'a'; };
+  const stopBlink = () => { clearInterval(viewDiff._blink); if (!blinking) return; blinking = false; wrap.classList.remove('dv-blinking'); bb.setAttribute('aria-pressed', 'false'); bb.textContent = 'Blink'; ta.textContent = TA; ta.dataset.day = 'a'; tb.hidden = hd.hidden = false; set(P); };
+  const startBlink = () => { stopIntro(); blinking = true; wrap.classList.add('dv-blinking'); bb.setAttribute('aria-pressed', 'true'); bb.textContent = 'Stop blink'; tb.hidden = hd.hidden = true; day(false);
+    viewDiff._blink = setInterval(() => { if (!wrap.isConnected) { clearInterval(viewDiff._blink); return; } day(!showB); }, 450); };
+  bb.onclick = () => blinking ? stopBlink() : startBlink();
+  rng.oninput = e => { stopIntro(); stopBlink(); set(e.target.value); };
+  const sel = (i, fromPlate) => {
+    const c = CH[i]; if (!c) return;
+    stopIntro(); stopBlink(); set((c.box[0] + c.box[2]) / 2 / W * 100);
+    list.querySelectorAll('.dv-card').forEach(b => b.setAttribute('aria-current', String(+b.dataset.i === i)));
+    svg.querySelectorAll('.dv-flash').forEach(r => r.classList.remove('dv-flash'));
+    const r = svg.querySelector(`.dv-chg[data-i="${i}"]`);
+    if (r) { r.parentNode.appendChild(r); r.getBoundingClientRect(); r.classList.add('dv-flash'); clearTimeout(viewDiff._fl); viewDiff._fl = setTimeout(() => r.classList.remove('dv-flash'), 1900); }
+    if (fromPlate) { const b = list.querySelector(`.dv-card[data-i="${i}"]`); if (b) list.scrollTop += b.getBoundingClientRect().top - list.getBoundingClientRect().top - 8; }
+    else { const g = wrap.getBoundingClientRect(); if (g.top < 0 || g.bottom > innerHeight) wrap.scrollIntoView({block: 'nearest', behavior: reduce ? 'auto' : 'smooth'}); }
+  };
+  list.onclick = e => { const b = e.target.closest('.dv-card'); if (b) sel(+b.dataset.i); };
+  const at = e => { const r = svg.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+  wrap.onpointerdown = e => { if (e.button > 0) return; stopIntro(); stopBlink(); drag = {x: e.clientX, y: e.clientY}; try { wrap.setPointerCapture(e.pointerId); } catch (_) {} set(at(e)[0] * 100); };
+  wrap.onpointermove = e => { if (drag) set(at(e)[0] * 100); };
+  wrap.onpointercancel = () => { drag = null; };
+  wrap.onpointerup = e => {
+    const d = drag; drag = null;
+    if (!d || Math.abs(e.clientX - d.x) + Math.abs(e.clientY - d.y) > 6) return;
+    const [fx, fy] = at(e), X = fx * W, Y = fy * H, area = b => (b[2] - b[0]) * (b[3] - b[1]);
+    const hit = ix.filter(i => { const b = CH[i].box; return X >= b[0] && X <= b[2] && Y >= b[1] && Y <= b[3]; }).sort((a, b) => area(CH[a].box) - area(CH[b].box))[0];
+    if (hit != null) sel(hit, true);
+  };
+  if (reduce) set(50);
+  else {
+    intro = true; set(10);
+    const t0 = performance.now(), ez = t => t < .5 ? 2 * t * t : 1 - (2 - 2 * t) ** 2 / 2;
+    const step = now => {
+      if (!intro || !wrap.isConnected) return;
+      const t = (now - t0) / 1600;
+      if (t >= 1) { intro = false; set(50); return; }
+      set(t < .5 ? 10 + 80 * ez(t / .5) : 90 - 40 * ez((t - .5) / .5));
+      viewDiff._raf = requestAnimationFrame(step);
+    };
+    viewDiff._raf = requestAnimationFrame(step);
+  }
+}
+// DV-BUILD */
+
+/* ---------- Who came near ---------- */
+async function viewNear(v){
+  /* ui-near: tap your car on the picture; visitors split into on foot / stopped or lingered / drove past; trails from the Rewind record converge on the car. */
+  function nrSpots(list, M){ /* one parked car tracked as several pieces (Pack D restarts tracks every chunk) becomes one spot: same day, same class, IoU >= 0.6, no time overlap */
+    const dz = (M.days || []).filter(d => d && d.id != null).map(d => d.start || 0).sort((a, b) => a - b), dOf = t => dz.filter(s => (t.start || 0) >= s - 0.5).length;
+    const iou = (a, b) => { const ix = Math.max(0, Math.min(a[2], b[2]) - Math.max(a[0], b[0])), iy = Math.max(0, Math.min(a[3], b[3]) - Math.max(a[1], b[1])), I = ix * iy, U = (a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - I; return U > 0 ? I / U : 0; };
+    const out = [];
+    for (const t of [...list].sort((a, b) => a.start - b.start)) {
+      const s = t.box && out.find(s => s.box && s.dk === dOf(t) && s.name === t.name && iou(s.box, t.box) >= 0.6 && s.parts.every(p => t.start >= p.end - 2 || t.end <= p.start + 2));
+      if (s) s.parts.push(t); else out.push({dk: dOf(t), name: t.name, box: t.box, parts: [t]});
+    }
+    return out.map(s => nrSpot(s, M));
+  }
+  function nrSpot(s, M){ /* finish one spot: span, crop of the longest piece, blind spans, gaps between pieces, visitors deduped */
+    const P = s.parts, main = P.reduce((a, b) => (b.end - b.start) > (a.end - a.start) ? b : a), LB = (nrSpot.L && nrSpot.L.blind) || [];
+    Object.assign(s, {object_id: main.object_id, crop: main.crop, box: main.box, summary: main.summary, start: P[0].start, end: Math.max(...P.map(p => p.end)), blind: P.flatMap(p => p.blind || []), gaps: []});
+    let e = P[0].end;
+    for (const p of P.slice(1)) {
+      if (p.start - e >= 1) { let a = e;
+        for (const b of LB.filter(b => b.end > a && b.start < p.start).sort((x, y) => x.start - y.start)) { if (b.start - a >= 1) s.gaps.push({start: a, end: b.start}); const z = Math.min(p.start, b.end); if (z > Math.max(a, b.start)) s.blind.push({start: Math.max(a, b.start), end: z, reason: b.reason}); a = Math.max(a, z); }
+        if (p.start - a >= 1) s.gaps.push({start: a, end: p.start}); }
+      e = Math.max(e, p.end);
+    }
+    s.blind.sort((a, b) => a.start - b.start);
+    const V = {};
+    for (const u of P.flatMap(p => p.visitors || [])) { const o = V[u.object_id]; if (!o) V[u.object_id] = {...u}; else { if (u.gap_rel < o.gap_rel) Object.assign(o, {gap_rel: u.gap_rel, gap_px: u.gap_px, closest_t: u.closest_t, crop: u.crop}); o.enter_t = Math.min(o.enter_t, u.enter_t); o.exit_t = Math.max(o.exit_t, u.exit_t); } }
+    s.visitors = Object.values(V);
+    return s;
+  }
+  const cam = S.cam;
+  const [N, L, J, D] = await Promise.all(['near', 'ledger', 'synopsis', 'diff'].map(n => getJSON(`out/${cam}/${n}.json`)));
+  if (!N || !(N.targets || []).length) { v.innerHTML = empty('No parked or long-staying vehicles on this camera yet.'); return; }
+  const sub = $('#sub'); if (sub && sub.innerHTML.includes('came within half a car-length')) sub.innerHTML = sub.innerHTML.replace('came within half a car-length', 'came close to it in the picture');
+  const M = S.meta || {}, W = M.w || 1280, H = M.h || 720, k = W / 1280; nrSpot.L = L; const T = nrSpots(N.targets, M);
+  const ms = t => { t = Math.max(0, Math.floor(+t || 0)); return `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}`; };
+  const pl = (n, a, b) => `${n} ${n === 1 ? a : b}`;
+  const FOOT = new Set(['person', 'bicycle']), seen = {};
+  T.forEach((t, i) => (t.visitors || []).forEach(u => (seen[u.object_id] = seen[u.object_id] || []).push({i, t: u.closest_t})));
+  const kindOf = u => FOOT.has(u.name) ? 'foot' : ((u.exit_t - u.enter_t) >= 5 && (seen[u.object_id] || []).length < 3) ? 'stop' : 'past';
+  const G = T.map(t => {
+    const g = {foot: [], stop: [], past: []};
+    for (const u of (t.visitors || [])) g[kindOf(u)].push(u);
+    g.foot.sort((a, b) => a.gap_rel - b.gap_rel); g.stop.sort((a, b) => a.gap_rel - b.gap_rel); g.past.sort((a, b) => a.closest_t - b.closest_t);
+    return g;
+  });
+  const others = (u, i) => (seen[u.object_id] || []).filter(o => o.i !== i);
+  const days = (M.days || []).filter(d => d && d.id != null).slice().sort((a, b) => (a.start || 0) - (b.start || 0));
+  const dayOf = t => { let d = days[0] || null; for (const x of days) if ((t.start || 0) >= (x.start || 0) - 0.5) d = x; return d; };
+  const dayLbl = d => d ? (d.label || String(d.id)) : '';
+  const tDay = T.map(dayOf), usedDays = days.filter(d => tDay.includes(d)), multi = usedDays.length > 1;
+  const bgFor = d => {
+    if (!d || days.length < 2) return M.background || 'background.jpg';
+    if (D && String(D.day_a) === String(d.id) && D.background_a) return D.background_a;
+    if (D && String(D.day_b) === String(d.id) && D.background_b) return D.background_b;
+    return `background_${d.id}.jpg`;
+  };
+  const sx = W / ((J && J.w) || W), sy = H / ((J && J.h) || H), dayIds = new Set(days.map(d => String(d.id))), GH = {};
+  for (const g of ((J && J.ghosts) || [])) (GH[g.object_id] = GH[g.object_id] || []).push(g);
+  const ghostOf = (u, d) => (GH[u.object_id] || []).find(g => (g.boxes || []).length
+    && (g.day == null || !d || !dayIds.has(String(g.day)) || String(g.day) === String(d.id))
+    && (g.src_start == null || (g.src_start <= u.exit_t + 1 && g.src_end >= u.enter_t - 1)));
+  const area = t => t.box ? (t.box[2] - t.box[0]) * (t.box[3] - t.box[1]) : 0;
+  const blindOf = t => (t.blind || []).reduce((a, b) => a + Math.max(0, b.end - b.start), 0);
+  const RS = {view_changed: 'camera turned away', blocked: 'camera turned away', turned_away: 'camera turned away', moved: 'camera moving', no_signal: 'no picture', blur: 'picture blurred', dark: 'too dark', frozen: 'picture froze', cut: 'recording cut'};
+  const rtxt = r => [...new Set(String(r || 'unknown').split('+').map(x => RS[x] || why(x)))].join(', ');
+  const away = b => /view_changed|blocked|turned_away|moved/.test(b.reason || '') ? 'the camera turned away' : `the camera could not see (${rtxt(b.reason)})`;
+  const stay = (t, d) => {
+    const bl = ((L && L.blind) || []).concat(t.blind || []);
+    const ds = d ? (d.start || 0) : 0, de = d && d.end != null ? d.end : (M.duration || 1e9);
+    const eb = bl.filter(b => Math.abs(b.start - t.end) <= 2).sort((a, b) => a.start - b.start)[0];
+    const sb = t.start > ds + 1 ? bl.find(b => Math.abs(b.end - t.start) <= 2) : null;
+    let s = `Seen parked ${ms(t.start)}–${ms(t.end)}`;
+    if (eb) s += `, then ${away(eb)} (we don't know when it left).`;
+    else if (t.end >= de - 1) s += ', still there when the recording ended.';
+    else s += '.';
+    if (t.start <= ds + 1) s += ' Already there when the recording began.';
+    else if (sb) s += ` It first appears right after a stretch the camera could not see (${rtxt(sb.reason)}), so we don't know when it arrived.`;
+    return s;
+  };
+  const headline = (t, g) => {
+    const nm = t.name || 'car', nb = g.foot.filter(u => u.name === 'bicycle').length;
+    const p = [g.foot.length ? `${pl(g.foot.length, 'person', 'people')} ${nb ? 'on foot or on a bike' : 'on foot'} came close to this ${nm}.` : `Nobody on foot came close to this ${nm}.`];
+    if (g.stop.length) p.push(`${pl(g.stop.length, 'vehicle', 'vehicles')} stopped or lingered beside it.`);
+    if (g.past.length) p.push(`${pl(g.past.length, 'vehicle', 'vehicles')} drove past.`);
+    const bs = blindOf(t);
+    const gs = (t.gaps || []).reduce((a, b) => a + b.end - b.start, 0);
+    if (bs >= 0.5) p.push(`The camera could not see it for ${Math.round(bs)} s.`);
+    if (gs >= 1) p.push(`The tracker lost it for ${Math.round(gs)} s, so those seconds were not checked.`);
+    if (bs < 0.5 && gs < 1) p.push('The camera could see it the whole time.');
+    return p.join(' ');
+  };
+  const gapTxt = (u, t) => u.gap_rel <= 0.05 ? 'boxes overlap in the picture: it may have been in front or behind' : `gap in the picture ${(+u.gap_rel).toFixed(2)}× the ${t.name || 'car'}'s height`;
+  const pastNote = (g, i) => {
+    const ks = g.past.map(u => { const o = others(u, i); return {n: o.length, s: o.length ? Math.max(...o.map(x => Math.abs(x.t - u.closest_t))) : 0}; });
+    const kmin = Math.min(...ks.map(x => x.n)), smax = Math.max(1, Math.ceil(Math.max(...ks.map(x => x.s))));
+    return kmin >= 1 ? `each was also near at least ${pl(kmin, 'other parked car', 'other parked cars')} within ${smax} s` : 'vehicles going by: near it only briefly, or near several parked cars in a row';
+  };
+  const counts = i => { const g = G[i], p = [`${g.foot.length} on foot`]; if (g.stop.length) p.push(`${g.stop.length} lingered`); p.push(`${g.past.length} drove past`); return p.join(' · '); };
+  const rank = (a, b) => (G[b].foot.length - G[a].foot.length) || ((T[b].visitors || []).length - (T[a].visitors || []).length) || (a - b);
+  const best = ids => ids.slice().sort(rank)[0] ?? -1;
+  const order = T.map((_, i) => i).sort(rank);
+  const dayBar = multi ? `<div class="nr-days" role="group" aria-label="Day">${usedDays.map(d => `<button class="chip nr-day" data-d="${esc(d.id)}" aria-pressed="false">${esc(dayLbl(d))}</button>`).join('')}</div>` : '';
+  const listHtml = order.map(i => { const t = T[i]; return `
+      <button class="item" data-i="${i}">${img(asset(cam, t.crop), '', t.name)}<span><span class="t">${esc(t.name)} #${t.object_id}</span><br><span class="s">${counts(i)}</span><br><span class="s mono">${multi && tDay[i] ? esc(dayLbl(tDay[i])) + ' · ' : ''}${ms(t.start)}–${ms(t.end)}</span></span></button>`; }).join('');
+  const layout = () => { v.innerHTML = `<div class="desk nr"><div class="stage" id="nstage">
+      <div class="nr-top"><h3 class="nr-tap">Tap your car.</h3>${dayBar}<span class="nr-hint">The number on a car counts the people on foot who came close.</span></div>
+      <div class="screen nr-plate" id="nrplate" style="aspect-ratio:${W} / ${H}"><img class="plate" id="nrbg" alt="The street"><svg id="nrsvg" class="nr-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"></svg></div>
+      <div class="legend nr-leg"><span><i style="background:#F2A93B"></i>on foot</span><span><i style="background:#7FB6FF"></i>stopped or lingered</span><span><i style="background:rgba(127,182,255,.3)"></i>drove past</span><span><i style="background:#F2A93B;border-radius:50%"></i>closest point, with time</span><span id="nrtn"></span></div>
+      <div class="rows" id="nrbody"></div></div>
+    <aside class="inspector"><div class="label">Or pick from the list (${T.length})</div><div class="list" id="tl">${listHtml}</div></aside></div>`; };
+  let cur = -1, day, hi = null;
+  const fs = Math.round(18 * k);
+  const badge = (i, x1, y1) => { const f = G[i].foot.length, bw = fs * 0.62 * String(f).length + 10 * k, by = y1 - fs - 8 * k >= 0 ? y1 - fs - 8 * k : y1 + 2 * k;
+    return f && i !== cur ? `<g class="nr-badge"><rect x="${x1}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}" height="${(fs + 6 * k).toFixed(1)}" rx="${(4 * k).toFixed(1)}"/><text x="${(x1 + bw / 2).toFixed(1)}" y="${(by + fs * 0.88).toFixed(1)}" font-size="${fs}" text-anchor="middle">${f}</text></g>` : ''; };
+  const outline = i => { const [x1, y1, x2, y2] = T[i].box;
+    return `<g class="nr-t" data-i="${i}" tabindex="0" role="button" aria-label="${esc(T[i].name)} #${T[i].object_id}: ${esc(counts(i))}"><title>${esc(T[i].name)} #${T[i].object_id}: ${esc(counts(i))}</title><rect class="nr-box" x="${x1}" y="${y1}" width="${x2 - x1}" height="${y2 - y1}"/>${badge(i, x1, y1)}</g>`; };
+  const trail = (u, kd, gg, bx) => {
+    const [a1, b1, a2, b2] = bx, pts = gg.boxes.map(b => [((b[1] + b[3]) / 2) * sx, b[4] * sy]);
+    let bp = pts[0], bd = Infinity;
+    for (const p of pts) { const dx = Math.max(a1 - p[0], 0, p[0] - a2), dy = Math.max(b1 - p[1], 0, p[1] - b2), dd = dx * dx + dy * dy; if (dd < bd) { bd = dd; bp = p; } }
+    const lab = kd !== 'past' || hi === u.object_id ? `<text x="${(bp[0] + 10 * k).toFixed(1)}" y="${(bp[1] - 9 * k).toFixed(1)}" font-size="${Math.round(17 * k)}">${ms(u.closest_t)}</text>` : '';
+    return `<g class="nr-tr nr-${kd}${hi === u.object_id ? ' hi' : ''}" data-o="${u.object_id}"><polyline points="${pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ')}"/><circle cx="${bp[0].toFixed(1)}" cy="${bp[1].toFixed(1)}" r="${((kd === 'past' ? 4 : 6.5) * k).toFixed(1)}"/>${lab}</g>`;
+  };
+  const selTag = t => { const [a1, b1, a2, b2] = t.box, tag = `YOUR ${(t.name || 'car').toUpperCase()}`, tw = (tag.length * 11.5 + 16) * k, th = 26 * k, tx = Math.min(Math.max(0, a1), W - tw), ty = b1 - th - 4 * k >= 0 ? b1 - th - 4 * k : b2 + 4 * k;
+    return `<g class="nr-sel"><rect class="nr-selbox" x="${a1}" y="${b1}" width="${a2 - a1}" height="${b2 - b1}"/><rect class="nr-tag" x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" width="${tw.toFixed(1)}" height="${th.toFixed(1)}" rx="${(3 * k).toFixed(1)}"/><text x="${(tx + tw / 2).toFixed(1)}" y="${(ty + th * 0.72).toFixed(1)}" font-size="${Math.round(16 * k)}" text-anchor="middle">${esc(tag)}</text></g>`; };
+  const drawPlate = () => {
+    const t = T[cur], g = G[cur], d = tDay[cur], tr = [];
+    const outl = T.map((_, i) => i).filter(i => tDay[i] === d && T[i].box).sort((a, b) => area(T[b]) - area(T[a])).map(outline).join('');
+    if (t.box) for (const kd of ['past', 'stop', 'foot']) for (const u of g[kd]) { const gg = ghostOf(u, d); if (gg) tr.push(trail(u, kd, gg, t.box)); }
+    const svg = $('#nrsvg'); if (!svg) return;
+    svg.innerHTML = outl + tr.join('') + (t.box ? selTag(t) : ''); svg.classList.toggle('has-hi', hi != null);
+    const tot = (t.visitors || []).length;
+    $('#nrtn').textContent = !tot ? '' : tr.length ? `${tr.length} of ${tot} paths drawn from the Rewind record` : 'No paths recorded for this day, so only the list below.';
+  };
+  const tick = (u, kd, x) => { const X = x(u.closest_t).toFixed(1), c = kd === 'foot' ? '#F2A93B' : '#7FB6FF', lbl = kd === 'foot' ? 'on foot' : kd === 'stop' ? 'stopped or lingered' : 'drove past';
+    return `<g class="nr-k nr-k${kd}${hi === u.object_id ? ' hi' : ''}" data-o="${u.object_id}"><title>${esc(u.name)} #${u.object_id}, ${lbl}, closest at ${ms(u.closest_t)}</title><line x1="${X}" x2="${X}" y1="12" y2="38" stroke="${c}" stroke-width="${kd === 'past' ? 2 : 3}"${kd === 'past' ? ' opacity=".35"' : ''}/>${kd === 'foot' ? `<circle cx="${X}" cy="10" r="4.5" fill="${c}"/>` : ''}<rect x="${(+X - 6).toFixed(1)}" y="4" width="12" height="36" fill="transparent"/></g>`; };
+  const timeline = (t, g) => {
+    const TW = 1000, x = s => Math.min(TW, Math.max(0, ((s - t.start) / Math.max(1, t.end - t.start)) * TW));
+    return `<svg class="nr-tl" viewBox="0 0 ${TW} 54" role="img" aria-label="When each visitor was closest, over the time it was parked"><rect x="0" y="18" width="${TW}" height="14" fill="var(--present)" opacity=".35"/>
+      ${(t.blind || []).map(b => `<rect x="${x(b.start).toFixed(1)}" y="18" width="${Math.max(3, x(b.end) - x(b.start)).toFixed(1)}" height="14" fill="url(#hatch) #6B778A" stroke="#6B778A" stroke-width="1"><title>Camera could not see ${ms(b.start)}–${ms(b.end)}: ${esc(rtxt(b.reason))}</title></rect>`).join('')}
+      ${(t.gaps || []).map(b => `<rect x="${x(b.start).toFixed(1)}" y="18" width="${Math.max(3, x(b.end) - x(b.start)).toFixed(1)}" height="14" fill="url(#hatch) #6B778A" opacity=".55"><title>Not checked ${ms(b.start)}–${ms(b.end)}: the tracker lost the car</title></rect>`).join('')}
+      ${['past', 'stop', 'foot'].map(kd => g[kd].map(u => tick(u, kd, x)).join('')).join('')}
+      <text x="0" y="52" font-size="11" fill="var(--dim)" font-family="IBM Plex Mono, monospace">${ms(t.start)}</text><text x="${TW}" y="52" font-size="11" fill="var(--dim)" text-anchor="end" font-family="IBM Plex Mono, monospace">${ms(t.end)}</text></svg>`;
+  };
+  const row = (u, t, i, kd) => {
+    const o = others(u, i), gg = ghostOf(u, tDay[i]), dur = Math.max(1, Math.round(u.exit_t - u.enter_t));
+    const extra = kd === 'past' ? (o.length ? ` · also near ${pl(o.length, 'other parked car', 'other parked cars')}` : ` · near it for ${dur} s`) : kd === 'stop' ? ` · near it for ${dur} s` : '';
+    return `<div class="item nr-v" data-o="${u.object_id}" role="button" tabindex="0" aria-pressed="${hi === u.object_id}">${img(asset(cam, u.crop), '', u.name)}<span><span class="t">${esc(u.name)} #${u.object_id} · closest at <span class="mono">${ms(u.closest_t)}</span></span><br><span class="s">${esc(gapTxt(u, t))} · in view <span class="mono">${ms(u.enter_t)}–${ms(u.exit_t)}</span>${extra}</span>${gg ? `<br><button type="button" class="btn nr-rw" data-rw="${u.object_id}">Show in Rewind</button>` : ''}</span></div>`;
+  };
+  const grp = (g, t, i, kd, title, note, none) => `<section class="nr-g"><div class="nr-gh"><span class="nr-dot ${kd}"></span><b>${title} (${g[kd].length})</b><span class="s">${note}</span></div>
+        ${g[kd].length ? `<div class="list nr-list">${g[kd].map(u => row(u, t, i, kd)).join('')}</div>` : `<p class="empty">${none}</p>`}</section>`;
+  const pastGrp = (t, g, i) => g.past.length ? `<details class="nr-g nr-past"${g.past.some(u => u.object_id === hi) ? ' open' : ''}><summary><span class="nr-dot past"></span><b>Drove past (${g.past.length})</b><span class="s">${esc(pastNote(g, i))}</span></summary><div class="list nr-list">${g.past.map(u => row(u, t, i, 'past')).join('')}</div></details>` : '';
+  const groups = (t, g, i) => grp(g, t, i, 'foot', 'On foot', 'closest first', 'Nobody on foot came this close while it was parked.')
+    + grp(g, t, i, 'stop', 'Stopped or lingered', 'a vehicle beside it for 5 s or more, not just driving along the row', 'No vehicle stopped or lingered beside it.') + pastGrp(t, g, i);
+  const blindNote = t => blindOf(t) >= 0.5
+    ? `<p class="honesty">The camera could not see this ${esc(t.name)} for ${Math.round(blindOf(t))} s while it was parked: ${(t.blind || []).map(b => `${ms(b.start)}–${ms(b.end)} (${esc(rtxt(b.reason))})`).join(', ')}. Anyone near it then is not on this list.</p>`
+    : (t.gaps || []).length ? '' : `<p class="honesty" style="border-color:var(--present)">The camera could see this ${esc(t.name)} for every second it was parked.</p>`;
+  const tlLegend = '<div class="legend"><span class="label">While it was parked</span><span><i style="background:#F2A93B"></i>on foot</span><span><i style="background:#7FB6FF"></i>stopped or lingered</span><span><i style="background:rgba(127,182,255,.35)"></i>drove past</span><span><i style="background:repeating-linear-gradient(45deg,#8C99AB 0 2px,#2A3442 2px 5px)"></i>camera could not see</span></div>';
+  const body = () => {
+    const i = cur, t = T[i], g = G[i], d = tDay[i];
+    $('#nrbody').innerHTML = `<div class="nr-hd">${img(asset(cam, t.crop), 'nr-crop', t.name)}<div><span class="label">${multi && d ? esc(dayLbl(d)) + ' · ' : ''}${esc(t.name)} #${t.object_id}${(t.parts || []).length > 1 ? ` · tracked in ${t.parts.length} pieces, joined by position` : ''}</span><h3 class="nr-h">${esc(headline(t, g))}</h3><p class="nr-stay">${esc(stay(t, d))}</p></div></div>
+      ${blindNote(t)}<div class="nr-tlw">${tlLegend}${timeline(t, g)}</div>
+      <div class="label">Close in the picture (gap under half the ${esc(t.name || 'car')}'s height)</div>${groups(t, g, i)}
+      <p class="honesty nr-never">Shows who was near, never who did it.</p>
+      <p class="empty">Close in the picture is not the same as close on the street: the camera flattens depth. Use this list to know which clips to watch, not to blame anyone.</p>`;
+  };
+  const fb = asset(cam, M.background || 'background.jpg');
+  const setDay = d => {
+    day = d; const bg = $('#nrbg'); if (!bg) return;
+    v.querySelectorAll('.nr-day').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.d === String(d && d.id))));
+    bg.onerror = () => { if (bg.dataset.f || bg.getAttribute('src') === fb) bg.style.visibility = 'hidden'; else { bg.dataset.f = '1'; bg.src = fb; } };
+    delete bg.dataset.f; bg.style.visibility = ''; bg.alt = `The street${multi && d ? ', ' + dayLbl(d) : ''}`; bg.src = asset(cam, bgFor(d));
+  };
+  const pick = i => {
+    if (i < 0 || !T[i]) return;
+    cur = i; hi = null;
+    if (tDay[i] !== day) setDay(tDay[i]);
+    v.querySelectorAll('#tl .item').forEach(b => b.setAttribute('aria-current', String(+b.dataset.i === i)));
+    drawPlate(); body();
+  };
+  const setHi = o => {
+    hi = hi === o ? null : o;
+    drawPlate();
+    v.querySelectorAll('.nr-v').forEach(r => r.setAttribute('aria-pressed', String(+r.dataset.o === hi)));
+    v.querySelectorAll('.nr-k').forEach(x => x.classList.toggle('hi', +x.dataset.o === hi));
+  };
+  const clickGhost = (gg, ot, cv) => {
+    let b = null, bd = Infinity; for (const x of gg.boxes) { const dd = Math.abs(x[0] - ot); if (dd < bd) { bd = dd; b = x; } }
+    const r = cv.getBoundingClientRect(); if (!b || !r.width) return;
+    cv.dispatchEvent(new MouseEvent('click', {bubbles: true, clientX: r.left + (b[1] + b[3]) / 2 * r.width / ((J && J.w) || W), clientY: r.top + (b[2] + b[4]) / 2 * r.height / ((J && J.h) || H)}));
+  };
+  const toRewind = oid => {
+    const u = (T[cur].visitors || []).find(x => x.object_id === oid), gg = u && ghostOf(u, tDay[cur]);
+    if (!gg) return;
+    const ot = Math.min(gg.out_end, gg.out_start + Math.min(1, (gg.out_end - gg.out_start) / 2));
+    S.rewindFocus = {cam, object_id: oid, t: ot};
+    setMode('synopsis'); try { scrollTo({top: 0}); } catch(e) {}
+    let n = 0;
+    const go = () => {
+      const f = S.rewindFocus;
+      if (!f || f.object_id !== oid || S.mode !== 'synopsis' || S.cam !== cam) return;
+      const vid = $('#syn'), cv = $('#ov');
+      if (!vid || !cv || vid.readyState < 1) { if (++n < 80) setTimeout(go, 100); return; }
+      S.rewindFocus = null; vid.pause(); const pb = $('#play'); if (pb) pb.textContent = 'Play';
+      vid.addEventListener('seeked', () => setTimeout(() => clickGhost(gg, ot, cv), 40), {once: true});
+      vid.currentTime = ot;
+    };
+    setTimeout(go, 60);
+  };
+  const wire = () => {
+    $('#tl').onclick = e => { const b = e.target.closest('.item'); if (!b) return; pick(+b.dataset.i); if (matchMedia('(max-width:900px)').matches) $('#nstage').scrollIntoView({block: 'start'}); };
+    const svg = $('#nrsvg');
+    svg.onclick = e => { const g = e.target.closest('.nr-t'); if (g) pick(+g.dataset.i); };
+    svg.onkeydown = e => { const g = e.target.closest('.nr-t'); if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); pick(+g.dataset.i); } };
+  };
+  const wire2 = () => {
+    v.querySelectorAll('.nr-day').forEach(b => b.onclick = () => { const d = usedDays.find(x => String(x.id) === b.dataset.d); pick(best(T.map((_, i) => i).filter(i => tDay[i] === d))); });
+    const nb = $('#nrbody');
+    nb.onclick = e => { const rw = e.target.closest('.nr-rw'); if (rw) { toRewind(+rw.dataset.rw); return; } const r = e.target.closest('.nr-v, .nr-k'); if (r) setHi(+r.dataset.o); };
+    nb.onkeydown = e => { const r = e.target.closest('.nr-v'); if (r && e.target === r && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setHi(+r.dataset.o); } };
+  };
+  layout(); wire(); wire2();
+  pick(best(T.map((_, i) => i)));
+}
+async function viewNearOld(v){
+  const cam = S.cam, N = await getJSON(`out/${cam}/near.json`), L = await getJSON(`out/${cam}/ledger.json`);
+  if (!N || !N.targets.length) { v.innerHTML = empty('No parked or long-staying vehicles on this camera yet.'); return; }
+  v.innerHTML = `<div class="desk"><div class="stage" id="nstage"></div>
+    <aside class="inspector"><div class="label">Pick your car (${N.targets.length})</div><div class="list" id="tl">${N.targets.map((t, i) => `
+      <button class="item" data-i="${i}">${img(asset(cam, t.crop), '', t.name)}<span><span class="t">${esc(t.name)} #${t.object_id}</span><br><span class="s">${t.visitors.length} came near · ${mmss(t.start)}–${mmss(t.end)}</span></span></button>`).join('')}</div></aside></div>`;
+  const pick = i => {
+    const t = N.targets[i];
+    v.querySelectorAll('.item').forEach(b => b.setAttribute('aria-current', +b.dataset.i === i));
+    const blindS = t.blind.reduce((a, b) => a + (b.end - b.start), 0);
+    const W = 1000, x = s => ((s - t.start) / Math.max(1, t.end - t.start)) * W;
+    $('#nstage').innerHTML = `<div class="rows">
+      <div class="row" style="grid-template-columns:200px minmax(0,1fr)">${img(asset(cam, t.crop), '', t.name)}
+        <div style="display:flex;flex-direction:column;gap:8px"><span class="label">Parked ${mmss(t.start)} – ${mmss(t.end)}</span><h3 style="font-size:1.4rem">${esc(t.summary)}</h3>
+        ${blindS ? `<p class="honesty">Blind for ${blindS.toFixed(0)} s while parked: ${t.blind.map(b => `${mmss(b.start)}–${mmss(b.end)} (${esc(why(b.reason))})`).join(', ')}. Anything could have happened then.</p>` : `<p class="honesty" style="border-color:var(--present)">The camera could see this car for every second it was parked.</p>`}</div></div>
+      <svg viewBox="0 0 ${W} 46" role="img" aria-label="Visits over the parking time"><rect x="0" y="14" width="${W}" height="14" fill="var(--present)" opacity=".35"/>
+        ${t.blind.map(b => `<rect x="${x(b.start).toFixed(1)}" y="14" width="${Math.max(2, x(b.end) - x(b.start)).toFixed(1)}" height="14" fill="var(--blind)"/>`).join('')}
+        ${t.visitors.map(u => `<line x1="${x(u.closest_t).toFixed(1)}" x2="${x(u.closest_t).toFixed(1)}" y1="8" y2="34" stroke="${colOf(u.name)}" stroke-width="3"><title>${esc(u.name)} at ${mmss(u.closest_t)}</title></line>`).join('')}
+        <text x="0" y="44" font-size="10" fill="var(--dim)" font-family="IBM Plex Mono, monospace">${mmss(t.start)}</text><text x="${W}" y="44" font-size="10" fill="var(--dim)" text-anchor="end" font-family="IBM Plex Mono, monospace">${mmss(t.end)}</text></svg>
+      <div class="label">Came within half a car-length (${t.visitors.length})</div>
+      ${t.visitors.length ? `<div class="list" style="max-height:none">${t.visitors.map(u => `<div class="item" style="cursor:default">${img(asset(cam, u.crop), '', u.name)}<span><span class="t">${esc(u.name)} #${u.object_id} · closest at <span class="mono">${mmss(u.closest_t)}</span></span><br><span class="s">${u.gap_rel <= 0.05 ? 'touching or overlapping in view' : (u.gap_rel).toFixed(2) + ' car-heights away'} · in view ${mmss(u.enter_t)}–${mmss(u.exit_t)}</span></span></div>`).join('')}</div>` : '<p class="empty">Nobody came that close while it was parked.</p>'}
+      <p class="empty">Close in the picture is not the same as close on the street: the camera flattens depth. Use this list to know which clips to watch, not to blame anyone.</p></div>`;
+  };
+  $('#tl').onclick = e => { const b = e.target.closest('.item'); if (b) pick(+b.dataset.i); };
+  const first = N.targets.findIndex(t => t.visitors.length) ;
+  pick(first >= 0 ? first : 0);
+}
+
+/* ---------- Ask ---------- */
+async function viewAsk(v){
+  const cam = S.cam, meta = S.meta || {};
+  const sourceLabel = (meta.simulated || []).some(s => /synthetic/i.test(s)) ? 'SYNTHETIC DEMO' : 'RECORDED';
+  const [Q, L] = await Promise.all([getJSON(`out/${cam}/qa.json`), getJSON(`out/${cam}/ledger.json`)]);
+  if (S.cam !== cam || S.mode !== 'ask') return;
+  const raw = Q ? (Array.isArray(Q) ? Q : (Q.items || Q.questions || [])) : [];
+  const items = raw.map(x => ({q: x.question || x.q || '', t: x.t ?? null, type: x.type || (x.answer && x.answer.type) || '',
+    a: x.answer && typeof x.answer === 'object' ? x.answer : null})).filter(x => x.q);
+  const norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+  const mm = t => mmss(Math.floor(+t || 0)).slice(0, 5);   // floored, same as the engine's mm:ss
+  const VEH = '(?:car|van|truck|lorry|bus|bike|bicycle|motorbike|motorcycle|scooter|vehicle|suv)';
+  const objOf = q => { const s = String(q || ''), id = s.match(new RegExp(`\\b${VEH}\\s+#\\d+`, 'i'));   // "car #165" or "the red car"
+    if (id) return id[0]; const m = s.match(new RegExp(`\\b(?:the|that|this|my|a)\\s+(?:[a-z]+\\s+){0,2}?${VEH}\\b`, 'i')); return m ? m[0].replace(/^(that|this|my|a)\b/i, 'the') : ''; };
+  // Refused before any lookup. Who did it: a camera can only say who was near. People by looks: never.
+  const BLAME = /\b(who|whom|whose|which|someone|somebody|anyone|anybody)\b.*\b(dent|hit|scratch|key|damag|smash|broke|break|stole|steal|vandal|crash|bump|did (it|this|that)|blame|fault|responsib|culprit|guilty)\w*/i;
+  const PERSON = /\b(man|men|woman|women|person|people|persons|guy|guys|girl|girls|boy|boys|kid|kids|child|children|lady|ladies|someone|somebody|pedestrian|pedestrians|walker|walkers|cyclist|he|she|him|her)\b/i;
+  const LOOKS = /\b(shirt|t ?shirt|tee|jacket|coat|hoodie|hood|dress|skirt|jeans|trousers|pants|shorts|hat|cap|beanie|cloth\w*|wear\w*|wore|dressed|outfit|uniform|backpack|hair\w*|bald|beard\w*|glasses|tall|fat|thin|skinny|skin|race|ethnic\w*|face|gender|male|female|blonde?|white|black|grey|gray|silver|red|blue|green|yellow|orange|brown|pink|purple|beige)\b/i;
+  const byLooks = q => { const s = String(q).replace(new RegExp(`\\b(?:[a-z]+\\s+){0,2}${VEH}s?\\b`, 'gi'), ' '); return PERSON.test(s) && LOOKS.test(s); };
+  const firstOf = (type, ok = () => true) => items.find(x => x.type === type && ok(x));
+  const near0 = firstOf('who_near'), still0 = firstOf('still_there', x => x.a && /^unknown/i.test(x.a.answer)) || firstOf('still_there');
+  const defPhrase = objOf(near0 && near0.q) || objOf(still0 && still0.q) || 'the car';
+  const chips = [], add = c => { if (c && c.q && !chips.some(x => norm(x.q) === norm(c.q))) chips.push(c); };
+  add(near0); add(still0); add({q: `Who dented ${defPhrase}?`, t: null}); add({q: 'Find the man in the black shirt', t: null}); items.forEach(add);
+  v.innerHTML = `<div class="desk askv"><div class="stage">
+    <div class="screen" style="aspect-ratio:${+meta.w || 1280}/${+meta.h || 720}"><img class="plate" id="aplate" alt="The street, empty background for the day shown"><canvas id="aov" style="cursor:default"></canvas><div class="osd" id="aosd">${sourceLabel} · ${esc(meta.title || cam)}</div></div>
+    <form class="ask" id="askf"><input id="q" autocomplete="off" placeholder="${esc(`Is ${defPhrase} still there?`)}" aria-label="Your question"><button class="btn primary">Ask</button></form>
+    <div class="controls">${chips.slice(0, 9).map(c => `<button class="chip" type="button" aria-pressed="false" data-q="${esc(c.q)}"${c.t != null ? ` data-t="${esc(c.t)}"` : ''}>${esc(c.q)}</button>`).join('')}</div>
+    <div class="answer" id="ans"><p class="empty">Ask anything about what the camera saw. Try one of the questions above.</p></div></div>
+  <aside class="inspector"><div class="label">Questions it understands</div>
+    <dl class="kv" style="grid-template-columns:1fr"><dd style="font-family:var(--body)">Is it still there?</dd><dd style="font-family:var(--body)">When did it leave?</dd><dd style="font-family:var(--body)">Which way did it go?</dd><dd style="font-family:var(--body)">Who came near it?</dd><dd style="font-family:var(--body)">How many since a time?</dd><dd style="font-family:var(--body)">What changed?</dd></dl>
+    <div class="label">What it will not answer</div>
+    <dl class="kv" style="grid-template-columns:1fr"><dd style="font-family:var(--body)">Who did it. It shows who was near, never who did it.</dd><dd style="font-family:var(--body)">What a person looks like. People are never searched by clothing, skin, gender or face.</dd></dl>
+    <p class="empty">Answers come from the tracked record of every object, not a video model. Each one links to the frame that proves it. When the camera could not see, it says CAN'T TELL.</p></aside></div>`;
+  const ans = $('#ans', v);
+  drawEvidence({evidence: []});
+  // Blind spans: from the answer when the engine sends them, else ledger.json, else qa.json. Touching spans merge.
+  const spansOf = r => { const src = (r && Array.isArray(r.blind) && r.blind.length) ? r.blind : (L && L.blind) || (Q && Q.blind) || [];
+    const sp = src.map(b => ({start: +b.start, end: +b.end, reason: String(b.reason || '')})).filter(b => b.end > b.start).sort((a, b) => a.start - b.start), out = [];
+    for (const b of sp) { const p = out[out.length - 1]; if (p && b.start <= p.end + 1.01) { p.end = Math.max(p.end, b.end); p.reasons.push(b.reason); } else out.push({start: b.start, end: b.end, reasons: [b.reason]}); }
+    return out; };
+  const TURN = /camera.?mov|turned.away|view.changed|\bcut\b|\bview \d+/i;
+  const whyOf = (s, r) => { const rs = s.reasons.join(' '), scan = ((Q && Q.blind) || []).filter(b => b.end > s.start && b.start < s.end).map(b => b.reason).join(' ');
+    if (TURN.test(rs) || TURN.test(scan) || (/blocked/.test(rs) && TURN.test(`${r.sentence || ''} ${r.honesty || ''}`))) return ['the camera turned away', 'CAMERA TURNED AWAY'];
+    const k = [['blocked', /block/i], ['dark', /dark/i], ['blur', /blur/i], ['frozen', /froze/i], ['no_signal', /no.signal|no picture/i]].find(([, re]) => re.test(rs))?.[0];
+    return ({blocked: ['the view was blocked', 'VIEW BLOCKED'], dark: ['it was too dark to see', 'TOO DARK'], blur: ['the picture was blurred', 'PICTURE BLURRED'],
+      frozen: ['the picture froze', 'PICTURE FROZE'], no_signal: ['there was no picture', 'NO PICTURE']})[k] || ['the camera could not see', 'CAMERA COULD NOT SEE']; };
+  const srcLine = res => res.live ? `answered in <span class="mono">${Math.max(1, Math.round(res.rtt))} ms</span>` : 'from the saved record';
+  const evLine = r => { const ev = r.evidence || []; return `<div class="thumbs">${ev.filter(e => e.crop).slice(0, 6).map(e => img(asset(cam, e.crop), '', `object ${e.object_id}`)).join('')}</div>
+    ${ev.length ? `<div class="counts">Evidence: ${ev.slice(0, 6).map(e => `#${esc(e.object_id)} at ${mm(e.t)}`).join(' · ')}</div>` : ''}`; };
+  // One answer card. Returns the draw options for the plate (the CAN'T TELL beat sets opt.cant).
+  const card = (res, ctx = {}) => {
+    const r = res.r, verdict = String(r.answer ?? ''), unk = /^unknown/i.test(verdict) && r.type !== 'unknown';
+    const head = `<div class="label">${esc((r.type || '').replace(/_/g, ' '))} · <span class="askv-src">${srcLine(res)}</span></div>`;
+    const noLooks = s => String(s || '').replace(/\b(person|people|pedestrian|cyclist)( #\d+)? \(in [a-z ]+\)/gi, '$1$2');   // older saved records named a person's clothing colour
+    const tail = `<p style="margin:0;font-size:1.05rem">${esc(noLooks(r.sentence))}</p>${r.honesty ? `<p class="honesty">${esc(noLooks(r.honesty))}</p>` : ''}${evLine(r)}`;
+    if (r.refused) { const b = r.refused === 'blame';   // the engine refused a question the page's own check let through
+      return {html: `<div class="label">${b ? 'who did it' : 'people'} · refused by design · <span class="askv-src">${srcLine(res)}</span></div>
+        <div class="askv-v ${b ? '' : 'sm '}askv-hatch">${b ? "CAN'T SAY WHO" : "WON'T SEARCH BY LOOKS"}</div>${tail}`, opt: {}}; }
+    if (!unk) {
+      const cls = /^yes/i.test(verdict) ? 'yes' : /^no\b/i.test(verdict) ? 'no' : 'other', big = verdict.length <= 12 && r.type !== 'unknown';
+      return {html: `${head}<div class="askv-v ${big ? '' : 'sm'} askv-${cls}">${esc(r.type === 'unknown' ? 'NOT UNDERSTOOD' : verdict)}</div>${tail}`, opt: {}};
+    }
+    const ev = (r.evidence || []).filter(e => e && e.t != null);
+    const last = r.last_seen != null ? +r.last_seen : ev.length ? Math.max(...ev.map(e => +e.t)) : null;
+    const lastEv = ev.filter(e => e.box || e.crop).sort((a, b) => b.t - a.t)[0];
+    const span = last == null ? null : spansOf(r).find(s => s.end > last + 0.01 && s.start - last <= 60);
+    let beat = '', opt = {};
+    if (span) {
+      const [why, lab] = whyOf(span, r), range = `${mm(span.start)}–${mm(span.end)}`;
+      beat = `${r.type === 'still_there' ? `<p class="askv-plain"><s>A plain tracker would say: NO, it left at ${mm(last)}.</s></p>
+        <p class="askv-why">Why that's wrong: ${esc(why)} <b>${range}</b>.</p>` : `<p class="askv-why">${esc(why[0].toUpperCase() + why.slice(1))} <b>${range}</b>.</p>`}
+        <div class="askv-tiles"><figure>${lastEv && lastEv.crop ? img(asset(cam, lastEv.crop), 'askv-tile', 'last seen') : '<div class="askv-tile"></div>'}<figcaption>LAST SEEN ${mm(last)}</figcaption></figure>
+          <span class="askv-arrow" aria-hidden="true">→</span>
+          <figure><div class="askv-tile askv-static" role="img" aria-label="${esc(lab.toLowerCase())}"></div><figcaption>${esc(lab)} ${range}</figcaption></figure></div>
+        ${L ? `<div class="askv-mini">${ledgerStrip(L, meta.duration || L.seconds, [[span.start, span.end]])}</div>` : ''}`;
+      opt = {t: last, cant: {box: lastEv && lastEv.box, last: mm(last), label: `${lab} ${range}`}};
+    } else if (last != null) opt = {t: last};
+    return {html: `${head}<div class="askv-v askv-hatch">CAN'T TELL</div>${beat}${tail}`, opt};
+  };
+  const fetchAnswer = async (q, t) => {
+    const t0 = performance.now();
+    if (!BAKED) try {
+      const x = await fetch(`api/ask?cam=${encodeURIComponent(cam)}&q=${encodeURIComponent(q)}${t != null ? `&t=${encodeURIComponent(t)}` : ''}`);
+      if (x.ok) { const j = await x.json(); if (j && j.answer != null) return {r: j, live: true, rtt: performance.now() - t0}; }
+    } catch(e) {}
+    const hit = items.find(x => x.a && norm(x.q) === norm(q));
+    return hit ? {r: hit.a, live: false} : null;
+  };
+  const NOLIVE = '<p class="empty">This copy of the app runs without the live engine, so it can only answer the saved questions. Pick one above.</p>';
+  let seq = 0;
+  const ask = async (q, t = null) => {
+    const my = ++seq; $('#q', v).value = q;
+    v.querySelectorAll('.chip[data-q]').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.q === q)));
+    if (byLooks(q)) {
+      ans.innerHTML = `<div class="label">people · refused by design</div><div class="askv-v sm askv-hatch">WON'T SEARCH BY LOOKS</div>
+        <p class="askv-lead">Street Time Machine never describes or searches people by how they look: no clothing, skin, gender or face. Ask about vehicles, or who came near a car.</p>`;
+      drawEvidence({evidence: []}); return;
+    }
+    if (BLAME.test(q)) {
+      let phrase = objOf(q);
+      if (!phrase && !PERSON.test(q)) phrase = defPhrase;
+      else if (/^the \w+$/i.test(phrase) && !items.some(x => norm(x.q).includes(norm(phrase)))) phrase = defPhrase;   // "my car" -> the demo's car
+      ans.innerHTML = `<div class="label">who did it · refused by design</div><div class="askv-v askv-hatch">CAN'T SAY WHO</div>
+        <p class="askv-lead">A camera can't tell who did it. Here is who came near it, and every second it couldn't see.</p>
+        ${phrase ? `<div class="askv-near" id="anear"><p class="empty">Checking who came near ${esc(phrase)}…</p></div>` : ''}
+        ${L ? `<div class="askv-mini askv-still">${ledgerStrip(L, meta.duration || L.seconds)}</div>` : ''}`;
+      drawEvidence({evidence: []});
+      if (!phrase) return;
+      const nItem = items.find(x => x.type === 'who_near' && x.a && norm(x.q).includes(norm(phrase))) || (phrase === defPhrase && near0 && near0.a ? near0 : null);
+      const res = await fetchAnswer(`Who came near ${phrase}?`, nItem ? nItem.t : null) || (nItem ? {r: nItem.a, live: false} : null);
+      if (my !== seq) return;
+      const box = $('#anear', v); if (!box) return;
+      if (!res) { box.innerHTML = NOLIVE; return; }
+      const c = card(res); box.innerHTML = c.html; drawEvidence(res.r, c.opt); return;
+    }
+    ans.innerHTML = '<p class="empty">Checking the record…</p>';
+    const res = await fetchAnswer(q, t);
+    if (my !== seq) return;
+    if (!res) { ans.innerHTML = NOLIVE; drawEvidence({evidence: []}); return; }
+    const c = card(res); ans.innerHTML = c.html; drawEvidence(res.r, c.opt);
+  };
+  $('#askf', v).onsubmit = e => { e.preventDefault(); const q = $('#q', v).value.trim(); if (!q) return; const it = items.find(x => norm(x.q) === norm(q)); ask(q, it ? it.t : null); };
+  v.querySelectorAll('.chip[data-q]').forEach(c => c.onclick = () => ask(c.dataset.q, c.dataset.t != null && c.dataset.t !== '' ? +c.dataset.t : null));
+}
+/* Ask plate + boxes. The plate is the background of the answer's own day (background_<day id>.jpg), never the
+   two-day blend; boxes are drawn only for evidence from that day. opt.t pins the day; opt.cant plays the
+   "camera could not see" beat (last-seen box -> TV snow -> grey wash); opt.still skips animation (resize). */
+async function drawEvidence(r, opt = {}){
+  const cv = $('#aov'), plate = $('#aplate'), osd = $('#aosd'); if (!cv) return;
+  const tok = drawEvidence.tok = (drawEvidence.tok || 0) + 1;
+  drawEvidence.last = {r, opt};
+  if (!drawEvidence.rs) { drawEvidence.rs = 1; addEventListener('resize', () => { const l = drawEvidence.last; if (l && $('#aov')) drawEvidence(l.r, {...l.opt, still: true}); }); }
+  const meta = S.meta || {}, cam = S.cam, days = (meta.days || []).filter(d => d && d.id != null);
+  const ev = ((r && r.evidence) || []).filter(e => e && e.t != null);
+  const dayAt = t => days.find(d => t >= +d.start && t < +d.end) || (days.length && t >= +days[days.length - 1].start ? days[days.length - 1] : days[0]) || null;
+  let day = days[0] || null;
+  if (opt.t != null) day = dayAt(+opt.t);
+  else if (ev.length && days.length) {   // the day most of the evidence comes from; a tie goes to the later day
+    const n = new Map(); for (const e of ev) { const d = dayAt(+e.t); n.set(d, (n.get(d) || 0) + 1); }
+    day = [...n.entries()].sort((a, b) => b[1] - a[1] || (+b[0].start) - (+a[0].start))[0][0];
+  }
+  const fb = meta.background ? asset(cam, meta.background) : (!day || !(meta.simulated || []).length) ? asset(cam, 'background.jpg') : '';
+  const customBackground = (day && day.background) || (days.length <= 1 && meta.background);
+  const want = customBackground ? asset(cam, customBackground) : day ? asset(cam, `background_${day.id}.jpg`) : fb;
+  const sourceLabel = (meta.simulated || []).some(s => /synthetic/i.test(s)) ? 'SYNTHETIC DEMO' : 'RECORDED';
+  if (osd) osd.textContent = `${sourceLabel} · ${meta.title || cam}${day ? ' · ' + (day.label || day.id) : ''}`;
+  if (plate && want && plate.dataset.want !== want) {
+    plate.dataset.want = want; plate.dataset.fb = want === fb ? '' : fb; plate.style.visibility = '';
+    plate.onerror = () => { const f = plate.dataset.fb; plate.dataset.fb = ''; if (f) plate.src = f; else plate.style.visibility = 'hidden'; };
+    await new Promise(res => { const done = () => res(); plate.addEventListener('load', done, {once: true}); plate.addEventListener('error', done, {once: true}); setTimeout(done, 1500); plate.src = want; });
+    if (tok !== drawEvidence.tok) return;
+  }
+  const rr = cv.getBoundingClientRect(), dpr = devicePixelRatio || 1, ctx = cv.getContext('2d');
+  cv.width = Math.max(1, Math.round(rr.width * dpr)); cv.height = Math.max(1, Math.round(rr.height * dpr)); ctx.clearRect(0, 0, cv.width, cv.height);
+  const sx = cv.width / (meta.w || 1280), sy = cv.height / (meta.h || 720);
+  const box = (b, dashed) => { const X = b[0] * sx, Y = b[1] * sy, W = (b[2] - b[0]) * sx, H = (b[3] - b[1]) * sy;
+    ctx.setLineDash(dashed ? [8 * dpr, 5 * dpr] : []); ctx.lineWidth = 5 * dpr; ctx.strokeStyle = '#000'; ctx.strokeRect(X, Y, W, H);
+    ctx.lineWidth = 3 * dpr; ctx.strokeStyle = '#fff'; ctx.strokeRect(X, Y, W, H); ctx.setLineDash([]); };
+  const tag = (b, text) => { ctx.font = `500 ${12 * dpr}px "IBM Plex Mono", ui-monospace, monospace`; ctx.textBaseline = 'middle';
+    const w = ctx.measureText(text).width + 10 * dpr, h = 18 * dpr; let x = Math.min(Math.max(0, b[0] * sx), cv.width - w), y = b[1] * sy - h - 4 * dpr;
+    if (y < 0) y = Math.min(cv.height - h, b[3] * sy + 4 * dpr);
+    ctx.fillStyle = 'rgba(10,15,24,.88)'; ctx.fillRect(x, y, w, h); ctx.fillStyle = '#fff'; ctx.fillText(text, x + 5 * dpr, y + h / 2); };
+  const inDay = e => !day || !days.length || dayAt(+e.t) === day;
+  if (opt.cant) {
+    const c = opt.cant, anim = !opt.still && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wait = ms => new Promise(res => setTimeout(res, ms));
+    if (anim && c.box) { box(c.box, false); tag(c.box, `LAST SEEN ${c.last}`); await wait(700); if (tok !== drawEvidence.tok) return; }
+    if (anim) {   // 1.2 s of TV snow: 160x90 noise blown up with no smoothing
+      const off = document.createElement('canvas'); off.width = 160; off.height = 90;
+      const oc = off.getContext('2d'), id = oc.createImageData(160, 90), d = id.data, t0 = performance.now();
+      await new Promise(res => { const step = now => { if (tok !== drawEvidence.tok) return res();
+        for (let i = 0; i < d.length; i += 4) { const g = (Math.random() * 255) | 0; d[i] = d[i + 1] = d[i + 2] = g; d[i + 3] = 255; }
+        oc.putImageData(id, 0, 0); ctx.imageSmoothingEnabled = false; ctx.drawImage(off, 0, 0, cv.width, cv.height);
+        if (now - t0 < 1200) requestAnimationFrame(step); else res(); }; requestAnimationFrame(step); setTimeout(res, 2500); });
+      if (tok !== drawEvidence.tok) return;
+    }
+    ctx.clearRect(0, 0, cv.width, cv.height); ctx.fillStyle = 'rgba(64,72,86,.8)'; ctx.fillRect(0, 0, cv.width, cv.height);
+    if (c.box) { box(c.box, true); tag(c.box, `LAST SEEN ${c.last}`); }
+    if (c.label) { ctx.font = `600 ${Math.max(14, Math.round(cv.width / 34))}px "IBM Plex Sans Condensed", "Arial Narrow", sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = 'rgba(10,15,24,.7)'; const w = ctx.measureText(c.label).width + 24 * dpr, h = Math.round(cv.width / 34) + 16 * dpr;
+      const cy = cv.height - h / 2 - 12 * dpr;   // bottom centre: the OSD owns the top-left corner
+      ctx.fillRect(cv.width / 2 - w / 2, cy - h / 2, w, h); ctx.fillStyle = '#E6ECF4'; ctx.fillText(c.label, cv.width / 2, cy); ctx.textAlign = 'start'; }
+    return;
+  }
+  const seen = new Set();
+  for (const e of ev) { if (!e.box || e.box.length < 4 || !inDay(e)) continue; const k = `${e.object_id}:${e.box.map(Math.round).join(',')}`; if (seen.has(k)) continue; seen.add(k); box(e.box, false); }
+  const tagged = new Set();
+  for (const e of ev) { if (!e.box || e.box.length < 4 || !inDay(e) || tagged.has(e.object_id)) continue; tagged.add(e.object_id); tag(e.box, `#${e.object_id}`); }
+}
+
+/* ---------- Check the AI ---------- */
+async function viewCaptions(v){
+  // Two sources: the event camera's own Cosmos captions (out/captions/<cam>.json, one detector = one witness)
+  // and the practice corpus (out/captions/captions.json: the drone and the bolt).
+  const P = await getJSON('out/captions/captions.json');
+  const R = S.cam ? await getJSON(`out/captions/${S.cam}.json`) : null;
+  if (!P && !R) { v.innerHTML = empty('The caption check has not been built yet.'); return; }
+  const cap = p => p ? F('out/captions/' + p) : '';
+  const nm = (n, k) => k === 1 ? n : (n === 'person' ? 'people' : /s$/.test(n) ? n : n + 's');
+  const counts = o => { const e = Object.entries(o || {}).filter(([, k]) => k > 0).sort((a, b) => b[1] - a[1]); return e.length ? e.map(([n, k]) => `${k}× ${n}`).join(' · ') : 'nothing'; };
+  const said = r => { const e = Object.entries(r.claimed_counts || {}); return e.length ? e.map(([n, k]) => k === 0 ? `no ${nm(n, 0)}` : k == null ? `${n} (no number)` : `${k}× ${n}`).join(' · ') : 'nothing countable'; };
+  const APPEAR = /\b(blonde|brunette|hair|t-shirt|tshirt|shirt|skirt|heels|jacket|jeans|cap|hat|top|shorts|outfit|dress|coat|hoodie|pants|trousers|sweater|clothing|clothes|wearing)\b/gi;
+  const hl = (text, r) => {
+    const bad = new Set((r.checks || []).filter(c => ['unseen', 'count_off'].includes(c.status)).map(c => c.object));
+    let s = esc(text);
+    for (const c of (r.claims || [])) { if (!c.text) continue; const k = esc(c.text); s = s.split(k).join(`<mark class="${bad.has(c.object) ? 'bad' : ''}">${k}</mark>`); }
+    return s.replace(APPEAR, w => `<span class="cx-app" title="appearance: not checked, not used">${w}</span>`);
+  };
+  const verdict = r => r.verdict === 'contradiction' ? `<span class="pill contradiction">Doesn't match</span>`
+    : r.verdict === 'unverifiable' ? `<span class="pill unverifiable">Can't check</span>`
+    : r.class_differs ? `<span class="pill cx-amber" title="The two AIs split car / van / truck differently">Backed up · car/truck split</span>`
+    : r.count_differs ? `<span class="pill cx-amber" title="Same things seen, numbers differ">Backed up · count differs</span>`
+    : `<span class="pill consistent">Backed up</span>`;
+  const dayStart = {};
+  for (const r of (R && R.rows) || []) if (r.day && !(r.day in dayStart && dayStart[r.day] <= r.start)) dayStart[r.day] = r.start;
+  const when = r => r.day ? `${esc(r.day_label || r.day)} · ${mmss(r.start - (dayStart[r.day] || 0))}–${mmss(r.end - (dayStart[r.day] || 0))}` : `${esc(r.clip)} · ${mmss(r.start)}–${mmss(r.end)}`;
+  const row = (r, live) => `<div class="row cx-row">${r.strip ? img(cap(r.strip), 'cx-rowstrip', '6 frames from this segment') : img(cap(r.frame), '', 'frame from this segment')}
+    <div class="cx-body"><div>${verdict(r)} <span class="counts">${when(r)}</span>${r.detector_suspect ? ' <span class="pill moved" title="' + esc(r.detector_reason || '') + '">detector suspect</span>' : ''}${r.repeats ? ` <span class="pill unverifiable">caption repeats itself ×${r.repeats + 1}</span>` : ''}</div>
+      <p class="cx-cap">${hl(r.caption, r)}</p>
+      <div class="cx-cols"><div><span class="label">Video AI said</span><b>${esc(said(r))}</b></div>
+        <div><span class="label">${live ? 'Detector counted' : "Pipeline's detector counted"}</span><b>${esc(counts(r.pipeline_counts))}</b></div>
+        ${r.our_counts != null ? `<div><span class="label">Our tracker counted</span><b>${esc(counts(r.our_counts))}</b></div>` : ''}</div>
+      <p class="cx-why">${esc(r.why)}</p>${r.detector_reason ? `<p class="cx-why">Detector suspect: ${esc(r.detector_reason)}</p>` : ''}</div></div>`;
+  const stats = (t, nd) => `<div class="stats">
+      <div class="stat"><b class="mono" style="color:var(--gone)">${t.contradiction ?? 0}</b><span>doesn't match</span></div>
+      <div class="stat"><b class="mono" style="color:var(--present)">${t.consistent ?? 0}</b><span>backed up</span></div>
+      ${nd != null ? `<div class="stat"><b class="mono" style="color:var(--sodium)">${nd}</b><span>of those: count or type differs</span></div>` : ''}
+      <div class="stat"><b class="mono">${t.unverifiable ?? 0}</b><span>can't check</span></div></div>`;
+  const prows = P ? P.rows || [] : [];
+  const hero = prows.find(r => r.verdict === 'contradiction' && r.strip) || prows.find(r => r.verdict === 'contradiction');
+  const bolt = prows.find(r => r.id === 'bolt-detection_002') || prows.find(r => r.verdict === 'unverifiable' && r.detector_suspect);
+  let html = '';
+  if (hero) {
+    const lie = (hero.checks || []).filter(c => ['unseen', 'count_off'].includes(c.status)).map(c => c.object);
+    let q = esc(hero.caption);
+    for (const w of lie) q = q.replace(new RegExp(`\\b(${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}s?)\\b`, 'gi'), '<s class="cx-lie">$1</s>');
+    const n = (hero.strip_t || []).length || 6;
+    html += `<section class="stage cx-hero"><div class="cx-stampwrap">${hero.strip ? img(cap(hero.strip), 'cx-strip', 'Six frames across the segment') : img(cap(hero.frame), 'cx-strip', 'Frame from the segment')}<span class="cx-stamp">DOESN'T MATCH</span></div>
+      <div class="cx-pad"><div class="counts">${hero.start.toFixed(1)} s → ${hero.end.toFixed(1)} s, ${hero.strip ? n + ' frames' : 'middle frame'}</div>
+      <blockquote class="cx-quote">“${q}”</blockquote>
+      <div class="cx-tiles"><div><span class="label">Video model</span><b>${esc(lie.length ? lie.map(w => 'a ' + w).join(', ') : said(hero))}</b></div>
+        <div><span class="label">Pipeline detector</span><b>${esc(counts(hero.pipeline_counts))}</b></div>
+        ${hero.our_counts != null ? `<div><span class="label">Our tracker</span><b>${esc(counts(hero.our_counts))}</b></div>` : ''}</div>
+      <p class="cx-why">${esc(hero.why)}</p>
+      <div class="counts">${esc(hero.model || (P.models || []).join(', '))} · practice corpus</div></div></section>`;
+  }
+  if (bolt) {
+    const thing = ((bolt.why || '').match(/it describes: ([^)]+)/) || [])[1] || 'something else';
+    html += `<section class="stage cx-mini">${img(cap(bolt.frame), 'cx-minifr', 'Frame from the bolt clip')}
+      <div class="cx-pad"><h3>Neither AI is trusted alone.</h3>
+      <p>Detector said: <b>${esc(counts(bolt.pipeline_counts))}</b>. Caption said: <b>a ${esc(thing.split(',')[0])}</b>. The caption was right.</p>
+      <div class="counts">Practice corpus · ${esc(bolt.id)}. Each AI checks the other; when only one speaks, we say “can't check”.</div></div></section>`;
+  }
+  if (R) {
+    const rr = R.rows || [], ord = r => r.verdict === 'contradiction' ? 0 : (r.class_differs || r.count_differs) && (r.checks || []).some(c => c.claimed === 0 && c.status !== 'supported') ? 1 : r.class_differs ? 2 : r.verdict === 'unverifiable' ? 4 : 3;
+    const sorted = [...rr].sort((a, b) => ord(a) - ord(b) || a.start - b.start), top = sorted.filter(r => ord(r) <= 1), rest = sorted.filter(r => ord(r) > 1);
+    const days = (R.days || []).map(d => esc(d.label || d.id)).join(' and ');
+    html += `<section class="stage cx-live"><div class="cx-pad"><h3>This camera: ${rr.length} five-second descriptions${days ? ` over ${days}` : ''}</h3>
+      <p class="counts">Written by ${esc((R.models || []).join(', ') || 'the video model')}; counted by ${esc((R.detectors || []).join(', ') || 'the detector')}.</p>
+      ${stats(R.totals || {}, rr.filter(r => r.verdict === 'consistent' && (r.count_differs || r.class_differs)).length)}
+      ${R.witness_note ? `<p class="honesty">${esc(R.witness_note)}</p>` : ''}</div>
+      <div class="rows">${top.map(r => row(r, true)).join('') || '<p class="empty">No description on this camera contradicts the detector.</p>'}</div>
+      <details class="cx-more"><summary>All other descriptions (${rest.length})</summary><div class="rows">${rest.map(r => row(r, true)).join('')}</div></details></section>`;
+  }
+  if (P) {
+    const others = prows.filter(r => r !== hero && r !== bolt);
+    html += `<section class="stage"><div class="cx-pad"><h3>Practice corpus</h3><div class="counts">${esc((P.models || []).join(', '))} · ${prows.length} segments from the organisers' sample clips</div>${stats(P.totals || {}, P.count_differs)}</div>
+      <details class="cx-more"><summary>Other clips (${others.length})</summary><div class="rows">${others.map(r => row(r, false)).join('')}</div></details></section>`;
+  }
+  v.innerHTML = `<div class="cx">${html}</div>`;
+}
+init();
+</script>

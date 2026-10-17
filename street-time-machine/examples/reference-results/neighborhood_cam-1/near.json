@@ -1,0 +1,1161 @@
+{
+ "camera": "neighborhood_cam-1",
+ "targets": [
+  {
+   "object_id": 112,
+   "name": "car",
+   "box": [
+    287.5,
+    486.7,
+    466.9,
+    617.7
+   ],
+   "start": 650.86,
+   "end": 711.19,
+   "crop": "near/112.jpg",
+   "visitors": [
+    {
+     "object_id": 114,
+     "name": "car",
+     "closest_t": 658.01,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 656.36,
+     "exit_t": 658.61,
+     "crop": "near/114_658.0.jpg"
+    },
+    {
+     "object_id": 119,
+     "name": "car",
+     "closest_t": 662.86,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 662.86,
+     "exit_t": 664.21,
+     "crop": "near/119_662.9.jpg"
+    },
+    {
+     "object_id": 121,
+     "name": "car",
+     "closest_t": 678.06,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 678.06,
+     "exit_t": 680.06,
+     "crop": "near/121_678.1.jpg"
+    },
+    {
+     "object_id": 124,
+     "name": "car",
+     "closest_t": 683.34,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 683.34,
+     "exit_t": 685.34,
+     "crop": "near/124_683.3.jpg"
+    },
+    {
+     "object_id": 128,
+     "name": "truck",
+     "closest_t": 704.14,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 704.14,
+     "exit_t": 705.74,
+     "crop": "near/128_704.1.jpg"
+    },
+    {
+     "object_id": 129,
+     "name": "truck",
+     "closest_t": 704.34,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 704.34,
+     "exit_t": 705.69,
+     "crop": "near/129_704.3.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "3 cars and 2 trucks (6 tracks) came within half a car-height of it between 10:50 and 11:51; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 1,
+   "name": "car",
+   "box": [
+    287.5,
+    487.3,
+    465.6,
+    617.7
+   ],
+   "start": 0.0,
+   "end": 60.08,
+   "crop": "near/1.jpg",
+   "visitors": [
+    {
+     "object_id": 5,
+     "name": "car",
+     "closest_t": 15.15,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 15.15,
+     "exit_t": 17.2,
+     "crop": "near/5_15.2.jpg"
+    },
+    {
+     "object_id": 10,
+     "name": "car",
+     "closest_t": 40.13,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 40.13,
+     "exit_t": 42.18,
+     "crop": "near/10_40.1.jpg"
+    },
+    {
+     "object_id": 12,
+     "name": "car",
+     "closest_t": 57.23,
+     "gap_px": 62.4,
+     "gap_rel": 0.479,
+     "enter_t": 57.23,
+     "exit_t": 57.23,
+     "crop": "near/12_57.2.jpg"
+    },
+    {
+     "object_id": 13,
+     "name": "car",
+     "closest_t": 59.63,
+     "gap_px": 31.8,
+     "gap_rel": 0.244,
+     "enter_t": 57.38,
+     "exit_t": 60.08,
+     "crop": "near/13_59.6.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "3 cars (4 tracks) came within half a car-height of it between 00:00 and 01:00; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 55,
+   "name": "car",
+   "box": [
+    286.2,
+    487.3,
+    466.2,
+    618.3
+   ],
+   "start": 250.84,
+   "end": 280.8,
+   "crop": "near/55.jpg",
+   "visitors": [
+    {
+     "object_id": 62,
+     "name": "car",
+     "closest_t": 265.14,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 265.14,
+     "exit_t": 267.39,
+     "crop": "near/62_265.1.jpg"
+    },
+    {
+     "object_id": 63,
+     "name": "car",
+     "closest_t": 265.8,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 265.8,
+     "exit_t": 267.94,
+     "crop": "near/63_265.8.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "2 cars came within half a car-height of it between 04:10 and 04:40; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 44,
+   "name": "car",
+   "box": [
+    286.9,
+    487.3,
+    466.2,
+    617.7
+   ],
+   "start": 216.45,
+   "end": 246.4,
+   "crop": "near/44.jpg",
+   "visitors": [
+    {
+     "object_id": 48,
+     "name": "person",
+     "closest_t": 226.9,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 225.8,
+     "exit_t": 230.3,
+     "crop": "near/48_226.9.jpg"
+    },
+    {
+     "object_id": 50,
+     "name": "car",
+     "closest_t": 237.5,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 236.4,
+     "exit_t": 237.95,
+     "crop": "near/50_237.5.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "1 car and 1 person came within half a car-height of it between 03:36 and 04:06; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 36,
+   "name": "car",
+   "box": [
+    286.9,
+    487.3,
+    466.2,
+    618.3
+   ],
+   "start": 174.43,
+   "end": 204.38,
+   "crop": "near/36.jpg",
+   "visitors": [
+    {
+     "object_id": 40,
+     "name": "car",
+     "closest_t": 181.88,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 181.88,
+     "exit_t": 183.23,
+     "crop": "near/40_181.9.jpg"
+    },
+    {
+     "object_id": 43,
+     "name": "car",
+     "closest_t": 203.33,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 203.33,
+     "exit_t": 204.38,
+     "crop": "near/43_203.3.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "2 cars came within half a car-height of it between 02:54 and 03:24; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 38,
+   "name": "car",
+   "box": [
+    273.1,
+    393.7,
+    313.1,
+    454.8
+   ],
+   "start": 174.43,
+   "end": 204.38,
+   "crop": "near/38.jpg",
+   "visitors": [
+    {
+     "object_id": 40,
+     "name": "car",
+     "closest_t": 181.88,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 181.88,
+     "exit_t": 182.43,
+     "crop": "near/40_181.9.jpg"
+    },
+    {
+     "object_id": 43,
+     "name": "car",
+     "closest_t": 203.33,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 203.33,
+     "exit_t": 204.38,
+     "crop": "near/43_203.3.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "2 cars came within half a car-height of it between 02:54 and 03:24; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 75,
+   "name": "car",
+   "box": [
+    286.9,
+    487.3,
+    466.2,
+    618.3
+   ],
+   "start": 433.41,
+   "end": 463.36,
+   "crop": "near/75.jpg",
+   "visitors": [
+    {
+     "object_id": 77,
+     "name": "car",
+     "closest_t": 444.26,
+     "gap_px": 16.9,
+     "gap_rel": 0.129,
+     "enter_t": 442.71,
+     "exit_t": 444.36,
+     "crop": "near/77_444.3.jpg"
+    },
+    {
+     "object_id": 79,
+     "name": "person",
+     "closest_t": 449.16,
+     "gap_px": 3.1,
+     "gap_rel": 0.024,
+     "enter_t": 449.16,
+     "exit_t": 449.96,
+     "crop": "near/79_449.2.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "1 car and 1 person came within half a car-height of it between 07:13 and 07:43; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 84,
+   "name": "car",
+   "box": [
+    286.9,
+    487.3,
+    466.2,
+    618.9
+   ],
+   "start": 503.05,
+   "end": 533.0,
+   "crop": "near/84.jpg",
+   "visitors": [
+    {
+     "object_id": 86,
+     "name": "car",
+     "closest_t": 511.05,
+     "gap_px": 3.8,
+     "gap_rel": 0.029,
+     "enter_t": 509.25,
+     "exit_t": 511.55,
+     "crop": "near/86_511.0.jpg"
+    },
+    {
+     "object_id": 90,
+     "name": "car",
+     "closest_t": 521.55,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 521.55,
+     "exit_t": 523.2,
+     "crop": "near/90_521.5.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "2 cars came within half a car-height of it between 08:23 and 08:53; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 106,
+   "name": "car",
+   "box": [
+    286.9,
+    486.7,
+    466.9,
+    617.7
+   ],
+   "start": 612.85,
+   "end": 642.8,
+   "crop": "near/106.jpg",
+   "visitors": [
+    {
+     "object_id": 109,
+     "name": "truck",
+     "closest_t": 619.4,
+     "gap_px": 19.4,
+     "gap_rel": 0.148,
+     "enter_t": 618.4,
+     "exit_t": 619.9,
+     "crop": "near/109_619.4.jpg"
+    },
+    {
+     "object_id": 108,
+     "name": "car",
+     "closest_t": 620.0,
+     "gap_px": 19.4,
+     "gap_rel": 0.148,
+     "enter_t": 618.2,
+     "exit_t": 620.15,
+     "crop": "near/108_620.0.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "1 car and 1 truck came within half a car-height of it between 10:12 and 10:42; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 95,
+   "name": "car",
+   "box": [
+    287.5,
+    486.7,
+    466.2,
+    617.7
+   ],
+   "start": 579.72,
+   "end": 609.66,
+   "crop": "near/95.jpg",
+   "visitors": [
+    {
+     "object_id": 99,
+     "name": "car",
+     "closest_t": 591.76,
+     "gap_px": 14.4,
+     "gap_rel": 0.11,
+     "enter_t": 590.51,
+     "exit_t": 591.82,
+     "crop": "near/99_591.8.jpg"
+    },
+    {
+     "object_id": 102,
+     "name": "car",
+     "closest_t": 601.76,
+     "gap_px": 6.3,
+     "gap_rel": 0.048,
+     "enter_t": 600.72,
+     "exit_t": 601.82,
+     "crop": "near/102_601.8.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "2 cars came within half a car-height of it between 09:39 and 10:09; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 58,
+   "name": "car",
+   "box": [
+    273.8,
+    394.9,
+    313.1,
+    453.6
+   ],
+   "start": 250.84,
+   "end": 277.94,
+   "crop": "near/58.jpg",
+   "visitors": [
+    {
+     "object_id": 62,
+     "name": "car",
+     "closest_t": 265.14,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 265.14,
+     "exit_t": 266.55,
+     "crop": "near/62_265.1.jpg"
+    },
+    {
+     "object_id": 63,
+     "name": "car",
+     "closest_t": 265.8,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 265.8,
+     "exit_t": 266.44,
+     "crop": "near/63_265.8.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "2 cars came within half a car-height of it between 04:10 and 04:37; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 394,
+   "name": "car",
+   "box": [
+    295.0,
+    394.3,
+    438.8,
+    453.0
+   ],
+   "start": 1819.52,
+   "end": 1843.02,
+   "crop": "near/394.jpg",
+   "visitors": [
+    {
+     "object_id": 393,
+     "name": "car",
+     "closest_t": 1819.52,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 1819.52,
+     "exit_t": 1819.52,
+     "crop": "near/393_1819.5.jpg"
+    },
+    {
+     "object_id": 396,
+     "name": "car",
+     "closest_t": 1833.57,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 1833.47,
+     "exit_t": 1834.87,
+     "crop": "near/396_1833.6.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "2 cars came within half a car-height of it between 30:19 and 30:43; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 46,
+   "name": "car",
+   "box": [
+    273.8,
+    394.9,
+    313.1,
+    453.6
+   ],
+   "start": 216.45,
+   "end": 246.4,
+   "crop": "near/46.jpg",
+   "visitors": [
+    {
+     "object_id": 50,
+     "name": "car",
+     "closest_t": 237.35,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 237.25,
+     "exit_t": 237.95,
+     "crop": "near/50_237.4.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "1 car came within half a car-height of it between 03:36 and 04:06; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 16,
+   "name": "car",
+   "box": [
+    287.5,
+    487.3,
+    466.2,
+    617.1
+   ],
+   "start": 65.12,
+   "end": 95.07,
+   "crop": "near/16.jpg",
+   "visitors": [
+    {
+     "object_id": 19,
+     "name": "car",
+     "closest_t": 71.12,
+     "gap_px": 31.2,
+     "gap_rel": 0.24,
+     "enter_t": 67.27,
+     "exit_t": 95.07,
+     "crop": "near/19_71.1.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "1 car came within half a car-height of it between 01:05 and 01:35; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 29,
+   "name": "car",
+   "box": [
+    287.5,
+    487.3,
+    466.2,
+    617.7
+   ],
+   "start": 137.27,
+   "end": 167.22,
+   "crop": "near/29.jpg",
+   "visitors": [
+    {
+     "object_id": 35,
+     "name": "car",
+     "closest_t": 151.92,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 151.92,
+     "exit_t": 153.82,
+     "crop": "near/35_151.9.jpg"
+    }
+   ],
+   "blind": [
+    {
+     "start": 137.27,
+     "end": 145.0,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "1 car came within half a car-height of it between 02:17 and 02:47; camera was blind for 7.7 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 31,
+   "name": "car",
+   "box": [
+    274.4,
+    394.9,
+    313.1,
+    454.2
+   ],
+   "start": 137.27,
+   "end": 167.22,
+   "crop": "near/31.jpg",
+   "visitors": [
+    {
+     "object_id": 35,
+     "name": "car",
+     "closest_t": 152.02,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 151.92,
+     "exit_t": 152.67,
+     "crop": "near/35_152.0.jpg"
+    }
+   ],
+   "blind": [
+    {
+     "start": 137.27,
+     "end": 145.0,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "1 car came within half a car-height of it between 02:17 and 02:47; camera was blind for 7.7 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 65,
+   "name": "car",
+   "box": [
+    286.9,
+    487.3,
+    466.9,
+    617.7
+   ],
+   "start": 290.11,
+   "end": 320.06,
+   "crop": "near/65.jpg",
+   "visitors": [
+    {
+     "object_id": 68,
+     "name": "car",
+     "closest_t": 298.91,
+     "gap_px": 6.3,
+     "gap_rel": 0.048,
+     "enter_t": 298.91,
+     "exit_t": 300.56,
+     "crop": "near/68_298.9.jpg"
+    }
+   ],
+   "blind": [
+    {
+     "start": 316.0,
+     "end": 320.06,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "1 car came within half a car-height of it between 04:50 and 05:20; camera was blind for 4.1 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 130,
+   "name": "car",
+   "box": [
+    286.9,
+    487.3,
+    466.9,
+    618.3
+   ],
+   "start": 716.49,
+   "end": 746.43,
+   "crop": "near/130.jpg",
+   "visitors": [
+    {
+     "object_id": 135,
+     "name": "car",
+     "closest_t": 733.99,
+     "gap_px": 0.0,
+     "gap_rel": 0.0,
+     "enter_t": 733.99,
+     "exit_t": 735.88,
+     "crop": "near/135_734.0.jpg"
+    }
+   ],
+   "blind": [],
+   "summary": "1 car came within half a car-height of it between 11:56 and 12:26; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 113,
+   "name": "car",
+   "box": [
+    750.6,
+    508.5,
+    878.8,
+    598.3
+   ],
+   "start": 650.86,
+   "end": 711.19,
+   "crop": "near/113.jpg",
+   "visitors": [],
+   "blind": [],
+   "summary": "Nobody came within half a car-height of it between 10:50 and 11:51; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 368,
+   "name": "car",
+   "box": [
+    448.1,
+    624.5,
+    850.6,
+    718.1
+   ],
+   "start": 1639.63,
+   "end": 1699.73,
+   "crop": "near/368.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1639.63,
+     "end": 1646.0,
+     "reason": "frozen"
+    },
+    {
+     "start": 1647.0,
+     "end": 1670.0,
+     "reason": "frozen"
+    },
+    {
+     "start": 1676.0,
+     "end": 1677.0,
+     "reason": "blur"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 27:19 and 28:19; camera was blind for 30.4 s (blur, frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 369,
+   "name": "car",
+   "box": [
+    296.2,
+    396.2,
+    437.5,
+    451.7
+   ],
+   "start": 1639.63,
+   "end": 1699.73,
+   "crop": "near/369.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1639.63,
+     "end": 1646.0,
+     "reason": "frozen"
+    },
+    {
+     "start": 1647.0,
+     "end": 1670.0,
+     "reason": "frozen"
+    },
+    {
+     "start": 1676.0,
+     "end": 1677.0,
+     "reason": "blur"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 27:19 and 28:19; camera was blind for 30.4 s (blur, frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 2,
+   "name": "car",
+   "box": [
+    749.4,
+    509.7,
+    874.4,
+    598.3
+   ],
+   "start": 0.0,
+   "end": 60.08,
+   "crop": "near/2.jpg",
+   "visitors": [],
+   "blind": [],
+   "summary": "Nobody came within half a car-height of it between 00:00 and 01:00; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 169,
+   "name": "car",
+   "box": [
+    448.8,
+    624.5,
+    845.0,
+    718.1
+   ],
+   "start": 1089.09,
+   "end": 1149.14,
+   "crop": "near/169.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1089.09,
+     "end": 1149.14,
+     "reason": "view_changed+no_signal+blocked"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 18:09 and 19:09; camera was blind for 60.1 s (blocked, no_signal, view_changed), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 178,
+   "name": "car",
+   "box": [
+    293.8,
+    393.1,
+    438.1,
+    450.5
+   ],
+   "start": 1111.34,
+   "end": 1149.14,
+   "crop": "near/178.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1111.34,
+     "end": 1149.14,
+     "reason": "blocked"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 18:31 and 19:09; camera was blind for 37.8 s (blocked), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 56,
+   "name": "car",
+   "box": [
+    749.4,
+    509.7,
+    874.4,
+    598.3
+   ],
+   "start": 250.84,
+   "end": 280.8,
+   "crop": "near/56.jpg",
+   "visitors": [],
+   "blind": [],
+   "summary": "Nobody came within half a car-height of it between 04:10 and 04:40; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 138,
+   "name": "car",
+   "box": [
+    750.0,
+    508.5,
+    878.1,
+    597.7
+   ],
+   "start": 756.65,
+   "end": 786.6,
+   "crop": "near/138.jpg",
+   "visitors": [],
+   "blind": [],
+   "summary": "Nobody came within half a car-height of it between 12:36 and 13:06; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 142,
+   "name": "car",
+   "box": [
+    750.6,
+    509.1,
+    877.5,
+    597.7
+   ],
+   "start": 789.14,
+   "end": 819.09,
+   "crop": "near/142.jpg",
+   "visitors": [],
+   "blind": [],
+   "summary": "Nobody came within half a car-height of it between 13:09 and 13:39; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 148,
+   "name": "car",
+   "box": [
+    750.0,
+    509.1,
+    878.1,
+    597.7
+   ],
+   "start": 826.54,
+   "end": 856.49,
+   "crop": "near/148.jpg",
+   "visitors": [],
+   "blind": [],
+   "summary": "Nobody came within half a car-height of it between 13:46 and 14:16; camera was blind for 0.0 s."
+  },
+  {
+   "object_id": 162,
+   "name": "car",
+   "box": [
+    748.1,
+    510.4,
+    875.6,
+    601.5
+   ],
+   "start": 1012.22,
+   "end": 1042.17,
+   "crop": "near/162.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1039.0,
+     "end": 1042.17,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 16:52 and 17:22; camera was blind for 3.2 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 165,
+   "name": "car",
+   "box": [
+    748.1,
+    510.4,
+    875.0,
+    601.5
+   ],
+   "start": 1054.49,
+   "end": 1084.44,
+   "crop": "near/165.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1054.49,
+     "end": 1066.0,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 17:34 and 18:04; camera was blind for 11.5 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 250,
+   "name": "car",
+   "box": [
+    295.6,
+    376.8,
+    467.5,
+    453.0
+   ],
+   "start": 1267.93,
+   "end": 1297.88,
+   "crop": "near/250.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1267.93,
+     "end": 1297.88,
+     "reason": "blur+view_changed+frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 21:07 and 21:37; camera was blind for 30.0 s (blur, frozen, view_changed), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 306,
+   "name": "car",
+   "box": [
+    751.9,
+    461.7,
+    930.0,
+    596.5
+   ],
+   "start": 1412.48,
+   "end": 1442.43,
+   "crop": "near/306.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1412.48,
+     "end": 1442.43,
+     "reason": "blur+frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 23:32 and 24:02; camera was blind for 30.0 s (blur, frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 354,
+   "name": "car",
+   "box": [
+    348.1,
+    395.6,
+    438.1,
+    441.1
+   ],
+   "start": 1568.48,
+   "end": 1598.43,
+   "crop": "near/354.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1568.48,
+     "end": 1587.0,
+     "reason": "frozen"
+    },
+    {
+     "start": 1588.0,
+     "end": 1595.0,
+     "reason": "frozen"
+    },
+    {
+     "start": 1596.0,
+     "end": 1598.43,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 26:08 and 26:38; camera was blind for 28.0 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 374,
+   "name": "car",
+   "box": [
+    448.1,
+    624.5,
+    848.8,
+    718.1
+   ],
+   "start": 1704.72,
+   "end": 1734.67,
+   "crop": "near/374.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1711.0,
+     "end": 1734.67,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 28:24 and 28:54; camera was blind for 23.7 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 375,
+   "name": "car",
+   "box": [
+    294.4,
+    393.1,
+    438.8,
+    453.0
+   ],
+   "start": 1704.72,
+   "end": 1734.67,
+   "crop": "near/375.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1711.0,
+     "end": 1734.67,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 28:24 and 28:54; camera was blind for 23.7 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 378,
+   "name": "car",
+   "box": [
+    294.4,
+    393.1,
+    438.8,
+    453.0
+   ],
+   "start": 1744.45,
+   "end": 1774.4,
+   "crop": "near/378.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1744.45,
+     "end": 1774.4,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 29:04 and 29:34; camera was blind for 30.0 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 379,
+   "name": "car",
+   "box": [
+    448.1,
+    624.5,
+    848.8,
+    718.1
+   ],
+   "start": 1744.45,
+   "end": 1774.4,
+   "crop": "near/379.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1744.45,
+     "end": 1774.4,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 29:04 and 29:34; camera was blind for 30.0 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 380,
+   "name": "car",
+   "box": [
+    738.8,
+    463.6,
+    929.4,
+    594.6
+   ],
+   "start": 1744.45,
+   "end": 1774.4,
+   "crop": "near/380.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1744.45,
+     "end": 1774.4,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 29:04 and 29:34; camera was blind for 30.0 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 382,
+   "name": "car",
+   "box": [
+    448.1,
+    625.2,
+    848.8,
+    718.1
+   ],
+   "start": 1776.37,
+   "end": 1806.32,
+   "crop": "near/382.jpg",
+   "visitors": [],
+   "blind": [
+    {
+     "start": 1776.37,
+     "end": 1778.0,
+     "reason": "frozen"
+    }
+   ],
+   "summary": "Nobody came within half a car-height of it between 29:36 and 30:06; camera was blind for 1.6 s (frozen), so who was near it then is UNKNOWN."
+  },
+  {
+   "object_id": 390,
+   "name": "car",
+   "box": [
+    448.1,
+    624.5,
+    850.6,
+    718.1
+   ],
+   "start": 1813.07,
+   "end": 1843.02,
+   "crop": "near/390.jpg",
+   "visitors": [],
+   "blind": [],
+   "summary": "Nobody came within half a car-height of it between 30:13 and 30:43; camera was blind for 0.0 s."
+  }
+ ]
+}

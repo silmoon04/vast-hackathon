@@ -1,0 +1,7419 @@
+{
+ "camera": "ptz_parking",
+ "seconds": 317,
+ "blind": [
+  {
+   "start": 68.0,
+   "end": 70.0,
+   "reason": "no_signal",
+   "score": 0.34
+  },
+  {
+   "start": 156.0,
+   "end": 168.0,
+   "reason": "moved",
+   "score": 0.75
+  },
+  {
+   "start": 168.0,
+   "end": 206.0,
+   "reason": "turned_away",
+   "score": 1.0
+  },
+  {
+   "start": 206.0,
+   "end": 207.0,
+   "reason": "moved",
+   "score": 0.97
+  },
+  {
+   "start": 207.0,
+   "end": 213.0,
+   "reason": "turned_away",
+   "score": 0.94
+  },
+  {
+   "start": 213.0,
+   "end": 244.0,
+   "reason": "moved",
+   "score": 0.62
+  },
+  {
+   "start": 244.0,
+   "end": 250.0,
+   "reason": "turned_away",
+   "score": 0.39
+  },
+  {
+   "start": 250.0,
+   "end": 251.0,
+   "reason": "moved",
+   "score": 1.0
+  }
+ ],
+ "blind_total_s": 97.0,
+ "blind_by_reason": {
+  "turned_away": 50.0,
+  "moved": 45.0,
+  "no_signal": 2.0
+ },
+ "blind_by_day": [
+  {
+   "day": "A",
+   "label": "Day A",
+   "start": 0.0,
+   "end": 158.0,
+   "blind_s": 4.0,
+   "by_reason": {
+    "no_signal": 2.0,
+    "moved": 2.0
+   }
+  },
+  {
+   "day": "B",
+   "label": "Day B",
+   "start": 158.0,
+   "end": 316.13,
+   "blind_s": 93.0,
+   "by_reason": {
+    "moved": 43.0,
+    "turned_away": 50.0
+   }
+  }
+ ],
+ "home_views": [
+  {
+   "id": "A",
+   "day": "A",
+   "label": "Day A",
+   "view": 0,
+   "start": 0.0,
+   "end": 156.0,
+   "seen_s": 154
+  },
+  {
+   "id": "B",
+   "day": "B",
+   "label": "Day B",
+   "view": 2,
+   "start": 251.0,
+   "end": 316.13,
+   "seen_s": 66
+  }
+ ],
+ "reason_words": {
+  "no_signal": "no picture",
+  "dark": "too dark",
+  "frozen": "picture froze",
+  "moved": "camera moving",
+  "turned_away": "camera pointed elsewhere",
+  "blocked": "view blocked",
+  "blur": "picture blurred"
+ },
+ "spots": [
+  {
+   "spot_id": "S1",
+   "box": [
+    766.2,
+    291.4,
+    823.1,
+    352.2
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 51.0,
+     "state": "present",
+     "object_id": 23,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 51.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 730,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 927,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S2",
+   "box": [
+    545.9,
+    297.5,
+    593.8,
+    341.5
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 19,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 19,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S3",
+   "box": [
+    581.7,
+    305.4,
+    662.1,
+    374.5
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 8,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 8,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S4",
+   "box": [
+    421.7,
+    340.5,
+    486.6,
+    384.5
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 14.0,
+     "state": "present",
+     "object_id": 31,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 14.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 117,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 101.0,
+     "state": "present",
+     "object_id": 928,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 101.0,
+     "end": 115.0,
+     "state": "present",
+     "object_id": 1736,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 115.0,
+     "end": 150.0,
+     "state": "present",
+     "object_id": 1903,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 150.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 2230,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S5",
+   "box": [
+    380.3,
+    369.4,
+    435.5,
+    413.6
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 63.0,
+     "state": "present",
+     "object_id": 29,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 63.0,
+     "end": 64.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "spot hidden behind another vehicle"
+    },
+    {
+     "start": 64.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 29,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 107.0,
+     "state": "present",
+     "object_id": 29,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 107.0,
+     "end": 113.0,
+     "state": "present",
+     "object_id": 1816,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 113.0,
+     "end": 115.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "spot hidden behind another vehicle"
+    },
+    {
+     "start": 115.0,
+     "end": 118.0,
+     "state": "present",
+     "object_id": 1913,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 118.0,
+     "end": 133.0,
+     "state": "present",
+     "object_id": 1946,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 133.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 2135,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S6",
+   "box": [
+    234.0,
+    372.6,
+    286.4,
+    420.2
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 25,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 115.0,
+     "state": "present",
+     "object_id": 25,
+     "reason": null
+    },
+    {
+     "start": 115.0,
+     "end": 117.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "spot hidden behind another vehicle"
+    },
+    {
+     "start": 117.0,
+     "end": 118.0,
+     "state": "present",
+     "object_id": 2054,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 118.0,
+     "end": 120.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "spot hidden behind another vehicle"
+    },
+    {
+     "start": 120.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 2054,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S7",
+   "box": [
+    168.7,
+    376.8,
+    219.2,
+    423.3
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 11,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 11,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S8",
+   "box": [
+    96.6,
+    378.9,
+    151.9,
+    422.9
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 17,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 116.0,
+     "state": "present",
+     "object_id": 17,
+     "reason": null
+    },
+    {
+     "start": 116.0,
+     "end": 117.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "spot hidden behind another vehicle"
+    },
+    {
+     "start": 117.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 1931,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S9",
+   "box": [
+    1101.8,
+    390.0,
+    1212.2,
+    442.0
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 705,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 133.0,
+     "state": "present",
+     "object_id": 1378,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 133.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 2138,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S10",
+   "box": [
+    600.7,
+    403.0,
+    680.3,
+    476.9
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 44.0,
+     "state": "present",
+     "object_id": 28,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 44.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 533,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 533,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S11",
+   "box": [
+    1193.5,
+    413.5,
+    1279.4,
+    467.3
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 21,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 21,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S12",
+   "box": [
+    825.2,
+    416.4,
+    942.3,
+    499.8
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 16,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 16,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S13",
+   "box": [
+    415.2,
+    427.0,
+    494.7,
+    490.5
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "spot hidden behind another vehicle"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 926,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S14",
+   "box": [
+    989.0,
+    427.3,
+    1111.1,
+    490.8
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 18,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 18,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S15",
+   "box": [
+    244.6,
+    428.0,
+    303.2,
+    480.0
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 22,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 22,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S16",
+   "box": [
+    743.5,
+    434.5,
+    852.8,
+    510.3
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 14,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 14,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S17",
+   "box": [
+    52.0,
+    440.5,
+    120.2,
+    490.7
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 13,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 137.0,
+     "state": "present",
+     "object_id": 13,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 137.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 2143,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S18",
+   "box": [
+    663.8,
+    441.5,
+    783.4,
+    525.3
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 10,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 10,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S19",
+   "box": [
+    453.2,
+    453.7,
+    554.8,
+    533.0
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 7,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 107.0,
+     "state": "gone",
+     "object_id": null,
+     "reason": null
+    },
+    {
+     "start": 107.0,
+     "end": 108.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "spot hidden behind another vehicle"
+    },
+    {
+     "start": 108.0,
+     "end": 155.0,
+     "state": "gone",
+     "object_id": null,
+     "reason": null
+    },
+    {
+     "start": 155.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "spot hidden behind another vehicle"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": [
+    {
+     "t": 70.0,
+     "kind": "left",
+     "before": "crops/7_64.3.jpg",
+     "after": null,
+     "same_vehicle": null,
+     "similarity": null,
+     "note": "happened while the camera could not see (between 68s and 70s)"
+    }
+   ]
+  },
+  {
+   "spot_id": "S20",
+   "box": [
+    341.0,
+    455.3,
+    433.8,
+    530.7
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 12,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 12,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S21",
+   "box": [
+    119.6,
+    466.2,
+    207.0,
+    551.4
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 3,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 3,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S22",
+   "box": [
+    246.0,
+    469.5,
+    329.3,
+    540.3
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 5,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 5,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S23",
+   "box": [
+    15.1,
+    471.0,
+    100.4,
+    545.0
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 15,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 15,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S24",
+   "box": [
+    710.0,
+    543.0,
+    897.8,
+    708.5
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 26,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 26,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S25",
+   "box": [
+    1092.5,
+    547.2,
+    1279.7,
+    655.3
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 20,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 20,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S26",
+   "box": [
+    845.3,
+    569.0,
+    1002.8,
+    694.0
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 1,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 1,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S27",
+   "box": [
+    989.1,
+    569.0,
+    1191.2,
+    680.8
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 24,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 24,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S28",
+   "box": [
+    72.1,
+    595.5,
+    216.0,
+    718.8
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 2,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 2,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S29",
+   "box": [
+    570.9,
+    608.0,
+    742.7,
+    718.0
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 4,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 4,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S30",
+   "box": [
+    266.2,
+    627.5,
+    396.6,
+    718.6
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 6,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 6,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S31",
+   "box": [
+    0.0,
+    634.0,
+    48.4,
+    718.0
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 9,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 9,
+     "reason": null
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S32",
+   "box": [
+    1000.1,
+    671.0,
+    1277.7,
+    720.0
+   ],
+   "view": 0,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 13.0,
+     "state": "present",
+     "object_id": 30,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 13.0,
+     "end": 47.0,
+     "state": "present",
+     "object_id": 111,
+     "reason": "vehicle detected, not a parked track"
+    },
+    {
+     "start": 47.0,
+     "end": 68.0,
+     "state": "present",
+     "object_id": 670,
+     "reason": null
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "present",
+     "object_id": 1780,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S33",
+   "box": [
+    1079.5,
+    180.0,
+    1132.3,
+    223.9
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3167,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S34",
+   "box": [
+    1114.0,
+    192.6,
+    1196.2,
+    262.5
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3169,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S35",
+   "box": [
+    758.0,
+    243.3,
+    814.3,
+    291.0
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3204,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S36",
+   "box": [
+    626.3,
+    244.8,
+    679.7,
+    285.3
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3168,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S37",
+   "box": [
+    696.8,
+    245.2,
+    747.1,
+    290.9
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3165,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S38",
+   "box": [
+    907.4,
+    248.0,
+    964.6,
+    290.3
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 252.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "too little clear view next to a blind stretch to call it empty"
+    },
+    {
+     "start": 252.0,
+     "end": 300.0,
+     "state": "present",
+     "object_id": 3662,
+     "reason": "detector missed it; spot pixels unchanged"
+    },
+    {
+     "start": 300.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 4405,
+     "reason": "vehicle detected, not a parked track"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S39",
+   "box": [
+    346.6,
+    248.8,
+    416.1,
+    285.2
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 252.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "too little clear view next to a blind stretch to call it empty"
+    },
+    {
+     "start": 252.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3557,
+     "reason": "detector missed it; spot pixels unchanged"
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S40",
+   "box": [
+    768.1,
+    299.0,
+    830.4,
+    353.0
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3183,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S41",
+   "box": [
+    578.3,
+    302.8,
+    647.7,
+    357.3
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3166,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S42",
+   "box": [
+    429.7,
+    303.1,
+    538.2,
+    406.9
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3187,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S43",
+   "box": [
+    941.7,
+    306.3,
+    1020.8,
+    369.6
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3188,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S44",
+   "box": [
+    19.7,
+    306.5,
+    164.6,
+    398.7
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 252.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "too little clear view next to a blind stretch to call it empty"
+    },
+    {
+     "start": 252.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3224,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S45",
+   "box": [
+    228.4,
+    317.0,
+    342.5,
+    398.0
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3193,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S46",
+   "box": [
+    129.5,
+    322.9,
+    238.7,
+    400.1
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3182,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S47",
+   "box": [
+    338.0,
+    331.2,
+    437.8,
+    400.3
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3171,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S48",
+   "box": [
+    866.0,
+    331.3,
+    954.2,
+    407.3
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3170,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S49",
+   "box": [
+    636.3,
+    333.5,
+    729.7,
+    424.7
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3163,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S50",
+   "box": [
+    1191.5,
+    337.3,
+    1280.0,
+    426.3
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3179,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S51",
+   "box": [
+    770.9,
+    340.7,
+    851.2,
+    410.1
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3164,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S52",
+   "box": [
+    1230.8,
+    449.0,
+    1280.0,
+    589.7
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3208,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S53",
+   "box": [
+    590.7,
+    458.3,
+    724.9,
+    633.6
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 2612,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S54",
+   "box": [
+    0.1,
+    463.2,
+    129.7,
+    604.7
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3118,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S55",
+   "box": [
+    97.0,
+    465.3,
+    265.7,
+    618.4
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 2696,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S56",
+   "box": [
+    415.6,
+    486.2,
+    565.3,
+    629.8
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 2849,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S57",
+   "box": [
+    776.2,
+    501.3,
+    905.7,
+    635.8
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 2787,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S58",
+   "box": [
+    1082.1,
+    505.0,
+    1258.2,
+    636.5
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3162,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S59",
+   "box": [
+    101.4,
+    610.5,
+    325.0,
+    718.2
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 253.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "too little clear view next to a blind stretch to call it empty"
+    },
+    {
+     "start": 253.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3253,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S60",
+   "box": [
+    562.9,
+    625.3,
+    722.6,
+    719.0
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 2833,
+     "reason": null
+    }
+   ],
+   "changes": []
+  },
+  {
+   "spot_id": "S61",
+   "box": [
+    788.2,
+    626.0,
+    952.0,
+    719.0
+   ],
+   "view": 2,
+   "spans": [
+    {
+     "start": 0.0,
+     "end": 68.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 68.0,
+     "end": 70.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (no picture)"
+    },
+    {
+     "start": 70.0,
+     "end": 156.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera pointed at another view"
+    },
+    {
+     "start": 156.0,
+     "end": 168.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 168.0,
+     "end": 206.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 206.0,
+     "end": 207.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 207.0,
+     "end": 213.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 213.0,
+     "end": 244.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 244.0,
+     "end": 250.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera pointed elsewhere)"
+    },
+    {
+     "start": 250.0,
+     "end": 251.0,
+     "state": "unknown",
+     "object_id": null,
+     "reason": "camera could not see (camera moving)"
+    },
+    {
+     "start": 251.0,
+     "end": 316.13,
+     "state": "present",
+     "object_id": 3141,
+     "reason": null
+    }
+   ],
+   "changes": []
+  }
+ ],
+ "per_second": [
+  {
+   "t": 0,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 1,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 2,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 3,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 4,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 5,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 6,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 7,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 8,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 9,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 10,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 11,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 12,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 13,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 14,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 15,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 16,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 17,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 18,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 19,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 20,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 21,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 22,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 23,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 24,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 25,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 26,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 27,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 28,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 29,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 30,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 31,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 32,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 33,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 34,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 35,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 36,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 37,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 38,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 39,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 40,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 41,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 42,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 43,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 44,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 45,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 46,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 47,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 48,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 49,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 50,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 51,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 52,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 53,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 54,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 55,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 56,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 57,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 58,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 59,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 60,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 61,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 62,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 63,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 64,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 65,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 66,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 67,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 68,
+   "visible": false,
+   "reason": "no_signal"
+  },
+  {
+   "t": 69,
+   "visible": false,
+   "reason": "no_signal"
+  },
+  {
+   "t": 70,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 71,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 72,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 73,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 74,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 75,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 76,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 77,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 78,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 79,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 80,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 81,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 82,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 83,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 84,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 85,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 86,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 87,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 88,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 89,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 90,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 91,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 92,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 93,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 94,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 95,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 96,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 97,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 98,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 99,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 100,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 101,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 102,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 103,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 104,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 105,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 106,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 107,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 108,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 109,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 110,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 111,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 112,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 113,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 114,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 115,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 116,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 117,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 118,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 119,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 120,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 121,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 122,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 123,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 124,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 125,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 126,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 127,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 128,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 129,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 130,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 131,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 132,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 133,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 134,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 135,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 136,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 137,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 138,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 139,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 140,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 141,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 142,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 143,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 144,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 145,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 146,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 147,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 148,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 149,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 150,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 151,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 152,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 153,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 154,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 155,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 156,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 157,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 158,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 159,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 160,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 161,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 162,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 163,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 164,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 165,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 166,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 167,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 168,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 169,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 170,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 171,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 172,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 173,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 174,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 175,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 176,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 177,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 178,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 179,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 180,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 181,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 182,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 183,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 184,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 185,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 186,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 187,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 188,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 189,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 190,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 191,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 192,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 193,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 194,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 195,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 196,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 197,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 198,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 199,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 200,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 201,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 202,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 203,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 204,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 205,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 206,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 207,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 208,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 209,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 210,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 211,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 212,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 213,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 214,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 215,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 216,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 217,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 218,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 219,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 220,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 221,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 222,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 223,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 224,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 225,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 226,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 227,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 228,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 229,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 230,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 231,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 232,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 233,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 234,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 235,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 236,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 237,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 238,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 239,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 240,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 241,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 242,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 243,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 244,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 245,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 246,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 247,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 248,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 249,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 250,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 251,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 252,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 253,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 254,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 255,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 256,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 257,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 258,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 259,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 260,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 261,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 262,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 263,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 264,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 265,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 266,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 267,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 268,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 269,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 270,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 271,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 272,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 273,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 274,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 275,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 276,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 277,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 278,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 279,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 280,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 281,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 282,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 283,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 284,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 285,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 286,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 287,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 288,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 289,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 290,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 291,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 292,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 293,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 294,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 295,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 296,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 297,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 298,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 299,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 300,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 301,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 302,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 303,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 304,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 305,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 306,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 307,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 308,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 309,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 310,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 311,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 312,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 313,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 314,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 315,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 316,
+   "visible": true,
+   "reason": null
+  }
+ ]
+}

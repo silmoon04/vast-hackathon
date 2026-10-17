@@ -1,0 +1,59 @@
+{
+ "camera": "yonge_dundas",
+ "headline": "151 people, 47 cars and 8 bicycles went by.",
+ "bullets": [
+  {
+   "text": "14 people at once at 00:14.",
+   "t": 14.01,
+   "kind": "crowd",
+   "crop": "moments/6.jpg"
+  },
+  {
+   "text": "Person passes close to moving car at 00:54.",
+   "t": 53.64,
+   "kind": "close_pass",
+   "crop": "moments/12.jpg"
+  },
+  {
+   "text": "Busiest route: 23 people went left to right across the lower middle.",
+   "t": null,
+   "kind": "lane",
+   "crop": "flow.jpg"
+  },
+  {
+   "text": "Person stays 22 s at 00:00.",
+   "t": 0.0,
+   "kind": "long_stay",
+   "crop": "moments/1.jpg"
+  },
+  {
+   "text": "Busiest moment: 14 people and 4 vehicles on screen at 00:24.",
+   "t": 24.44,
+   "kind": "busiest",
+   "crop": "frames/busiest.jpg"
+  },
+  {
+   "text": "In total 151 people, 47 cars and 8 bicycles moved through the view.",
+   "t": null,
+   "kind": "count",
+   "crop": null
+  }
+ ],
+ "honesty": [
+  "Not checked yet whether the camera could see the whole time (no camera health report).",
+  "Counts come from an automatic detector; one person or car can be counted twice if it was lost and found again.",
+  "62 more tracks hardly moved (less than their own width) and are not counted as going by."
+ ],
+ "generated_from": [
+  "tracks (stm.data.objects)",
+  "moments.json",
+  "flow.json",
+  "synopsis.json",
+  "index.json"
+ ],
+ "missing": [
+  "ledger.json",
+  "diff.json",
+  "near.json"
+ ]
+}

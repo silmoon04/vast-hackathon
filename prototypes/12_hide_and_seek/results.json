@@ -1,0 +1,3873 @@
+{
+ "idea": "12_hide_and_seek",
+ "n_clips": 64,
+ "seed": 12,
+ "vlm": true,
+ "corpus": {
+  "n_clips": 64,
+  "n_questions_available": 49,
+  "n_found": 60,
+  "success_rate": 0.9375,
+  "expected_hit_rate_if_guessing_inside_twin_group": 0.96875,
+  "mean_questions_all": 5.96875,
+  "mean_questions_found": 6.033333333333333,
+  "median_questions": 6.0,
+  "max_questions": 7,
+  "question_histogram": {
+   "5": 6,
+   "6": 54,
+   "7": 4
+  },
+  "unique_vectors": 62,
+  "twin_groups": 2,
+  "clips_in_twin_groups": 4,
+  "blind": 4,
+  "floor_log2": 6.0,
+  "protocol_found": 1.0,
+  "protocol_mean_total": 6.96875,
+  "protocol_mean_questions": 5.96875,
+  "first_question": "Is it outdoor?",
+  "question_usage_top": [
+   [
+    "Is it outdoor?",
+    64
+   ],
+   [
+    "Is the setting: room at home or office?",
+    32
+   ],
+   [
+    "Does a truck or bus appear at any point?",
+    32
+   ],
+   [
+    "At any moment, are there 2 or more people?",
+    28
+   ],
+   [
+    "Is anyone visible?",
+    25
+   ],
+   [
+    "Is the camera itself moving (pan, zoom, driving)?",
+    25
+   ],
+   [
+    "Is the setting: shop or store?",
+    18
+   ],
+   [
+    "Are chairs, tables, screens or bottles visible?",
+    18
+   ],
+   [
+    "Are there trees or greenery?",
+    16
+   ],
+   [
+    "Is any car, truck or bus visible?",
+    16
+   ]
+  ]
+ },
+ "kill_test": {
+  "criterion": "mean questions <= 7 AND >= 90% found (every clip as the secret)",
+  "mean_questions": 5.96875,
+  "found_rate": 0.9375,
+  "passed": true,
+  "short": "mean 5.97 Q (<=7), found 94% (>=90%)",
+  "page_protocol": {
+   "answer_flip_prob": 0.0,
+   "plays": 64,
+   "found_rate": 1.0,
+   "mean_questions": 5.96875,
+   "mean_guesses": 1.0,
+   "mean_questions_plus_guesses": 6.96875,
+   "found_on_first_guess": 1.0,
+   "first_guess_was_a_twin_pick": 0.0625,
+   "worst_questions": 7
+  },
+  "v1_found": 0.8125
+ },
+ "ablation": {
+  "YOLO tracks only": {
+   "n_questions_available": 22,
+   "success_rate": 0.578125,
+   "mean_questions_all": 5.578125,
+   "max_questions": 7,
+   "unique_vectors": 49,
+   "clips_in_twin_groups": 27
+  },
+  "+ frame brightness": {
+   "n_questions_available": 24,
+   "success_rate": 0.6875,
+   "mean_questions_all": 5.75,
+   "max_questions": 7,
+   "unique_vectors": 53,
+   "clips_in_twin_groups": 20
+  },
+  "+ Cosmos tags (indoor/outdoor, setting)": {
+   "n_questions_available": 32,
+   "success_rate": 0.765625,
+   "mean_questions_all": 5.796875,
+   "max_questions": 7,
+   "unique_vectors": 56,
+   "clips_in_twin_groups": 15
+  },
+  "+ Cosmos caption keywords = full (page)": {
+   "n_questions_available": 49,
+   "success_rate": 0.9375,
+   "mean_questions_all": 5.96875,
+   "max_questions": 7,
+   "unique_vectors": 62,
+   "clips_in_twin_groups": 4
+  },
+  "first version: tags + dominant colour, no keywords": {
+   "n_questions_available": 40,
+   "success_rate": 0.8125,
+   "mean_questions_all": 5.84375,
+   "max_questions": 7,
+   "unique_vectors": 58,
+   "clips_in_twin_groups": 12
+  }
+ },
+ "protocol": {
+  "answer_flip_prob": 0.0,
+  "plays": 64,
+  "found_rate": 1.0,
+  "mean_questions": 5.96875,
+  "mean_guesses": 1.0,
+  "mean_questions_plus_guesses": 6.96875,
+  "found_on_first_guess": 1.0,
+  "first_guess_was_a_twin_pick": 0.0625,
+  "worst_questions": 7
+ },
+ "protocol_params": {
+  "eps": 0.1,
+  "stop": 0.8,
+  "max_guesses": 3,
+  "max_show": 4,
+  "max_questions": 30
+ },
+ "keyword_eyeball": {
+  "per_keyword": {
+   "hallway": {
+    "question": "Is it a hallway or corridor?",
+    "index_yes_and_visible": 3,
+    "index_yes_but_not_visible": 1,
+    "visible_but_index_no": 0,
+    "unsure_clips": 0,
+    "precision": 0.75,
+    "recall": 1.0
+   },
+   "man": {
+    "question": "Is a man visible?",
+    "index_yes_and_visible": 3,
+    "index_yes_but_not_visible": 0,
+    "visible_but_index_no": 17,
+    "unsure_clips": 10,
+    "precision": 1.0,
+    "recall": 0.15
+   },
+   "parking": {
+    "question": "Is it a parking lot or parked cars?",
+    "index_yes_and_visible": 14,
+    "index_yes_but_not_visible": 2,
+    "visible_but_index_no": 1,
+    "unsure_clips": 2,
+    "precision": 0.875,
+    "recall": 0.9333333333333333
+   },
+   "shelves": {
+    "question": "Are shelves or stocked products visible?",
+    "index_yes_and_visible": 6,
+    "index_yes_but_not_visible": 0,
+    "visible_but_index_no": 1,
+    "unsure_clips": 0,
+    "precision": 1.0,
+    "recall": 0.8571428571428571
+   },
+   "sky": {
+    "question": "Is the sky visible?",
+    "index_yes_and_visible": 3,
+    "index_yes_but_not_visible": 0,
+    "visible_but_index_no": 10,
+    "unsure_clips": 5,
+    "precision": 1.0,
+    "recall": 0.23076923076923078
+   },
+   "trees": {
+    "question": "Are there trees or greenery?",
+    "index_yes_and_visible": 13,
+    "index_yes_but_not_visible": 0,
+    "visible_but_index_no": 4,
+    "unsure_clips": 0,
+    "precision": 1.0,
+    "recall": 0.7647058823529411
+   },
+   "woman": {
+    "question": "Is a woman visible?",
+    "index_yes_and_visible": 4,
+    "index_yes_but_not_visible": 0,
+    "visible_but_index_no": 12,
+    "unsure_clips": 9,
+    "precision": 1.0,
+    "recall": 0.25
+   }
+  },
+  "eyeball_judge_protocol": {
+   "labelled_keywords": [
+    "hallway",
+    "man",
+    "parking",
+    "shelves",
+    "sky",
+    "trees",
+    "woman"
+   ],
+   "found_rate": 1.0,
+   "mean_questions": 6.171875,
+   "mean_guesses": 1.046875,
+   "mean_questions_plus_guesses": 7.21875,
+   "found_on_first_guess": 0.953125,
+   "not_found": []
+  },
+  "eyeball_judge_strict_found_rate": 0.875
+ },
+ "caption_lexicon": [
+  "animation",
+  "buildings",
+  "empty",
+  "floor",
+  "hallway",
+  "lights",
+  "lying",
+  "man",
+  "parking",
+  "pedestrians",
+  "road",
+  "shelves",
+  "sign",
+  "sitting",
+  "sky",
+  "trees",
+  "walking",
+  "wall",
+  "woman"
+ ],
+ "noise_simulated": {
+  "strict_flip0.00": {
+   "engine": "strict hard elimination, no confirmation",
+   "answer_flip_prob": 0.0,
+   "success_rate": 0.9375,
+   "mean_questions_all": 5.96875,
+   "mean_guesses": 0.0
+  },
+  "page_flip0.00": {
+   "engine": "page protocol (confirm + soft recovery, max 3 guesses)",
+   "answer_flip_prob": 0.0,
+   "success_rate": 1.0,
+   "mean_questions_all": 5.96875,
+   "mean_guesses": 1.0
+  },
+  "strict_flip0.05": {
+   "engine": "strict hard elimination, no confirmation",
+   "answer_flip_prob": 0.05,
+   "success_rate": 0.68984375,
+   "mean_questions_all": 5.9671875,
+   "mean_guesses": 0.0
+  },
+  "page_flip0.05": {
+   "engine": "page protocol (confirm + soft recovery, max 3 guesses)",
+   "answer_flip_prob": 0.05,
+   "success_rate": 0.99921875,
+   "mean_questions_all": 7.81875,
+   "mean_guesses": 1.2734375
+  },
+  "strict_flip0.10": {
+   "engine": "strict hard elimination, no confirmation",
+   "answer_flip_prob": 0.1,
+   "success_rate": 0.50703125,
+   "mean_questions_all": 5.95703125,
+   "mean_guesses": 0.0
+  },
+  "page_flip0.10": {
+   "engine": "page protocol (confirm + soft recovery, max 3 guesses)",
+   "answer_flip_prob": 0.1,
+   "success_rate": 0.99140625,
+   "mean_questions_all": 10.29453125,
+   "mean_guesses": 1.5453125
+  }
+ },
+ "archive_size_scaling": {
+  "16": {
+   "success_rate": 0.99375,
+   "mean_questions_all": 4.025,
+   "floor_log2": 4.0,
+   "draws": 60
+  },
+  "32": {
+   "success_rate": 0.9666666666666667,
+   "mean_questions_all": 5.011458333333334,
+   "floor_log2": 5.0,
+   "draws": 60
+  },
+  "48": {
+   "success_rate": 0.9493055555555555,
+   "mean_questions_all": 5.619097222222222,
+   "floor_log2": 5.584962500721156,
+   "draws": 60
+  },
+  "64": {
+   "success_rate": 0.9375,
+   "mean_questions_all": 5.96875,
+   "floor_log2": 6.0,
+   "draws": 1
+  }
+ },
+ "attribute_vs_eyeball": {
+  "indoor_outdoor (Cosmos)": {
+   "n": 53,
+   "agree": 53,
+   "rate": 1.0,
+   "misses": []
+  },
+  "setting (Cosmos)": {
+   "n": 60,
+   "agree": 44,
+   "rate": 0.7333333333333333,
+   "misses": [
+    "c05: index room at home or office / eyeball other",
+    "c12: index street / eyeball other",
+    "c17: index unknown / eyeball parking lot",
+    "c24: index shop or store / eyeball street",
+    "c31: index unknown / eyeball animation or cartoon",
+    "c32: index street / eyeball animation or cartoon",
+    "c33: index shop or store / eyeball animation or cartoon",
+    "c34: index parking lot / eyeball animation or cartoon",
+    "c35: index factory or workshop / eyeball animation or cartoon",
+    "c36: index factory or workshop / eyeball animation or cartoon",
+    "c37: index factory or workshop / eyeball animation or cartoon",
+    "c38: index room at home or office / eyeball other",
+    "c39: index parking lot / eyeball sports or outdoor activity",
+    "c43: index unknown / eyeball street",
+    "c46: index room at home or office / eyeball classroom",
+    "c47: index room at home or office / eyeball classroom"
+   ]
+  },
+  "night clips -> brightness 'dark' (recall)": {
+   "n": 3,
+   "agree": 3,
+   "rate": 1.0,
+   "misses": []
+  },
+  "night clips -> 'dark' or 'dim' (recall)": {
+   "n": 3,
+   "agree": 3,
+   "rate": 1.0,
+   "misses": []
+  },
+  "daylight clips -> 'bright'": {
+   "n": 50,
+   "agree": 49,
+   "rate": 0.98,
+   "misses": [
+    "c29: index dim (luma 74.9) / eyeball daylight"
+   ]
+  },
+  "person visible -> persons>0 (recall)": {
+   "n": 29,
+   "agree": 29,
+   "rate": 1.0,
+   "misses": []
+  },
+  "vehicle visible -> vehicles>0 (recall)": {
+   "n": 17,
+   "agree": 17,
+   "rate": 1.0,
+   "misses": []
+  }
+ },
+ "per_video": {
+  "retail_cctv": {
+   "n_clips": 4,
+   "n_found_uniquely": 4,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c01",
+     "t0": 15.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c02",
+     "t0": 35.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c03",
+     "t0": 75.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c04",
+     "t0": 105.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "lisbon_parking": {
+   "n_clips": 8,
+   "n_found_uniquely": 8,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 1,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c05",
+     "t0": 5.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": true
+    },
+    {
+     "id": "c06",
+     "t0": 115.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c07",
+     "t0": 210.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c08",
+     "t0": 305.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c09",
+     "t0": 445.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c10",
+     "t0": 520.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c11",
+     "t0": 630.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c12",
+     "t0": 700.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "ptz_parking": {
+   "n_clips": 6,
+   "n_found_uniquely": 4,
+   "found_rate": 0.6666666666666666,
+   "mean_questions": 5.666666666666667,
+   "max_questions": 7,
+   "clips_with_attribute_twin": 2,
+   "invisible_clips": 0,
+   "verdict": "2 OF 6 CLIPS AMBIGUOUS",
+   "clips": [
+    {
+     "id": "c13",
+     "t0": 50.0,
+     "n_questions": 5,
+     "found": false,
+     "twins": [
+      "c14"
+     ],
+     "blind": false
+    },
+    {
+     "id": "c14",
+     "t0": 85.0,
+     "n_questions": 5,
+     "found": false,
+     "twins": [
+      "c13"
+     ],
+     "blind": false
+    },
+    {
+     "id": "c15",
+     "t0": 140.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c16",
+     "t0": 165.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c17",
+     "t0": 220.0,
+     "n_questions": 7,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c18",
+     "t0": 310.0,
+     "n_questions": 5,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "rochester_night": {
+   "n_clips": 3,
+   "n_found_uniquely": 3,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c19",
+     "t0": 5.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c20",
+     "t0": 50.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c21",
+     "t0": 75.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "yonge_dundas": {
+   "n_clips": 3,
+   "n_found_uniquely": 3,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c22",
+     "t0": 0.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c23",
+     "t0": 25.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c24",
+     "t0": 50.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "motorway_a40": {
+   "n_clips": 2,
+   "n_found_uniquely": 0,
+   "found_rate": 0.0,
+   "mean_questions": 5.0,
+   "max_questions": 5,
+   "clips_with_attribute_twin": 2,
+   "invisible_clips": 0,
+   "verdict": "2 OF 2 CLIPS AMBIGUOUS",
+   "clips": [
+    {
+     "id": "c25",
+     "t0": 0.0,
+     "n_questions": 5,
+     "found": false,
+     "twins": [
+      "c26"
+     ],
+     "blind": false
+    },
+    {
+     "id": "c26",
+     "t0": 10.0,
+     "n_questions": 5,
+     "found": false,
+     "twins": [
+      "c25"
+     ],
+     "blind": false
+    }
+   ]
+  },
+  "dashcam_urban": {
+   "n_clips": 4,
+   "n_found_uniquely": 4,
+   "found_rate": 1.0,
+   "mean_questions": 6.25,
+   "max_questions": 7,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c27",
+     "t0": 20.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c28",
+     "t0": 35.0,
+     "n_questions": 7,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c29",
+     "t0": 70.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c30",
+     "t0": 100.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "elephants_dream": {
+   "n_clips": 8,
+   "n_found_uniquely": 8,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 1,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c31",
+     "t0": 20.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c32",
+     "t0": 115.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c33",
+     "t0": 230.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c34",
+     "t0": 280.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c35",
+     "t0": 385.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c36",
+     "t0": 480.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c37",
+     "t0": 505.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c38",
+     "t0": 595.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": true
+    }
+   ]
+  },
+  "skate_fall": {
+   "n_clips": 1,
+   "n_found_uniquely": 1,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c39",
+     "t0": 5.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "floor_lie": {
+   "n_clips": 1,
+   "n_found_uniquely": 1,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c40",
+     "t0": 0.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "assist_elderly": {
+   "n_clips": 1,
+   "n_found_uniquely": 1,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c41",
+     "t0": 0.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "help_sit": {
+   "n_clips": 1,
+   "n_found_uniquely": 1,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c42",
+     "t0": 10.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "sit_down": {
+   "n_clips": 1,
+   "n_found_uniquely": 1,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c43",
+     "t0": 5.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "car_detection": {
+   "n_clips": 2,
+   "n_found_uniquely": 2,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 1,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c44",
+     "t0": 10.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": true
+    },
+    {
+     "id": "c45",
+     "t0": 25.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "classroom": {
+   "n_clips": 2,
+   "n_found_uniquely": 2,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c46",
+     "t0": 5.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c47",
+     "t0": 30.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "face_demographics_walking_and_pause": {
+   "n_clips": 3,
+   "n_found_uniquely": 3,
+   "found_rate": 1.0,
+   "mean_questions": 6.333333333333333,
+   "max_questions": 7,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c48",
+     "t0": 25.0,
+     "n_questions": 7,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c49",
+     "t0": 55.0,
+     "n_questions": 5,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c50",
+     "t0": 65.0,
+     "n_questions": 7,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "one_by_one_person_detection": {
+   "n_clips": 4,
+   "n_found_uniquely": 4,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c51",
+     "t0": 0.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c52",
+     "t0": 65.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c53",
+     "t0": 100.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c54",
+     "t0": 115.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "people_detection": {
+   "n_clips": 2,
+   "n_found_uniquely": 2,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c55",
+     "t0": 15.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c56",
+     "t0": 25.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "person_bicycle_car_detection": {
+   "n_clips": 2,
+   "n_found_uniquely": 2,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 1,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c57",
+     "t0": 25.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c58",
+     "t0": 50.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": true
+    }
+   ]
+  },
+  "store_aisle_detection": {
+   "n_clips": 3,
+   "n_found_uniquely": 3,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c59",
+     "t0": 5.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c60",
+     "t0": 35.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c61",
+     "t0": 45.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  },
+  "worker_zone_detection": {
+   "n_clips": 3,
+   "n_found_uniquely": 3,
+   "found_rate": 1.0,
+   "mean_questions": 6.0,
+   "max_questions": 6,
+   "clips_with_attribute_twin": 0,
+   "invisible_clips": 0,
+   "verdict": "ALL CLIPS FINDABLE",
+   "clips": [
+    {
+     "id": "c62",
+     "t0": 20.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c63",
+     "t0": 40.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    },
+    {
+     "id": "c64",
+     "t0": 70.0,
+     "n_questions": 6,
+     "found": true,
+     "twins": [],
+     "blind": false
+    }
+   ]
+  }
+ },
+ "twin_groups": [
+  {
+   "clips": [
+    "c13",
+    "c14"
+   ],
+   "attrs": {
+    "persons": "0",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": true,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "trees,buildings,parking"
+   }
+  },
+  {
+   "clips": [
+    "c25",
+    "c26"
+   ],
+   "attrs": {
+    "persons": "0",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "right to left",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "outdoor",
+    "setting": "road or motorway",
+    "words": "trees,road,sky"
+   }
+  }
+ ],
+ "invisible_clips": [
+  {
+   "id": "c05",
+   "video": "lisbon_parking",
+   "t0": 5.0,
+   "why": "no COCO objects"
+  },
+  {
+   "id": "c38",
+   "video": "elephants_dream",
+   "t0": 595.0,
+   "why": "too dark"
+  },
+  {
+   "id": "c44",
+   "video": "car_detection",
+   "t0": 10.0,
+   "why": "no COCO objects"
+  },
+  {
+   "id": "c58",
+   "video": "person_bicycle_car_detection",
+   "t0": 50.0,
+   "why": "no COCO objects"
+  }
+ ],
+ "clips": [
+  {
+   "id": "c01",
+   "video": "retail_cctv",
+   "seg": 3,
+   "t0": 15.0,
+   "t1": 20.0,
+   "attrs": {
+    "persons": "8+",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": true,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "left to right",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "indoor",
+    "setting": "shop or store",
+    "words": "shelves"
+   },
+   "extra": {
+    "luma": 113.7,
+    "cam_flow": 0.052,
+    "camera_moving": false,
+    "n_tracks": 23,
+    "blind": false,
+    "caption": "People are browsing and shopping inside a well-lit retail store with shelves stocked with various products.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c01"
+    ]
+   }
+  },
+  {
+   "id": "c02",
+   "video": "retail_cctv",
+   "seg": 7,
+   "t0": 35.0,
+   "t1": 40.0,
+   "attrs": {
+    "persons": "8+",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": true,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "indoor",
+    "setting": "shop or store",
+    "words": ""
+   },
+   "extra": {
+    "luma": 123.7,
+    "cam_flow": 0.007,
+    "camera_moving": false,
+    "n_tracks": 28,
+    "blind": false,
+    "caption": "Several people are inside a brightly lit retail store, browsing and interacting with staff.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c02"
+    ]
+   }
+  },
+  {
+   "id": "c03",
+   "video": "retail_cctv",
+   "seg": 15,
+   "t0": 75.0,
+   "t1": 80.0,
+   "attrs": {
+    "persons": "8+",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": true,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "away from camera",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "indoor",
+    "setting": "shop or store",
+    "words": "shelves"
+   },
+   "extra": {
+    "luma": 117.9,
+    "cam_flow": 0.055,
+    "camera_moving": false,
+    "n_tracks": 22,
+    "blind": false,
+    "caption": "People are inside a retail store, with some browsing shelves and others moving around the area.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c03"
+    ]
+   }
+  },
+  {
+   "id": "c04",
+   "video": "retail_cctv",
+   "seg": 21,
+   "t0": 105.0,
+   "t1": 110.0,
+   "attrs": {
+    "persons": "8+",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "indoor",
+    "setting": "shop or store",
+    "words": "shelves"
+   },
+   "extra": {
+    "luma": 123.1,
+    "cam_flow": 0.0,
+    "camera_moving": false,
+    "n_tracks": 9,
+    "blind": false,
+    "caption": "The interior of a convenience store with shelves stocked with various products and customers browsing the items.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c04"
+    ]
+   }
+  },
+  {
+   "id": "c05",
+   "video": "lisbon_parking",
+   "seg": 1,
+   "t0": 5.0,
+   "t1": 10.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "yellow",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": ""
+   },
+   "extra": {
+    "luma": 137.2,
+    "cam_flow": 0.003,
+    "camera_moving": false,
+    "n_tracks": 0,
+    "blind": true,
+    "caption": "A yellow background with black text is shown, likely a digital overlay rather than a scene from a video.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c05"
+    ]
+   }
+  },
+  {
+   "id": "c06",
+   "video": "lisbon_parking",
+   "seg": 23,
+   "t0": 115.0,
+   "t1": 120.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "parking"
+   },
+   "extra": {
+    "luma": 113.9,
+    "cam_flow": 3.145,
+    "camera_moving": true,
+    "n_tracks": 27,
+    "blind": false,
+    "caption": "A green Peugeot car is parked on a street next to a red car.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c06"
+    ]
+   }
+  },
+  {
+   "id": "c07",
+   "video": "lisbon_parking",
+   "seg": 42,
+   "t0": 210.0,
+   "t1": 215.0,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": ""
+   },
+   "extra": {
+    "luma": 109.5,
+    "cam_flow": 3.006,
+    "camera_moving": true,
+    "n_tracks": 45,
+    "blind": false,
+    "caption": "A white Audi car is stopped at a crossroads in the middle of the night.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c07"
+    ]
+   }
+  },
+  {
+   "id": "c08",
+   "video": "lisbon_parking",
+   "seg": 61,
+   "t0": 305.0,
+   "t1": 310.0,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": true,
+    "furniture": false,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "buildings,parking,walking"
+   },
+   "extra": {
+    "luma": 105.0,
+    "cam_flow": 2.77,
+    "camera_moving": true,
+    "n_tracks": 62,
+    "blind": false,
+    "caption": "A person in a red coat walks along a sidewalk bordered by parked cars and buildings.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c08"
+    ]
+   }
+  },
+  {
+   "id": "c09",
+   "video": "lisbon_parking",
+   "seg": 89,
+   "t0": 445.0,
+   "t1": 450.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "parking,pedestrians"
+   },
+   "extra": {
+    "luma": 95.8,
+    "cam_flow": 2.925,
+    "camera_moving": true,
+    "n_tracks": 39,
+    "blind": false,
+    "caption": "Cars are parked on a cobblestone street with a crosswalk visible in the background.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c09"
+    ]
+   }
+  },
+  {
+   "id": "c10",
+   "video": "lisbon_parking",
+   "seg": 104,
+   "t0": 520.0,
+   "t1": 525.0,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "green",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "trees,buildings,parking"
+   },
+   "extra": {
+    "luma": 114.7,
+    "cam_flow": 2.602,
+    "camera_moving": true,
+    "n_tracks": 42,
+    "blind": false,
+    "caption": "A row of cars is parked in a lot surrounded by trees and buildings.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c10"
+    ]
+   }
+  },
+  {
+   "id": "c11",
+   "video": "lisbon_parking",
+   "seg": 126,
+   "t0": 630.0,
+   "t1": 635.0,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "4+",
+    "bike": true,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "parking,pedestrians"
+   },
+   "extra": {
+    "luma": 94.0,
+    "cam_flow": 2.254,
+    "camera_moving": true,
+    "n_tracks": 33,
+    "blind": false,
+    "caption": "A white police car is parked on a street with a pedestrian bridge in the background.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c11"
+    ]
+   }
+  },
+  {
+   "id": "c12",
+   "video": "lisbon_parking",
+   "seg": 140,
+   "t0": 700.0,
+   "t1": 705.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "4+",
+    "bike": true,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "road,sign,pedestrians"
+   },
+   "extra": {
+    "luma": 92.5,
+    "cam_flow": 2.193,
+    "camera_moving": true,
+    "n_tracks": 41,
+    "blind": false,
+    "caption": "A yellow sign warns pedestrians to stop at the stop line while a black car drives past on the road.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c12"
+    ]
+   }
+  },
+  {
+   "id": "c13",
+   "video": "ptz_parking",
+   "seg": 10,
+   "t0": 50.0,
+   "t1": 55.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": true,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "trees,buildings,parking"
+   },
+   "extra": {
+    "luma": 107.1,
+    "cam_flow": 0.009,
+    "camera_moving": false,
+    "n_tracks": 33,
+    "blind": false,
+    "caption": "Numerous cars are parked in designated spots within a spacious, organized parking lot surrounded by trees and buildings.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 5,
+    "found": false,
+    "final": [
+     "c13",
+     "c14"
+    ]
+   }
+  },
+  {
+   "id": "c14",
+   "video": "ptz_parking",
+   "seg": 17,
+   "t0": 85.0,
+   "t1": 90.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": true,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "trees,buildings,parking"
+   },
+   "extra": {
+    "luma": 99.4,
+    "cam_flow": 0.006,
+    "camera_moving": false,
+    "n_tracks": 33,
+    "blind": false,
+    "caption": "A wide view of a parking lot filled with cars, surrounded by trees and buildings.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 5,
+    "found": false,
+    "final": [
+     "c13",
+     "c14"
+    ]
+   }
+  },
+  {
+   "id": "c15",
+   "video": "ptz_parking",
+   "seg": 28,
+   "t0": 140.0,
+   "t1": 145.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": true,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "left to right",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "parking,empty"
+   },
+   "extra": {
+    "luma": 98.2,
+    "cam_flow": 0.006,
+    "camera_moving": false,
+    "n_tracks": 33,
+    "blind": false,
+    "caption": "A wide view of a mostly empty parking lot with a few scattered cars and people.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c15"
+    ]
+   }
+  },
+  {
+   "id": "c16",
+   "video": "ptz_parking",
+   "seg": 33,
+   "t0": 165.0,
+   "t1": 170.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "green",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "trees,road,parking,empty"
+   },
+   "extra": {
+    "luma": 106.5,
+    "cam_flow": 0.07,
+    "camera_moving": false,
+    "n_tracks": 1,
+    "blind": false,
+    "caption": "A quiet parking lot surrounded by trees and grass, with a road visible in the background.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c16"
+    ]
+   }
+  },
+  {
+   "id": "c17",
+   "video": "ptz_parking",
+   "seg": 44,
+   "t0": 220.0,
+   "t1": 225.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "unknown",
+    "words": "trees,road"
+   },
+   "extra": {
+    "luma": 110.8,
+    "cam_flow": 3.16,
+    "camera_moving": true,
+    "n_tracks": 6,
+    "blind": false,
+    "caption": "A blurred view of a road with white lines and a grassy median.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 7,
+    "found": true,
+    "final": [
+     "c17"
+    ]
+   }
+  },
+  {
+   "id": "c18",
+   "video": "ptz_parking",
+   "seg": 62,
+   "t0": 310.0,
+   "t1": 315.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": true,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "right to left",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "trees,buildings,parking,empty"
+   },
+   "extra": {
+    "luma": 95.9,
+    "cam_flow": 0.004,
+    "camera_moving": false,
+    "n_tracks": 34,
+    "blind": false,
+    "caption": "A wide-angle view of a large, mostly empty parking lot with neatly arranged cars and some trucks, surrounded by trees and buildings.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 5,
+    "found": true,
+    "final": [
+     "c18"
+    ]
+   }
+  },
+  {
+   "id": "c19",
+   "video": "rochester_night",
+   "seg": 1,
+   "t0": 5.0,
+   "t1": 10.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "1",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "left to right",
+    "brightness": "dark",
+    "colour": "dark",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "buildings,lights"
+   },
+   "extra": {
+    "luma": 52.8,
+    "cam_flow": 0.153,
+    "camera_moving": false,
+    "n_tracks": 4,
+    "blind": false,
+    "caption": "A street scene at night with illuminated buildings and streetlights.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c19"
+    ]
+   }
+  },
+  {
+   "id": "c20",
+   "video": "rochester_night",
+   "seg": 10,
+   "t0": 50.0,
+   "t1": 55.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "2-3",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "left to right",
+    "brightness": "dark",
+    "colour": "orange",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "trees,buildings,empty,lights"
+   },
+   "extra": {
+    "luma": 60.4,
+    "cam_flow": 0.416,
+    "camera_moving": false,
+    "n_tracks": 5,
+    "blind": false,
+    "caption": "A quiet urban street at night with bare trees, streetlights, and a building on the right.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c20"
+    ]
+   }
+  },
+  {
+   "id": "c21",
+   "video": "rochester_night",
+   "seg": 15,
+   "t0": 75.0,
+   "t1": 80.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "2-3",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "dark",
+    "colour": "orange",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "buildings,lights"
+   },
+   "extra": {
+    "luma": 57.6,
+    "cam_flow": 2.992,
+    "camera_moving": true,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "A street scene at night with illuminated buildings and streetlights.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c21"
+    ]
+   }
+  },
+  {
+   "id": "c22",
+   "video": "yonge_dundas",
+   "seg": 0,
+   "t0": 0.0,
+   "t1": 5.0,
+   "attrs": {
+    "persons": "8+",
+    "vehicles": "4+",
+    "bike": true,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": true,
+    "furniture": false,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "left to right",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "pedestrians"
+   },
+   "extra": {
+    "luma": 107.7,
+    "cam_flow": 0.34,
+    "camera_moving": false,
+    "n_tracks": 63,
+    "blind": false,
+    "caption": "A busy city street with pedestrians crossing and cars driving past various storefronts.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c22"
+    ]
+   }
+  },
+  {
+   "id": "c23",
+   "video": "yonge_dundas",
+   "seg": 5,
+   "t0": 25.0,
+   "t1": 30.0,
+   "attrs": {
+    "persons": "8+",
+    "vehicles": "4+",
+    "bike": true,
+    "heavy_vehicle": false,
+    "stationary_vehicle": true,
+    "stationary_person": true,
+    "bags": true,
+    "furniture": false,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "mixed directions",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "buildings,parking,sign,pedestrians"
+   },
+   "extra": {
+    "luma": 122.4,
+    "cam_flow": 0.15,
+    "camera_moving": false,
+    "n_tracks": 62,
+    "blind": false,
+    "caption": "A busy urban street with pedestrians crossing, cars parked along the side, and large commercial buildings with visible store signs.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c23"
+    ]
+   }
+  },
+  {
+   "id": "c24",
+   "video": "yonge_dundas",
+   "seg": 10,
+   "t0": 50.0,
+   "t1": 55.0,
+   "attrs": {
+    "persons": "8+",
+    "vehicles": "4+",
+    "bike": true,
+    "heavy_vehicle": false,
+    "stationary_vehicle": true,
+    "stationary_person": true,
+    "bags": true,
+    "furniture": false,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "mixed directions",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "outdoor",
+    "setting": "shop or store",
+    "words": "walking"
+   },
+   "extra": {
+    "luma": 120.7,
+    "cam_flow": 0.087,
+    "camera_moving": false,
+    "n_tracks": 57,
+    "blind": false,
+    "caption": "People are walking on a city street in front of an Adidas store and other shops.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c24"
+    ]
+   }
+  },
+  {
+   "id": "c25",
+   "video": "motorway_a40",
+   "seg": 0,
+   "t0": 0.0,
+   "t1": 5.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "right to left",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "outdoor",
+    "setting": "road or motorway",
+    "words": "trees,road,sky"
+   },
+   "extra": {
+    "luma": 119.1,
+    "cam_flow": 0.109,
+    "camera_moving": false,
+    "n_tracks": 19,
+    "blind": false,
+    "caption": "A multi-lane road with vehicles moving under a clear sky, lined by trees and barriers.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 5,
+    "found": false,
+    "final": [
+     "c25",
+     "c26"
+    ]
+   }
+  },
+  {
+   "id": "c26",
+   "video": "motorway_a40",
+   "seg": 2,
+   "t0": 10.0,
+   "t1": 15.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "right to left",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "outdoor",
+    "setting": "road or motorway",
+    "words": "trees,road,sky"
+   },
+   "extra": {
+    "luma": 119.4,
+    "cam_flow": 0.035,
+    "camera_moving": false,
+    "n_tracks": 22,
+    "blind": false,
+    "caption": "A multi-lane road with vehicles moving under a clear blue sky, lined with trees and barriers.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 5,
+    "found": false,
+    "final": [
+     "c25",
+     "c26"
+    ]
+   }
+  },
+  {
+   "id": "c27",
+   "video": "dashcam_urban",
+   "seg": 4,
+   "t0": 20.0,
+   "t1": 25.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "trees,parking,sky,empty"
+   },
+   "extra": {
+    "luma": 116.2,
+    "cam_flow": 1.888,
+    "camera_moving": true,
+    "n_tracks": 1,
+    "blind": false,
+    "caption": "The view from a security camera shows an empty parking lot with trees and a clear sky in the background.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c27"
+    ]
+   }
+  },
+  {
+   "id": "c28",
+   "video": "dashcam_urban",
+   "seg": 7,
+   "t0": 35.0,
+   "t1": 40.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": true,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": true,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "trees,buildings,parking"
+   },
+   "extra": {
+    "luma": 107.5,
+    "cam_flow": 2.344,
+    "camera_moving": true,
+    "n_tracks": 17,
+    "blind": false,
+    "caption": "A view from inside a vehicle showing a parking lot with white lines, trees, and buildings in the background.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 7,
+    "found": true,
+    "final": [
+     "c28"
+    ]
+   }
+  },
+  {
+   "id": "c29",
+   "video": "dashcam_urban",
+   "seg": 14,
+   "t0": 70.0,
+   "t1": 75.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "4+",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": true,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "dim",
+    "colour": "blue",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "trees,buildings,road"
+   },
+   "extra": {
+    "luma": 74.9,
+    "cam_flow": 1.846,
+    "camera_moving": true,
+    "n_tracks": 11,
+    "blind": false,
+    "caption": "Cars are moving along a road lined with trees and buildings.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c29"
+    ]
+   }
+  },
+  {
+   "id": "c30",
+   "video": "dashcam_urban",
+   "seg": 20,
+   "t0": 100.0,
+   "t1": 105.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "2-3",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "trees,road"
+   },
+   "extra": {
+    "luma": 90.2,
+    "cam_flow": 1.543,
+    "camera_moving": true,
+    "n_tracks": 4,
+    "blind": false,
+    "caption": "A car is seen driving ahead on a tree-lined road with a guardrail to the right and a grassy embankment to the left.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c30"
+    ]
+   }
+  },
+  {
+   "id": "c31",
+   "video": "elephants_dream",
+   "seg": 4,
+   "t0": 20.0,
+   "t1": 25.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "dark",
+    "colour": "yellow",
+    "indoor_outdoor": "indoor",
+    "setting": "unknown",
+    "words": "sign,walking,wall"
+   },
+   "extra": {
+    "luma": 46.3,
+    "cam_flow": 2.108,
+    "camera_moving": true,
+    "n_tracks": 1,
+    "blind": false,
+    "caption": "A blurry figure walks past a wall with a small sign in a dimly lit indoor environment.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c31"
+    ]
+   }
+  },
+  {
+   "id": "c32",
+   "video": "elephants_dream",
+   "seg": 23,
+   "t0": 115.0,
+   "t1": 120.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "dark",
+    "colour": "dark",
+    "indoor_outdoor": "outdoor",
+    "setting": "street",
+    "words": "man,walking,lights"
+   },
+   "extra": {
+    "luma": 38.8,
+    "cam_flow": 2.504,
+    "camera_moving": true,
+    "n_tracks": 3,
+    "blind": false,
+    "caption": "A man in a suit walks down a dark, narrow street at night, illuminated by faint streetlights and passing vehicles.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c32"
+    ]
+   }
+  },
+  {
+   "id": "c33",
+   "video": "elephants_dream",
+   "seg": 46,
+   "t0": 230.0,
+   "t1": 235.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "dark",
+    "colour": "dark",
+    "indoor_outdoor": "indoor",
+    "setting": "shop or store",
+    "words": ""
+   },
+   "extra": {
+    "luma": 48.8,
+    "cam_flow": 2.511,
+    "camera_moving": true,
+    "n_tracks": 3,
+    "blind": false,
+    "caption": "A blurry interior shot shows a shiny, possibly metallic object on a surface with cables or wires nearby.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c33"
+    ]
+   }
+  },
+  {
+   "id": "c34",
+   "video": "elephants_dream",
+   "seg": 56,
+   "t0": 280.0,
+   "t1": 285.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "dark",
+    "colour": "dark",
+    "indoor_outdoor": "unknown",
+    "setting": "parking lot",
+    "words": "parking"
+   },
+   "extra": {
+    "luma": 34.0,
+    "cam_flow": 0.06,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "A cartoon character in a green suit and red tie runs through a dimly lit parking lot at night.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c34"
+    ]
+   }
+  },
+  {
+   "id": "c35",
+   "video": "elephants_dream",
+   "seg": 77,
+   "t0": 385.0,
+   "t1": 390.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "dim",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "factory or workshop",
+    "words": ""
+   },
+   "extra": {
+    "luma": 71.8,
+    "cam_flow": 0.58,
+    "camera_moving": true,
+    "n_tracks": 3,
+    "blind": false,
+    "caption": "Complex machinery with pipes, wires, and a glowing yellow light component.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c35"
+    ]
+   }
+  },
+  {
+   "id": "c36",
+   "video": "elephants_dream",
+   "seg": 96,
+   "t0": 480.0,
+   "t1": 485.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": true,
+    "motion": "camera moving",
+    "brightness": "dim",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "factory or workshop",
+    "words": "man,walking,wall"
+   },
+   "extra": {
+    "luma": 70.3,
+    "cam_flow": 0.748,
+    "camera_moving": true,
+    "n_tracks": 3,
+    "blind": false,
+    "caption": "A man walks past a wall covered in writhing, bloody worms.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c36"
+    ]
+   }
+  },
+  {
+   "id": "c37",
+   "video": "elephants_dream",
+   "seg": 101,
+   "t0": 505.0,
+   "t1": 510.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": true,
+    "motion": "camera moving",
+    "brightness": "dim",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "factory or workshop",
+    "words": "man"
+   },
+   "extra": {
+    "luma": 71.4,
+    "cam_flow": 2.687,
+    "camera_moving": true,
+    "n_tracks": 4,
+    "blind": false,
+    "caption": "A man in a green coat stands in a dimly lit industrial space with mechanical parts in the background.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c37"
+    ]
+   }
+  },
+  {
+   "id": "c38",
+   "video": "elephants_dream",
+   "seg": 119,
+   "t0": 595.0,
+   "t1": 600.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "dark",
+    "colour": "dark",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": ""
+   },
+   "extra": {
+    "luma": 7.1,
+    "cam_flow": 0.0,
+    "camera_moving": false,
+    "n_tracks": 0,
+    "blind": true,
+    "caption": "A list of people involved in the creation and rendering of an animated GIF is displayed on the screen.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c38"
+    ]
+   }
+  },
+  {
+   "id": "c39",
+   "video": "skate_fall",
+   "seg": 1,
+   "t0": 5.0,
+   "t1": 10.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "green",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": ""
+   },
+   "extra": {
+    "luma": 106.3,
+    "cam_flow": 3.675,
+    "camera_moving": true,
+    "n_tracks": 4,
+    "blind": false,
+    "caption": "A person in a black hoodie and light pants slides across a paved surface on a sunny day.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c39"
+    ]
+   }
+  },
+  {
+   "id": "c40",
+   "video": "floor_lie",
+   "seg": 0,
+   "t0": 0.0,
+   "t1": 2.84,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "light",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "sign,floor,woman"
+   },
+   "extra": {
+    "luma": 198.6,
+    "cam_flow": 0.008,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "A woman lies on a white floor wearing a grey blazer, grey trousers, and black heels while holding a sign that reads '2020 WE DID?'",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c40"
+    ]
+   }
+  },
+  {
+   "id": "c41",
+   "video": "assist_elderly",
+   "seg": 0,
+   "t0": 0.0,
+   "t1": 5.0,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": ""
+   },
+   "extra": {
+    "luma": 151.1,
+    "cam_flow": 3.287,
+    "camera_moving": true,
+    "n_tracks": 4,
+    "blind": false,
+    "caption": "A person is lying in a bed with a white sheet, appearing unwell or resting.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c41"
+    ]
+   }
+  },
+  {
+   "id": "c42",
+   "video": "help_sit",
+   "seg": 2,
+   "t0": 10.0,
+   "t1": 14.32,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "camera moving",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "woman,sitting"
+   },
+   "extra": {
+    "luma": 136.2,
+    "cam_flow": 2.224,
+    "camera_moving": true,
+    "n_tracks": 5,
+    "blind": false,
+    "caption": "A woman helps an older person sit down in a chair while another person watches.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c42"
+    ]
+   }
+  },
+  {
+   "id": "c43",
+   "video": "sit_down",
+   "seg": 1,
+   "t0": 5.0,
+   "t1": 10.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "unknown",
+    "words": "man,sitting"
+   },
+   "extra": {
+    "luma": 165.4,
+    "cam_flow": 0.244,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "A man in a park wearing a yellow sweater and black pants sits on a ledge with a green ball in his hand.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c43"
+    ]
+   }
+  },
+  {
+   "id": "c44",
+   "video": "car_detection",
+   "seg": 2,
+   "t0": 10.0,
+   "t1": 15.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "road,parking"
+   },
+   "extra": {
+    "luma": 113.4,
+    "cam_flow": 0.042,
+    "camera_moving": false,
+    "n_tracks": 0,
+    "blind": true,
+    "caption": "Dark asphalt with white parking lines is visible, along with a small portion of a tire.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c44"
+    ]
+   }
+  },
+  {
+   "id": "c45",
+   "video": "car_detection",
+   "seg": 5,
+   "t0": 25.0,
+   "t1": 30.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "1",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "toward camera",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "parking"
+   },
+   "extra": {
+    "luma": 93.7,
+    "cam_flow": 0.035,
+    "camera_moving": false,
+    "n_tracks": 1,
+    "blind": false,
+    "caption": "A white car is parked in the center of a dark parking lot with visible spaces around it.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c45"
+    ]
+   }
+  },
+  {
+   "id": "c46",
+   "video": "classroom",
+   "seg": 1,
+   "t0": 5.0,
+   "t1": 10.0,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": true,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "blue",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "sitting"
+   },
+   "extra": {
+    "luma": 123.3,
+    "cam_flow": 0.019,
+    "camera_moving": false,
+    "n_tracks": 20,
+    "blind": false,
+    "caption": "Four individuals sit at tables in a brightly lit room with blue chairs and a whiteboard.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c46"
+    ]
+   }
+  },
+  {
+   "id": "c47",
+   "video": "classroom",
+   "seg": 6,
+   "t0": 30.0,
+   "t1": 32.8,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "sitting"
+   },
+   "extra": {
+    "luma": 125.9,
+    "cam_flow": 0.011,
+    "camera_moving": false,
+    "n_tracks": 19,
+    "blind": false,
+    "caption": "Four individuals sit at desks in a brightly lit room with blue chairs and large windows.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c47"
+    ]
+   }
+  },
+  {
+   "id": "c48",
+   "video": "face_demographics_walking_and_pause",
+   "seg": 5,
+   "t0": 25.0,
+   "t1": 30.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "hallway,walking"
+   },
+   "extra": {
+    "luma": 133.6,
+    "cam_flow": 0.025,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "A dimly lit hallway with a person walking in the distance.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 7,
+    "found": true,
+    "final": [
+     "c48"
+    ]
+   }
+  },
+  {
+   "id": "c49",
+   "video": "face_demographics_walking_and_pause",
+   "seg": 11,
+   "t0": 55.0,
+   "t1": 60.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "buildings,hallway,walking"
+   },
+   "extra": {
+    "luma": 128.2,
+    "cam_flow": 0.076,
+    "camera_moving": false,
+    "n_tracks": 3,
+    "blind": false,
+    "caption": "Three people are walking down a hallway in a building.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 5,
+    "found": true,
+    "final": [
+     "c49"
+    ]
+   }
+  },
+  {
+   "id": "c50",
+   "video": "face_demographics_walking_and_pause",
+   "seg": 13,
+   "t0": 65.0,
+   "t1": 70.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "hallway,woman,man,walking"
+   },
+   "extra": {
+    "luma": 125.0,
+    "cam_flow": 0.121,
+    "camera_moving": false,
+    "n_tracks": 3,
+    "blind": false,
+    "caption": "A man and a woman are walking down a hallway.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 7,
+    "found": true,
+    "final": [
+     "c50"
+    ]
+   }
+  },
+  {
+   "id": "c51",
+   "video": "one_by_one_person_detection",
+   "seg": 0,
+   "t0": 0.0,
+   "t1": 5.0,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "floor,wall"
+   },
+   "extra": {
+    "luma": 140.5,
+    "cam_flow": 0.007,
+    "camera_moving": false,
+    "n_tracks": 1,
+    "blind": false,
+    "caption": "A small round table with a white top and a chrome base is positioned near a wall on a wooden floor.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c51"
+    ]
+   }
+  },
+  {
+   "id": "c52",
+   "video": "one_by_one_person_detection",
+   "seg": 13,
+   "t0": 65.0,
+   "t1": 70.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": true,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "floor,woman"
+   },
+   "extra": {
+    "luma": 140.0,
+    "cam_flow": 0.021,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "A woman with long blonde hair, wearing a black top and pants, stands on a wooden floor near a small round table.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c52"
+    ]
+   }
+  },
+  {
+   "id": "c53",
+   "video": "one_by_one_person_detection",
+   "seg": 20,
+   "t0": 100.0,
+   "t1": 105.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "floor,wall"
+   },
+   "extra": {
+    "luma": 138.9,
+    "cam_flow": 0.009,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "A person with long hair, wearing a gray sweater and dark pants, stands on a wooden floor facing away from the camera near a white wall.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c53"
+    ]
+   }
+  },
+  {
+   "id": "c54",
+   "video": "one_by_one_person_detection",
+   "seg": 23,
+   "t0": 115.0,
+   "t1": 120.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": true,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "floor"
+   },
+   "extra": {
+    "luma": 139.3,
+    "cam_flow": 0.028,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "A person with long dark hair, wearing a grey top and dark pants, stands on a wooden floor facing away from the camera.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c54"
+    ]
+   }
+  },
+  {
+   "id": "c55",
+   "video": "people_detection",
+   "seg": 3,
+   "t0": 15.0,
+   "t1": 20.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "right to left",
+    "brightness": "bright",
+    "colour": "orange",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "floor,hallway,walking,wall"
+   },
+   "extra": {
+    "luma": 107.9,
+    "cam_flow": 0.051,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "Two people are walking down a hallway with wooden floors and white walls.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c55"
+    ]
+   }
+  },
+  {
+   "id": "c56",
+   "video": "people_detection",
+   "seg": 5,
+   "t0": 25.0,
+   "t1": 30.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "away from camera",
+    "brightness": "bright",
+    "colour": "red",
+    "indoor_outdoor": "indoor",
+    "setting": "room at home or office",
+    "words": "wall"
+   },
+   "extra": {
+    "luma": 109.9,
+    "cam_flow": 0.023,
+    "camera_moving": false,
+    "n_tracks": 3,
+    "blind": false,
+    "caption": "A spacious room with wooden flooring, white walls, and two windows.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c56"
+    ]
+   }
+  },
+  {
+   "id": "c57",
+   "video": "person_bicycle_car_detection",
+   "seg": 5,
+   "t0": 25.0,
+   "t1": 30.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": true,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "left to right",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "parking,empty"
+   },
+   "extra": {
+    "luma": 136.0,
+    "cam_flow": 0.012,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "A person rides a bicycle through an empty parking lot.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c57"
+    ]
+   }
+  },
+  {
+   "id": "c58",
+   "video": "person_bicycle_car_detection",
+   "seg": 10,
+   "t0": 50.0,
+   "t1": 53.916666666666664,
+   "attrs": {
+    "persons": "0",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "outdoor",
+    "setting": "parking lot",
+    "words": "parking,empty"
+   },
+   "extra": {
+    "luma": 136.2,
+    "cam_flow": 0.019,
+    "camera_moving": false,
+    "n_tracks": 0,
+    "blind": true,
+    "caption": "An empty parking lot with clearly marked spaces and a few visible stains.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c58"
+    ]
+   }
+  },
+  {
+   "id": "c59",
+   "video": "store_aisle_detection",
+   "seg": 1,
+   "t0": 5.0,
+   "t1": 10.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "indoor",
+    "setting": "shop or store",
+    "words": "shelves"
+   },
+   "extra": {
+    "luma": 140.9,
+    "cam_flow": 0.008,
+    "camera_moving": false,
+    "n_tracks": 1,
+    "blind": false,
+    "caption": "Rows of white plates, bowls, and cups are displayed on shelves in a well-lit store.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c59"
+    ]
+   }
+  },
+  {
+   "id": "c60",
+   "video": "store_aisle_detection",
+   "seg": 7,
+   "t0": 35.0,
+   "t1": 40.0,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "indoor",
+    "setting": "shop or store",
+    "words": "shelves"
+   },
+   "extra": {
+    "luma": 122.3,
+    "cam_flow": 0.015,
+    "camera_moving": false,
+    "n_tracks": 6,
+    "blind": false,
+    "caption": "People browse various dishes and pottery in a well-lit retail space.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c60"
+    ]
+   }
+  },
+  {
+   "id": "c61",
+   "video": "store_aisle_detection",
+   "seg": 9,
+   "t0": 45.0,
+   "t1": 50.0,
+   "attrs": {
+    "persons": "4-7",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "indoor",
+    "setting": "shop or store",
+    "words": "shelves,walking"
+   },
+   "extra": {
+    "luma": 130.4,
+    "cam_flow": 0.026,
+    "camera_moving": false,
+    "n_tracks": 4,
+    "blind": false,
+    "caption": "People are walking through a well-lit store filled with shelves of white ceramic dishes and tableware.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c61"
+    ]
+   }
+  },
+  {
+   "id": "c62",
+   "video": "worker_zone_detection",
+   "seg": 4,
+   "t0": 20.0,
+   "t1": 25.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": true,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "nothing moves",
+    "brightness": "bright",
+    "colour": "yellow",
+    "indoor_outdoor": "indoor",
+    "setting": "factory or workshop",
+    "words": "floor,empty"
+   },
+   "extra": {
+    "luma": 101.3,
+    "cam_flow": 0.066,
+    "camera_moving": false,
+    "n_tracks": 1,
+    "blind": false,
+    "caption": "A worker in safety gear stands in a large, empty industrial space with concrete floors and support columns.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c62"
+    ]
+   }
+  },
+  {
+   "id": "c63",
+   "video": "worker_zone_detection",
+   "seg": 8,
+   "t0": 40.0,
+   "t1": 45.0,
+   "attrs": {
+    "persons": "2-3",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "left to right",
+    "brightness": "bright",
+    "colour": "yellow",
+    "indoor_outdoor": "indoor",
+    "setting": "factory or workshop",
+    "words": "floor,walking,empty"
+   },
+   "extra": {
+    "luma": 101.4,
+    "cam_flow": 0.059,
+    "camera_moving": false,
+    "n_tracks": 2,
+    "blind": false,
+    "caption": "Two workers in yellow hard hats and reflective vests walk through a large, empty industrial space with concrete pillars and marked floor are",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c63"
+    ]
+   }
+  },
+  {
+   "id": "c64",
+   "video": "worker_zone_detection",
+   "seg": 14,
+   "t0": 70.0,
+   "t1": 75.0,
+   "attrs": {
+    "persons": "1",
+    "vehicles": "0",
+    "bike": false,
+    "heavy_vehicle": false,
+    "stationary_vehicle": false,
+    "stationary_person": false,
+    "bags": false,
+    "furniture": false,
+    "traffic_furniture": false,
+    "animal": false,
+    "motion": "left to right",
+    "brightness": "bright",
+    "colour": "grey",
+    "indoor_outdoor": "indoor",
+    "setting": "factory or workshop",
+    "words": "floor,walking"
+   },
+   "extra": {
+    "luma": 102.9,
+    "cam_flow": 0.086,
+    "camera_moving": false,
+    "n_tracks": 1,
+    "blind": false,
+    "caption": "A person in safety gear walks across a spacious, dimly lit industrial interior with concrete floors and structural columns.",
+    "vlm_ok": true
+   },
+   "play": {
+    "n_questions": 6,
+    "found": true,
+    "final": [
+     "c64"
+    ]
+   }
+  }
+ ],
+ "showcase_secret": "c22",
+ "seconds": 83.9
+}

@@ -1,0 +1,83 @@
+# environments
+.venv*/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+
+# build output (uv build / pip install -e .)
+/build/
+dist/
+*.egg-info/
+
+# secrets: never commit team config, keys or tokens
+.env
+.env.*
+*.env
+!.env.example
+*.config
+*-k8s.yaml
+*secret*.yaml
+!deploy/**/*.example.yaml
+*.pem
+*.key
+vast_bc*
+
+# local chat monitoring and superseded disclosure documents
+/.video-atlas-watch.json
+/PRE-EXISTING.md
+/templates/PRE-EXISTING.template.md
+
+# data and model artefacts (large, regenerable). No *.ts here: that would also hide TypeScript
+# sources; keep MPEG-TS segments under data/ or runs/.
+data/
+runs/
+outbox/
+out/
+_work/
+_scratch/
+_cache/
+cache/
+logs/
+*.log
+*.err
+*.pid
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.engine
+*.onnx
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.gguf
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.avi
+*.wav
+*.mp3
+*.flac
+.vastkit/
+weave/
+wandb/
+
+# prototype source and labels are kept; generated media and workflow records are local
+/prototypes/**/*.png
+/prototypes/**/*.jpg
+/prototypes/**/*.jpeg
+/prototypes/**/*.webp
+/prototypes/**/*.gif
+/prototypes/gallery.html
+/prototypes/build_result.json
+/prototypes/pitch_result.json
+
+# Street Time Machine runtime configuration and local work records
+/street-time-machine/cams.local.json
+/street-time-machine/orders/
+/street-time-machine/PRE-EXISTING.md

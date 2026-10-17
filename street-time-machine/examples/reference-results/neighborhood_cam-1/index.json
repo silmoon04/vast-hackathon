@@ -1,0 +1,2872 @@
+{
+ "camera": "neighborhood_cam-1",
+ "objects": [
+  {
+   "object_id": 1,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    79,
+    84,
+    92
+   ],
+   "first_t": 0.0,
+   "last_t": 60.08,
+   "parked": true,
+   "n": 1200,
+   "crop": "crops/1.jpg",
+   "crop_t": 40.68,
+   "colour_frac": 0.985,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 2,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    90,
+    93,
+    102
+   ],
+   "first_t": 0.0,
+   "last_t": 60.08,
+   "parked": true,
+   "n": 1200,
+   "crop": "crops/2.jpg",
+   "crop_t": 18.8,
+   "colour_frac": 0.974,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 112,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    92,
+    94,
+    103
+   ],
+   "first_t": 650.86,
+   "last_t": 711.19,
+   "parked": true,
+   "n": 1200,
+   "crop": "crops/112.jpg",
+   "crop_t": 697.74,
+   "colour_frac": 0.998,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 113,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    78,
+    81,
+    87
+   ],
+   "first_t": 650.86,
+   "last_t": 711.19,
+   "parked": true,
+   "n": 1200,
+   "crop": "crops/113.jpg",
+   "crop_t": 669.76,
+   "colour_frac": 0.972,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 169,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    104,
+    110,
+    115
+   ],
+   "first_t": 1089.09,
+   "last_t": 1149.14,
+   "parked": true,
+   "n": 1200,
+   "crop": "crops/169.jpg",
+   "crop_t": 1100.74,
+   "colour_frac": 0.966,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 369,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    60,
+    60,
+    60
+   ],
+   "first_t": 1639.63,
+   "last_t": 1699.73,
+   "parked": true,
+   "n": 1200,
+   "crop": "crops/369.jpg",
+   "crop_t": 1698.08,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 368,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    50,
+    50,
+    50
+   ],
+   "first_t": 1639.63,
+   "last_t": 1699.73,
+   "parked": true,
+   "n": 1194,
+   "crop": "crops/368.jpg",
+   "crop_t": 1685.83,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 178,
+   "name": "car",
+   "colour": "brown",
+   "rgb": [
+    107,
+    86,
+    72
+   ],
+   "first_t": 1111.34,
+   "last_t": 1149.14,
+   "parked": true,
+   "n": 755,
+   "crop": "crops/178.jpg",
+   "crop_t": 1137.44,
+   "colour_frac": 0.356,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 16,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    72,
+    77,
+    85
+   ],
+   "first_t": 65.12,
+   "last_t": 95.07,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/16.jpg",
+   "crop_t": 89.32,
+   "colour_frac": 0.997,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 17,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    83,
+    86,
+    96
+   ],
+   "first_t": 65.12,
+   "last_t": 95.07,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/17.jpg",
+   "crop_t": 81.57,
+   "colour_frac": 0.971,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 23,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    75,
+    80,
+    89
+   ],
+   "first_t": 105.04,
+   "last_t": 134.99,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/23.jpg",
+   "crop_t": 105.74,
+   "colour_frac": 0.984,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 24,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    81,
+    85,
+    94
+   ],
+   "first_t": 105.04,
+   "last_t": 134.99,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/24.jpg",
+   "crop_t": 105.94,
+   "colour_frac": 0.989,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 25,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    75,
+    79,
+    94
+   ],
+   "first_t": 105.04,
+   "last_t": 134.99,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/25.jpg",
+   "crop_t": 105.69,
+   "colour_frac": 0.9,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 29,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    84,
+    89,
+    97
+   ],
+   "first_t": 137.27,
+   "last_t": 167.22,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/29.jpg",
+   "crop_t": 151.87,
+   "colour_frac": 0.972,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 30,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    87,
+    88,
+    102
+   ],
+   "first_t": 137.27,
+   "last_t": 167.22,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/30.jpg",
+   "crop_t": 162.72,
+   "colour_frac": 0.979,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 31,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    70,
+    78,
+    88
+   ],
+   "first_t": 137.27,
+   "last_t": 167.22,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/31.jpg",
+   "crop_t": 155.92,
+   "colour_frac": 0.859,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 36,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    73,
+    75,
+    84
+   ],
+   "first_t": 174.43,
+   "last_t": 204.38,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/36.jpg",
+   "crop_t": 198.73,
+   "colour_frac": 0.978,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 37,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    78,
+    79,
+    89
+   ],
+   "first_t": 174.43,
+   "last_t": 204.38,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/37.jpg",
+   "crop_t": 192.43,
+   "colour_frac": 0.983,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 44,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    74,
+    80,
+    88
+   ],
+   "first_t": 216.45,
+   "last_t": 246.4,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/44.jpg",
+   "crop_t": 237.3,
+   "colour_frac": 0.98,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 45,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    87,
+    92,
+    101
+   ],
+   "first_t": 216.45,
+   "last_t": 246.4,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/45.jpg",
+   "crop_t": 217.1,
+   "colour_frac": 0.985,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 55,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    74,
+    75,
+    84
+   ],
+   "first_t": 250.84,
+   "last_t": 280.8,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/55.jpg",
+   "crop_t": 273.35,
+   "colour_frac": 0.979,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 56,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    90,
+    91,
+    103
+   ],
+   "first_t": 250.84,
+   "last_t": 280.8,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/56.jpg",
+   "crop_t": 257.89,
+   "colour_frac": 0.984,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 65,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    80,
+    82,
+    92
+   ],
+   "first_t": 290.11,
+   "last_t": 320.06,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/65.jpg",
+   "crop_t": 298.91,
+   "colour_frac": 0.965,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 66,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    92,
+    94,
+    106
+   ],
+   "first_t": 290.11,
+   "last_t": 320.06,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/66.jpg",
+   "crop_t": 297.41,
+   "colour_frac": 0.975,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 69,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    85,
+    91,
+    101
+   ],
+   "first_t": 321.74,
+   "last_t": 351.69,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/69.jpg",
+   "crop_t": 321.79,
+   "colour_frac": 0.98,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 70,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    88,
+    93,
+    104
+   ],
+   "first_t": 321.74,
+   "last_t": 351.69,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/70.jpg",
+   "crop_t": 330.19,
+   "colour_frac": 0.966,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 71,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    85,
+    91,
+    101
+   ],
+   "first_t": 358.24,
+   "last_t": 388.19,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/71.jpg",
+   "crop_t": 358.29,
+   "colour_frac": 0.98,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 72,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    88,
+    93,
+    104
+   ],
+   "first_t": 358.24,
+   "last_t": 388.19,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/72.jpg",
+   "crop_t": 366.69,
+   "colour_frac": 0.966,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 73,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    82,
+    86,
+    95
+   ],
+   "first_t": 399.67,
+   "last_t": 429.62,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/73.jpg",
+   "crop_t": 427.06,
+   "colour_frac": 0.975,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 74,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    83,
+    86,
+    96
+   ],
+   "first_t": 399.67,
+   "last_t": 429.62,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/74.jpg",
+   "crop_t": 425.96,
+   "colour_frac": 0.98,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 75,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    85,
+    90,
+    100
+   ],
+   "first_t": 433.41,
+   "last_t": 463.36,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/75.jpg",
+   "crop_t": 443.76,
+   "colour_frac": 0.974,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 76,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    89,
+    92,
+    104
+   ],
+   "first_t": 433.41,
+   "last_t": 463.36,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/76.jpg",
+   "crop_t": 445.31,
+   "colour_frac": 0.979,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 80,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    68,
+    69,
+    78
+   ],
+   "first_t": 472.07,
+   "last_t": 502.02,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/80.jpg",
+   "crop_t": 489.22,
+   "colour_frac": 0.956,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 81,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    75,
+    78,
+    88
+   ],
+   "first_t": 472.07,
+   "last_t": 502.02,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/81.jpg",
+   "crop_t": 494.77,
+   "colour_frac": 0.964,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 84,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    74,
+    78,
+    86
+   ],
+   "first_t": 503.05,
+   "last_t": 533.0,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/84.jpg",
+   "crop_t": 510.9,
+   "colour_frac": 0.953,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 85,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    88,
+    93,
+    100
+   ],
+   "first_t": 503.05,
+   "last_t": 533.0,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/85.jpg",
+   "crop_t": 523.4,
+   "colour_frac": 0.975,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 93,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    71,
+    73,
+    82
+   ],
+   "first_t": 538.95,
+   "last_t": 568.9,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/93.jpg",
+   "crop_t": 554.3,
+   "colour_frac": 0.953,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 94,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    85,
+    88,
+    99
+   ],
+   "first_t": 538.95,
+   "last_t": 568.9,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/94.jpg",
+   "crop_t": 564.45,
+   "colour_frac": 0.967,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 95,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    69,
+    74,
+    81
+   ],
+   "first_t": 579.72,
+   "last_t": 609.66,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/95.jpg",
+   "crop_t": 601.47,
+   "colour_frac": 0.995,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 96,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    71,
+    74,
+    83
+   ],
+   "first_t": 579.72,
+   "last_t": 609.66,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/96.jpg",
+   "crop_t": 592.16,
+   "colour_frac": 0.976,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 106,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    88,
+    95,
+    103
+   ],
+   "first_t": 612.85,
+   "last_t": 642.8,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/106.jpg",
+   "crop_t": 622.75,
+   "colour_frac": 0.993,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 107,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    88,
+    93,
+    102
+   ],
+   "first_t": 612.85,
+   "last_t": 642.8,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/107.jpg",
+   "crop_t": 636.2,
+   "colour_frac": 0.959,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 130,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    103,
+    108,
+    119
+   ],
+   "first_t": 716.49,
+   "last_t": 746.43,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/130.jpg",
+   "crop_t": 734.63,
+   "colour_frac": 0.998,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 132,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    79,
+    84,
+    92
+   ],
+   "first_t": 716.49,
+   "last_t": 746.43,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/132.jpg",
+   "crop_t": 730.78,
+   "colour_frac": 0.97,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 138,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    89,
+    94,
+    101
+   ],
+   "first_t": 756.65,
+   "last_t": 786.6,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/138.jpg",
+   "crop_t": 764.5,
+   "colour_frac": 0.969,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 142,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    81,
+    85,
+    93
+   ],
+   "first_t": 789.14,
+   "last_t": 819.09,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/142.jpg",
+   "crop_t": 789.69,
+   "colour_frac": 0.977,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 148,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    88,
+    92,
+    100
+   ],
+   "first_t": 826.54,
+   "last_t": 856.49,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/148.jpg",
+   "crop_t": 853.24,
+   "colour_frac": 0.959,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 152,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    73,
+    77,
+    86
+   ],
+   "first_t": 868.82,
+   "last_t": 898.77,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/152.jpg",
+   "crop_t": 877.92,
+   "colour_frac": 0.932,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 155,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    91,
+    93,
+    107
+   ],
+   "first_t": 903.46,
+   "last_t": 933.41,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/155.jpg",
+   "crop_t": 916.11,
+   "colour_frac": 0.96,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 156,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    87,
+    90,
+    101
+   ],
+   "first_t": 942.98,
+   "last_t": 972.93,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/156.jpg",
+   "crop_t": 967.73,
+   "colour_frac": 0.968,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 159,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    76,
+    78,
+    87
+   ],
+   "first_t": 974.86,
+   "last_t": 1004.81,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/159.jpg",
+   "crop_t": 1002.51,
+   "colour_frac": 0.983,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 162,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    75,
+    77,
+    87
+   ],
+   "first_t": 1012.22,
+   "last_t": 1042.17,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/162.jpg",
+   "crop_t": 1014.82,
+   "colour_frac": 0.972,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 165,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    78,
+    78,
+    90
+   ],
+   "first_t": 1054.49,
+   "last_t": 1084.44,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/165.jpg",
+   "crop_t": 1082.39,
+   "colour_frac": 0.975,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 354,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    40,
+    40,
+    40
+   ],
+   "first_t": 1568.48,
+   "last_t": 1598.43,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/354.jpg",
+   "crop_t": 1572.13,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 363,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    48,
+    48,
+    48
+   ],
+   "first_t": 1601.66,
+   "last_t": 1631.61,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/363.jpg",
+   "crop_t": 1610.76,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 365,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    60,
+    60,
+    60
+   ],
+   "first_t": 1601.66,
+   "last_t": 1631.61,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/365.jpg",
+   "crop_t": 1615.36,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 375,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    55,
+    55,
+    55
+   ],
+   "first_t": 1704.72,
+   "last_t": 1734.67,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/375.jpg",
+   "crop_t": 1707.82,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 378,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    65,
+    65,
+    65
+   ],
+   "first_t": 1744.45,
+   "last_t": 1774.4,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/378.jpg",
+   "crop_t": 1749.45,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 379,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    48,
+    48,
+    48
+   ],
+   "first_t": 1744.45,
+   "last_t": 1774.4,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/379.jpg",
+   "crop_t": 1744.45,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 380,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    80,
+    80,
+    80
+   ],
+   "first_t": 1744.45,
+   "last_t": 1774.4,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/380.jpg",
+   "crop_t": 1744.45,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 382,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    52,
+    52,
+    52
+   ],
+   "first_t": 1776.37,
+   "last_t": 1806.32,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/382.jpg",
+   "crop_t": 1799.27,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 390,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    46,
+    46,
+    46
+   ],
+   "first_t": 1813.07,
+   "last_t": 1843.02,
+   "parked": true,
+   "n": 600,
+   "crop": "crops/390.jpg",
+   "crop_t": 1820.32,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 46,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    70,
+    74,
+    87
+   ],
+   "first_t": 216.45,
+   "last_t": 246.4,
+   "parked": true,
+   "n": 599,
+   "crop": "crops/46.jpg",
+   "crop_t": 217.1,
+   "colour_frac": 0.968,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 374,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    53,
+    53,
+    53
+   ],
+   "first_t": 1704.72,
+   "last_t": 1734.67,
+   "parked": true,
+   "n": 598,
+   "crop": "crops/374.jpg",
+   "crop_t": 1714.37,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 38,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    71,
+    75,
+    88
+   ],
+   "first_t": 174.43,
+   "last_t": 204.38,
+   "parked": true,
+   "n": 592,
+   "crop": "crops/38.jpg",
+   "crop_t": 200.53,
+   "colour_frac": 0.931,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 250,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    87,
+    87,
+    87
+   ],
+   "first_t": 1267.93,
+   "last_t": 1297.88,
+   "parked": true,
+   "n": 586,
+   "crop": "crops/250.jpg",
+   "crop_t": 1274.48,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 309,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    64,
+    64,
+    64
+   ],
+   "first_t": 1413.88,
+   "last_t": 1442.43,
+   "parked": true,
+   "n": 568,
+   "crop": "crops/309.jpg",
+   "crop_t": 1413.98,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 19,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    38,
+    39,
+    47
+   ],
+   "first_t": 67.27,
+   "last_t": 95.07,
+   "parked": false,
+   "n": 557,
+   "crop": "crops/19.jpg",
+   "crop_t": 69.27,
+   "colour_frac": 0.954,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 27,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    217,
+    223,
+    227
+   ],
+   "first_t": 107.19,
+   "last_t": 134.99,
+   "parked": true,
+   "n": 557,
+   "crop": "crops/27.jpg",
+   "crop_t": 123.64,
+   "colour_frac": 0.944,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 28,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    208,
+    215,
+    219
+   ],
+   "first_t": 107.19,
+   "last_t": 134.99,
+   "parked": true,
+   "n": 557,
+   "crop": "crops/28.jpg",
+   "crop_t": 117.54,
+   "colour_frac": 0.992,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 364,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    75,
+    75,
+    75
+   ],
+   "first_t": 1601.66,
+   "last_t": 1631.61,
+   "parked": true,
+   "n": 544,
+   "crop": "crops/364.jpg",
+   "crop_t": 1624.41,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 357,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    81,
+    81,
+    81
+   ],
+   "first_t": 1568.73,
+   "last_t": 1598.43,
+   "parked": true,
+   "n": 542,
+   "crop": "crops/357.jpg",
+   "crop_t": 1571.88,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 58,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    76,
+    81,
+    94
+   ],
+   "first_t": 250.84,
+   "last_t": 277.94,
+   "parked": true,
+   "n": 532,
+   "crop": "crops/58.jpg",
+   "crop_t": 274.69,
+   "colour_frac": 0.908,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 306,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    79,
+    79,
+    79
+   ],
+   "first_t": 1412.48,
+   "last_t": 1442.43,
+   "parked": true,
+   "n": 522,
+   "crop": "crops/306.jpg",
+   "crop_t": 1415.08,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 360,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    79,
+    79,
+    79
+   ],
+   "first_t": 1571.83,
+   "last_t": 1598.43,
+   "parked": true,
+   "n": 513,
+   "crop": "crops/360.jpg",
+   "crop_t": 1593.88,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 362,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    32,
+    32,
+    32
+   ],
+   "first_t": 1573.38,
+   "last_t": 1598.43,
+   "parked": true,
+   "n": 502,
+   "crop": "crops/362.jpg",
+   "crop_t": 1573.38,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 342,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    96,
+    96,
+    96
+   ],
+   "first_t": 1533.29,
+   "last_t": 1557.39,
+   "parked": true,
+   "n": 473,
+   "crop": "crops/342.jpg",
+   "crop_t": 1554.64,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 394,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    59,
+    59,
+    59
+   ],
+   "first_t": 1819.52,
+   "last_t": 1843.02,
+   "parked": true,
+   "n": 463,
+   "crop": "crops/394.jpg",
+   "crop_t": 1829.32,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 180,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    104,
+    100,
+    95
+   ],
+   "first_t": 1112.79,
+   "last_t": 1138.69,
+   "parked": true,
+   "n": 429,
+   "crop": "crops/180.jpg",
+   "crop_t": 1137.84,
+   "colour_frac": 0.923,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 168,
+   "name": "car",
+   "colour": "orange",
+   "rgb": [
+    158,
+    115,
+    85
+   ],
+   "first_t": 1089.09,
+   "last_t": 1110.34,
+   "parked": true,
+   "n": 425,
+   "crop": "crops/168.jpg",
+   "crop_t": 1110.24,
+   "colour_frac": 0.484,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 257,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    86,
+    86,
+    86
+   ],
+   "first_t": 1304.08,
+   "last_t": 1323.58,
+   "parked": false,
+   "n": 379,
+   "crop": "crops/257.jpg",
+   "crop_t": 1318.23,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 373,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    75,
+    75,
+    75
+   ],
+   "first_t": 1676.68,
+   "last_t": 1699.73,
+   "parked": true,
+   "n": 375,
+   "crop": "crops/373.jpg",
+   "crop_t": 1687.48,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 377,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    78,
+    78,
+    78
+   ],
+   "first_t": 1716.57,
+   "last_t": 1734.67,
+   "parked": false,
+   "n": 362,
+   "crop": "crops/377.jpg",
+   "crop_t": 1716.77,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 225,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    69,
+    69,
+    69
+   ],
+   "first_t": 1205.91,
+   "last_t": 1223.71,
+   "parked": false,
+   "n": 349,
+   "crop": "crops/225.jpg",
+   "crop_t": 1207.16,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 332,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    72,
+    72,
+    72
+   ],
+   "first_t": 1498.99,
+   "last_t": 1521.54,
+   "parked": true,
+   "n": 339,
+   "crop": "crops/332.jpg",
+   "crop_t": 1503.99,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 278,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    100,
+    100,
+    100
+   ],
+   "first_t": 1358.02,
+   "last_t": 1374.97,
+   "parked": false,
+   "n": 323,
+   "crop": "crops/278.jpg",
+   "crop_t": 1362.72,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 381,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    60,
+    60,
+    60
+   ],
+   "first_t": 1776.37,
+   "last_t": 1792.21,
+   "parked": false,
+   "n": 317,
+   "crop": "crops/381.jpg",
+   "crop_t": 1788.66,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 333,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    61,
+    61,
+    61
+   ],
+   "first_t": 1499.44,
+   "last_t": 1515.24,
+   "parked": false,
+   "n": 311,
+   "crop": "crops/333.jpg",
+   "crop_t": 1499.44,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 217,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    101,
+    101,
+    101
+   ],
+   "first_t": 1193.76,
+   "last_t": 1223.66,
+   "parked": true,
+   "n": 308,
+   "crop": "crops/217.jpg",
+   "crop_t": 1223.01,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 383,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    81,
+    81,
+    81
+   ],
+   "first_t": 1776.37,
+   "last_t": 1793.12,
+   "parked": false,
+   "n": 306,
+   "crop": "crops/383.jpg",
+   "crop_t": 1788.37,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 172,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    107,
+    106,
+    108
+   ],
+   "first_t": 1092.84,
+   "last_t": 1110.44,
+   "parked": false,
+   "n": 301,
+   "crop": "crops/172.jpg",
+   "crop_t": 1109.04,
+   "colour_frac": 0.802,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 170,
+   "name": "car",
+   "colour": "silver",
+   "rgb": [
+    127,
+    129,
+    134
+   ],
+   "first_t": 1089.09,
+   "last_t": 1105.04,
+   "parked": false,
+   "n": 298,
+   "crop": "crops/170.jpg",
+   "crop_t": 1103.09,
+   "colour_frac": 0.799,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 241,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    109,
+    109,
+    109
+   ],
+   "first_t": 1242.75,
+   "last_t": 1258.4,
+   "parked": false,
+   "n": 297,
+   "crop": "crops/241.jpg",
+   "crop_t": 1244.4,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 313,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    80,
+    80,
+    80
+   ],
+   "first_t": 1449.69,
+   "last_t": 1464.09,
+   "parked": false,
+   "n": 288,
+   "crop": "crops/313.jpg",
+   "crop_t": 1463.09,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 339,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    71,
+    71,
+    71
+   ],
+   "first_t": 1528.49,
+   "last_t": 1549.19,
+   "parked": true,
+   "n": 288,
+   "crop": "crops/339.jpg",
+   "crop_t": 1535.89,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 387,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    68,
+    68,
+    68
+   ],
+   "first_t": 1792.21,
+   "last_t": 1806.32,
+   "parked": false,
+   "n": 283,
+   "crop": "crops/387.jpg",
+   "crop_t": 1794.91,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 314,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    96,
+    96,
+    96
+   ],
+   "first_t": 1449.69,
+   "last_t": 1464.84,
+   "parked": false,
+   "n": 276,
+   "crop": "crops/314.jpg",
+   "crop_t": 1464.74,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 20,
+   "name": "truck",
+   "colour": "black",
+   "rgb": [
+    53,
+    50,
+    48
+   ],
+   "first_t": 78.37,
+   "last_t": 92.22,
+   "parked": false,
+   "n": 264,
+   "crop": "crops/20.jpg",
+   "crop_t": 85.92,
+   "colour_frac": 0.989,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 232,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    89,
+    89,
+    89
+   ],
+   "first_t": 1228.45,
+   "last_t": 1243.55,
+   "parked": false,
+   "n": 262,
+   "crop": "crops/232.jpg",
+   "crop_t": 1238.4,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 371,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    76,
+    76,
+    76
+   ],
+   "first_t": 1639.63,
+   "last_t": 1652.13,
+   "parked": false,
+   "n": 249,
+   "crop": "crops/371.jpg",
+   "crop_t": 1639.83,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 386,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    79,
+    79,
+    79
+   ],
+   "first_t": 1791.16,
+   "last_t": 1806.32,
+   "parked": false,
+   "n": 237,
+   "crop": "crops/386.jpg",
+   "crop_t": 1793.12,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 195,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    62,
+    62,
+    62
+   ],
+   "first_t": 1154.08,
+   "last_t": 1166.73,
+   "parked": false,
+   "n": 236,
+   "crop": "crops/195.jpg",
+   "crop_t": 1165.33,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 274,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    87,
+    87,
+    87
+   ],
+   "first_t": 1354.42,
+   "last_t": 1371.62,
+   "parked": false,
+   "n": 228,
+   "crop": "crops/274.jpg",
+   "crop_t": 1366.47,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 197,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    96,
+    96,
+    96
+   ],
+   "first_t": 1154.08,
+   "last_t": 1166.28,
+   "parked": false,
+   "n": 220,
+   "crop": "crops/197.jpg",
+   "crop_t": 1164.13,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 290,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    64,
+    64,
+    64
+   ],
+   "first_t": 1384.06,
+   "last_t": 1395.51,
+   "parked": false,
+   "n": 204,
+   "crop": "crops/290.jpg",
+   "crop_t": 1385.41,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 198,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    80,
+    80,
+    80
+   ],
+   "first_t": 1154.08,
+   "last_t": 1165.98,
+   "parked": false,
+   "n": 202,
+   "crop": "crops/198.jpg",
+   "crop_t": 1164.68,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 395,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    69,
+    69,
+    69
+   ],
+   "first_t": 1828.17,
+   "last_t": 1840.87,
+   "parked": false,
+   "n": 201,
+   "crop": "crops/395.jpg",
+   "crop_t": 1838.57,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 327,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    111,
+    111,
+    111
+   ],
+   "first_t": 1492.04,
+   "last_t": 1516.59,
+   "parked": true,
+   "n": 199,
+   "crop": "crops/327.jpg",
+   "crop_t": 1512.24,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 392,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    73,
+    73,
+    73
+   ],
+   "first_t": 1813.07,
+   "last_t": 1826.82,
+   "parked": false,
+   "n": 194,
+   "crop": "crops/392.jpg",
+   "crop_t": 1822.87,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 262,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    98,
+    98,
+    98
+   ],
+   "first_t": 1323.53,
+   "last_t": 1334.03,
+   "parked": false,
+   "n": 191,
+   "crop": "crops/262.jpg",
+   "crop_t": 1331.08,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 189,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    105,
+    102,
+    97
+   ],
+   "first_t": 1138.44,
+   "last_t": 1149.14,
+   "parked": false,
+   "n": 187,
+   "crop": "crops/189.jpg",
+   "crop_t": 1138.44,
+   "colour_frac": 0.929,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 210,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    60,
+    60,
+    60
+   ],
+   "first_t": 1172.33,
+   "last_t": 1184.03,
+   "parked": false,
+   "n": 175,
+   "crop": "crops/210.jpg",
+   "crop_t": 1181.43,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 376,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    68,
+    68,
+    68
+   ],
+   "first_t": 1704.87,
+   "last_t": 1715.22,
+   "parked": false,
+   "n": 169,
+   "crop": "crops/376.jpg",
+   "crop_t": 1710.27,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 301,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    61,
+    61,
+    61
+   ],
+   "first_t": 1400.86,
+   "last_t": 1409.96,
+   "parked": false,
+   "n": 164,
+   "crop": "crops/301.jpg",
+   "crop_t": 1404.56,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 48,
+   "name": "person",
+   "colour": "silver",
+   "rgb": [
+    166,
+    164,
+    169
+   ],
+   "first_t": 220.8,
+   "last_t": 230.3,
+   "parked": false,
+   "n": 161,
+   "crop": "crops/48.jpg",
+   "crop_t": 229.75,
+   "colour_frac": 0.926,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 320,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    80,
+    80,
+    80
+   ],
+   "first_t": 1466.84,
+   "last_t": 1477.79,
+   "parked": false,
+   "n": 160,
+   "crop": "crops/320.jpg",
+   "crop_t": 1469.79,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 366,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    81,
+    81,
+    81
+   ],
+   "first_t": 1601.66,
+   "last_t": 1609.56,
+   "parked": false,
+   "n": 159,
+   "crop": "crops/366.jpg",
+   "crop_t": 1606.66,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 224,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    59,
+    59,
+    59
+   ],
+   "first_t": 1203.41,
+   "last_t": 1215.81,
+   "parked": false,
+   "n": 158,
+   "crop": "crops/224.jpg",
+   "crop_t": 1204.41,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 213,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    87,
+    87,
+    87
+   ],
+   "first_t": 1176.08,
+   "last_t": 1184.03,
+   "parked": false,
+   "n": 155,
+   "crop": "crops/213.jpg",
+   "crop_t": 1177.63,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 261,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    105,
+    105,
+    105
+   ],
+   "first_t": 1323.13,
+   "last_t": 1334.03,
+   "parked": false,
+   "n": 153,
+   "crop": "crops/261.jpg",
+   "crop_t": 1333.33,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 270,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    82,
+    82,
+    82
+   ],
+   "first_t": 1349.57,
+   "last_t": 1359.12,
+   "parked": false,
+   "n": 149,
+   "crop": "crops/270.jpg",
+   "crop_t": 1351.77,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 229,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    98,
+    98,
+    98
+   ],
+   "first_t": 1213.71,
+   "last_t": 1223.56,
+   "parked": false,
+   "n": 147,
+   "crop": "crops/229.jpg",
+   "crop_t": 1221.71,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 33,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    206,
+    210,
+    214
+   ],
+   "first_t": 137.27,
+   "last_t": 144.37,
+   "parked": false,
+   "n": 143,
+   "crop": "crops/33.jpg",
+   "crop_t": 144.37,
+   "colour_frac": 0.983,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 51,
+   "name": "person",
+   "colour": "grey",
+   "rgb": [
+    106,
+    106,
+    118
+   ],
+   "first_t": 236.05,
+   "last_t": 244.15,
+   "parked": false,
+   "n": 143,
+   "crop": "crops/51.jpg",
+   "crop_t": 236.65,
+   "colour_frac": 0.962,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 139,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    98,
+    101,
+    114
+   ],
+   "first_t": 761.9,
+   "last_t": 769.0,
+   "parked": false,
+   "n": 142,
+   "crop": "crops/139.jpg",
+   "crop_t": 765.5,
+   "colour_frac": 0.923,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 32,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    220,
+    225,
+    231
+   ],
+   "first_t": 137.27,
+   "last_t": 144.27,
+   "parked": false,
+   "n": 141,
+   "crop": "crops/32.jpg",
+   "crop_t": 144.22,
+   "colour_frac": 0.964,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 140,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    75,
+    74,
+    83
+   ],
+   "first_t": 770.35,
+   "last_t": 777.65,
+   "parked": false,
+   "n": 141,
+   "crop": "crops/140.jpg",
+   "crop_t": 772.95,
+   "colour_frac": 0.959,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 114,
+   "name": "car",
+   "colour": "red",
+   "rgb": [
+    86,
+    5,
+    15
+   ],
+   "first_t": 651.36,
+   "last_t": 658.61,
+   "parked": false,
+   "n": 137,
+   "crop": "crops/114.jpg",
+   "crop_t": 657.86,
+   "colour_frac": 0.608,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 216,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    67,
+    67,
+    67
+   ],
+   "first_t": 1193.76,
+   "last_t": 1201.21,
+   "parked": false,
+   "n": 137,
+   "crop": "crops/216.jpg",
+   "crop_t": 1200.11,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 63,
+   "name": "car",
+   "colour": "silver",
+   "rgb": [
+    122,
+    133,
+    145
+   ],
+   "first_t": 265.8,
+   "last_t": 272.89,
+   "parked": false,
+   "n": 131,
+   "crop": "crops/63.jpg",
+   "crop_t": 266.39,
+   "colour_frac": 0.957,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 204,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    90,
+    90,
+    90
+   ],
+   "first_t": 1167.18,
+   "last_t": 1183.98,
+   "parked": false,
+   "n": 131,
+   "crop": "crops/204.jpg",
+   "crop_t": 1180.13,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 297,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    64,
+    64,
+    64
+   ],
+   "first_t": 1395.01,
+   "last_t": 1402.66,
+   "parked": false,
+   "n": 130,
+   "crop": "crops/297.jpg",
+   "crop_t": 1401.51,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 86,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    154,
+    161,
+    173
+   ],
+   "first_t": 505.2,
+   "last_t": 511.55,
+   "parked": false,
+   "n": 127,
+   "crop": "crops/86.jpg",
+   "crop_t": 510.8,
+   "colour_frac": 0.962,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 335,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    96,
+    96,
+    96
+   ],
+   "first_t": 1514.44,
+   "last_t": 1521.64,
+   "parked": false,
+   "n": 127,
+   "crop": "crops/335.jpg",
+   "crop_t": 1514.44,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 391,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    94,
+    94,
+    94
+   ],
+   "first_t": 1813.07,
+   "last_t": 1819.52,
+   "parked": false,
+   "n": 125,
+   "crop": "crops/391.jpg",
+   "crop_t": 1819.52,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 181,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    86,
+    84,
+    98
+   ],
+   "first_t": 1112.89,
+   "last_t": 1119.04,
+   "parked": false,
+   "n": 124,
+   "crop": "crops/181.jpg",
+   "crop_t": 1118.04,
+   "colour_frac": 0.762,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 182,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    194,
+    204,
+    202
+   ],
+   "first_t": 1114.29,
+   "last_t": 1123.99,
+   "parked": false,
+   "n": 124,
+   "crop": "crops/182.jpg",
+   "crop_t": 1118.09,
+   "colour_frac": 0.867,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 154,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    73,
+    77,
+    81
+   ],
+   "first_t": 879.32,
+   "last_t": 885.22,
+   "parked": false,
+   "n": 119,
+   "crop": "crops/154.jpg",
+   "crop_t": 880.02,
+   "colour_frac": 0.998,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 330,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    60,
+    60,
+    60
+   ],
+   "first_t": 1494.44,
+   "last_t": 1499.69,
+   "parked": false,
+   "n": 106,
+   "crop": "crops/330.jpg",
+   "crop_t": 1494.44,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 338,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    76,
+    76,
+    76
+   ],
+   "first_t": 1527.69,
+   "last_t": 1532.99,
+   "parked": false,
+   "n": 105,
+   "crop": "crops/338.jpg",
+   "crop_t": 1528.69,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 328,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    96,
+    96,
+    96
+   ],
+   "first_t": 1492.34,
+   "last_t": 1498.94,
+   "parked": false,
+   "n": 104,
+   "crop": "crops/328.jpg",
+   "crop_t": 1498.94,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 146,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    66,
+    58,
+    66
+   ],
+   "first_t": 803.74,
+   "last_t": 808.84,
+   "parked": false,
+   "n": 103,
+   "crop": "crops/146.jpg",
+   "crop_t": 804.79,
+   "colour_frac": 0.868,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 150,
+   "name": "car",
+   "colour": "blue",
+   "rgb": [
+    31,
+    85,
+    112
+   ],
+   "first_t": 844.34,
+   "last_t": 849.79,
+   "parked": false,
+   "n": 97,
+   "crop": "crops/150.jpg",
+   "crop_t": 844.89,
+   "colour_frac": 0.744,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 184,
+   "name": "car",
+   "colour": "silver",
+   "rgb": [
+    144,
+    119,
+    111
+   ],
+   "first_t": 1119.19,
+   "last_t": 1123.99,
+   "parked": false,
+   "n": 97,
+   "crop": "crops/184.jpg",
+   "crop_t": 1122.59,
+   "colour_frac": 0.857,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 276,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    96,
+    96,
+    96
+   ],
+   "first_t": 1356.32,
+   "last_t": 1370.02,
+   "parked": false,
+   "n": 96,
+   "crop": "crops/276.jpg",
+   "crop_t": 1361.12,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 35,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    85,
+    89,
+    98
+   ],
+   "first_t": 151.92,
+   "last_t": 156.47,
+   "parked": false,
+   "n": 92,
+   "crop": "crops/35.jpg",
+   "crop_t": 152.72,
+   "colour_frac": 0.623,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 258,
+   "name": "car",
+   "colour": "grey",
+   "rgb": [
+    102,
+    102,
+    102
+   ],
+   "first_t": 1315.73,
+   "last_t": 1333.98,
+   "parked": false,
+   "n": 91,
+   "crop": "crops/258.jpg",
+   "crop_t": 1315.73,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "day": "20260902"
+  },
+  {
+   "object_id": 77,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    208,
+    216,
+    218
+   ],
+   "first_t": 439.96,
+   "last_t": 444.36,
+   "parked": false,
+   "n": 89,
+   "crop": "crops/77.jpg",
+   "crop_t": 443.81,
+   "colour_frac": 0.974,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 68,
+   "name": "car",
+   "colour": "black",
+   "rgb": [
+    42,
+    44,
+    54
+   ],
+   "first_t": 298.91,
+   "last_t": 303.36,
+   "parked": false,
+   "n": 88,
+   "crop": "crops/68.jpg",
+   "crop_t": 299.56,
+   "colour_frac": 0.978,
+   "colour_reliable": true,
+   "day": "20260901"
+  },
+  {
+   "object_id": 137,
+   "name": "car",
+   "colour": "silver",
+   "rgb": [
+    138,
+    141,
+    147
+   ],
+   "first_t": 756.65,
+   "last_t": 760.95,
+   "parked": false,
+   "n": 87,
+   "crop": "crops/137.jpg",
+   "crop_t": 756.65,
+   "colour_frac": 0.74,
+   "colour_reliable": true,
+   "day": "20260901"
+  }
+ ],
+ "colours": {
+  "white": 7,
+  "black": 99,
+  "grey": 35,
+  "silver": 5,
+  "red": 1,
+  "blue": 1,
+  "orange": 1,
+  "brown": 1
+ },
+ "n_objects_total": 314,
+ "cap": 150,
+ "notes": [
+  "capped: 150 of 314 objects kept (most frames first)"
+ ],
+ "scene_brightness": 77.0,
+ "method": "dominant colour of the box body in HSV, borders and darkest/brightest 10% ignored; for people and cyclists it is the clothing colour of the torso band"
+}

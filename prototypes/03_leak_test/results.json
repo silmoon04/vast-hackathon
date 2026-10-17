@@ -1,0 +1,2192 @@
+{
+ "face_demographics_walking_and_pause": {
+  "video": "face_demographics_walking_and_pause",
+  "window_s": [
+   49.0,
+   69.0
+  ],
+  "fps_grid": 12.0,
+  "frames": 240,
+  "faces_identifiable_in_original": 402,
+  "certificates": {
+   "a_keyframe": {
+    "video": "face_demographics_walking_and_pause",
+    "export": "export_a_keyframe.mp4",
+    "redactor": "A  keyframe-only",
+    "verdict": "FAIL",
+    "frames_audited": 240,
+    "seconds_audited": 20.0,
+    "frames_with_exposed_face": 98,
+    "seconds_with_exposed_face": 8.17,
+    "face_tracks_exposed": 3,
+    "people_estimate": 3,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": "00:56.2",
+    "audit_window_s": [
+     49.0,
+     69.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "b6e5e88df8da0cf8806f0e47b58018286b49b9f0e3fd31a31a614c3656f1775a",
+    "original_sha256": "d88ab9aa03634f66f8815db3dc940e1cdd80b098440effb20882e814fd206bf5",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 296,
+     "frames_with_sharp_head": 114,
+     "heads_checked": 434,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   },
+   "b_conf": {
+    "video": "face_demographics_walking_and_pause",
+    "export": "export_b_conf.mp4",
+    "redactor": "B  confidence-gated",
+    "verdict": "PASS",
+    "frames_audited": 240,
+    "seconds_audited": 20.0,
+    "frames_with_exposed_face": 0,
+    "seconds_with_exposed_face": 0.0,
+    "face_tracks_exposed": 0,
+    "people_estimate": 0,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": null,
+    "audit_window_s": [
+     49.0,
+     69.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "4daf38949da547d6f107990185cea57f77c6d5ee22a43a6d805209669ee7b505",
+    "original_sha256": "d88ab9aa03634f66f8815db3dc940e1cdd80b098440effb20882e814fd206bf5",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 2,
+     "frames_with_sharp_head": 2,
+     "heads_checked": 407,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   },
+   "c_good": {
+    "video": "face_demographics_walking_and_pause",
+    "export": "export_c_good.mp4",
+    "redactor": "C  full redaction",
+    "verdict": "PASS",
+    "frames_audited": 240,
+    "seconds_audited": 20.0,
+    "frames_with_exposed_face": 0,
+    "seconds_with_exposed_face": 0.0,
+    "face_tracks_exposed": 0,
+    "people_estimate": 0,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": null,
+    "audit_window_s": [
+     49.0,
+     69.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "b17b47e2ca79fda55e2d23bea67fc6d33ac32e788269261a1cc62922ed2ada23",
+    "original_sha256": "d88ab9aa03634f66f8815db3dc940e1cdd80b098440effb20882e814fd206bf5",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 1,
+     "frames_with_sharp_head": 1,
+     "heads_checked": 15,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   },
+   "d_tight": {
+    "video": "face_demographics_walking_and_pause",
+    "export": "export_d_tight.mp4",
+    "redactor": "D  tight redaction",
+    "verdict": "PASS",
+    "frames_audited": 240,
+    "seconds_audited": 20.0,
+    "frames_with_exposed_face": 0,
+    "seconds_with_exposed_face": 0.0,
+    "face_tracks_exposed": 0,
+    "people_estimate": 0,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": null,
+    "audit_window_s": [
+     49.0,
+     69.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "14c7d6dd14f632ec2e8b6a1b35d0d6e75b328252cf395359c3dac4b727dfb6e9",
+    "original_sha256": "d88ab9aa03634f66f8815db3dc940e1cdd80b098440effb20882e814fd206bf5",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 8,
+     "frames_with_sharp_head": 8,
+     "heads_checked": 425,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   }
+  },
+  "ground_truth": {
+   "a_keyframe": {
+    "gt_faces_total": 400,
+    "gt_exposed": 267,
+    "gt_redacted": 133,
+    "gt_partial": 0,
+    "exposed_caught": 265,
+    "recall": 0.9925,
+    "gt_people_exposed": 3,
+    "gt_people_caught": 3,
+    "person_recall": 1.0,
+    "borderline_faces_exposed_not_scored": 2,
+    "flags_on_unblurred_faces": 268,
+    "flags_without_original_counterpart": 1,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 0,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 400
+   },
+   "b_conf": {
+    "gt_faces_total": 400,
+    "gt_exposed": 0,
+    "gt_redacted": 397,
+    "gt_partial": 3,
+    "exposed_caught": 0,
+    "recall": null,
+    "gt_people_exposed": 0,
+    "gt_people_caught": 0,
+    "person_recall": null,
+    "borderline_faces_exposed_not_scored": 0,
+    "flags_on_unblurred_faces": 0,
+    "flags_without_original_counterpart": 0,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 0,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 400
+   },
+   "c_good": {
+    "gt_faces_total": 400,
+    "gt_exposed": 0,
+    "gt_redacted": 397,
+    "gt_partial": 3,
+    "exposed_caught": 0,
+    "recall": null,
+    "gt_people_exposed": 0,
+    "gt_people_caught": 0,
+    "person_recall": null,
+    "borderline_faces_exposed_not_scored": 0,
+    "flags_on_unblurred_faces": 0,
+    "flags_without_original_counterpart": 0,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 0,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 400
+   },
+   "d_tight": {
+    "gt_faces_total": 400,
+    "gt_exposed": 0,
+    "gt_redacted": 397,
+    "gt_partial": 3,
+    "exposed_caught": 0,
+    "recall": null,
+    "gt_people_exposed": 0,
+    "gt_people_caught": 0,
+    "person_recall": null,
+    "borderline_faces_exposed_not_scored": 0,
+    "flags_on_unblurred_faces": 0,
+    "flags_without_original_counterpart": 0,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 0,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 400
+   }
+  },
+  "false_flag_examples": {
+   "a_keyframe": [],
+   "b_conf": [],
+   "c_good": [],
+   "d_tight": []
+  },
+  "ledger_people": {
+   "a_keyframe": [
+    {
+     "person": "P1",
+     "tracks": 1,
+     "frames": 98,
+     "seconds": 8.17,
+     "first_t": 56.167,
+     "last_t": 68.417,
+     "best_k": 233,
+     "best_t": 68.417,
+     "best_rect": [
+      661.6,
+      78.1,
+      798.2,
+      262.6
+     ]
+    },
+    {
+     "person": "P2",
+     "tracks": 1,
+     "frames": 88,
+     "seconds": 7.33,
+     "first_t": 56.417,
+     "last_t": 67.417,
+     "best_k": 215,
+     "best_t": 66.917,
+     "best_rect": [
+      574.4,
+      149.8,
+      672.2,
+      281.8
+     ]
+    },
+    {
+     "person": "P3",
+     "tracks": 1,
+     "frames": 82,
+     "seconds": 6.83,
+     "first_t": 56.583,
+     "last_t": 66.833,
+     "best_k": 214,
+     "best_t": 66.833,
+     "best_rect": [
+      -31.4,
+      115.5,
+      73.5,
+      257.2
+     ]
+    }
+   ],
+   "b_conf": [],
+   "c_good": [],
+   "d_tight": []
+  },
+  "gpu_lock_wait_s": 0,
+  "gpu_held_s": 0,
+  "seconds": 1.2,
+  "hero_frame_k": {
+   "a_keyframe": 194,
+   "b_conf": 214,
+   "c_good": 214,
+   "d_tight": 214
+  }
+ },
+ "retail_cctv": {
+  "video": "retail_cctv",
+  "window_s": [
+   0.0,
+   20.0
+  ],
+  "fps_grid": 13.093,
+  "frames": 262,
+  "faces_identifiable_in_original": 1839,
+  "certificates": {
+   "a_keyframe": {
+    "video": "retail_cctv",
+    "export": "export_a_keyframe.mp4",
+    "redactor": "A  keyframe-only",
+    "verdict": "FAIL",
+    "frames_audited": 262,
+    "seconds_audited": 20.01,
+    "frames_with_exposed_face": 178,
+    "seconds_with_exposed_face": 13.6,
+    "face_tracks_exposed": 55,
+    "people_estimate": 24,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": "00:00.1",
+    "audit_window_s": [
+     0.0,
+     20.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "5728e27a2331fcd570b53ec4195fdbcd9e4c1621419af3062827323c23adc135",
+    "original_sha256": "8d3dc74ff295271a75e48b2991056d7985cd505fdeaee2309d46db243f2a7e96",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 2600,
+     "frames_with_sharp_head": 197,
+     "heads_checked": 3052,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   },
+   "b_conf": {
+    "video": "retail_cctv",
+    "export": "export_b_conf.mp4",
+    "redactor": "B  confidence-gated",
+    "verdict": "FAIL",
+    "frames_audited": 262,
+    "seconds_audited": 20.01,
+    "frames_with_exposed_face": 160,
+    "seconds_with_exposed_face": 12.22,
+    "face_tracks_exposed": 51,
+    "people_estimate": 20,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": "00:00.0",
+    "audit_window_s": [
+     0.0,
+     20.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "aa5bd3a95c587ddee160955527b5ae7c82409450b3b4b6a7778b2d889e8b820c",
+    "original_sha256": "8d3dc74ff295271a75e48b2991056d7985cd505fdeaee2309d46db243f2a7e96",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 682,
+     "frames_with_sharp_head": 224,
+     "heads_checked": 2073,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   },
+   "c_good": {
+    "video": "retail_cctv",
+    "export": "export_c_good.mp4",
+    "redactor": "C  full redaction",
+    "verdict": "PASS",
+    "frames_audited": 262,
+    "seconds_audited": 20.01,
+    "frames_with_exposed_face": 0,
+    "seconds_with_exposed_face": 0.0,
+    "face_tracks_exposed": 0,
+    "people_estimate": 0,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": null,
+    "audit_window_s": [
+     0.0,
+     20.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "9ee05792402ce52ebbed98045d674b07164e310ca8f9d8e490a52a5f0cd1a460",
+    "original_sha256": "8d3dc74ff295271a75e48b2991056d7985cd505fdeaee2309d46db243f2a7e96",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 0,
+     "frames_with_sharp_head": 0,
+     "heads_checked": 80,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   },
+   "d_tight": {
+    "video": "retail_cctv",
+    "export": "export_d_tight.mp4",
+    "redactor": "D  tight redaction",
+    "verdict": "FAIL",
+    "frames_audited": 262,
+    "seconds_audited": 20.01,
+    "frames_with_exposed_face": 2,
+    "seconds_with_exposed_face": 0.15,
+    "face_tracks_exposed": 2,
+    "people_estimate": 2,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": "00:10.6",
+    "audit_window_s": [
+     0.0,
+     20.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "93c0fade9fbf860be761a8269338da3d29dd5171af9b31479469ba61ddefe385",
+    "original_sha256": "8d3dc74ff295271a75e48b2991056d7985cd505fdeaee2309d46db243f2a7e96",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 38,
+     "frames_with_sharp_head": 33,
+     "heads_checked": 1716,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   }
+  },
+  "ground_truth": {
+   "a_keyframe": {
+    "gt_faces_total": 1033,
+    "gt_exposed": 692,
+    "gt_redacted": 336,
+    "gt_partial": 5,
+    "exposed_caught": 625,
+    "recall": 0.9032,
+    "gt_people_exposed": 63,
+    "gt_people_caught": 63,
+    "person_recall": 1.0,
+    "borderline_faces_exposed_not_scored": 546,
+    "flags_on_unblurred_faces": 1162,
+    "flags_without_original_counterpart": 153,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 0,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 1033
+   },
+   "b_conf": {
+    "gt_faces_total": 1033,
+    "gt_exposed": 141,
+    "gt_redacted": 853,
+    "gt_partial": 39,
+    "exposed_caught": 96,
+    "recall": 0.6809,
+    "gt_people_exposed": 30,
+    "gt_people_caught": 21,
+    "person_recall": 0.7,
+    "borderline_faces_exposed_not_scored": 194,
+    "flags_on_unblurred_faces": 262,
+    "flags_without_original_counterpart": 53,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 2,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 1033
+   },
+   "c_good": {
+    "gt_faces_total": 1033,
+    "gt_exposed": 0,
+    "gt_redacted": 1033,
+    "gt_partial": 0,
+    "exposed_caught": 0,
+    "recall": null,
+    "gt_people_exposed": 0,
+    "gt_people_caught": 0,
+    "person_recall": null,
+    "borderline_faces_exposed_not_scored": 0,
+    "flags_on_unblurred_faces": 0,
+    "flags_without_original_counterpart": 0,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 0,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 1033
+   },
+   "d_tight": {
+    "gt_faces_total": 1033,
+    "gt_exposed": 2,
+    "gt_redacted": 1019,
+    "gt_partial": 12,
+    "exposed_caught": 0,
+    "recall": 0.0,
+    "gt_people_exposed": 2,
+    "gt_people_caught": 0,
+    "person_recall": 0.0,
+    "borderline_faces_exposed_not_scored": 6,
+    "flags_on_unblurred_faces": 2,
+    "flags_without_original_counterpart": 1,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 0,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 1033
+   }
+  },
+  "false_flag_examples": {
+   "a_keyframe": [],
+   "b_conf": [],
+   "c_good": [],
+   "d_tight": []
+  },
+  "ledger_people": {
+   "a_keyframe": [
+    {
+     "person": "P1",
+     "tracks": 1,
+     "frames": 158,
+     "seconds": 12.07,
+     "first_t": 0.076,
+     "last_t": 19.629,
+     "best_k": 130,
+     "best_t": 9.929,
+     "best_rect": [
+      258.9,
+      123.3,
+      289.8,
+      165.0
+     ]
+    },
+    {
+     "person": "P2",
+     "tracks": 1,
+     "frames": 39,
+     "seconds": 2.98,
+     "first_t": 0.076,
+     "last_t": 4.43,
+     "best_k": 41,
+     "best_t": 3.131,
+     "best_rect": [
+      892.8,
+      258.2,
+      929.4,
+      307.6
+     ]
+    },
+    {
+     "person": "P3",
+     "tracks": 2,
+     "frames": 54,
+     "seconds": 4.12,
+     "first_t": 0.076,
+     "last_t": 6.11,
+     "best_k": 49,
+     "best_t": 3.742,
+     "best_rect": [
+      1037.0,
+      460.3,
+      1084.5,
+      524.3
+     ]
+    },
+    {
+     "person": "P4",
+     "tracks": 2,
+     "frames": 66,
+     "seconds": 5.04,
+     "first_t": 0.076,
+     "last_t": 8.401,
+     "best_k": 97,
+     "best_t": 7.409,
+     "best_rect": [
+      771.3,
+      383.2,
+      817.9,
+      446.1
+     ]
+    },
+    {
+     "person": "P5",
+     "tracks": 4,
+     "frames": 118,
+     "seconds": 9.01,
+     "first_t": 0.076,
+     "last_t": 17.261,
+     "best_k": 226,
+     "best_t": 17.261,
+     "best_rect": [
+      814.1,
+      82.9,
+      843.0,
+      122.0
+     ]
+    },
+    {
+     "person": "P6",
+     "tracks": 3,
+     "frames": 122,
+     "seconds": 9.32,
+     "first_t": 0.076,
+     "last_t": 19.782,
+     "best_k": 152,
+     "best_t": 11.609,
+     "best_rect": [
+      302.4,
+      67.9,
+      334.5,
+      111.2
+     ]
+    },
+    {
+     "person": "P7",
+     "tracks": 3,
+     "frames": 26,
+     "seconds": 1.99,
+     "first_t": 0.076,
+     "last_t": 6.568,
+     "best_k": 52,
+     "best_t": 3.972,
+     "best_rect": [
+      58.8,
+      190.6,
+      82.7,
+      222.8
+     ]
+    },
+    {
+     "person": "P8",
+     "tracks": 6,
+     "frames": 94,
+     "seconds": 7.18,
+     "first_t": 0.993,
+     "last_t": 19.858,
+     "best_k": 170,
+     "best_t": 12.984,
+     "best_rect": [
+      260.2,
+      77.2,
+      292.6,
+      121.0
+     ]
+    },
+    {
+     "person": "P9",
+     "tracks": 5,
+     "frames": 66,
+     "seconds": 5.04,
+     "first_t": 3.055,
+     "last_t": 19.858,
+     "best_k": 140,
+     "best_t": 10.693,
+     "best_rect": [
+      401.0,
+      88.4,
+      422.9,
+      118.0
+     ]
+    },
+    {
+     "person": "P10",
+     "tracks": 1,
+     "frames": 2,
+     "seconds": 0.15,
+     "first_t": 3.284,
+     "last_t": 3.59,
+     "best_k": 47,
+     "best_t": 3.59,
+     "best_rect": [
+      113.5,
+      114.2,
+      132.2,
+      139.4
+     ]
+    },
+    {
+     "person": "P11",
+     "tracks": 1,
+     "frames": 127,
+     "seconds": 9.7,
+     "first_t": 3.972,
+     "last_t": 18.407,
+     "best_k": 169,
+     "best_t": 12.908,
+     "best_rect": [
+      705.3,
+      475.4,
+      785.7,
+      584.0
+     ]
+    },
+    {
+     "person": "P12",
+     "tracks": 1,
+     "frames": 2,
+     "seconds": 0.15,
+     "first_t": 5.575,
+     "last_t": 5.652,
+     "best_k": 73,
+     "best_t": 5.575,
+     "best_rect": [
+      1093.8,
+      606.7,
+      1135.9,
+      663.5
+     ]
+    },
+    {
+     "person": "P13",
+     "tracks": 2,
+     "frames": 11,
+     "seconds": 0.84,
+     "first_t": 6.874,
+     "last_t": 10.234,
+     "best_k": 106,
+     "best_t": 8.096,
+     "best_rect": [
+      380.8,
+      17.8,
+      400.5,
+      44.3
+     ]
+    },
+    {
+     "person": "P14",
+     "tracks": 5,
+     "frames": 44,
+     "seconds": 3.36,
+     "first_t": 6.95,
+     "last_t": 19.4,
+     "best_k": 253,
+     "best_t": 19.323,
+     "best_rect": [
+      129.0,
+      194.8,
+      153.3,
+      227.5
+     ]
+    },
+    {
+     "person": "P15",
+     "tracks": 6,
+     "frames": 43,
+     "seconds": 3.28,
+     "first_t": 7.943,
+     "last_t": 19.858,
+     "best_k": 175,
+     "best_t": 13.366,
+     "best_rect": [
+      474.2,
+      2.0,
+      499.7,
+      36.5
+     ]
+    },
+    {
+     "person": "P16",
+     "tracks": 1,
+     "frames": 2,
+     "seconds": 0.15,
+     "first_t": 8.86,
+     "last_t": 9.012,
+     "best_k": 118,
+     "best_t": 9.012,
+     "best_rect": [
+      972.0,
+      433.3,
+      1035.0,
+      518.4
+     ]
+    },
+    {
+     "person": "P17",
+     "tracks": 3,
+     "frames": 24,
+     "seconds": 1.83,
+     "first_t": 10.158,
+     "last_t": 15.199,
+     "best_k": 185,
+     "best_t": 14.13,
+     "best_rect": [
+      82.2,
+      153.0,
+      108.8,
+      189.0
+     ]
+    },
+    {
+     "person": "P18",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 12.449,
+     "last_t": 12.449,
+     "best_k": 163,
+     "best_t": 12.449,
+     "best_rect": [
+      777.8,
+      151.1,
+      798.0,
+      178.4
+     ]
+    },
+    {
+     "person": "P19",
+     "tracks": 1,
+     "frames": 45,
+     "seconds": 3.44,
+     "first_t": 13.901,
+     "last_t": 19.858,
+     "best_k": 182,
+     "best_t": 13.901,
+     "best_rect": [
+      272.5,
+      52.5,
+      292.2,
+      79.1
+     ]
+    },
+    {
+     "person": "P20",
+     "tracks": 1,
+     "frames": 21,
+     "seconds": 1.6,
+     "first_t": 17.338,
+     "last_t": 19.934,
+     "best_k": 253,
+     "best_t": 19.323,
+     "best_rect": [
+      1074.8,
+      310.1,
+      1125.2,
+      378.2
+     ]
+    },
+    {
+     "person": "P21",
+     "tracks": 1,
+     "frames": 22,
+     "seconds": 1.68,
+     "first_t": 17.49,
+     "last_t": 19.858,
+     "best_k": 260,
+     "best_t": 19.858,
+     "best_rect": [
+      1091.9,
+      476.7,
+      1157.7,
+      565.6
+     ]
+    },
+    {
+     "person": "P22",
+     "tracks": 1,
+     "frames": 19,
+     "seconds": 1.45,
+     "first_t": 17.796,
+     "last_t": 19.858,
+     "best_k": 253,
+     "best_t": 19.323,
+     "best_rect": [
+      859.4,
+      104.3,
+      892.8,
+      149.3
+     ]
+    },
+    {
+     "person": "P23",
+     "tracks": 1,
+     "frames": 5,
+     "seconds": 0.38,
+     "first_t": 18.483,
+     "last_t": 19.4,
+     "best_k": 250,
+     "best_t": 19.094,
+     "best_rect": [
+      86.7,
+      143.5,
+      108.5,
+      172.9
+     ]
+    },
+    {
+     "person": "P24",
+     "tracks": 2,
+     "frames": 7,
+     "seconds": 0.53,
+     "first_t": 18.636,
+     "last_t": 19.858,
+     "best_k": 250,
+     "best_t": 19.094,
+     "best_rect": [
+      772.6,
+      433.0,
+      796.6,
+      465.3
+     ]
+    }
+   ],
+   "b_conf": [
+    {
+     "person": "P1",
+     "tracks": 1,
+     "frames": 39,
+     "seconds": 2.98,
+     "first_t": 0.0,
+     "last_t": 2.902,
+     "best_k": 0,
+     "best_t": 0.0,
+     "best_rect": [
+      365.3,
+      18.7,
+      383.3,
+      43.1
+     ]
+    },
+    {
+     "person": "P2",
+     "tracks": 2,
+     "frames": 38,
+     "seconds": 2.9,
+     "first_t": 0.076,
+     "last_t": 3.666,
+     "best_k": 1,
+     "best_t": 0.076,
+     "best_rect": [
+      559.4,
+      15.8,
+      581.3,
+      45.4
+     ]
+    },
+    {
+     "person": "P3",
+     "tracks": 2,
+     "frames": 4,
+     "seconds": 0.31,
+     "first_t": 2.979,
+     "last_t": 5.957,
+     "best_k": 77,
+     "best_t": 5.881,
+     "best_rect": [
+      202.4,
+      85.3,
+      222.8,
+      112.9
+     ]
+    },
+    {
+     "person": "P4",
+     "tracks": 2,
+     "frames": 3,
+     "seconds": 0.23,
+     "first_t": 3.055,
+     "last_t": 3.819,
+     "best_k": 40,
+     "best_t": 3.055,
+     "best_rect": [
+      1166.7,
+      462.2,
+      1210.6,
+      521.4
+     ]
+    },
+    {
+     "person": "P5",
+     "tracks": 3,
+     "frames": 4,
+     "seconds": 0.31,
+     "first_t": 4.277,
+     "last_t": 6.187,
+     "best_k": 78,
+     "best_t": 5.957,
+     "best_rect": [
+      99.7,
+      163.1,
+      116.0,
+      185.1
+     ]
+    },
+    {
+     "person": "P6",
+     "tracks": 2,
+     "frames": 15,
+     "seconds": 1.15,
+     "first_t": 6.492,
+     "last_t": 9.089,
+     "best_k": 92,
+     "best_t": 7.027,
+     "best_rect": [
+      298.3,
+      30.4,
+      323.8,
+      64.8
+     ]
+    },
+    {
+     "person": "P7",
+     "tracks": 9,
+     "frames": 37,
+     "seconds": 2.83,
+     "first_t": 6.645,
+     "last_t": 18.789,
+     "best_k": 185,
+     "best_t": 14.13,
+     "best_rect": [
+      262.6,
+      53.1,
+      283.5,
+      81.3
+     ]
+    },
+    {
+     "person": "P8",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 8.172,
+     "last_t": 8.172,
+     "best_k": 107,
+     "best_t": 8.172,
+     "best_rect": [
+      446.9,
+      95.1,
+      465.5,
+      120.2
+     ]
+    },
+    {
+     "person": "P9",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 9.012,
+     "last_t": 9.012,
+     "best_k": 118,
+     "best_t": 9.012,
+     "best_rect": [
+      995.8,
+      447.4,
+      1036.0,
+      501.8
+     ]
+    },
+    {
+     "person": "P10",
+     "tracks": 7,
+     "frames": 23,
+     "seconds": 1.76,
+     "first_t": 9.089,
+     "last_t": 18.254,
+     "best_k": 236,
+     "best_t": 18.025,
+     "best_rect": [
+      367.9,
+      38.0,
+      387.6,
+      64.7
+     ]
+    },
+    {
+     "person": "P11",
+     "tracks": 6,
+     "frames": 24,
+     "seconds": 1.83,
+     "first_t": 11.762,
+     "last_t": 19.934,
+     "best_k": 177,
+     "best_t": 13.519,
+     "best_rect": [
+      478.8,
+      2.2,
+      500.6,
+      31.5
+     ]
+    },
+    {
+     "person": "P12",
+     "tracks": 4,
+     "frames": 14,
+     "seconds": 1.07,
+     "first_t": 12.144,
+     "last_t": 17.338,
+     "best_k": 169,
+     "best_t": 12.908,
+     "best_rect": [
+      626.2,
+      33.3,
+      650.8,
+      66.6
+     ]
+    },
+    {
+     "person": "P13",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 12.22,
+     "last_t": 12.22,
+     "best_k": 160,
+     "best_t": 12.22,
+     "best_rect": [
+      783.0,
+      86.8,
+      801.0,
+      111.2
+     ]
+    },
+    {
+     "person": "P14",
+     "tracks": 3,
+     "frames": 35,
+     "seconds": 2.67,
+     "first_t": 13.213,
+     "last_t": 18.33,
+     "best_k": 225,
+     "best_t": 17.185,
+     "best_rect": [
+      120.4,
+      195.5,
+      145.3,
+      229.1
+     ]
+    },
+    {
+     "person": "P15",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 14.435,
+     "last_t": 14.435,
+     "best_k": 189,
+     "best_t": 14.435,
+     "best_rect": [
+      213.7,
+      85.8,
+      244.2,
+      127.0
+     ]
+    },
+    {
+     "person": "P16",
+     "tracks": 2,
+     "frames": 6,
+     "seconds": 0.46,
+     "first_t": 17.643,
+     "last_t": 19.934,
+     "best_k": 260,
+     "best_t": 19.858,
+     "best_rect": [
+      1198.1,
+      410.3,
+      1243.6,
+      471.7
+     ]
+    },
+    {
+     "person": "P17",
+     "tracks": 1,
+     "frames": 2,
+     "seconds": 0.15,
+     "first_t": 17.949,
+     "last_t": 18.025,
+     "best_k": 236,
+     "best_t": 18.025,
+     "best_rect": [
+      85.4,
+      156.2,
+      105.9,
+      183.8
+     ]
+    },
+    {
+     "person": "P18",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 18.101,
+     "last_t": 18.101,
+     "best_k": 237,
+     "best_t": 18.101,
+     "best_rect": [
+      655.9,
+      492.9,
+      678.1,
+      522.9
+     ]
+    },
+    {
+     "person": "P19",
+     "tracks": 1,
+     "frames": 5,
+     "seconds": 0.38,
+     "first_t": 18.407,
+     "last_t": 19.4,
+     "best_k": 249,
+     "best_t": 19.018,
+     "best_rect": [
+      819.5,
+      87.5,
+      851.4,
+      130.6
+     ]
+    },
+    {
+     "person": "P20",
+     "tracks": 1,
+     "frames": 4,
+     "seconds": 0.31,
+     "first_t": 18.712,
+     "last_t": 19.018,
+     "best_k": 245,
+     "best_t": 18.712,
+     "best_rect": [
+      257.5,
+      58.9,
+      274.9,
+      82.4
+     ]
+    }
+   ],
+   "c_good": [],
+   "d_tight": [
+    {
+     "person": "P1",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 10.616,
+     "last_t": 10.616,
+     "best_k": 139,
+     "best_t": 10.616,
+     "best_rect": [
+      210.0,
+      146.1,
+      227.3,
+      169.5
+     ]
+    },
+    {
+     "person": "P2",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 14.588,
+     "last_t": 14.588,
+     "best_k": 191,
+     "best_t": 14.588,
+     "best_rect": [
+      1101.5,
+      225.0,
+      1126.0,
+      258.0
+     ]
+    }
+   ]
+  },
+  "gpu_lock_wait_s": 0,
+  "gpu_held_s": 0,
+  "seconds": 10.9,
+  "hero_frame_k": {
+   "a_keyframe": 169,
+   "b_conf": 25,
+   "c_good": 256,
+   "d_tight": 139
+  }
+ },
+ "yonge_dundas": {
+  "video": "yonge_dundas",
+  "window_s": [
+   21.0,
+   41.0
+  ],
+  "fps_grid": 11.988,
+  "frames": 240,
+  "faces_identifiable_in_original": 719,
+  "certificates": {
+   "a_keyframe": {
+    "video": "yonge_dundas",
+    "export": "export_a_keyframe.mp4",
+    "redactor": "A  keyframe-only",
+    "verdict": "FAIL",
+    "frames_audited": 240,
+    "seconds_audited": 20.02,
+    "frames_with_exposed_face": 144,
+    "seconds_with_exposed_face": 12.01,
+    "face_tracks_exposed": 52,
+    "people_estimate": 19,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": "00:22.9",
+    "audit_window_s": [
+     21.0,
+     41.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "ba2229511387636b641ba088ea0aa6051a135f95b95140c829432f53cb2c56b4",
+    "original_sha256": "32674cbc99aee05bf3481741bf8a6434938320463a30105fcef574e3cc68e859",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 2441,
+     "frames_with_sharp_head": 215,
+     "heads_checked": 3064,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   },
+   "b_conf": {
+    "video": "yonge_dundas",
+    "export": "export_b_conf.mp4",
+    "redactor": "B  confidence-gated",
+    "verdict": "FAIL",
+    "frames_audited": 240,
+    "seconds_audited": 20.02,
+    "frames_with_exposed_face": 20,
+    "seconds_with_exposed_face": 1.67,
+    "face_tracks_exposed": 16,
+    "people_estimate": 10,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": "00:24.1",
+    "audit_window_s": [
+     21.0,
+     41.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "59677d223315a1d6c493a52636499c58b17764fec30f0e7c8689475b80571c38",
+    "original_sha256": "32674cbc99aee05bf3481741bf8a6434938320463a30105fcef574e3cc68e859",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 1007,
+     "frames_with_sharp_head": 222,
+     "heads_checked": 2404,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   },
+   "c_good": {
+    "video": "yonge_dundas",
+    "export": "export_c_good.mp4",
+    "redactor": "C  full redaction",
+    "verdict": "PASS",
+    "frames_audited": 240,
+    "seconds_audited": 20.02,
+    "frames_with_exposed_face": 0,
+    "seconds_with_exposed_face": 0.0,
+    "face_tracks_exposed": 0,
+    "people_estimate": 0,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": null,
+    "audit_window_s": [
+     21.0,
+     41.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "658a5e2899ed062bcd7d1d8ccdb7c55970712c0edac8104147002f4470104b5c",
+    "original_sha256": "32674cbc99aee05bf3481741bf8a6434938320463a30105fcef574e3cc68e859",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 0,
+     "frames_with_sharp_head": 0,
+     "heads_checked": 297,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   },
+   "d_tight": {
+    "video": "yonge_dundas",
+    "export": "export_d_tight.mp4",
+    "redactor": "D  tight redaction",
+    "verdict": "FAIL",
+    "frames_audited": 240,
+    "seconds_audited": 20.02,
+    "frames_with_exposed_face": 5,
+    "seconds_with_exposed_face": 0.42,
+    "face_tracks_exposed": 4,
+    "people_estimate": 4,
+    "people_estimate_note": "face tracks re-linked across gaps <= 3 s by position; an estimate, not a count of verified identities",
+    "first_exposure": "00:25.1",
+    "audit_window_s": [
+     21.0,
+     41.0
+    ],
+    "method": {
+     "auditor_models": "YOLO26l person detector + YOLO26s-pose face landmarks (frame + 8x head crops)",
+     "redactor_models": "YOLO26s (+ConfByteTrack cache)",
+     "min_face_px": 16,
+     "min_original_texture_lapvar": 30.0,
+     "sharp_ratio_threshold": 0.5,
+     "sharp_pixel_fraction_threshold": 0.5,
+     "metric": "core_v3: measured on the eyes+nose core (60% x 50% of the face rectangle); a face must lie inside a YOLO26l person box of the original",
+     "rule": "FAIL if ANY identifiable face is still sharp in ANY frame"
+    },
+    "export_sha256": "08979b93ecf447d3158eac70c48c148a76bc50c214b6fba329f688641af6e98a",
+    "original_sha256": "32674cbc99aee05bf3481741bf8a6434938320463a30105fcef574e3cc68e859",
+    "head_region_advisory": {
+     "person_frames_with_sharp_head": 149,
+     "frames_with_sharp_head": 106,
+     "heads_checked": 2596,
+     "note": "landmark-free check, does not change the verdict"
+    }
+   }
+  },
+  "ground_truth": {
+   "a_keyframe": {
+    "gt_faces_total": 575,
+    "gt_exposed": 382,
+    "gt_redacted": 183,
+    "gt_partial": 10,
+    "exposed_caught": 368,
+    "recall": 0.9634,
+    "gt_people_exposed": 44,
+    "gt_people_caught": 43,
+    "person_recall": 0.9773,
+    "borderline_faces_exposed_not_scored": 94,
+    "flags_on_unblurred_faces": 470,
+    "flags_without_original_counterpart": 35,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 0,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 575
+   },
+   "b_conf": {
+    "gt_faces_total": 575,
+    "gt_exposed": 19,
+    "gt_redacted": 526,
+    "gt_partial": 30,
+    "exposed_caught": 12,
+    "recall": 0.6316,
+    "gt_people_exposed": 13,
+    "gt_people_caught": 9,
+    "person_recall": 0.6923,
+    "borderline_faces_exposed_not_scored": 13,
+    "flags_on_unblurred_faces": 20,
+    "flags_without_original_counterpart": 4,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 1,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 575
+   },
+   "c_good": {
+    "gt_faces_total": 575,
+    "gt_exposed": 0,
+    "gt_redacted": 563,
+    "gt_partial": 12,
+    "exposed_caught": 0,
+    "recall": null,
+    "gt_people_exposed": 0,
+    "gt_people_caught": 0,
+    "person_recall": null,
+    "borderline_faces_exposed_not_scored": 0,
+    "flags_on_unblurred_faces": 0,
+    "flags_without_original_counterpart": 0,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 0,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 575
+   },
+   "d_tight": {
+    "gt_faces_total": 575,
+    "gt_exposed": 3,
+    "gt_redacted": 557,
+    "gt_partial": 15,
+    "exposed_caught": 2,
+    "recall": 0.6667,
+    "gt_people_exposed": 2,
+    "gt_people_caught": 1,
+    "person_recall": 0.5,
+    "borderline_faces_exposed_not_scored": 5,
+    "flags_on_unblurred_faces": 4,
+    "flags_without_original_counterpart": 2,
+    "false_flags_over_redacted": 0,
+    "false_flags_no_face": 0,
+    "flags_on_partially_covered": 1,
+    "false_flag_rate": 0.0,
+    "false_flag_rate_denominator": 575
+   }
+  },
+  "false_flag_examples": {
+   "a_keyframe": [],
+   "b_conf": [],
+   "c_good": [],
+   "d_tight": []
+  },
+  "ledger_people": {
+   "a_keyframe": [
+    {
+     "person": "P1",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 22.856,
+     "last_t": 22.856,
+     "best_k": 22,
+     "best_t": 22.856,
+     "best_rect": [
+      417.0,
+      397.9,
+      446.4,
+      437.5
+     ]
+    },
+    {
+     "person": "P2",
+     "tracks": 4,
+     "frames": 80,
+     "seconds": 6.67,
+     "first_t": 23.607,
+     "last_t": 35.118,
+     "best_k": 144,
+     "best_t": 33.033,
+     "best_rect": [
+      -22.7,
+      213.2,
+      172.8,
+      477.2
+     ]
+    },
+    {
+     "person": "P3",
+     "tracks": 9,
+     "frames": 19,
+     "seconds": 1.58,
+     "first_t": 24.107,
+     "last_t": 33.867,
+     "best_k": 154,
+     "best_t": 33.867,
+     "best_rect": [
+      -38.7,
+      413.4,
+      88.2,
+      584.7
+     ]
+    },
+    {
+     "person": "P4",
+     "tracks": 5,
+     "frames": 8,
+     "seconds": 0.67,
+     "first_t": 25.609,
+     "last_t": 31.448,
+     "best_k": 103,
+     "best_t": 29.613,
+     "best_rect": [
+      49.5,
+      314.7,
+      151.5,
+      452.4
+     ]
+    },
+    {
+     "person": "P5",
+     "tracks": 2,
+     "frames": 4,
+     "seconds": 0.33,
+     "first_t": 29.363,
+     "last_t": 30.614,
+     "best_k": 101,
+     "best_t": 29.446,
+     "best_rect": [
+      523.2,
+      383.5,
+      557.4,
+      429.7
+     ]
+    },
+    {
+     "person": "P6",
+     "tracks": 3,
+     "frames": 67,
+     "seconds": 5.59,
+     "first_t": 29.613,
+     "last_t": 40.958,
+     "best_k": 239,
+     "best_t": 40.958,
+     "best_rect": [
+      274.1,
+      376.6,
+      396.5,
+      541.8
+     ]
+    },
+    {
+     "person": "P7",
+     "tracks": 1,
+     "frames": 72,
+     "seconds": 6.01,
+     "first_t": 30.03,
+     "last_t": 39.706,
+     "best_k": 224,
+     "best_t": 39.706,
+     "best_rect": [
+      1.8,
+      347.3,
+      100.4,
+      480.4
+     ]
+    },
+    {
+     "person": "P8",
+     "tracks": 2,
+     "frames": 25,
+     "seconds": 2.09,
+     "first_t": 30.113,
+     "last_t": 36.453,
+     "best_k": 161,
+     "best_t": 34.451,
+     "best_rect": [
+      1130.8,
+      420.1,
+      1176.1,
+      481.3
+     ]
+    },
+    {
+     "person": "P9",
+     "tracks": 1,
+     "frames": 2,
+     "seconds": 0.17,
+     "first_t": 30.364,
+     "last_t": 30.447,
+     "best_k": 112,
+     "best_t": 30.364,
+     "best_rect": [
+      400.6,
+      496.7,
+      454.9,
+      569.9
+     ]
+    },
+    {
+     "person": "P10",
+     "tracks": 2,
+     "frames": 24,
+     "seconds": 2.0,
+     "first_t": 30.781,
+     "last_t": 36.203,
+     "best_k": 146,
+     "best_t": 33.2,
+     "best_rect": [
+      251.6,
+      291.0,
+      322.8,
+      387.1
+     ]
+    },
+    {
+     "person": "P11",
+     "tracks": 7,
+     "frames": 25,
+     "seconds": 2.09,
+     "first_t": 31.365,
+     "last_t": 38.956,
+     "best_k": 149,
+     "best_t": 33.45,
+     "best_rect": [
+      214.0,
+      415.8,
+      278.9,
+      503.5
+     ]
+    },
+    {
+     "person": "P12",
+     "tracks": 3,
+     "frames": 6,
+     "seconds": 0.5,
+     "first_t": 31.448,
+     "last_t": 35.118,
+     "best_k": 130,
+     "best_t": 31.865,
+     "best_rect": [
+      1225.4,
+      432.0,
+      1254.5,
+      471.2
+     ]
+    },
+    {
+     "person": "P13",
+     "tracks": 4,
+     "frames": 44,
+     "seconds": 3.67,
+     "first_t": 31.698,
+     "last_t": 40.457,
+     "best_k": 137,
+     "best_t": 32.449,
+     "best_rect": [
+      686.5,
+      388.3,
+      758.5,
+      485.5
+     ]
+    },
+    {
+     "person": "P14",
+     "tracks": 2,
+     "frames": 10,
+     "seconds": 0.83,
+     "first_t": 32.449,
+     "last_t": 36.453,
+     "best_k": 184,
+     "best_t": 36.37,
+     "best_rect": [
+      866.3,
+      399.4,
+      888.0,
+      428.7
+     ]
+    },
+    {
+     "person": "P15",
+     "tracks": 1,
+     "frames": 34,
+     "seconds": 2.84,
+     "first_t": 34.618,
+     "last_t": 38.872,
+     "best_k": 214,
+     "best_t": 38.872,
+     "best_rect": [
+      -8.9,
+      345.6,
+      21.1,
+      386.1
+     ]
+    },
+    {
+     "person": "P16",
+     "tracks": 1,
+     "frames": 20,
+     "seconds": 1.67,
+     "first_t": 35.702,
+     "last_t": 38.455,
+     "best_k": 209,
+     "best_t": 38.455,
+     "best_rect": [
+      528.4,
+      420.4,
+      562.1,
+      466.0
+     ]
+    },
+    {
+     "person": "P17",
+     "tracks": 2,
+     "frames": 17,
+     "seconds": 1.42,
+     "first_t": 36.37,
+     "last_t": 40.624,
+     "best_k": 230,
+     "best_t": 40.207,
+     "best_rect": [
+      1.3,
+      491.5,
+      68.8,
+      582.6
+     ]
+    },
+    {
+     "person": "P18",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 36.453,
+     "last_t": 36.453,
+     "best_k": 185,
+     "best_t": 36.453,
+     "best_rect": [
+      920.6,
+      399.9,
+      957.4,
+      449.5
+     ]
+    },
+    {
+     "person": "P19",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 38.705,
+     "last_t": 38.705,
+     "best_k": 212,
+     "best_t": 38.705,
+     "best_rect": [
+      592.9,
+      371.7,
+      609.3,
+      393.9
+     ]
+    }
+   ],
+   "b_conf": [
+    {
+     "person": "P1",
+     "tracks": 3,
+     "frames": 3,
+     "seconds": 0.25,
+     "first_t": 24.107,
+     "last_t": 27.611,
+     "best_k": 79,
+     "best_t": 27.611,
+     "best_rect": [
+      48.1,
+      436.1,
+      86.3,
+      487.8
+     ]
+    },
+    {
+     "person": "P2",
+     "tracks": 1,
+     "frames": 3,
+     "seconds": 0.25,
+     "first_t": 24.441,
+     "last_t": 24.608,
+     "best_k": 42,
+     "best_t": 24.524,
+     "best_rect": [
+      1220.2,
+      378.5,
+      1242.4,
+      408.4
+     ]
+    },
+    {
+     "person": "P3",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 28.862,
+     "last_t": 28.862,
+     "best_k": 94,
+     "best_t": 28.862,
+     "best_rect": [
+      1136.3,
+      377.5,
+      1153.1,
+      400.2
+     ]
+    },
+    {
+     "person": "P4",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 30.28,
+     "last_t": 30.28,
+     "best_k": 111,
+     "best_t": 30.28,
+     "best_rect": [
+      674.4,
+      391.2,
+      696.5,
+      421.1
+     ]
+    },
+    {
+     "person": "P5",
+     "tracks": 3,
+     "frames": 3,
+     "seconds": 0.25,
+     "first_t": 30.53,
+     "last_t": 34.534,
+     "best_k": 149,
+     "best_t": 33.45,
+     "best_rect": [
+      444.6,
+      309.9,
+      544.6,
+      445.0
+     ]
+    },
+    {
+     "person": "P6",
+     "tracks": 1,
+     "frames": 2,
+     "seconds": 0.17,
+     "first_t": 32.783,
+     "last_t": 32.866,
+     "best_k": 142,
+     "best_t": 32.866,
+     "best_rect": [
+      925.3,
+      382.8,
+      941.9,
+      405.2
+     ]
+    },
+    {
+     "person": "P7",
+     "tracks": 3,
+     "frames": 4,
+     "seconds": 0.33,
+     "first_t": 33.116,
+     "last_t": 34.284,
+     "best_k": 146,
+     "best_t": 33.2,
+     "best_rect": [
+      171.7,
+      209.3,
+      384.5,
+      496.6
+     ]
+    },
+    {
+     "person": "P8",
+     "tracks": 1,
+     "frames": 2,
+     "seconds": 0.17,
+     "first_t": 33.2,
+     "last_t": 33.283,
+     "best_k": 146,
+     "best_t": 33.2,
+     "best_rect": [
+      1066.4,
+      356.3,
+      1091.8,
+      390.5
+     ]
+    },
+    {
+     "person": "P9",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 34.451,
+     "last_t": 34.451,
+     "best_k": 161,
+     "best_t": 34.451,
+     "best_rect": [
+      1262.1,
+      372.8,
+      1280.2,
+      397.2
+     ]
+    },
+    {
+     "person": "P10",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 38.956,
+     "last_t": 38.956,
+     "best_k": 215,
+     "best_t": 38.956,
+     "best_rect": [
+      -4.0,
+      559.1,
+      29.9,
+      604.9
+     ]
+    }
+   ],
+   "c_good": [],
+   "d_tight": [
+    {
+     "person": "P1",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 25.108,
+     "last_t": 25.108,
+     "best_k": 49,
+     "best_t": 25.108,
+     "best_rect": [
+      159.8,
+      367.0,
+      178.7,
+      392.5
+     ]
+    },
+    {
+     "person": "P2",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 29.696,
+     "last_t": 29.696,
+     "best_k": 104,
+     "best_t": 29.696,
+     "best_rect": [
+      631.5,
+      381.0,
+      647.6,
+      402.8
+     ]
+    },
+    {
+     "person": "P3",
+     "tracks": 1,
+     "frames": 2,
+     "seconds": 0.17,
+     "first_t": 32.032,
+     "last_t": 32.115,
+     "best_k": 133,
+     "best_t": 32.115,
+     "best_rect": [
+      1129.1,
+      360.2,
+      1151.7,
+      390.7
+     ]
+    },
+    {
+     "person": "P4",
+     "tracks": 1,
+     "frames": 1,
+     "seconds": 0.08,
+     "first_t": 38.705,
+     "last_t": 38.705,
+     "best_k": 212,
+     "best_t": 38.705,
+     "best_rect": [
+      588.0,
+      357.2,
+      607.0,
+      382.9
+     ]
+    }
+   ]
+  },
+  "gpu_lock_wait_s": 0,
+  "gpu_held_s": 0,
+  "seconds": 11.5,
+  "hero_frame_k": {
+   "a_keyframe": 137,
+   "b_conf": 79,
+   "c_good": 174,
+   "d_tight": 133
+  }
+ },
+ "_meta": {
+  "total_seconds": 23.7,
+  "auditor": {
+   "flag_min_face_px": 16,
+   "gt_clear_face_px": 20,
+   "min_lv_orig": 30.0,
+   "sharp_ratio": 0.5
+  },
+  "kill_test": {
+   "criterion": "auditor recall >= 90% on leaks injected by redactor A AND <= 5% false flags on the good exports (C dilated and D tight)",
+   "recall_frame_level_by_construction": {
+    "exposed_faces": 1341,
+    "caught": 1258,
+    "recall": 0.9381
+   },
+   "recall_person_level": {
+    "people": 110,
+    "caught": 109,
+    "recall": 0.9909
+   },
+   "false_flags_on_good_export": {
+    "over_redacted_flags": 0,
+    "faces_audited": 2008,
+    "rate": 0.0,
+    "frames_flagged_in_good_export": 0
+   },
+   "false_flags_on_tight_good_export_D": {
+    "over_redacted_flags": 0,
+    "faces_audited": 2008,
+    "rate": 0.0,
+    "frames_flagged": 7,
+    "flags_on_partially_covered_faces_not_counted_as_false": 1,
+    "faces_left_exposed_by_D_per_its_own_log": 5,
+    "of_which_caught": 2,
+    "per_video": {
+     "face_demographics_walking_and_pause": {
+      "verdict": "PASS",
+      "frames_flagged": 0
+     },
+     "retail_cctv": {
+      "verdict": "FAIL",
+      "frames_flagged": 2
+     },
+     "yonge_dundas": {
+      "verdict": "FAIL",
+      "frames_flagged": 5
+     }
+    },
+    "eyeball_flags": {
+     "flagged_frames_labelled": 7,
+     "real_readable_faces": 3,
+     "not_readable": 4,
+     "not_readable_per_face_audited": 0.002,
+     "not_readable_per_frame_audited": 0.0054
+    }
+   },
+   "eyeball": {
+    "recall": {
+     "tiles": 72,
+     "labelled_face": 33,
+     "caught": 30,
+     "recall": 0.9091,
+     "labelled_noface": 39,
+     "flagged_though_noface": 13,
+     "by_video": {
+      "face_demographics_walking_and_pause": {
+       "face": 22,
+       "caught": 22
+      },
+      "retail_cctv": {
+       "face": 8,
+       "caught": 5
+      },
+      "yonge_dundas": {
+       "face": 3,
+       "caught": 3
+      }
+     }
+    },
+    "precision": {
+     "tiles": 57,
+     "real_faces": 43,
+     "precision": 0.7544,
+     "by_export": {
+      "a_keyframe": {
+       "n": 30,
+       "real": 25
+      },
+      "b_conf": {
+       "n": 20,
+       "real": 15
+      },
+      "c_good": {
+       "n": 0,
+       "real": 0
+      },
+      "d_tight": {
+       "n": 7,
+       "real": 3
+      }
+     }
+    }
+   },
+   "passed": true
+  }
+ }
+}

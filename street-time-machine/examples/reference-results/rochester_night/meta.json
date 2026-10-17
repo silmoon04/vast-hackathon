@@ -1,0 +1,20 @@
+{
+ "camera": "rochester_night",
+ "title": "Night street of flats",
+ "credit": "Wikimedia Commons, CC BY-SA 4.0",
+ "fps": 30.0,
+ "w": 1280,
+ "h": 720,
+ "duration": 84.53,
+ "days": [
+  {
+   "id": "A",
+   "label": "Night",
+   "start": 0.0,
+   "end": 84.53333333333333
+  }
+ ],
+ "simulated": [],
+ "background": "background.jpg",
+ "video": "videos/rochester_night.mp4"
+}

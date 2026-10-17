@@ -1,0 +1,2339 @@
+{
+ "summary": {
+  "kill_test": {
+   "criterion": "5/5 verdicts right and offsets within 1 s",
+   "verdicts_right": "5/5",
+   "offsets_within_1s": "4/4",
+   "passed": true
+  },
+  "extras": {
+   "verdicts_right": "10/11",
+   "offsets_within_1s": "9/10"
+  },
+  "archive": {
+   "videos": 19,
+   "segments": 535,
+   "holdout": {
+    "lisbon_parking": [
+     295.0,
+     335.0
+    ]
+   },
+   "hashed_frames": 13554
+  },
+  "wall_seconds": 140.6
+ },
+ "clips": {
+  "t1_lisbon_crop80": {
+   "clip": "t1_lisbon_crop80.mp4",
+   "duration": 15.0,
+   "n_frames": 75,
+   "stage1": [
+    {
+     "video": "lisbon_parking",
+     "start": 65,
+     "end": 70,
+     "score": 3.2525216937065125,
+     "best_sim": 0.9756869673728943
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 570,
+     "end": 575,
+     "score": 2.5110403299331665,
+     "best_sim": 0.8771160840988159
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 670,
+     "end": 675,
+     "score": 2.4083420634269714,
+     "best_sim": 0.8457650542259216
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 110,
+     "end": 115,
+     "score": 2.376859724521637,
+     "best_sim": 0.8426985740661621
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 700,
+     "end": 705,
+     "score": 2.246503472328186,
+     "best_sim": 0.7907523512840271
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 70,
+     "end": 75,
+     "score": 1.8274242281913757,
+     "best_sim": 0.9623558521270752
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 25,
+     "end": 30,
+     "score": 1.7290065288543701,
+     "best_sim": 0.8662277460098267
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 205,
+     "end": 210,
+     "score": 1.7090059518814087,
+     "best_sim": 0.8735991716384888
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 60,
+     "end": 65,
+     "score": 1.6824551224708557,
+     "best_sim": 0.9337148070335388
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 55,
+     "end": 60,
+     "score": 1.624502718448639,
+     "best_sim": 0.840546727180481
+    }
+   ],
+   "stage1_windows": 6,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.5245563983917236,
+   "t_stage1": 2.4186596870422363,
+   "t_stage2": 0.7138674259185791,
+   "t_fullscan": 3.140170097351074,
+   "fullscan": {
+    "video": "lisbon_parking",
+    "variant": "0.8",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "lisbon_parking",
+    "variant": "0.8",
+    "crop": 0.8,
+    "crop_kind": "sq",
+    "crop_desc": "80%",
+    "crop_offset": 0.5,
+    "mirrored": false,
+    "alt_ratio": 0.12410720561124604,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 15.0,
+      "src_start": 59.99999999999999,
+      "src_end": 75.0,
+      "n": 75,
+      "mean_d": 0.02682291716337204
+     }
+    ],
+    "removed": [],
+    "foreign": [],
+    "coverage": 1.0,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 6.798266172409058,
+   "headline": "MATCH: Lisbon cam, 01:00-01:15, cropped to 80%",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "lisbon_parking",
+    "src_start": 60.0,
+    "src_end": 75.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": 0.8,
+    "removed": [],
+    "foreign": [],
+    "edit": "centre crop 80% rescaled to 640x480, x264 crf 32"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 7.105427357601002e-15,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true
+   }
+  },
+  "t2_retail_mirror": {
+   "clip": "t2_retail_mirror.mp4",
+   "duration": 15.04620789734973,
+   "n_frames": 75,
+   "stage1": [
+    {
+     "video": "retail_cctv",
+     "start": 35,
+     "end": 40,
+     "score": 5.862140595912933,
+     "best_sim": 0.9842499494552612
+    },
+    {
+     "video": "retail_cctv",
+     "start": 30,
+     "end": 35,
+     "score": 5.833928108215332,
+     "best_sim": 0.9810305833816528
+    },
+    {
+     "video": "retail_cctv",
+     "start": 10,
+     "end": 15,
+     "score": 5.78467184305191,
+     "best_sim": 0.975705623626709
+    },
+    {
+     "video": "retail_cctv",
+     "start": 25,
+     "end": 30,
+     "score": 5.767386555671692,
+     "best_sim": 0.9813370704650879
+    },
+    {
+     "video": "retail_cctv",
+     "start": 20,
+     "end": 25,
+     "score": 5.765542149543762,
+     "best_sim": 0.9847568869590759
+    },
+    {
+     "video": "retail_cctv",
+     "start": 15,
+     "end": 20,
+     "score": 5.744598627090454,
+     "best_sim": 0.9729978442192078
+    },
+    {
+     "video": "retail_cctv",
+     "start": 40,
+     "end": 45,
+     "score": 5.735872030258179,
+     "best_sim": 0.9685229063034058
+    },
+    {
+     "video": "retail_cctv",
+     "start": 90,
+     "end": 95,
+     "score": 4.752977013587952,
+     "best_sim": 0.9628455638885498
+    },
+    {
+     "video": "retail_cctv",
+     "start": 0,
+     "end": 5,
+     "score": 4.723980724811554,
+     "best_sim": 0.9551098942756653
+    },
+    {
+     "video": "retail_cctv",
+     "start": 5,
+     "end": 10,
+     "score": 3.8168420791625977,
+     "best_sim": 0.9630010724067688
+    }
+   ],
+   "stage1_windows": 6,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.4966137409210205,
+   "t_stage1": 2.618919610977173,
+   "t_stage2": 0.19291210174560547,
+   "t_fullscan": 1.7198963165283203,
+   "fullscan": {
+    "video": "retail_cctv",
+    "variant": "1.0M",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "retail_cctv",
+    "variant": "1.0M",
+    "crop": 1.0,
+    "crop_kind": "sq",
+    "crop_desc": "none",
+    "crop_offset": 0.5,
+    "mirrored": true,
+    "alt_ratio": 0.021022385427331185,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 15.0,
+      "src_start": 20.0,
+      "src_end": 35.0,
+      "n": 75,
+      "mean_d": 0.006718750111758709
+     }
+    ],
+    "removed": [],
+    "foreign": [],
+    "coverage": 0.9969289340101523,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 5.028341770172119,
+   "headline": "MATCH: Retail CCTV, 00:20-00:35, mirrored",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "retail_cctv",
+    "src_start": 20.0,
+    "src_end": 35.0,
+    "speed": 1.0,
+    "mirrored": true,
+    "crop": 1.0,
+    "removed": [],
+    "foreign": [],
+    "edit": "hflip, x264 crf 28"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.0,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true
+   }
+  },
+  "t3_rochester_speed_cut": {
+   "clip": "t3_rochester_speed_cut.mp4",
+   "duration": 9.573333,
+   "n_frames": 48,
+   "stage1": [
+    {
+     "video": "rochester_night",
+     "start": 20,
+     "end": 25,
+     "score": 3.1738457679748535,
+     "best_sim": 0.9412857294082642
+    },
+    {
+     "video": "rochester_night",
+     "start": 55,
+     "end": 60,
+     "score": 3.0937368869781494,
+     "best_sim": 0.9406172633171082
+    },
+    {
+     "video": "rochester_night",
+     "start": 45,
+     "end": 50,
+     "score": 2.995705306529999,
+     "best_sim": 0.8936378955841064
+    },
+    {
+     "video": "rochester_night",
+     "start": 80,
+     "end": 84.53333333333333,
+     "score": 2.975729823112488,
+     "best_sim": 0.9243343472480774
+    },
+    {
+     "video": "rochester_night",
+     "start": 40,
+     "end": 45,
+     "score": 2.943094313144684,
+     "best_sim": 0.8783431053161621
+    },
+    {
+     "video": "rochester_night",
+     "start": 15,
+     "end": 20,
+     "score": 2.3244171738624573,
+     "best_sim": 0.8310383558273315
+    },
+    {
+     "video": "rochester_night",
+     "start": 75,
+     "end": 80,
+     "score": 2.2998706698417664,
+     "best_sim": 0.8106086850166321
+    },
+    {
+     "video": "rochester_night",
+     "start": 5,
+     "end": 10,
+     "score": 2.2077584862709045,
+     "best_sim": 0.810893177986145
+    },
+    {
+     "video": "rochester_night",
+     "start": 10,
+     "end": 15,
+     "score": 1.9449582695960999,
+     "best_sim": 0.9842944741249084
+    },
+    {
+     "video": "rochester_night",
+     "start": 70,
+     "end": 75,
+     "score": 1.8394107818603516,
+     "best_sim": 0.9368895292282104
+    }
+   ],
+   "stage1_windows": 4,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.43630504608154297,
+   "t_stage1": 1.7473101615905762,
+   "t_stage2": 0.052579641342163086,
+   "t_fullscan": 1.043154001235962,
+   "fullscan": {
+    "video": "rochester_night",
+    "variant": "1.0",
+    "coverage": 0.9791666666666666
+   },
+   "verdict": "MATCH",
+   "reason": "98% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "rochester_night",
+    "variant": "1.0",
+    "crop": 1.0,
+    "crop_kind": "sq",
+    "crop_desc": "none",
+    "crop_offset": 0.5,
+    "mirrored": false,
+    "alt_ratio": 0.10258096853255574,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.25,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 6.0,
+      "src_start": 10.0,
+      "src_end": 17.5,
+      "n": 29,
+      "mean_d": 0.040678881108760834
+     },
+     {
+      "q_start": 6.0,
+      "q_end": 9.6,
+      "src_start": 20.55,
+      "src_end": 25.05,
+      "n": 18,
+      "mean_d": 0.0638020858168602
+     }
+    ],
+    "removed": [
+     {
+      "at_q": 6.0,
+      "at_src": 17.5,
+      "seconds": 3.0500000000000007,
+      "seconds_r": 3.0,
+      "pos_uncertain_s": 0.0
+     }
+    ],
+    "foreign": [],
+    "coverage": 0.9818941846063435,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 3.279348850250244,
+   "headline": "MATCH: Rochester night cam, 00:10-00:25, speed 1.25x, 3.0 s removed at clip 00:06 (archive 00:17.5)",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "rochester_night",
+    "src_start": 10.0,
+    "src_end": 25.0,
+    "speed": 1.25,
+    "mirrored": false,
+    "crop": 1.0,
+    "removed": [
+     [
+      17.5,
+      3.0
+     ]
+    ],
+    "foreign": [],
+    "edit": "source 10-17.5 + 20.5-25 (3 s removed), played at 1.25x, crf 28"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.0,
+    "end_err": 0.05000000000000071,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "removed_err_s": 0.05000000000000071,
+    "removed_pos_err_s": 0.0,
+    "removed_clip_pos_err_s": 0.0,
+    "foreign_ok": true
+   }
+  },
+  "t4_splice_ptz_sitdown": {
+   "clip": "t4_splice_ptz_sitdown.mp4",
+   "duration": 10.0,
+   "n_frames": 50,
+   "stage1": [
+    {
+     "video": "ptz_parking",
+     "start": 100,
+     "end": 105,
+     "score": 0.9962903261184692,
+     "best_sim": 0.9962903261184692
+    },
+    {
+     "video": "ptz_parking",
+     "start": 95,
+     "end": 100,
+     "score": 0.9887142777442932,
+     "best_sim": 0.9887142777442932
+    },
+    {
+     "video": "ptz_parking",
+     "start": 105,
+     "end": 110,
+     "score": 0.9878259897232056,
+     "best_sim": 0.9878259897232056
+    },
+    {
+     "video": "ptz_parking",
+     "start": 70,
+     "end": 75,
+     "score": 0.9874244928359985,
+     "best_sim": 0.9874244928359985
+    },
+    {
+     "video": "ptz_parking",
+     "start": 90,
+     "end": 95,
+     "score": 0.9867398142814636,
+     "best_sim": 0.9867398142814636
+    },
+    {
+     "video": "ptz_parking",
+     "start": 75,
+     "end": 80,
+     "score": 0.9851568937301636,
+     "best_sim": 0.9851568937301636
+    },
+    {
+     "video": "ptz_parking",
+     "start": 85,
+     "end": 90,
+     "score": 0.9847093820571899,
+     "best_sim": 0.9847093820571899
+    },
+    {
+     "video": "ptz_parking",
+     "start": 80,
+     "end": 85,
+     "score": 0.9834365844726562,
+     "best_sim": 0.9834365844726562
+    },
+    {
+     "video": "ptz_parking",
+     "start": 125,
+     "end": 130,
+     "score": 0.9823843836784363,
+     "best_sim": 0.9823843836784363
+    },
+    {
+     "video": "ptz_parking",
+     "start": 25,
+     "end": 30,
+     "score": 0.9779862761497498,
+     "best_sim": 0.9779862761497498
+    }
+   ],
+   "stage1_windows": 4,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.43207621574401855,
+   "t_stage1": 1.57497239112854,
+   "t_stage2": 0.3062295913696289,
+   "t_fullscan": 1.0919127464294434,
+   "fullscan": {
+    "video": "ptz_parking",
+    "variant": "1.0",
+    "coverage": 0.5
+   },
+   "verdict": "PARTIAL",
+   "reason": "only 50% of the clip is archive footage; 5 s has no source",
+   "best": {
+    "video": "ptz_parking",
+    "variant": "1.0",
+    "crop": 1.0,
+    "crop_kind": "sq",
+    "crop_desc": "none",
+    "crop_offset": 0.5,
+    "mirrored": false,
+    "alt_ratio": 0.36955291917597627,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 5.0,
+      "src_start": 100.0,
+      "src_end": 105.0,
+      "n": 25,
+      "mean_d": 0.005781250074505806
+     }
+    ],
+    "removed": [],
+    "foreign": [
+     {
+      "q_start": 5.0,
+      "q_end": 10.0
+     }
+    ],
+    "coverage": 0.5,
+    "foreign_seconds": 5.0
+   },
+   "seconds": 3.405190944671631,
+   "headline": "PARTIAL: 50% of the clip is PTZ car park, 01:40-01:45; NOT from our archive: 5 s at clip 00:05",
+   "ground_truth": {
+    "verdict": "PARTIAL",
+    "source": "ptz_parking",
+    "src_start": 100.0,
+    "src_end": 105.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": 1.0,
+    "removed": [],
+    "foreign": [
+     [
+      5.0,
+      10.0
+     ]
+    ],
+    "edit": "5 s ptz_parking (100-105 s) + 5 s sit_down (not in archive), letterboxed to 1280x720"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.0,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true,
+    "foreign_err_s": 0.0
+   }
+  },
+  "t5_skate_fall": {
+   "clip": "t5_skate_fall.mp4",
+   "duration": 10.28,
+   "n_frames": 51,
+   "stage1": [
+    {
+     "video": "elephants_dream",
+     "start": 255,
+     "end": 260,
+     "score": 1.1719455420970917,
+     "best_sim": 0.42257553339004517
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 5,
+     "end": 10,
+     "score": 1.0731530487537384,
+     "best_sim": 0.42420563101768494
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 0,
+     "end": 5,
+     "score": 1.0578973889350891,
+     "best_sim": 0.4034024775028229
+    },
+    {
+     "video": "elephants_dream",
+     "start": 270,
+     "end": 275,
+     "score": 1.0177620947360992,
+     "best_sim": 0.3751867413520813
+    },
+    {
+     "video": "elephants_dream",
+     "start": 260,
+     "end": 265,
+     "score": 0.9524375796318054,
+     "best_sim": 0.35361814498901367
+    },
+    {
+     "video": "ptz_parking",
+     "start": 145,
+     "end": 150,
+     "score": 0.9389725029468536,
+     "best_sim": 0.3573383092880249
+    },
+    {
+     "video": "ptz_parking",
+     "start": 130,
+     "end": 135,
+     "score": 0.8551742136478424,
+     "best_sim": 0.3126223385334015
+    },
+    {
+     "video": "ptz_parking",
+     "start": 110,
+     "end": 115,
+     "score": 0.7041950523853302,
+     "best_sim": 0.39539140462875366
+    },
+    {
+     "video": "elephants_dream",
+     "start": 250,
+     "end": 255,
+     "score": 0.6529518961906433,
+     "best_sim": 0.33424368500709534
+    },
+    {
+     "video": "ptz_parking",
+     "start": 215,
+     "end": 220,
+     "score": 0.6446381509304047,
+     "best_sim": 0.3541126251220703
+    }
+   ],
+   "stage1_windows": 4,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.3558845520019531,
+   "t_stage1": 1.4624969959259033,
+   "t_stage2": 0.3350801467895508,
+   "t_fullscan": 0.9903225898742676,
+   "fullscan": null,
+   "verdict": "NOT IN ARCHIVE",
+   "reason": "no archive footage aligns with this clip",
+   "best": null,
+   "seconds": 3.143784284591675,
+   "headline": "NOT IN ARCHIVE: no archive footage aligns with this clip",
+   "ground_truth": {
+    "verdict": "NOT IN ARCHIVE",
+    "source": null,
+    "edit": "skate_fall.mp4 entirely, re-encoded crf 28"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "offset_ok": null
+   }
+  },
+  "t6_lisbon_crop_cut": {
+   "clip": "t6_lisbon_crop_cut.mp4",
+   "duration": 14.96,
+   "n_frames": 75,
+   "stage1": [
+    {
+     "video": "lisbon_parking",
+     "start": 70,
+     "end": 75,
+     "score": 2.4402724504470825,
+     "best_sim": 0.9086600542068481
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 110,
+     "end": 115,
+     "score": 2.3812971711158752,
+     "best_sim": 0.7998896837234497
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 205,
+     "end": 210,
+     "score": 2.3809074759483337,
+     "best_sim": 0.8381980061531067
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 390,
+     "end": 395,
+     "score": 2.299097418785095,
+     "best_sim": 0.7923733592033386
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 75,
+     "end": 80,
+     "score": 1.7118185758590698,
+     "best_sim": 0.8876727819442749
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 60,
+     "end": 65,
+     "score": 1.6799577474594116,
+     "best_sim": 0.9320504069328308
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 685,
+     "end": 690,
+     "score": 1.5603787899017334,
+     "best_sim": 0.7832229137420654
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 220,
+     "end": 225,
+     "score": 1.518583357334137,
+     "best_sim": 0.7842826247215271
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 715,
+     "end": 720,
+     "score": 1.5011945366859436,
+     "best_sim": 0.7863354682922363
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 700,
+     "end": 705,
+     "score": 1.4949402809143066,
+     "best_sim": 0.793340802192688
+    }
+   ],
+   "stage1_windows": 6,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.42606449127197266,
+   "t_stage1": 2.2001984119415283,
+   "t_stage2": 0.7169263362884521,
+   "t_fullscan": 2.98372483253479,
+   "fullscan": {
+    "video": "lisbon_parking",
+    "variant": "0.8",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "lisbon_parking",
+    "variant": "0.8",
+    "crop": 0.8,
+    "crop_kind": "sq",
+    "crop_desc": "80%",
+    "crop_offset": 0.5,
+    "mirrored": false,
+    "alt_ratio": 0.17485393943827568,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 7.0,
+      "src_start": 59.8,
+      "src_end": 66.8,
+      "n": 32,
+      "mean_d": 0.0233154296875
+     },
+     {
+      "q_start": 7.0,
+      "q_end": 15.0,
+      "src_start": 70.0,
+      "src_end": 78.0,
+      "n": 43,
+      "mean_d": 0.028978925198316574
+     }
+    ],
+    "removed": [
+     {
+      "at_q": 7.0,
+      "at_src": 66.8,
+      "seconds": 3.200000000000003,
+      "seconds_r": 3.0,
+      "pos_uncertain_s": 0.0
+     }
+    ],
+    "foreign": [],
+    "coverage": 1.0026737967914439,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 6.327916383743286,
+   "headline": "MATCH: Lisbon cam, 01:00-01:18, cropped to 80%, 3.0 s removed at clip 00:07 (archive 01:06.8)",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "lisbon_parking",
+    "src_start": 60.0,
+    "src_end": 78.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": 0.8,
+    "removed": [
+     [
+      67.0,
+      3.0
+     ]
+    ],
+    "foreign": [],
+    "edit": "lisbon 60-67 s + 70-78 s (3 s removed at 67 s), centre crop 80% rescaled to 640x480, crf 32"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.20000000000000284,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "removed_err_s": 0.20000000000000284,
+    "removed_pos_err_s": 0.20000000000000284,
+    "removed_clip_pos_err_s": 0.0,
+    "foreign_ok": true
+   }
+  },
+  "x6_lisbon_holdout": {
+   "clip": "x6_lisbon_holdout.mp4",
+   "duration": 15.0,
+   "n_frames": 75,
+   "stage1": [
+    {
+     "video": "lisbon_parking",
+     "start": 465,
+     "end": 470,
+     "score": 3.1508323550224304,
+     "best_sim": 0.8595213294029236
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 445,
+     "end": 450,
+     "score": 2.3847427368164062,
+     "best_sim": 0.816031277179718
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 365,
+     "end": 370,
+     "score": 1.7193572521209717,
+     "best_sim": 0.8782961964607239
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 540,
+     "end": 545,
+     "score": 1.6703365445137024,
+     "best_sim": 0.8639482855796814
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 625,
+     "end": 630,
+     "score": 1.6694648265838623,
+     "best_sim": 0.8562025427818298
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 495,
+     "end": 500,
+     "score": 1.65812087059021,
+     "best_sim": 0.8437380790710449
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 545,
+     "end": 550,
+     "score": 1.6501641869544983,
+     "best_sim": 0.845740020275116
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 165,
+     "end": 170,
+     "score": 1.6425655484199524,
+     "best_sim": 0.8488932251930237
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 570,
+     "end": 575,
+     "score": 1.6269609332084656,
+     "best_sim": 0.8443487882614136
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 190,
+     "end": 195,
+     "score": 1.514558732509613,
+     "best_sim": 0.7891554236412048
+    }
+   ],
+   "stage1_windows": 6,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.6684496402740479,
+   "t_stage1": 4.142000436782837,
+   "t_stage2": 1.563399314880371,
+   "t_fullscan": 12.610919713973999,
+   "fullscan": null,
+   "verdict": "NOT IN ARCHIVE",
+   "reason": "no archive footage aligns with this clip",
+   "best": null,
+   "seconds": 18.984769105911255,
+   "headline": "NOT IN ARCHIVE: no archive footage aligns with this clip",
+   "ground_truth": {
+    "verdict": "NOT IN ARCHIVE",
+    "source": null,
+    "edit": "lisbon_parking 300-315 s, untouched, but that window is held OUT of the archive"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "offset_ok": null
+   }
+  },
+  "x7_retail_control": {
+   "clip": "x7_retail_control.mp4",
+   "duration": 15.04620789734973,
+   "n_frames": 75,
+   "stage1": [
+    {
+     "video": "retail_cctv",
+     "start": 60,
+     "end": 65,
+     "score": 5.897335529327393,
+     "best_sim": 0.9984319806098938
+    },
+    {
+     "video": "retail_cctv",
+     "start": 55,
+     "end": 60,
+     "score": 5.892289400100708,
+     "best_sim": 0.9990866184234619
+    },
+    {
+     "video": "retail_cctv",
+     "start": 50,
+     "end": 55,
+     "score": 5.855433344841003,
+     "best_sim": 0.9975112676620483
+    },
+    {
+     "video": "retail_cctv",
+     "start": 45,
+     "end": 50,
+     "score": 5.827312409877777,
+     "best_sim": 0.9869904518127441
+    },
+    {
+     "video": "retail_cctv",
+     "start": 70,
+     "end": 75,
+     "score": 4.829874932765961,
+     "best_sim": 0.9734015464782715
+    },
+    {
+     "video": "retail_cctv",
+     "start": 15,
+     "end": 20,
+     "score": 4.803177833557129,
+     "best_sim": 0.972467303276062
+    },
+    {
+     "video": "retail_cctv",
+     "start": 5,
+     "end": 10,
+     "score": 4.80263489484787,
+     "best_sim": 0.9709200263023376
+    },
+    {
+     "video": "retail_cctv",
+     "start": 65,
+     "end": 70,
+     "score": 3.8549051880836487,
+     "best_sim": 0.9771502614021301
+    },
+    {
+     "video": "retail_cctv",
+     "start": 20,
+     "end": 25,
+     "score": 2.9040392637252808,
+     "best_sim": 0.9748251438140869
+    },
+    {
+     "video": "retail_cctv",
+     "start": 85,
+     "end": 90,
+     "score": 2.8840816020965576,
+     "best_sim": 0.9656674265861511
+    }
+   ],
+   "stage1_windows": 6,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 1.0651209354400635,
+   "t_stage1": 2.8853976726531982,
+   "t_stage2": 0.36170077323913574,
+   "t_fullscan": 5.162063360214233,
+   "fullscan": {
+    "video": "retail_cctv",
+    "variant": "1.0",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "retail_cctv",
+    "variant": "1.0",
+    "crop": 1.0,
+    "crop_kind": "sq",
+    "crop_desc": "none",
+    "crop_offset": 0.5,
+    "mirrored": false,
+    "alt_ratio": 0.0027162478031310636,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 15.0,
+      "src_start": 50.0,
+      "src_end": 65.0,
+      "n": 75,
+      "mean_d": 0.008645833469927311
+     }
+    ],
+    "removed": [],
+    "foreign": [],
+    "coverage": 0.9969289340101523,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 9.47428274154663,
+   "headline": "MATCH: Retail CCTV, 00:50-01:05",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "retail_cctv",
+    "src_start": 50.0,
+    "src_end": 65.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": 1.0,
+    "removed": [],
+    "foreign": [],
+    "edit": "control: plain cut, crf 23"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.0,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true
+   }
+  },
+  "x8_retail_combo": {
+   "clip": "x8_retail_combo.mp4",
+   "duration": 14.9699075842053,
+   "n_frames": 75,
+   "stage1": [
+    {
+     "video": "retail_cctv",
+     "start": 60,
+     "end": 65,
+     "score": 5.624612390995026,
+     "best_sim": 0.9495142102241516
+    },
+    {
+     "video": "retail_cctv",
+     "start": 45,
+     "end": 50,
+     "score": 5.592947781085968,
+     "best_sim": 0.9580006003379822
+    },
+    {
+     "video": "retail_cctv",
+     "start": 85,
+     "end": 90,
+     "score": 4.704659461975098,
+     "best_sim": 0.9551064968109131
+    },
+    {
+     "video": "retail_cctv",
+     "start": 90,
+     "end": 95,
+     "score": 4.671457350254059,
+     "best_sim": 0.9694225192070007
+    },
+    {
+     "video": "retail_cctv",
+     "start": 50,
+     "end": 55,
+     "score": 4.60600882768631,
+     "best_sim": 0.9402098059654236
+    },
+    {
+     "video": "retail_cctv",
+     "start": 75,
+     "end": 80,
+     "score": 3.8282995223999023,
+     "best_sim": 0.9617313742637634
+    },
+    {
+     "video": "retail_cctv",
+     "start": 70,
+     "end": 75,
+     "score": 3.768473505973816,
+     "best_sim": 0.9519099593162537
+    },
+    {
+     "video": "retail_cctv",
+     "start": 80,
+     "end": 85,
+     "score": 3.7562485933303833,
+     "best_sim": 0.9563068151473999
+    },
+    {
+     "video": "retail_cctv",
+     "start": 65,
+     "end": 70,
+     "score": 3.7520052194595337,
+     "best_sim": 0.943788468837738
+    },
+    {
+     "video": "retail_cctv",
+     "start": 55,
+     "end": 60,
+     "score": 3.694848656654358,
+     "best_sim": 0.9400014877319336
+    }
+   ],
+   "stage1_windows": 6,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.4738891124725342,
+   "t_stage1": 3.116736888885498,
+   "t_stage2": 0.14854836463928223,
+   "t_fullscan": 3.299492359161377,
+   "fullscan": {
+    "video": "retail_cctv",
+    "variant": "0.7M",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "retail_cctv",
+    "variant": "0.7M",
+    "crop": 0.7,
+    "crop_kind": "sq",
+    "crop_desc": "70%",
+    "crop_offset": 0.5,
+    "mirrored": true,
+    "alt_ratio": 0.009567782397744024,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.5,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 15.0,
+      "src_start": 70.1,
+      "src_end": 92.6,
+      "n": 75,
+      "mean_d": 0.02552083320915699
+     }
+    ],
+    "removed": [],
+    "foreign": [],
+    "coverage": 1.0020101938255417,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 7.040679931640625,
+   "headline": "MATCH: Retail CCTV, 01:10-01:33, cropped to 70%, mirrored, speed 1.50x",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "retail_cctv",
+    "src_start": 70.0,
+    "src_end": 92.5,
+    "speed": 1.5,
+    "mirrored": true,
+    "crop": 0.7,
+    "variant": "0.7M",
+    "removed": [],
+    "foreign": [],
+    "edit": "mirrored + centre crop 70% + 1.5x speed (15 s query = 22.5 s of source), crf 30"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.09999999999999432,
+    "end_err": 0.09999999999999432,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true
+   }
+  },
+  "x9_dashcam_offcentre": {
+   "clip": "x9_dashcam_offcentre.mp4",
+   "duration": 15.0,
+   "n_frames": 75,
+   "stage1": [
+    {
+     "video": "dashcam_urban",
+     "start": 35,
+     "end": 40,
+     "score": 4.6154322028160095,
+     "best_sim": 0.9153189659118652
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 30,
+     "end": 35,
+     "score": 4.535723388195038,
+     "best_sim": 0.9203972816467285
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 50,
+     "end": 55,
+     "score": 4.337544023990631,
+     "best_sim": 0.8149999380111694
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 655,
+     "end": 660,
+     "score": 4.206318140029907,
+     "best_sim": 0.7340386509895325
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 25,
+     "end": 30,
+     "score": 4.143539190292358,
+     "best_sim": 0.766339898109436
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 40,
+     "end": 45,
+     "score": 4.139358162879944,
+     "best_sim": 0.8840872049331665
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 45,
+     "end": 50,
+     "score": 3.792102813720703,
+     "best_sim": 0.800751268863678
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 55,
+     "end": 60,
+     "score": 3.6761391162872314,
+     "best_sim": 0.8171510100364685
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 65,
+     "end": 70,
+     "score": 3.597175121307373,
+     "best_sim": 0.7807927131652832
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 60,
+     "end": 65,
+     "score": 3.510922431945801,
+     "best_sim": 0.7570376992225647
+    }
+   ],
+   "stage1_windows": 6,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.6588428020477295,
+   "t_stage1": 3.8979873657226562,
+   "t_stage2": 0.7370920181274414,
+   "t_fullscan": 3.3106932640075684,
+   "fullscan": {
+    "video": "dashcam_urban",
+    "variant": "0.7R",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "dashcam_urban",
+    "variant": "0.7R",
+    "crop": 0.7,
+    "crop_kind": "sq",
+    "crop_desc": "70%, right-aligned",
+    "crop_offset": 1.0,
+    "mirrored": false,
+    "alt_ratio": 0.0,
+    "runner_up": {
+     "video": "lisbon_parking",
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 15.0,
+      "src_start": 30.0,
+      "src_end": 45.0,
+      "n": 75,
+      "mean_d": 0.021666666492819786
+     }
+    ],
+    "removed": [],
+    "foreign": [],
+    "coverage": 1.0,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 8.604615449905396,
+   "headline": "MATCH: Urban dashcam, 00:30-00:45, cropped to 70% (right-aligned)",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "dashcam_urban",
+    "src_start": 30.0,
+    "src_end": 45.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": "off-centre 70% (right side)",
+    "variant": "0.7R",
+    "removed": [],
+    "foreign": [],
+    "edit": "crop 70% from the RIGHT side (not centred), rescaled; archive only stores CENTRE crops"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.0,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true
+   }
+  },
+  "x10_yonge_lowres_grade": {
+   "clip": "x10_yonge_lowres_grade.mp4",
+   "duration": 15.014999999999999,
+   "n_frames": 75,
+   "stage1": [
+    {
+     "video": "yonge_dundas",
+     "start": 15,
+     "end": 20,
+     "score": 5.384637117385864,
+     "best_sim": 0.92083740234375
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 20,
+     "end": 25,
+     "score": 5.367489039897919,
+     "best_sim": 0.9233604073524475
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 5,
+     "end": 10,
+     "score": 5.298668384552002,
+     "best_sim": 0.9096221923828125
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 25,
+     "end": 30,
+     "score": 5.268413186073303,
+     "best_sim": 0.8990817666053772
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 0,
+     "end": 5,
+     "score": 5.253189742565155,
+     "best_sim": 0.8987717628479004
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 50,
+     "end": 55,
+     "score": 5.185376942157745,
+     "best_sim": 0.8848174214363098
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 30,
+     "end": 35,
+     "score": 5.136749863624573,
+     "best_sim": 0.879927933216095
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 40,
+     "end": 45,
+     "score": 5.106111288070679,
+     "best_sim": 0.8713973164558411
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 10,
+     "end": 15,
+     "score": 3.5025895833969116,
+     "best_sim": 0.9155408143997192
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 35,
+     "end": 40,
+     "score": 3.3886762261390686,
+     "best_sim": 0.854341983795166
+    }
+   ],
+   "stage1_windows": 6,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.30133700370788574,
+   "t_stage1": 1.490419864654541,
+   "t_stage2": 0.08650469779968262,
+   "t_fullscan": 1.4599940776824951,
+   "fullscan": {
+    "video": "yonge_dundas",
+    "variant": "1.0",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "yonge_dundas",
+    "variant": "1.0",
+    "crop": 1.0,
+    "crop_kind": "sq",
+    "crop_desc": "none",
+    "crop_offset": 0.5,
+    "mirrored": false,
+    "alt_ratio": 0.001113572120093498,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 15.0,
+      "src_start": 10.0,
+      "src_end": 25.0,
+      "n": 75,
+      "mean_d": 0.04609375074505806
+     }
+    ],
+    "removed": [],
+    "foreign": [],
+    "coverage": 0.999000999000999,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 3.3382556438446045,
+   "headline": "MATCH: Yonge-Dundas cam, 00:10-00:25",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "yonge_dundas",
+    "src_start": 10.0,
+    "src_end": 25.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": 1.0,
+    "removed": [],
+    "foreign": [],
+    "edit": "320x180, brightness +0.12, contrast 1.3, saturation 0, x264 crf 36"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.0,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true
+   }
+  },
+  "x16_lisbon_cut_in_static": {
+   "clip": "x16_lisbon_cut_in_static.mp4",
+   "duration": 14.96,
+   "n_frames": 75,
+   "stage1": [
+    {
+     "video": "lisbon_parking",
+     "start": 70,
+     "end": 75,
+     "score": 3.1814555525779724,
+     "best_sim": 0.9086600542068481
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 110,
+     "end": 115,
+     "score": 3.1608850955963135,
+     "best_sim": 0.7998896837234497
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 205,
+     "end": 210,
+     "score": 3.13357013463974,
+     "best_sim": 0.8381980061531067
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 75,
+     "end": 80,
+     "score": 2.460915982723236,
+     "best_sim": 0.8876727819442749
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 390,
+     "end": 395,
+     "score": 2.299097418785095,
+     "best_sim": 0.7923733592033386
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 60,
+     "end": 65,
+     "score": 1.6616212129592896,
+     "best_sim": 0.9320504069328308
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 55,
+     "end": 60,
+     "score": 1.6301017999649048,
+     "best_sim": 0.8665104508399963
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 685,
+     "end": 690,
+     "score": 1.5603787899017334,
+     "best_sim": 0.7832229137420654
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 340,
+     "end": 345,
+     "score": 1.5524135828018188,
+     "best_sim": 0.8032779097557068
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 125,
+     "end": 130,
+     "score": 1.5192224979400635,
+     "best_sim": 0.7782655358314514
+    }
+   ],
+   "stage1_windows": 6,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.2990076541900635,
+   "t_stage1": 1.4680757522583008,
+   "t_stage2": 0.6798505783081055,
+   "t_fullscan": 1.6626152992248535,
+   "fullscan": {
+    "video": "lisbon_parking",
+    "variant": "0.8",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "lisbon_parking",
+    "variant": "0.8",
+    "crop": 0.8,
+    "crop_kind": "sq",
+    "crop_desc": "80%",
+    "crop_offset": 0.5,
+    "mirrored": false,
+    "alt_ratio": 0.09099435610568425,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 6.0,
+      "src_start": 59.8,
+      "src_end": 65.8,
+      "n": 27,
+      "mean_d": 0.02387152798473835
+     },
+     {
+      "q_start": 6.0,
+      "q_end": 15.0,
+      "src_start": 69.0,
+      "src_end": 78.0,
+      "n": 48,
+      "mean_d": 0.02897135354578495
+     }
+    ],
+    "removed": [
+     {
+      "at_q": 6.0,
+      "at_src": 65.8,
+      "seconds": 3.200000000000003,
+      "seconds_r": 3.0,
+      "pos_uncertain_s": 0.0
+     }
+    ],
+    "foreign": [],
+    "coverage": 1.0026737967914439,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 4.109549283981323,
+   "headline": "MATCH: Lisbon cam, 01:00-01:18, cropped to 80%, 3.0 s removed at clip 00:06 (archive 01:05.8)",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "lisbon_parking",
+    "src_start": 60.0,
+    "src_end": 78.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": 0.8,
+    "removed": [
+     [
+      66.0,
+      3.0
+     ]
+    ],
+    "foreign": [],
+    "edit": "lisbon 60-66 s + 69-78 s: the 3 s cut starts 1 s before the end of the static title card (card ~64-67 s), so the frames just before the cut are static; crop 80%, crf 32"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.20000000000000284,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "removed_err_s": 0.20000000000000284,
+    "removed_pos_err_s": 0.20000000000000284,
+    "removed_clip_pos_err_s": 0.0,
+    "foreign_ok": true
+   }
+  },
+  "x13_dashcam_916_caption": {
+   "clip": "x13_dashcam_916_caption.mp4",
+   "duration": 12.0,
+   "n_frames": 60,
+   "stage1": [
+    {
+     "video": "dashcam_urban",
+     "start": 55,
+     "end": 60,
+     "score": 3.2531254291534424,
+     "best_sim": 0.744510293006897
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 65,
+     "end": 70,
+     "score": 2.672196328639984,
+     "best_sim": 0.6874102354049683
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 35,
+     "end": 40,
+     "score": 2.612303674221039,
+     "best_sim": 0.7004870772361755
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 40,
+     "end": 45,
+     "score": 2.4381030201911926,
+     "best_sim": 0.6256464123725891
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 45,
+     "end": 50,
+     "score": 2.4137169122695923,
+     "best_sim": 0.6594887971878052
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 75,
+     "end": 80,
+     "score": 2.3184802532196045,
+     "best_sim": 0.6099474430084229
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 80,
+     "end": 85,
+     "score": 2.3105245232582092,
+     "best_sim": 0.5869178771972656
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 70,
+     "end": 75,
+     "score": 1.8540659546852112,
+     "best_sim": 0.6692516207695007
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 60,
+     "end": 65,
+     "score": 1.3217716813087463,
+     "best_sim": 0.6825886964797974
+    },
+    {
+     "video": "dashcam_urban",
+     "start": 50,
+     "end": 55,
+     "score": 1.2857534289360046,
+     "best_sim": 0.6569322943687439
+    }
+   ],
+   "stage1_windows": 5,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.32803964614868164,
+   "t_stage1": 2.077136754989624,
+   "t_stage2": 0.10405445098876953,
+   "t_fullscan": 1.3577263355255127,
+   "fullscan": {
+    "video": "dashcam_urban",
+    "variant": "p916R",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "dashcam_urban",
+    "variant": "p916R",
+    "crop": 1.0,
+    "crop_kind": "p916",
+    "crop_desc": "9:16 portrait re-crop (right)",
+    "crop_offset": 1.0,
+    "mirrored": false,
+    "alt_ratio": 0.0,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 12.0,
+      "src_start": 60.0,
+      "src_end": 72.0,
+      "n": 60,
+      "mean_d": 0.09856770932674408
+     }
+    ],
+    "removed": [],
+    "foreign": [],
+    "coverage": 1.0,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 3.866957187652588,
+   "headline": "MATCH: Urban dashcam, 01:00-01:12, re-cropped to 9:16 portrait (right)",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "dashcam_urban",
+    "src_start": 60.0,
+    "src_end": 72.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": "9:16 portrait, right edge",
+    "variant": "p916R",
+    "removed": [],
+    "foreign": [],
+    "edit": "16:9 -> 9:16 portrait strip from the RIGHT edge, 406x720, burned-in white caption + @handle, crf 30"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.0,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true
+   }
+  },
+  "x14_retail_tiktok_bars": {
+   "clip": "x14_retail_tiktok_bars.mp4",
+   "duration": 12.067516993813488,
+   "n_frames": 60,
+   "stage1": [
+    {
+     "video": "retail_cctv",
+     "start": 25,
+     "end": 30,
+     "score": 3.6815245747566223,
+     "best_sim": 0.7453320622444153
+    },
+    {
+     "video": "retail_cctv",
+     "start": 35,
+     "end": 40,
+     "score": 3.6771085262298584,
+     "best_sim": 0.7449365258216858
+    },
+    {
+     "video": "retail_cctv",
+     "start": 40,
+     "end": 45,
+     "score": 3.644823908805847,
+     "best_sim": 0.7360625267028809
+    },
+    {
+     "video": "retail_cctv",
+     "start": 45,
+     "end": 50,
+     "score": 3.6426401138305664,
+     "best_sim": 0.7393737435340881
+    },
+    {
+     "video": "retail_cctv",
+     "start": 5,
+     "end": 10,
+     "score": 3.6313263177871704,
+     "best_sim": 0.7361774444580078
+    },
+    {
+     "video": "retail_cctv",
+     "start": 10,
+     "end": 15,
+     "score": 3.626395583152771,
+     "best_sim": 0.7360033988952637
+    },
+    {
+     "video": "retail_cctv",
+     "start": 30,
+     "end": 35,
+     "score": 3.6063069701194763,
+     "best_sim": 0.7321717739105225
+    },
+    {
+     "video": "retail_cctv",
+     "start": 0,
+     "end": 5,
+     "score": 3.6037887930870056,
+     "best_sim": 0.732672393321991
+    },
+    {
+     "video": "retail_cctv",
+     "start": 95,
+     "end": 100,
+     "score": 2.9206297397613525,
+     "best_sim": 0.7401196956634521
+    },
+    {
+     "video": "retail_cctv",
+     "start": 100,
+     "end": 105,
+     "score": 1.4498940110206604,
+     "best_sim": 0.7319971919059753
+    }
+   ],
+   "stage1_windows": 5,
+   "bars_detected": {
+    "top": 0.3399122807017544,
+    "bottom": 0.3399122807017544,
+    "left": 0.0,
+    "right": 0.0
+   },
+   "bars_stripped": {
+    "top": 0.3399122807017544,
+    "bottom": 0.3399122807017544,
+    "left": 0.0,
+    "right": 0.0
+   },
+   "t_hash": 0.4505894184112549,
+   "t_stage1": 1.732250452041626,
+   "t_stage2": 0.10451555252075195,
+   "t_fullscan": 1.292710542678833,
+   "fullscan": {
+    "video": "retail_cctv",
+    "variant": "1.0",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "99% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "retail_cctv",
+    "variant": "1.0",
+    "crop": 1.0,
+    "crop_kind": "sq",
+    "crop_desc": "none",
+    "crop_offset": 0.5,
+    "mirrored": false,
+    "alt_ratio": 0.01317061199912638,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": true,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 12.0,
+      "src_start": 40.0,
+      "src_end": 52.0,
+      "n": 60,
+      "mean_d": 0.01230468787252903
+     }
+    ],
+    "removed": [],
+    "foreign": [],
+    "coverage": 0.9944050632911393,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 3.5810680389404297,
+   "headline": "MATCH: Retail CCTV, 00:40-00:52, letterboxed (black bars ignored)",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "retail_cctv",
+    "src_start": 40.0,
+    "src_end": 52.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": 1.0,
+    "removed": [],
+    "foreign": [],
+    "edit": "whole 16:9 frame letterboxed into a 720x1280 portrait canvas (black bars top+bottom), burned-in caption, crf 30"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.0,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true
+   }
+  },
+  "x15_yonge_916_offgrid": {
+   "clip": "x15_yonge_916_offgrid.mp4",
+   "duration": 12.011999999999999,
+   "n_frames": 60,
+   "stage1": [
+    {
+     "video": "yonge_dundas",
+     "start": 25,
+     "end": 30,
+     "score": 4.700321197509766,
+     "best_sim": 0.9502378702163696
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 20,
+     "end": 25,
+     "score": 4.657657623291016,
+     "best_sim": 0.9518817663192749
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 35,
+     "end": 40,
+     "score": 4.624752759933472,
+     "best_sim": 0.9429723024368286
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 0,
+     "end": 5,
+     "score": 4.614562571048737,
+     "best_sim": 0.9382805824279785
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 30,
+     "end": 35,
+     "score": 4.6086501479148865,
+     "best_sim": 0.9543039202690125
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 5,
+     "end": 10,
+     "score": 4.558617651462555,
+     "best_sim": 0.9313070178031921
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 15,
+     "end": 20,
+     "score": 4.528622388839722,
+     "best_sim": 0.9246717691421509
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 40,
+     "end": 45,
+     "score": 4.527498424053192,
+     "best_sim": 0.9177943468093872
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 50,
+     "end": 55,
+     "score": 3.6837748885154724,
+     "best_sim": 0.951650857925415
+    },
+    {
+     "video": "yonge_dundas",
+     "start": 45,
+     "end": 50,
+     "score": 2.6937158703804016,
+     "best_sim": 0.9046050906181335
+    }
+   ],
+   "stage1_windows": 5,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.3269484043121338,
+   "t_stage1": 1.8908500671386719,
+   "t_stage2": 0.019048213958740234,
+   "t_fullscan": 1.1773784160614014,
+   "fullscan": null,
+   "verdict": "NOT IN ARCHIVE",
+   "reason": "no archive footage aligns with this clip",
+   "best": null,
+   "seconds": 3.4142251014709473,
+   "headline": "NOT IN ARCHIVE: no archive footage aligns with this clip",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "yonge_dundas",
+    "src_start": 20.0,
+    "src_end": 32.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": "9:16 portrait at 75% across (between the indexed centre and right)",
+    "removed": [],
+    "foreign": [],
+    "edit": "9:16 portrait strip positioned 75% of the way to the right edge (NOT an indexed position), crf 30"
+   },
+   "eval": {
+    "verdict_ok": false,
+    "offset_ok": false
+   }
+  },
+  "x12_lisbon_titlecard": {
+   "clip": "x12_lisbon_titlecard.mp4",
+   "duration": 3.0,
+   "n_frames": 15,
+   "stage1": [
+    {
+     "video": "lisbon_parking",
+     "start": 60,
+     "end": 65,
+     "score": 0.8256167769432068,
+     "best_sim": 0.8256167769432068
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 125,
+     "end": 130,
+     "score": 0.8135999441146851,
+     "best_sim": 0.8135999441146851
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 700,
+     "end": 705,
+     "score": 0.813232958316803,
+     "best_sim": 0.813232958316803
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 685,
+     "end": 690,
+     "score": 0.8050912022590637,
+     "best_sim": 0.8050912022590637
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 280,
+     "end": 285,
+     "score": 0.804947018623352,
+     "best_sim": 0.804947018623352
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 710,
+     "end": 715,
+     "score": 0.8003989458084106,
+     "best_sim": 0.8003989458084106
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 250,
+     "end": 255,
+     "score": 0.7998800277709961,
+     "best_sim": 0.7998800277709961
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 20,
+     "end": 25,
+     "score": 0.7926356792449951,
+     "best_sim": 0.7926356792449951
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 110,
+     "end": 115,
+     "score": 0.7903246879577637,
+     "best_sim": 0.7903246879577637
+    },
+    {
+     "video": "lisbon_parking",
+     "start": 220,
+     "end": 225,
+     "score": 0.785617470741272,
+     "best_sim": 0.785617470741272
+    }
+   ],
+   "stage1_windows": 1,
+   "bars_detected": null,
+   "bars_stripped": null,
+   "t_hash": 0.2543966770172119,
+   "t_stage1": 0.2772059440612793,
+   "t_stage2": 0.3221168518066406,
+   "t_fullscan": 0.8289258480072021,
+   "fullscan": {
+    "video": "lisbon_parking",
+    "variant": "1.0",
+    "coverage": 1.0
+   },
+   "verdict": "MATCH",
+   "reason": "100% of the clip aligns frame-by-frame",
+   "best": {
+    "video": "lisbon_parking",
+    "variant": "1.0",
+    "crop": 1.0,
+    "crop_kind": "sq",
+    "crop_desc": "none",
+    "crop_offset": 0.5,
+    "mirrored": false,
+    "alt_ratio": 0.1944876312048672,
+    "runner_up": {
+     "video": null,
+     "cov0": 0.0
+    },
+    "stage1_hit": false,
+    "speed": 1.0,
+    "segments": [
+     {
+      "q_start": 0.0,
+      "q_end": 3.0,
+      "src_start": 66.0,
+      "src_end": 69.0,
+      "n": 15,
+      "mean_d": 0.0044270833022892475
+     }
+    ],
+    "removed": [],
+    "foreign": [],
+    "coverage": 1.0,
+    "foreign_seconds": 0.0
+   },
+   "seconds": 1.682645320892334,
+   "headline": "MATCH: Lisbon cam, 01:06-01:09",
+   "ground_truth": {
+    "verdict": "MATCH",
+    "source": "lisbon_parking",
+    "src_start": 66.0,
+    "src_end": 69.0,
+    "speed": 1.0,
+    "mirrored": false,
+    "crop": 1.0,
+    "removed": [],
+    "foreign": [],
+    "edit": "3 s of the static title card inside lisbon_parking, untouched"
+   },
+   "eval": {
+    "verdict_ok": true,
+    "source_ok": true,
+    "start_err": 0.0,
+    "end_err": 0.0,
+    "offset_ok": true,
+    "speed_err_pct": 0.0,
+    "mirror_ok": true,
+    "crop_ok": true,
+    "removed_ok": true,
+    "foreign_ok": true
+   }
+  }
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "camera": "car_detection",
+ "moments": [
+  {
+   "t": 6.0,
+   "end": 9.0,
+   "kind": "blind",
+   "title": "View blocked for 3 s",
+   "detail": "The health ledger marks 0:06 to 0:09 (3 s) as not visible (blocked 2 s, blur 1 s). What happened then is UNKNOWN. The detector still returned 30 detections in this span (10/s vs 4/s elsewhere), so the ledger and the detector disagree here.",
+   "object_ids": [],
+   "thumb": "moments/1.jpg",
+   "box": null,
+   "score": 0.57
+  },
+  {
+   "t": 27.0,
+   "end": 30.16,
+   "kind": "blind",
+   "title": "View blocked for 3 s",
+   "detail": "The health ledger marks 0:27 to 0:30 (3 s) as not visible (blocked 2 s, blur 1 s). What happened then is UNKNOWN.",
+   "object_ids": [],
+   "thumb": "moments/2.jpg",
+   "box": null,
+   "score": 0.571
+  }
+ ]
+}

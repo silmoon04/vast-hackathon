@@ -1,0 +1,126 @@
+{
+ "camera": "car_detection",
+ "objects": [
+  {
+   "object_id": 6,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    224,
+    239,
+    242
+   ],
+   "first_t": 15.2,
+   "last_t": 18.08,
+   "parked": false,
+   "n": 37,
+   "crop": "crops/6.jpg",
+   "crop_t": 16.72,
+   "colour_frac": 0.997,
+   "colour_reliable": true,
+   "colour_why": null,
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 8,
+   "name": "car",
+   "colour": "red",
+   "rgb": [
+    181,
+    102,
+    119
+   ],
+   "first_t": 15.36,
+   "last_t": 18.24,
+   "parked": false,
+   "n": 36,
+   "crop": "crops/8.jpg",
+   "crop_t": 16.56,
+   "colour_frac": 0.311,
+   "colour_reliable": true,
+   "colour_why": null,
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 2,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    251,
+    252,
+    250
+   ],
+   "first_t": 5.28,
+   "last_t": 8.32,
+   "parked": false,
+   "n": 34,
+   "crop": "crops/2.jpg",
+   "crop_t": 6.0,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "colour_why": null,
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 16,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    255,
+    255,
+    255
+   ],
+   "first_t": 25.84,
+   "last_t": 27.6,
+   "parked": false,
+   "n": 21,
+   "crop": "crops/16.jpg",
+   "crop_t": 26.72,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "colour_why": null,
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 11,
+   "name": "car",
+   "colour": "red",
+   "rgb": [
+    144,
+    59,
+    73
+   ],
+   "first_t": 18.32,
+   "last_t": 18.88,
+   "parked": false,
+   "n": 8,
+   "crop": "crops/11.jpg",
+   "crop_t": 18.32,
+   "colour_frac": 0.55,
+   "colour_reliable": true,
+   "colour_why": null,
+   "night": false,
+   "day": "A"
+  }
+ ],
+ "colours": {
+  "white": 3,
+  "red": 2
+ },
+ "n_coloured": 5,
+ "n_vehicles": 5,
+ "uncoloured": {},
+ "n_objects_total": 5,
+ "cap": 150,
+ "notes": [],
+ "scene_brightness": 113.0,
+ "scene_brightness_by_day": {
+  "A": 113.0
+ },
+ "night_days": [],
+ "method": "vehicles (car/truck/bus) only: dominant paint colour of the box body in HSV, borders and darkest/brightest 10% ignored; no colour at night or for dark or tiny boxes. People, bicycles and motorbikes are never given a colour or any appearance attribute."
+}

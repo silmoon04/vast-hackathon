@@ -1,0 +1,12 @@
+{
+  "camera": "synthetic_demo",
+  "title": "Synthetic street demo",
+  "credit": "Original illustrated fixture; no source video",
+  "w": 960,
+  "h": 540,
+  "fps": 1,
+  "duration": 12,
+  "background": "scene.svg",
+  "days": [{"id": "A", "label": "Fixture scene", "start": 0, "end": 12, "background": "scene.svg"}],
+  "simulated": ["Synthetic fixture: illustrated scene and preset events; no video or model inference"]
+}

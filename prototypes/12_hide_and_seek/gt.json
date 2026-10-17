@@ -1,0 +1,502 @@
+{
+ "note": "Eyeballed by the author from the mid-frame thumbnail of each clip (sheets in out/_work). person_visible/vehicle_visible are only set when clearly visible at that frame; night only for real footage; setting/indoor only when unambiguous.",
+ "clips": {
+  "c01": {
+   "indoor_outdoor": "indoor",
+   "setting": "shop or store",
+   "person_visible": true,
+   "night": false
+  },
+  "c02": {
+   "indoor_outdoor": "indoor",
+   "setting": "shop or store",
+   "person_visible": true,
+   "night": false
+  },
+  "c03": {
+   "indoor_outdoor": "indoor",
+   "setting": "shop or store",
+   "person_visible": true,
+   "night": false
+  },
+  "c04": {
+   "indoor_outdoor": "indoor",
+   "setting": "shop or store",
+   "person_visible": true,
+   "night": false
+  },
+  "c05": {
+   "setting": "other"
+  },
+  "c12": {
+   "setting": "other"
+  },
+  "c06": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c07": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c09": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c11": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c08": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "vehicle_visible": true,
+   "person_visible": true,
+   "night": false
+  },
+  "c10": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c13": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c14": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c18": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c15": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "vehicle_visible": true,
+   "person_visible": true,
+   "night": false
+  },
+  "c16": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "night": false
+  },
+  "c17": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "night": false
+  },
+  "c19": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "night": true
+  },
+  "c20": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "night": true
+  },
+  "c21": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "night": true
+  },
+  "c22": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "vehicle_visible": true,
+   "person_visible": true,
+   "night": false
+  },
+  "c23": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "vehicle_visible": true,
+   "person_visible": true,
+   "night": false
+  },
+  "c24": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "vehicle_visible": true,
+   "person_visible": true,
+   "night": false
+  },
+  "c25": {
+   "indoor_outdoor": "outdoor",
+   "setting": "road or motorway",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c26": {
+   "indoor_outdoor": "outdoor",
+   "setting": "road or motorway",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c28": {
+   "indoor_outdoor": "outdoor",
+   "night": false
+  },
+  "c29": {
+   "indoor_outdoor": "outdoor",
+   "night": false,
+   "vehicle_visible": true
+  },
+  "c30": {
+   "indoor_outdoor": "outdoor",
+   "night": false
+  },
+  "c31": {
+   "setting": "animation or cartoon"
+  },
+  "c32": {
+   "setting": "animation or cartoon"
+  },
+  "c33": {
+   "setting": "animation or cartoon"
+  },
+  "c34": {
+   "setting": "animation or cartoon"
+  },
+  "c35": {
+   "setting": "animation or cartoon"
+  },
+  "c36": {
+   "setting": "animation or cartoon"
+  },
+  "c37": {
+   "setting": "animation or cartoon"
+  },
+  "c38": {
+   "setting": "other"
+  },
+  "c39": {
+   "indoor_outdoor": "outdoor",
+   "setting": "sports or outdoor activity",
+   "person_visible": true,
+   "night": false
+  },
+  "c40": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "person_visible": true,
+   "night": false
+  },
+  "c41": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "person_visible": true,
+   "night": false
+  },
+  "c42": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "person_visible": true,
+   "night": false
+  },
+  "c43": {
+   "indoor_outdoor": "outdoor",
+   "setting": "street",
+   "person_visible": true,
+   "night": false
+  },
+  "c44": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "night": false
+  },
+  "c45": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "vehicle_visible": true,
+   "night": false
+  },
+  "c46": {
+   "indoor_outdoor": "indoor",
+   "setting": "classroom",
+   "person_visible": true,
+   "night": false
+  },
+  "c47": {
+   "indoor_outdoor": "indoor",
+   "setting": "classroom",
+   "person_visible": true,
+   "night": false
+  },
+  "c48": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "night": false
+  },
+  "c51": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "night": false
+  },
+  "c56": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "night": false
+  },
+  "c49": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "person_visible": true,
+   "night": false
+  },
+  "c50": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "person_visible": true,
+   "night": false
+  },
+  "c52": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "person_visible": true,
+   "night": false
+  },
+  "c53": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "person_visible": true,
+   "night": false
+  },
+  "c54": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "person_visible": true,
+   "night": false
+  },
+  "c55": {
+   "indoor_outdoor": "indoor",
+   "setting": "room at home or office",
+   "person_visible": true,
+   "night": false
+  },
+  "c57": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "person_visible": true,
+   "night": false
+  },
+  "c58": {
+   "indoor_outdoor": "outdoor",
+   "setting": "parking lot",
+   "night": false
+  },
+  "c59": {
+   "indoor_outdoor": "indoor",
+   "setting": "shop or store",
+   "person_visible": true,
+   "night": false
+  },
+  "c60": {
+   "indoor_outdoor": "indoor",
+   "setting": "shop or store",
+   "person_visible": true,
+   "night": false
+  },
+  "c61": {
+   "indoor_outdoor": "indoor",
+   "setting": "shop or store",
+   "person_visible": true,
+   "night": false
+  },
+  "c62": {
+   "indoor_outdoor": "indoor",
+   "setting": "factory or workshop",
+   "person_visible": true,
+   "night": false
+  },
+  "c63": {
+   "indoor_outdoor": "indoor",
+   "setting": "factory or workshop",
+   "person_visible": true,
+   "night": false
+  },
+  "c64": {
+   "indoor_outdoor": "indoor",
+   "setting": "factory or workshop",
+   "person_visible": true,
+   "night": false
+  }
+ },
+ "keywords_note": "Eyeballed from the 64 mid-frame thumbnails (contact sheets) in the second review pass. 'true' = clearly visible; 'unsure' = tiny, ambiguous or not judgeable (a judge would press Not sure); every other clip = clearly not visible. Only the 7 visual keywords a judge can answer are labelled.",
+ "keywords": {
+  "trees": {
+   "true": [
+    "c08",
+    "c10",
+    "c13",
+    "c14",
+    "c15",
+    "c16",
+    "c17",
+    "c18",
+    "c19",
+    "c20",
+    "c25",
+    "c26",
+    "c27",
+    "c28",
+    "c29",
+    "c30",
+    "c43"
+   ],
+   "unsure": []
+  },
+  "sky": {
+   "true": [
+    "c08",
+    "c11",
+    "c13",
+    "c14",
+    "c15",
+    "c18",
+    "c25",
+    "c26",
+    "c27",
+    "c28",
+    "c29",
+    "c30",
+    "c43"
+   ],
+   "unsure": [
+    "c09",
+    "c10",
+    "c19",
+    "c20",
+    "c22"
+   ]
+  },
+  "woman": {
+   "true": [
+    "c01",
+    "c02",
+    "c03",
+    "c04",
+    "c23",
+    "c24",
+    "c40",
+    "c42",
+    "c49",
+    "c50",
+    "c52",
+    "c53",
+    "c54",
+    "c55",
+    "c60",
+    "c61"
+   ],
+   "unsure": [
+    "c07",
+    "c08",
+    "c15",
+    "c22",
+    "c39",
+    "c48",
+    "c59",
+    "c63",
+    "c64"
+   ]
+  },
+  "man": {
+   "true": [
+    "c01",
+    "c02",
+    "c03",
+    "c04",
+    "c22",
+    "c23",
+    "c24",
+    "c34",
+    "c37",
+    "c41",
+    "c42",
+    "c43",
+    "c46",
+    "c47",
+    "c49",
+    "c50",
+    "c55",
+    "c60",
+    "c61",
+    "c62"
+   ],
+   "unsure": [
+    "c07",
+    "c08",
+    "c15",
+    "c32",
+    "c36",
+    "c39",
+    "c48",
+    "c59",
+    "c63",
+    "c64"
+   ]
+  },
+  "parking": {
+   "true": [
+    "c06",
+    "c08",
+    "c09",
+    "c10",
+    "c13",
+    "c14",
+    "c15",
+    "c16",
+    "c17",
+    "c18",
+    "c28",
+    "c44",
+    "c45",
+    "c57",
+    "c58"
+   ],
+   "unsure": [
+    "c11",
+    "c27"
+   ]
+  },
+  "shelves": {
+   "true": [
+    "c01",
+    "c02",
+    "c03",
+    "c04",
+    "c59",
+    "c60",
+    "c61"
+   ],
+   "unsure": []
+  },
+  "hallway": {
+   "true": [
+    "c48",
+    "c49",
+    "c50"
+   ],
+   "unsure": []
+  }
+ }
+}

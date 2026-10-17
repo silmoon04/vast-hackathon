@@ -1,0 +1,1726 @@
+{
+ "cameras": [
+  {
+   "id": "ptz_A",
+   "video": "ptz_parking",
+   "ref_t": 20.0,
+   "desc": "PTZ preset A (wide parking lot)",
+   "zones": [
+    {
+     "name": "lot (bays)",
+     "kind": "kerb",
+     "pts": [
+      [
+       0,
+       0.43
+      ],
+      [
+       0.4,
+       0.44
+      ],
+      [
+       0.7,
+       0.46
+      ],
+      [
+       1,
+       0.47
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    {
+     "name": "main aisle",
+     "kind": "lane",
+     "pts": [
+      [
+       0,
+       0.765
+      ],
+      [
+       0.2,
+       0.77
+      ],
+      [
+       0.4,
+       0.765
+      ],
+      [
+       0.55,
+       0.745
+      ],
+      [
+       0.7,
+       0.755
+      ],
+      [
+       0.72,
+       0.8
+      ],
+      [
+       0.58,
+       0.79
+      ],
+      [
+       0.45,
+       0.835
+      ],
+      [
+       0.3,
+       0.835
+      ],
+      [
+       0.1,
+       0.83
+      ],
+      [
+       0,
+       0.83
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ptz_B",
+   "video": "ptz_parking",
+   "ref_t": 275.0,
+   "desc": "PTZ preset B (zoomed parking lot)",
+   "zones": [
+    {
+     "name": "lot (bays)",
+     "kind": "kerb",
+     "pts": [
+      [
+       0,
+       0.3
+      ],
+      [
+       0.35,
+       0.27
+      ],
+      [
+       0.7,
+       0.26
+      ],
+      [
+       1,
+       0.3
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    {
+     "name": "main aisle",
+     "kind": "lane",
+     "pts": [
+      [
+       0,
+       0.575
+      ],
+      [
+       0.2,
+       0.585
+      ],
+      [
+       0.45,
+       0.605
+      ],
+      [
+       0.62,
+       0.612
+      ],
+      [
+       0.8,
+       0.61
+      ],
+      [
+       1.0,
+       0.61
+      ],
+      [
+       1.0,
+       0.685
+      ],
+      [
+       0.8,
+       0.675
+      ],
+      [
+       0.6,
+       0.64
+      ],
+      [
+       0.45,
+       0.635
+      ],
+      [
+       0.2,
+       0.645
+      ],
+      [
+       0,
+       0.655
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "a40_bridge",
+   "video": "motorway_a40",
+   "ref_t": 8.0,
+   "desc": "Motorway A40 from a bridge (fixed)",
+   "zones": [
+    {
+     "name": "left hard shoulder",
+     "kind": "kerb",
+     "pts": [
+      [
+       0,
+       0.86
+      ],
+      [
+       0.47,
+       0.645
+      ],
+      [
+       0.49,
+       0.655
+      ],
+      [
+       0,
+       0.93
+      ]
+     ]
+    },
+    {
+     "name": "central reservation",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.575,
+       0.635
+      ],
+      [
+       0.6,
+       0.63
+      ],
+      [
+       0.455,
+       1.0
+      ],
+      [
+       0.27,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "right hard shoulder",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.68,
+       0.6
+      ],
+      [
+       0.7,
+       0.72
+      ],
+      [
+       0.74,
+       0.8
+      ],
+      [
+       0.77,
+       0.92
+      ],
+      [
+       0.8,
+       1.0
+      ],
+      [
+       0.77,
+       1.0
+      ],
+      [
+       0.72,
+       0.9
+      ],
+      [
+       0.69,
+       0.8
+      ],
+      [
+       0.675,
+       0.72
+      ]
+     ]
+    },
+    {
+     "name": "left carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0,
+       0.93
+      ],
+      [
+       0.49,
+       0.655
+      ],
+      [
+       0.575,
+       0.635
+      ],
+      [
+       0.27,
+       1.0
+      ],
+      [
+       0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "right carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.6,
+       0.63
+      ],
+      [
+       0.67,
+       0.585
+      ],
+      [
+       0.68,
+       0.62
+      ],
+      [
+       0.675,
+       0.72
+      ],
+      [
+       0.69,
+       0.8
+      ],
+      [
+       0.72,
+       0.9
+      ],
+      [
+       0.77,
+       1.0
+      ],
+      [
+       0.455,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "yonge_cross",
+   "video": "yonge_dundas",
+   "ref_t": 20.0,
+   "desc": "Yonge-Dundas crossing (fixed)",
+   "zones": [
+    {
+     "name": "pavement",
+     "kind": "kerb",
+     "pts": [
+      [
+       0,
+       0.44
+      ],
+      [
+       1,
+       0.44
+      ],
+      [
+       1,
+       0.575
+      ],
+      [
+       0.6,
+       0.568
+      ],
+      [
+       0,
+       0.58
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0,
+       0.585
+      ],
+      [
+       0.6,
+       0.575
+      ],
+      [
+       1.0,
+       0.58
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_00",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "close-up, no lane/kerb cue: no geometry drawn",
+   "zones": []
+  },
+  {
+   "id": "lis_01",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.3
+      ],
+      [
+       0.72,
+       0.3
+      ],
+      [
+       0.72,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.72,
+       0.45
+      ],
+      [
+       1.0,
+       0.4
+      ],
+      [
+       1.0,
+       0.9
+      ],
+      [
+       0.72,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_02",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.35
+      ],
+      [
+       1.0,
+       0.35
+      ],
+      [
+       1.0,
+       0.7
+      ],
+      [
+       0.0,
+       0.7
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.72
+      ],
+      [
+       1.0,
+       0.72
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_03",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "cartoon poster, not a road scene: no geometry",
+   "zones": []
+  },
+  {
+   "id": "lis_04",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.38
+      ],
+      [
+       0.8,
+       0.38
+      ],
+      [
+       0.78,
+       0.5
+      ],
+      [
+       0.45,
+       0.58
+      ],
+      [
+       0.28,
+       0.68
+      ],
+      [
+       0.15,
+       0.74
+      ],
+      [
+       0.0,
+       0.8
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.78,
+       0.5
+      ],
+      [
+       1.0,
+       0.48
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ],
+      [
+       0.0,
+       0.82
+      ],
+      [
+       0.15,
+       0.76
+      ],
+      [
+       0.28,
+       0.7
+      ],
+      [
+       0.45,
+       0.6
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_05",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.3,
+       0.75
+      ],
+      [
+       0.55,
+       0.72
+      ],
+      [
+       1.0,
+       0.58
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.3,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.72
+      ],
+      [
+       0.3,
+       0.75
+      ],
+      [
+       0.3,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_06",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "night, no geometry",
+   "zones": []
+  },
+  {
+   "id": "lis_07",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "reflection in a window, no geometry",
+   "zones": []
+  },
+  {
+   "id": "lis_08",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.58
+      ],
+      [
+       1.0,
+       0.58
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_09",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.0
+      ],
+      [
+       1.0,
+       0.4
+      ],
+      [
+       0.8,
+       0.5
+      ],
+      [
+       0.3,
+       0.77
+      ],
+      [
+       0.05,
+       0.87
+      ],
+      [
+       0.0,
+       0.88
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.9
+      ],
+      [
+       0.05,
+       0.89
+      ],
+      [
+       0.3,
+       0.79
+      ],
+      [
+       0.8,
+       0.52
+      ],
+      [
+       1.0,
+       0.42
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_10",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.5
+      ],
+      [
+       1.0,
+       0.5
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_11",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.78
+      ],
+      [
+       1.0,
+       0.78
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.66
+      ],
+      [
+       0.75,
+       0.68
+      ],
+      [
+       0.75,
+       0.77
+      ],
+      [
+       0.0,
+       0.78
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_12",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.45
+      ],
+      [
+       0.72,
+       0.45
+      ],
+      [
+       0.85,
+       0.95
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_13",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.2
+      ],
+      [
+       1.0,
+       0.2
+      ],
+      [
+       1.0,
+       0.82
+      ],
+      [
+       0.0,
+       0.82
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_14",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.22,
+       0.52
+      ],
+      [
+       0.4,
+       0.58
+      ],
+      [
+       0.34,
+       0.78
+      ],
+      [
+       0.22,
+       0.72
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.4,
+       0.58
+      ],
+      [
+       0.75,
+       0.56
+      ],
+      [
+       0.78,
+       1.0
+      ],
+      [
+       0.34,
+       1.0
+      ],
+      [
+       0.34,
+       0.78
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_15",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.45
+      ],
+      [
+       1.0,
+       0.45
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_16",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.15,
+       0.5
+      ],
+      [
+       1.0,
+       0.5
+      ],
+      [
+       1.0,
+       0.95
+      ],
+      [
+       0.15,
+       0.95
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.55
+      ],
+      [
+       0.15,
+       0.55
+      ],
+      [
+       0.15,
+       0.95
+      ],
+      [
+       0.0,
+       0.95
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_17",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.3,
+       0.5
+      ],
+      [
+       1.0,
+       0.5
+      ],
+      [
+       1.0,
+       0.82
+      ],
+      [
+       0.3,
+       0.84
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.86
+      ],
+      [
+       1.0,
+       0.84
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_18",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.2
+      ],
+      [
+       1.0,
+       0.2
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_19",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "narrow street, foreground car cut off: no geometry",
+   "zones": []
+  },
+  {
+   "id": "lis_20",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "small far-away car: no geometry",
+   "zones": []
+  },
+  {
+   "id": "lis_21",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "split-screen composite: no geometry",
+   "zones": []
+  },
+  {
+   "id": "lis_22",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.35
+      ],
+      [
+       1.0,
+       0.35
+      ],
+      [
+       1.0,
+       0.72
+      ],
+      [
+       0.5,
+       0.75
+      ],
+      [
+       0.0,
+       0.74
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.77
+      ],
+      [
+       0.5,
+       0.78
+      ],
+      [
+       1.0,
+       0.75
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_23",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.3,
+       0.35
+      ],
+      [
+       0.92,
+       0.35
+      ],
+      [
+       0.92,
+       0.95
+      ],
+      [
+       0.3,
+       0.95
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.2,
+       0.35
+      ],
+      [
+       0.3,
+       0.35
+      ],
+      [
+       0.3,
+       0.95
+      ],
+      [
+       0.2,
+       0.95
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lis_24",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "street-view screenshot, no geometry",
+   "zones": []
+  },
+  {
+   "id": "lis_25",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.2,
+       0.58
+      ],
+      [
+       1.0,
+       0.58
+      ],
+      [
+       1.0,
+       0.95
+      ],
+      [
+       0.2,
+       0.95
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.5
+      ],
+      [
+       0.2,
+       0.52
+      ],
+      [
+       0.2,
+       0.62
+      ],
+      [
+       0.0,
+       0.64
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lisx_016",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.3
+      ],
+      [
+       1.0,
+       0.3
+      ],
+      [
+       1.0,
+       0.62
+      ],
+      [
+       0.0,
+       0.62
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.62
+      ],
+      [
+       1.0,
+       0.62
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lisx_017",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.35
+      ],
+      [
+       1.0,
+       0.35
+      ],
+      [
+       1.0,
+       0.7
+      ],
+      [
+       0.84,
+       0.7
+      ],
+      [
+       0.84,
+       0.57
+      ],
+      [
+       0.0,
+       0.57
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.57
+      ],
+      [
+       0.84,
+       0.57
+      ],
+      [
+       0.84,
+       0.7
+      ],
+      [
+       1.0,
+       0.7
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lisx_028",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.5
+      ],
+      [
+       0.58,
+       0.5
+      ],
+      [
+       0.58,
+       0.95
+      ],
+      [
+       0.0,
+       0.95
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.58,
+       0.5
+      ],
+      [
+       1.0,
+       0.45
+      ],
+      [
+       1.0,
+       0.95
+      ],
+      [
+       0.58,
+       0.95
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lisx_071",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.88,
+       1.0
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.68
+      ],
+      [
+       0.93,
+       0.8
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.45
+      ],
+      [
+       1.0,
+       0.4
+      ],
+      [
+       1.0,
+       0.68
+      ],
+      [
+       0.93,
+       0.8
+      ],
+      [
+       0.88,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lisx_079",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.6,
+       0.0
+      ],
+      [
+       0.55,
+       0.3
+      ],
+      [
+       0.3,
+       0.38
+      ],
+      [
+       0.0,
+       0.4
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.55
+      ],
+      [
+       1.0,
+       0.5
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lisx_080",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.0,
+       0.3
+      ],
+      [
+       1.0,
+       0.3
+      ],
+      [
+       1.0,
+       0.45
+      ],
+      [
+       0.0,
+       0.5
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.5
+      ],
+      [
+       1.0,
+       0.45
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lisx_088",
+   "video": "lisbon_parking",
+   "ref_t": null,
+   "desc": "lane/kerb polygons drawn on this slide",
+   "zones": [
+    {
+     "name": "pavement / kerb / bay",
+     "kind": "kerb",
+     "pts": [
+      [
+       0.1,
+       0.62
+      ],
+      [
+       0.8,
+       0.55
+      ],
+      [
+       1.0,
+       0.62
+      ],
+      [
+       1.0,
+       0.8
+      ],
+      [
+       0.15,
+       0.82
+      ]
+     ]
+    },
+    {
+     "name": "carriageway",
+     "kind": "lane",
+     "pts": [
+      [
+       0.0,
+       0.85
+      ],
+      [
+       1.0,
+       0.82
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.0,
+       1.0
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}

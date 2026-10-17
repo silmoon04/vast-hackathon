@@ -1,0 +1,1192 @@
+{
+ "ptz_parking": {
+  "how": "E-numbered call-free tiles viewed by me. UNJUDGEABLE = ground contact cut off by the frame bottom or only a sliver visible; everything else is a vehicle in a parking bay (AT KERB). No vehicle in the ptz clips is stopped in an aisle.",
+  "alerts": [
+   {
+    "t_alert": 5.0,
+    "cx": 24.5,
+    "cy": 676.0,
+    "eid": "E01",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 57.3,
+    "cy": 508.5,
+    "eid": "E02",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 85.9,
+    "cy": 466.1,
+    "eid": "E03",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 144.4,
+    "cy": 657.0,
+    "eid": "E04",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 124.2,
+    "cy": 401.0,
+    "eid": "E05",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 163.6,
+    "cy": 508.6,
+    "eid": "E06",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 193.8,
+    "cy": 399.8,
+    "eid": "E07",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 260.6,
+    "cy": 394.9,
+    "eid": "E08",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 276.1,
+    "cy": 454.0,
+    "eid": "E09",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 287.4,
+    "cy": 505.0,
+    "eid": "E10",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 328.9,
+    "cy": 673.0,
+    "eid": "E11",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 386.9,
+    "cy": 492.5,
+    "eid": "E12",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 504.0,
+    "cy": 492.0,
+    "eid": "E13",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 569.1,
+    "cy": 319.9,
+    "eid": "E14",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 654.5,
+    "cy": 662.5,
+    "eid": "E15",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 622.0,
+    "cy": 340.0,
+    "eid": "E16",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 640.5,
+    "cy": 439.9,
+    "eid": "E17",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 723.0,
+    "cy": 484.0,
+    "eid": "E18",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 802.5,
+    "cy": 625.5,
+    "eid": "E19",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 798.9,
+    "cy": 472.0,
+    "eid": "E20",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 794.0,
+    "cy": 321.0,
+    "eid": "E21",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 883.0,
+    "cy": 459.0,
+    "eid": "E22",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 924.0,
+    "cy": 632.0,
+    "eid": "E23",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 1098.2,
+    "cy": 625.0,
+    "eid": "E24",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 1050.2,
+    "cy": 459.0,
+    "eid": "E25",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 1186.0,
+    "cy": 600.0,
+    "eid": "E26",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 5.0,
+    "cx": 1236.0,
+    "cy": 440.1,
+    "eid": "E27",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 9.67,
+    "cx": 406.6,
+    "cy": 392.0,
+    "eid": "E28",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 52.27,
+    "cx": 1137.7,
+    "cy": 695.0,
+    "eid": "E29",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 52.93,
+    "cx": 642.0,
+    "cy": 440.5,
+    "eid": "E30",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 57.67,
+    "cx": 716.5,
+    "cy": 428.0,
+    "eid": "E31",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 73.13,
+    "cx": 640.9,
+    "cy": 440.1,
+    "eid": "E32",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 73.2,
+    "cx": 477.0,
+    "cy": 664.0,
+    "eid": "E33",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 73.2,
+    "cx": 455.5,
+    "cy": 459.0,
+    "eid": "E34",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 76.2,
+    "cx": 795.0,
+    "cy": 322.0,
+    "eid": "E35",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 110.47,
+    "cx": 259.5,
+    "cy": 397.3,
+    "eid": "E36",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 120.67,
+    "cx": 273.6,
+    "cy": 454.0,
+    "eid": "E37",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 121.6,
+    "cx": 194.0,
+    "cy": 399.5,
+    "eid": "E38",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 122.27,
+    "cx": 123.9,
+    "cy": 400.6,
+    "eid": "E39",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 138.47,
+    "cx": 1156.8,
+    "cy": 416.0,
+    "eid": "E40",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 142.2,
+    "cx": 86.2,
+    "cy": 465.6,
+    "eid": "E41",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 143.67,
+    "cx": 260.1,
+    "cy": 397.1,
+    "eid": "E42",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 243.13,
+    "cx": 647.2,
+    "cy": 449.6,
+    "eid": "E43",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 182.2,
+    "cy": 543.5,
+    "eid": "E44",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 392.7,
+    "cy": 551.5,
+    "eid": "E45",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 503.4,
+    "cy": 694.5,
+    "eid": "E46",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 663.0,
+    "cy": 681.0,
+    "eid": "E47",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 687.5,
+    "cy": 559.0,
+    "eid": "E48",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 815.0,
+    "cy": 559.0,
+    "eid": "E49",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 842.0,
+    "cy": 702.0,
+    "eid": "E50",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 1160.0,
+    "cy": 701.0,
+    "eid": "E51",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 1156.0,
+    "cy": 403.5,
+    "eid": "E52",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.67,
+    "cx": 1237.1,
+    "cy": 556.0,
+    "eid": "E53",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.73,
+    "cx": 485.1,
+    "cy": 539.4,
+    "eid": "E54",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.73,
+    "cx": 613.1,
+    "cy": 514.0,
+    "eid": "E55",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.73,
+    "cx": 723.0,
+    "cy": 453.0,
+    "eid": "E56",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.73,
+    "cx": 915.0,
+    "cy": 551.0,
+    "eid": "E57",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.73,
+    "cx": 983.0,
+    "cy": 520.5,
+    "eid": "E58",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.73,
+    "cx": 1104.0,
+    "cy": 381.0,
+    "eid": "E59",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 247.8,
+    "cx": 337.6,
+    "cy": 698.0,
+    "eid": "E60",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 250.07,
+    "cx": 62.9,
+    "cy": 680.0,
+    "eid": "E61",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 250.07,
+    "cx": 189.1,
+    "cy": 682.5,
+    "eid": "E62",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.2,
+    "cx": 645.0,
+    "cy": 672.5,
+    "eid": "E63",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.27,
+    "cx": 181.0,
+    "cy": 542.0,
+    "eid": "E64",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.27,
+    "cx": 656.6,
+    "cy": 545.5,
+    "eid": "E65",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.27,
+    "cx": 840.8,
+    "cy": 568.0,
+    "eid": "E66",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.27,
+    "cx": 868.8,
+    "cy": 672.0,
+    "eid": "E67",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.33,
+    "cx": 320.5,
+    "cy": 561.5,
+    "eid": "E68",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.33,
+    "cx": 1171.7,
+    "cy": 571.0,
+    "eid": "E69",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 388.6,
+    "cy": 367.6,
+    "eid": "E70",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 490.5,
+    "cy": 557.9,
+    "eid": "E71",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 613.0,
+    "cy": 330.0,
+    "eid": "E72",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 653.0,
+    "cy": 264.5,
+    "eid": "E73",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 682.5,
+    "cy": 378.9,
+    "eid": "E74",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 722.5,
+    "cy": 268.0,
+    "eid": "E75",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 811.6,
+    "cy": 375.9,
+    "eid": "E76",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 910.8,
+    "cy": 369.6,
+    "eid": "E77",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 1106.0,
+    "cy": 201.7,
+    "eid": "E78",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.4,
+    "cx": 1155.0,
+    "cy": 227.6,
+    "eid": "E79",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.67,
+    "cx": 1235.7,
+    "cy": 381.1,
+    "eid": "E80",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.8,
+    "cx": 184.1,
+    "cy": 362.1,
+    "eid": "E81",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.8,
+    "cx": 799.8,
+    "cy": 324.4,
+    "eid": "E82",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.87,
+    "cx": 483.5,
+    "cy": 354.9,
+    "eid": "E83",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.87,
+    "cx": 981.2,
+    "cy": 337.5,
+    "eid": "E84",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 255.93,
+    "cx": 285.6,
+    "cy": 357.1,
+    "eid": "E85",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 256.2,
+    "cx": 786.5,
+    "cy": 267.5,
+    "eid": "E86",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 256.33,
+    "cx": 1255.3,
+    "cy": 519.0,
+    "eid": "E87",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 257.47,
+    "cx": 64.9,
+    "cy": 534.0,
+    "eid": "E88",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 258.07,
+    "cx": 213.3,
+    "cy": 664.8,
+    "eid": "E89",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 277.0,
+    "cx": 92.0,
+    "cy": 352.7,
+    "eid": "E90",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 282.8,
+    "cx": 381.5,
+    "cy": 267.0,
+    "eid": "E91",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 288.4,
+    "cx": 92.1,
+    "cy": 353.1,
+    "eid": "E92",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": true
+   },
+   {
+    "t_alert": 297.13,
+    "cx": 632.8,
+    "cy": 671.8,
+    "eid": "E93",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": false
+   },
+   {
+    "t_alert": 303.13,
+    "cx": 93.2,
+    "cy": 351.9,
+    "eid": "E94",
+    "truth": "AT KERB",
+    "really_stopped": true,
+    "duplicate_of_earlier_alert": true
+   }
+  ]
+ },
+ "yonge_dundas": {
+  "how": "7 cars waiting at a red light on the carriageway = IN LANE; 1 sliver at the frame edge = UNJUDGEABLE (viewed on call-free tiles).",
+  "alerts": [
+   {
+    "t_alert": 23.77,
+    "cx": 66.1,
+    "cy": 404.8,
+    "eid": "E01",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 27.61,
+    "cx": 1152.0,
+    "cy": 401.2,
+    "eid": "E02",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 42.54,
+    "cx": 1187.6,
+    "cy": 396.6,
+    "eid": "E03",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 44.13,
+    "cx": 65.8,
+    "cy": 405.0,
+    "eid": "E04",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 44.63,
+    "cx": 1078.1,
+    "cy": 400.6,
+    "eid": "E05",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 52.8,
+    "cx": 860.2,
+    "cy": 407.2,
+    "eid": "E06",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 54.8,
+    "cx": 944.3,
+    "cy": 411.9,
+    "eid": "E07",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 46.71,
+    "cx": 18.0,
+    "cy": 398.0,
+    "eid": "E06",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true,
+    "note": "sliver of a car at the left edge behind a moving blurred sedan"
+   }
+  ]
+ },
+ "lisbon_parking": {
+  "how": "Slides judged by me on the reference frames; NOT independent of the polygons (I drew both). Non-photo slides (cartoon poster, reflection) are not real stopped vehicles.",
+  "alerts": [
+   {
+    "t_alert": 300.68,
+    "cx": 226.2,
+    "cy": 180.1,
+    "cam": "lisx_071",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 541.2,
+    "cx": 273.1,
+    "cy": 234.1,
+    "cam": "lisx_017",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 270.24,
+    "cx": 332.8,
+    "cy": 254.4,
+    "cam": "lis_09",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 511.12,
+    "cx": 313.9,
+    "cy": 260.3,
+    "cam": "lisx_079",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 378.32,
+    "cx": 148.8,
+    "cy": 268.6,
+    "cam": "lisx_080",
+    "truth": "IN LANE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 630.28,
+    "cx": 44.8,
+    "cy": 266.0,
+    "cam": "lis_21",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 316.0,
+    "cx": 242.0,
+    "cy": 315.0,
+    "cam": "lisx_028",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 18.96,
+    "cx": 245.9,
+    "cy": 190.7,
+    "cam": "lis_00",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 60.32,
+    "cx": 92.8,
+    "cy": 245.0,
+    "cam": "lis_02",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 360.64,
+    "cx": 213.1,
+    "cy": 202.9,
+    "cam": "lis_12",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 390.64,
+    "cx": 506.5,
+    "cy": 254.1,
+    "cam": "lis_13",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 570.24,
+    "cx": 472.5,
+    "cy": 348.8,
+    "cam": "lis_19",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 180.16,
+    "cx": 564.0,
+    "cy": 247.9,
+    "cam": "lis_06",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 91.6,
+    "cx": 326.9,
+    "cy": 144.8,
+    "cam": "lis_03",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": false
+   },
+   {
+    "t_alert": 720.68,
+    "cx": 485.7,
+    "cy": 349.7,
+    "cam": "lis_24",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 210.24,
+    "cx": 287.7,
+    "cy": 72.9,
+    "cam": "lis_07",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": false
+   },
+   {
+    "t_alert": 600.24,
+    "cx": 365.8,
+    "cy": 98.4,
+    "cam": "lis_20",
+    "truth": "UNJUDGEABLE",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 660.28,
+    "cx": 196.1,
+    "cy": 268.1,
+    "cam": "lis_22",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 750.72,
+    "cx": 222.1,
+    "cy": 291.8,
+    "cam": "lis_25",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 120.4,
+    "cx": 228.1,
+    "cy": 210.4,
+    "cam": "lis_04",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 30.32,
+    "cx": 243.9,
+    "cy": 234.2,
+    "cam": "lis_01",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 240.16,
+    "cx": 247.6,
+    "cy": 359.5,
+    "cam": "lis_08",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 300.32,
+    "cx": 272.1,
+    "cy": 154.7,
+    "cam": "lis_10",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 330.32,
+    "cx": 242.2,
+    "cy": 340.9,
+    "cam": "lis_11",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 450.32,
+    "cx": 346.3,
+    "cy": 248.8,
+    "cam": "lis_15",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 480.4,
+    "cx": 377.0,
+    "cy": 280.8,
+    "cam": "lis_16",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 510.48,
+    "cx": 426.5,
+    "cy": 297.1,
+    "cam": "lis_17",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 345.92,
+    "cx": 349.3,
+    "cy": 221.7,
+    "cam": "lisx_016",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 147.76,
+    "cx": 357.4,
+    "cy": 251.9,
+    "cam": "lisx_088",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 540.24,
+    "cx": 286.1,
+    "cy": 223.1,
+    "cam": "lis_18",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 692.64,
+    "cx": 313.6,
+    "cy": 275.4,
+    "cam": "lis_23",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 421.32,
+    "cx": 192.7,
+    "cy": 305.6,
+    "cam": "lis_14",
+    "truth": "AT KERB",
+    "really_stopped": true
+   },
+   {
+    "t_alert": 150.48,
+    "cx": 259.2,
+    "cy": 327.0,
+    "cam": "lis_05",
+    "truth": "AT KERB",
+    "really_stopped": true
+   }
+  ]
+ }
+}

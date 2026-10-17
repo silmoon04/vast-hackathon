@@ -1,0 +1,518 @@
+{
+ "camera": "ptz_parking",
+ "ledger_used": true,
+ "blind_total_s": 97.0,
+ "days": [
+  {
+   "id": "A",
+   "label": "Day A"
+  },
+  {
+   "id": "B",
+   "label": "Day B"
+  }
+ ],
+ "blind": [
+  {
+   "start": 68.0,
+   "end": 70.0,
+   "reason": "no_signal",
+   "source": "ledger"
+  },
+  {
+   "start": 156.0,
+   "end": 168.0,
+   "reason": "moved",
+   "source": "ledger"
+  },
+  {
+   "start": 168.0,
+   "end": 206.0,
+   "reason": "turned_away",
+   "source": "ledger"
+  },
+  {
+   "start": 206.0,
+   "end": 207.0,
+   "reason": "moved",
+   "source": "ledger"
+  },
+  {
+   "start": 207.0,
+   "end": 213.0,
+   "reason": "turned_away",
+   "source": "ledger"
+  },
+  {
+   "start": 213.0,
+   "end": 244.0,
+   "reason": "moved",
+   "source": "ledger"
+  },
+  {
+   "start": 244.0,
+   "end": 250.0,
+   "reason": "turned_away",
+   "source": "ledger"
+  },
+  {
+   "start": 250.0,
+   "end": 251.0,
+   "reason": "moved",
+   "source": "ledger"
+  }
+ ],
+ "items": [
+  {
+   "question": "Who came near the red car?",
+   "t": null,
+   "type": "who_near",
+   "answer": {
+    "type": "who_near",
+    "answer": "2",
+    "sentence": "2 came near the red car #21 (00:00-02:35): car #133 drove past at 00:18, person #1795 came close at 01:46. This says who was close, not who did anything.",
+    "latency_ms": 66.55,
+    "evidence": [
+     {
+      "object_id": 21,
+      "t": 0.0,
+      "crop": "ask_crops/21.jpg",
+      "box": [
+       1193.5,
+       413.5,
+       1279.4,
+       467.3
+      ]
+     },
+     {
+      "object_id": 133,
+      "t": 18.0,
+      "crop": "ask_crops/133.jpg",
+      "box": [
+       1220.0,
+       461.0,
+       1279.2,
+       520.2
+      ]
+     },
+     {
+      "object_id": 1795,
+      "t": 106.47,
+      "crop": "ask_crops/1795.jpg",
+      "box": [
+       1262.8,
+       491.5,
+       1278.0,
+       564.5
+      ]
+     }
+    ],
+    "honesty": "close means within half a car-height in the picture, so it may have been in front or behind; the camera could not see for 2 s of the 155 s watch window (no signal 01:08-01:10 (2 s)); anyone near then is missed",
+    "last_seen": null,
+    "blind": [
+     {
+      "start": 68.0,
+      "end": 70.0,
+      "reason": "no signal"
+     }
+    ],
+    "refused": null
+   }
+  },
+  {
+   "question": "Is the red car still there?",
+   "t": null,
+   "type": "still_there",
+   "answer": {
+    "type": "still_there",
+    "answer": "UNKNOWN",
+    "sentence": "Can't tell. The red car #21 was last seen at 02:34. After that the camera never showed its spot again (camera turned away 02:36-04:11 (95 s), then it pointed at a different view until 05:16).",
+    "latency_ms": 56.63,
+    "evidence": [
+     {
+      "object_id": 21,
+      "t": 0.0,
+      "crop": "ask_crops/21.jpg",
+      "box": [
+       1193.5,
+       413.5,
+       1279.4,
+       467.3
+      ]
+     },
+     {
+      "object_id": 21,
+      "t": 154.8,
+      "crop": "ask_crops/21.jpg",
+      "box": [
+       1193.5,
+       413.5,
+       1279.4,
+       467.3
+      ]
+     }
+    ],
+    "honesty": "From 02:34 to 05:16 the camera was pointed elsewhere or could not see, and it never answers 'gone' for time it could not see.",
+    "last_seen": 154.8,
+    "blind": [
+     {
+      "start": 156.0,
+      "end": 251.0,
+      "reason": "camera turned away"
+     }
+    ],
+    "refused": null
+   }
+  },
+  {
+   "question": "Who dented the red car?",
+   "t": null,
+   "type": "who_near",
+   "answer": {
+    "type": "who_near",
+    "answer": "UNKNOWN",
+    "sentence": "It can't say who did it. It shows who was near: 2 came near the red car #21 (00:00-02:35): car #133 drove past at 00:18, person #1795 came close at 01:46.",
+    "latency_ms": 39.9,
+    "evidence": [
+     {
+      "object_id": 21,
+      "t": 0.0,
+      "crop": "ask_crops/21.jpg",
+      "box": [
+       1193.5,
+       413.5,
+       1279.4,
+       467.3
+      ]
+     },
+     {
+      "object_id": 133,
+      "t": 18.0,
+      "crop": "ask_crops/133.jpg",
+      "box": [
+       1220.0,
+       461.0,
+       1279.2,
+       520.2
+      ]
+     },
+     {
+      "object_id": 1795,
+      "t": 106.47,
+      "crop": "ask_crops/1795.jpg",
+      "box": [
+       1262.8,
+       491.5,
+       1278.0,
+       564.5
+      ]
+     }
+    ],
+    "honesty": "by design: being near is not doing it; it shows who was near, never who did it; close means within half a car-height in the picture, so it may have been in front or behind; the camera could not see for 2 s of the 155 s watch window (no signal 01:08-01:10 (2 s)); anyone near then is missed",
+    "last_seen": null,
+    "blind": [
+     {
+      "start": 68.0,
+      "end": 70.0,
+      "reason": "no signal"
+     }
+    ],
+    "refused": "blame"
+   }
+  },
+  {
+   "question": "What changed between Day A and Day B?",
+   "t": null,
+   "type": "what_changed",
+   "answer": {
+    "type": "what_changed",
+    "answer": "2 left",
+    "sentence": "Day A vs Day B: 2 left, 16 the same car; 25 not compared (21 outside the view both days shared, 2 only partly visible, 2 probably missed by the detector).",
+    "latency_ms": 1.99,
+    "evidence": [
+     {
+      "object_id": 7,
+      "t": 32.0,
+      "crop": "crops/7_32.0.jpg",
+      "box": [
+       453.2,
+       453.7,
+       554.8,
+       533.0
+      ]
+     },
+     {
+      "object_id": 15,
+      "t": 76.0,
+      "crop": "crops/15_76.0.jpg",
+      "box": [
+       15.1,
+       471.0,
+       100.4,
+       545.0
+      ]
+     }
+    ],
+    "honesty": "the camera framing differs between the days; Day B was lined up onto Day A (266 matching points) and only the 48% of the picture seen on both days is compared; between the two views the camera could not see (camera turned away 02:36-04:11 (95 s)); SIMULATED: Day A / Day B are two halves of one 5-minute clip",
+    "last_seen": null,
+    "blind": [
+     {
+      "start": 156.0,
+      "end": 251.0,
+      "reason": "camera turned away"
+     }
+    ],
+    "refused": null
+   }
+  },
+  {
+   "question": "How many people walked by?",
+   "t": null,
+   "type": "count_since",
+   "answer": {
+    "type": "count_since",
+    "answer": "7",
+    "sentence": "7 moving people came into view between 00:00 and 05:16.",
+    "latency_ms": 25.56,
+    "evidence": [
+     {
+      "object_id": 79,
+      "t": 11.8,
+      "crop": "ask_crops/79.jpg",
+      "box": [
+       551.4,
+       417.05,
+       575.6,
+       484.55
+      ]
+     },
+     {
+      "object_id": 174,
+      "t": 26.2,
+      "crop": "ask_crops/174.jpg",
+      "box": [
+       783.7,
+       637.9,
+       822.1,
+       719.5
+      ]
+     },
+     {
+      "object_id": 1795,
+      "t": 106.47,
+      "crop": "ask_crops/1795.jpg",
+      "box": [
+       841.6,
+       526.9,
+       866.6,
+       593.7
+      ]
+     },
+     {
+      "object_id": 2057,
+      "t": 126.6,
+      "crop": "ask_crops/2057.jpg",
+      "box": [
+       45.5,
+       584.3,
+       77.0,
+       681.9
+      ]
+     },
+     {
+      "object_id": 2144,
+      "t": 137.87,
+      "crop": "ask_crops/2144.jpg",
+      "box": [
+       343.7,
+       566.1,
+       394.7,
+       660.1
+      ]
+     },
+     {
+      "object_id": 3370,
+      "t": 258.13,
+      "crop": "ask_crops/3370.jpg",
+      "box": [
+       386.5,
+       514.8,
+       424.4,
+       641.8
+      ]
+     },
+     {
+      "object_id": 3426,
+      "t": 259.87,
+      "crop": "ask_crops/3426.jpg",
+      "box": [
+       331.8,
+       597.9,
+       399.2,
+       715.7
+      ]
+     }
+    ],
+    "honesty": "the camera could not see for 97 s of 316 s (no signal 01:08-01:10 (2 s); camera turned away 02:36-04:11 (95 s)), so this is a lower bound; 1 broken track fragment(s) merged",
+    "last_seen": null,
+    "blind": [
+     {
+      "start": 68.0,
+      "end": 70.0,
+      "reason": "no signal"
+     },
+     {
+      "start": 156.0,
+      "end": 251.0,
+      "reason": "camera turned away"
+     }
+    ],
+    "refused": null
+   }
+  },
+  {
+   "question": "Which way did the person go?",
+   "t": null,
+   "type": "which_way",
+   "answer": {
+    "type": "which_way",
+    "answer": "left",
+    "sentence": "The person #3370 was last tracked mid-frame at 04:31 heading left; it did not reach a frame edge.",
+    "latency_ms": 37.91,
+    "evidence": [
+     {
+      "object_id": 3370,
+      "t": 258.13,
+      "crop": "ask_crops/3370.jpg",
+      "box": [
+       489.2,
+       694.0,
+       522.6,
+       719.5
+      ]
+     },
+     {
+      "object_id": 3370,
+      "t": 271.27,
+      "crop": "ask_crops/3370.jpg",
+      "box": [
+       360.1,
+       494.4,
+       405.9,
+       548.8
+      ]
+     }
+    ],
+    "honesty": "track ended away from the frame edge (hidden behind something or missed by the detector)",
+    "last_seen": 271.27,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "How many cars came by since 01:19?",
+   "t": null,
+   "type": "count_since",
+   "answer": {
+    "type": "count_since",
+    "answer": "6",
+    "sentence": "6 moving cars came into view between 01:19 and 05:16.",
+    "latency_ms": 17.22,
+    "evidence": [
+     {
+      "object_id": 1472,
+      "t": 91.47,
+      "crop": "ask_crops/1472.jpg",
+      "box": [
+       651.5,
+       271.7,
+       682.6,
+       296.5
+      ]
+     },
+     {
+      "object_id": 1707,
+      "t": 99.0,
+      "crop": "ask_crops/1707.jpg",
+      "box": [
+       1097.4,
+       324.6,
+       1201.2,
+       364.6
+      ]
+     },
+     {
+      "object_id": 1777,
+      "t": 104.4,
+      "crop": "ask_crops/1777.jpg",
+      "box": [
+       962.4,
+       357.9,
+       1097.8,
+       405.6
+      ]
+     },
+     {
+      "object_id": 1889,
+      "t": 113.4,
+      "crop": "ask_crops/1889.jpg",
+      "box": [
+       117.6,
+       386.6,
+       267.7,
+       446.2
+      ]
+     },
+     {
+      "object_id": 3774,
+      "t": 269.6,
+      "crop": "ask_crops/3774.jpg",
+      "box": [
+       450.8,
+       404.7,
+       669.7,
+       487.95
+      ]
+     },
+     {
+      "object_id": 4492,
+      "t": 308.27,
+      "crop": "ask_crops/4492.jpg",
+      "box": [
+       528.4,
+       267.2,
+       641.0,
+       313.2
+      ]
+     }
+    ],
+    "honesty": "the camera could not see for 95 s of 237 s (camera turned away 02:36-04:11 (95 s)), so this is a lower bound; 44 track(s) that only appeared because the view changed were not counted",
+    "last_seen": null,
+    "blind": [
+     {
+      "start": 156.0,
+      "end": 251.0,
+      "reason": "camera turned away"
+     }
+    ],
+    "refused": null
+   }
+  },
+  {
+   "question": "Find the man in the black shirt",
+   "t": null,
+   "type": "unknown",
+   "answer": {
+    "type": "unknown",
+    "answer": "UNKNOWN",
+    "sentence": "Street Time Machine never describes or searches people by how they look: no clothing, skin, gender or face. Ask about vehicles, or who came near a car.",
+    "latency_ms": 0.19,
+    "evidence": [],
+    "honesty": "by design",
+    "last_seen": null,
+    "blind": [],
+    "refused": "appearance"
+   }
+  }
+ ]
+}

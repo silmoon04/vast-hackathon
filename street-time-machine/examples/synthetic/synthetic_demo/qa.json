@@ -1,0 +1,28 @@
+{
+  "camera": "synthetic_demo",
+  "items": [
+    {
+      "question": "Who came near car #1?",
+      "type": "who_near",
+      "answer": {
+        "type": "who_near",
+        "answer": "1 illustrated visitor",
+        "sentence": "In this synthetic fixture, person #2 passes the parked car at 00:05. Proximity does not establish responsibility.",
+        "evidence": [{"object_id": 2, "t": 5, "crop": "scene.svg", "box": [520, 230, 550, 320]}],
+        "honesty": "Preset synthetic example. This answer was not inferred from video."
+      }
+    },
+    {
+      "question": "Is car #1 still there at 00:09?",
+      "type": "still_there",
+      "t": 9,
+      "answer": {
+        "type": "still_there",
+        "answer": "UNKNOWN",
+        "sentence": "The fixture marks 00:08 to 00:10 as blocked, so it cannot establish whether the car was there at 00:09.",
+        "evidence": [],
+        "honesty": "Synthetic blind interval. No source video or model inference."
+      }
+    }
+  ]
+}

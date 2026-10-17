@@ -1,0 +1,76 @@
+{
+ "video": "ptz_parking",
+ "ref_t": 5.0,
+ "note": "STAND-IN zones: this clip has no residential windows. Zones sit on fixed far-field structures (hotel/apartment block roofline, utility mast) so a PTZ move still exposes something measurable.",
+ "zones": [
+  {
+   "id": "Z1",
+   "name": "apartment block (left part)",
+   "poly": [
+    [
+     4,
+     141
+    ],
+    [
+     148,
+     141
+    ],
+    [
+     148,
+     177
+    ],
+    [
+     4,
+     177
+    ]
+   ],
+   "stand_in": true
+  },
+  {
+   "id": "Z2",
+   "name": "apartment block (right part)",
+   "poly": [
+    [
+     150,
+     141
+    ],
+    [
+     288,
+     141
+    ],
+    [
+     288,
+     177
+    ],
+    [
+     150,
+     177
+    ]
+   ],
+   "stand_in": true
+  },
+  {
+   "id": "Z3",
+   "name": "utility mast",
+   "poly": [
+    [
+     304,
+     6
+    ],
+    [
+     366,
+     6
+    ],
+    [
+     366,
+     190
+    ],
+    [
+     304,
+     190
+    ]
+   ],
+   "stand_in": true
+  }
+ ]
+}

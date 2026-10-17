@@ -1,0 +1,13 @@
+.venv*/
+__pycache__/
+*.pyc
+.pytest_cache/
+/out/
+/dist/
+/_cache/
+/videos/
+/data/
+/cams.local.json
+.env
+.env.*
+!.env.example

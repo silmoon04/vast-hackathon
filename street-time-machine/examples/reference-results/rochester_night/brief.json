@@ -1,0 +1,60 @@
+{
+ "camera": "rochester_night",
+ "headline": "30 cars, 3 people and 1 truck went by; the camera could not see for 63 s.",
+ "bullets": [
+  {
+   "text": "Person passes close to moving car at 00:02.",
+   "t": 1.93,
+   "kind": "close_pass",
+   "crop": "moments/1.jpg"
+  },
+  {
+   "text": "Busiest route: 10 vehicles went right to left across the lower middle.",
+   "t": null,
+   "kind": "lane",
+   "crop": "flow.jpg"
+  },
+  {
+   "text": "Busiest moment: 4 vehicles on screen at 00:39.",
+   "t": 39.33,
+   "kind": "busiest",
+   "crop": "frames/busiest.jpg"
+  },
+  {
+   "text": "In total 30 cars, 3 people and 1 truck moved through the view.",
+   "t": null,
+   "kind": "count",
+   "crop": null
+  },
+  {
+   "text": "A 30 s replay shows 29 cars and 1 person from the 85 s recording at once.",
+   "t": null,
+   "kind": "replay",
+   "crop": null
+  },
+  {
+   "text": "Most common colour: black (14), white (11) and red (5) of 42 people and vehicles.",
+   "t": null,
+   "kind": "colour",
+   "crop": null
+  }
+ ],
+ "honesty": [
+  "The camera could not see for 63 s in total, in 3 stretches (56 s view blocked and 7 s blurry picture); the longest was 00:22 to 01:01. Anything that happened then is unknown.",
+  "Counts come from an automatic detector; one person or car can be counted twice if it was lost and found again.",
+  "8 more tracks hardly moved (less than their own width) and are not counted as going by.",
+  "\"Busiest moment\" at 00:39 falls in a stretch when the camera could not see well (blurry picture), so treat it with care."
+ ],
+ "generated_from": [
+  "tracks (stm.data.objects)",
+  "moments.json",
+  "flow.json",
+  "synopsis.json",
+  "index.json",
+  "ledger.json"
+ ],
+ "missing": [
+  "diff.json",
+  "near.json"
+ ]
+}

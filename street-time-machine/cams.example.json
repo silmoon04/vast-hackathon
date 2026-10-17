@@ -1,0 +1,9 @@
+{
+  "my_camera": {
+    "video": "videos/my-camera.mp4",
+    "title": "My camera",
+    "days": [["A", "Recording", 0.0, null]],
+    "simulated": [],
+    "credit": "Replace with the footage source and licence"
+  }
+}

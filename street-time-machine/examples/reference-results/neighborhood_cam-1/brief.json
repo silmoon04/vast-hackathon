@@ -1,0 +1,62 @@
+{
+ "camera": "neighborhood_cam-1",
+ "headline": "2 cars left and none arrived between 1 Sep and 2 Sep; the camera could not see for 14 min 15 s.",
+ "bullets": [
+  {
+   "text": "2 cars parked on 1 Sep were gone on 2 Sep.",
+   "t": 120.5,
+   "kind": "left",
+   "crop": "crops/27_120.5.jpg"
+  },
+  {
+   "text": "Most visitors near one parked car: 6 came close (4 cars and 2 trucks) between 10:51 and 11:51.",
+   "t": 658.01,
+   "kind": "near",
+   "crop": "near/112.jpg"
+  },
+  {
+   "text": "In total 151 cars, 6 people and 5 trucks moved through the view; 84 tracks were parked vehicles.",
+   "t": null,
+   "kind": "count",
+   "crop": null
+  },
+  {
+   "text": "Busiest route: 23 vehicles went left to right across the lower middle.",
+   "t": null,
+   "kind": "lane",
+   "crop": "flow.jpg"
+  },
+  {
+   "text": "Person stays 10 s at 03:41.",
+   "t": 220.8,
+   "kind": "long_stay",
+   "crop": "moments/3.jpg"
+  },
+  {
+   "text": "Busiest moment: 3 vehicles on screen at 18:25.",
+   "t": 1104.99,
+   "kind": "busiest",
+   "crop": "frames/busiest.jpg"
+  }
+ ],
+ "honesty": [
+  "The camera could not see for 14 min 15 s in total, in 19 stretches (7 min 36 s picture froze, 5 min 25 s blurry picture, 68 s view blocked and 6 s no picture); the longest was 18:09 to 26:07. Anything that happened then is unknown.",
+  "2 parked cars could not be compared between the two days (1 because: a vehicle stood on this spot for 3 s in a row on day 20260901 but not long enough to count as parked: can't tell).",
+  "Counts come from an automatic detector; one person or car can be counted twice if it was lost and found again.",
+  "68 more tracks hardly moved (less than their own width) and are not counted as going by.",
+  "'Came close' only means near: 18 of the 40 parked vehicles checked had someone or something close by, which says nothing about who did anything.",
+  "\"2 cars parked on 1 Sep were gone on 2 Sep\" at 02:00 falls in a stretch when the camera could not see well (picture froze), so treat it with care.",
+  "\"Busiest moment\" at 18:25 falls in a stretch when the camera could not see well (view blocked), so treat it with care."
+ ],
+ "generated_from": [
+  "diff.json",
+  "tracks (stm.data.objects)",
+  "near.json",
+  "moments.json",
+  "flow.json",
+  "synopsis.json",
+  "index.json",
+  "ledger.json"
+ ],
+ "missing": []
+}

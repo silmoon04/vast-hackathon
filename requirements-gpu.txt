@@ -1,0 +1,11 @@
+# Local GPU lane + Cosmos3-Edge mirror (same .venv as requirements.txt). CUDA 12.8 wheels:
+#   uv pip install --python .venv -r requirements-gpu.txt --index-url https://download.pytorch.org/whl/cu128 --extra-index-url https://pypi.org/simple
+# Not a pyproject.toml extra (needs the CUDA wheel index); installs on top of requirements.txt / vastkit[all].
+torch==2.11.0+cu128
+torchvision==0.26.0+cu128
+transformers==5.20.0
+accelerate==1.15.0
+ultralytics==8.4.178
+tensorrt-cu12==11.4.0.106
+onnx==1.21.0
+onnxruntime-gpu==1.22.0

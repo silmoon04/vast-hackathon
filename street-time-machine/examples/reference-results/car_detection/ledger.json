@@ -1,0 +1,195 @@
+{
+ "camera": "car_detection",
+ "seconds": 31,
+ "blind": [],
+ "blind_total_s": 0.0,
+ "blind_by_reason": {},
+ "blind_by_day": [
+  {
+   "day": "A",
+   "label": "Clip",
+   "start": 0.0,
+   "end": 30.16,
+   "blind_s": 0.0,
+   "by_reason": {}
+  }
+ ],
+ "home_views": [
+  {
+   "id": "A",
+   "day": "A",
+   "label": "Clip",
+   "view": 0,
+   "start": 0.0,
+   "end": 30.16,
+   "seen_s": 31
+  }
+ ],
+ "reason_words": {
+  "no_signal": "no picture",
+  "dark": "too dark",
+  "frozen": "picture froze",
+  "moved": "camera moving",
+  "turned_away": "camera pointed elsewhere",
+  "blocked": "view blocked",
+  "blur": "picture blurred"
+ },
+ "spots": [],
+ "per_second": [
+  {
+   "t": 0,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 1,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 2,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 3,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 4,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 5,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 6,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 7,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 8,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 9,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 10,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 11,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 12,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 13,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 14,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 15,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 16,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 17,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 18,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 19,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 20,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 21,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 22,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 23,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 24,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 25,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 26,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 27,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 28,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 29,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 30,
+   "visible": true,
+   "reason": null
+  }
+ ]
+}

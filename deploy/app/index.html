@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deploy check</title>
+  <script>
+    // Ingress serves this at /app; without the trailing slash, relative URLs resolve against "/".
+    if (location.pathname.endsWith('/app')) location.replace(location.pathname + '/' + location.search);
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Deploy check</h1>
+    <p>Unstyled smoke page for the /app Ingress + proxy. Replace it with the real UI.</p>
+    <span id="health" class="pill">checking…</span>
+  </header>
+  <main>
+    <section>
+      <h2>Raw API call</h2>
+      <p class="hint">Relative paths only (e.g. <code>api/v1/dashboard/stats</code>). The server adds the JWT and
+        forwards only the read routes in <code>READ_ROUTES</code> (main.py). Upload and re-ingest also need
+        <code>ALLOW_WRITES=1</code> and <code>APP_TOKEN</code> on the server, plus that token below.</p>
+      <div class="row">
+        <select id="method"><option>GET</option><option>POST</option></select>
+        <input id="path" value="api/v1/dashboard/stats" spellcheck="false">
+        <label class="chk"><input type="checkbox" id="asjob"> as job</label>
+        <button id="send">Send</button>
+      </div>
+      <div class="row">
+        <input id="apptoken" type="password" placeholder="X-App-Token (writes only)" autocomplete="off" spellcheck="false">
+      </div>
+      <textarea id="body" spellcheck="false" placeholder='{"query": "…", "top_k": 5}'></textarea>
+      <pre id="out"></pre>
+    </section>
+    <section>
+      <h2>Range playback (/video)</h2>
+      <div class="row">
+        <input id="source" placeholder="s3://bucket/key.mp4" spellcheck="false">
+        <input id="start" type="number" min="0" step="0.1" value="0" title="start seconds">
+        <button id="play">Play</button>
+      </div>
+      <video id="player" controls playsinline preload="metadata"></video>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

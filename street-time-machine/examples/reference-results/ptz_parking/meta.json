@@ -1,0 +1,28 @@
+{
+ "camera": "ptz_parking",
+ "title": "Car park, fixed camera",
+ "credit": "PTZ parking camera, Wikimedia Commons, public domain",
+ "fps": 30.0,
+ "w": 1280,
+ "h": 720,
+ "duration": 316.13,
+ "days": [
+  {
+   "id": "A",
+   "label": "Day A",
+   "start": 0.0,
+   "end": 158.0
+  },
+  {
+   "id": "B",
+   "label": "Day B",
+   "start": 158.0,
+   "end": 316.1333333333333
+  }
+ ],
+ "simulated": [
+  "Day A / Day B are two halves of one 5-minute clip"
+ ],
+ "background": "background.jpg",
+ "video": "videos/ptz_parking.mp4"
+}

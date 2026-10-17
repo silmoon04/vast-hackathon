@@ -1,0 +1,201 @@
+{
+ "camera": "neighborhood_cam-1",
+ "day_a": "20260901",
+ "day_b": "20260902",
+ "background_a": "background_20260901.jpg",
+ "background_b": "background_20260902.jpg",
+ "background_b_aligned": "background_20260902_aligned.jpg",
+ "boxes_in": "day 20260901 pixels",
+ "alignment": {
+  "method": "fixed camera: SIFT found only 7 inliers, so the days were lined up by phase correlation of edge maps (shift 0.62, -0.51 px; edge match 0.492 vs 0.427 when shifted)",
+  "fixed_view": {
+   "ok": true,
+   "dx": 0.62,
+   "dy": -0.51,
+   "ncc": 0.492,
+   "ncc_off": 0.427
+  },
+  "ok": true,
+  "matches": 20,
+  "inliers": 7,
+  "reproj_px": 0.28,
+  "corner_shift_px": 0.8,
+  "overlap_frac": 1.0,
+  "view_a": {
+   "start": 0.0,
+   "end": 1089.04,
+   "seconds": 1089.04
+  },
+  "view_b": {
+   "start": 1159.33,
+   "end": 1852.72,
+   "seconds": 692.39
+  },
+  "H_b_to_a": [
+   [
+    1.0,
+    0.0,
+    0.623224
+   ],
+   [
+    0.0,
+    1.0,
+    -0.510086
+   ],
+   [
+    0.0,
+    0.0,
+    1.0
+   ]
+  ]
+ },
+ "changes": [
+  {
+   "kind": "left",
+   "box": [
+    1028.1,
+    409.3,
+    1101.9,
+    431.1
+   ],
+   "a": {
+    "object_id": 27,
+    "crop": "crops/27_120.5.jpg",
+    "t": 120.5
+   },
+   "b": null,
+   "similarity": null,
+   "note": "Car parked on day 20260901 (seen 107-135 s); no vehicle stood on this spot in day 20260902's 12 min view (only passing traffic crossed it). Tracker also used id 28 for this spot."
+  },
+  {
+   "kind": "left",
+   "box": [
+    287.5,
+    487.3,
+    465.6,
+    617.7
+   ],
+   "a": {
+    "object_id": 1,
+    "crop": "crops/1_32.1.jpg",
+    "t": 32.13
+   },
+   "b": null,
+   "similarity": null,
+   "note": "Car parked on day 20260901 (seen 0-60 s); no vehicle stood on this spot in day 20260902's 12 min view (only passing traffic crossed it). Tracker also used id 112, 16, 23, 29, 36, 44, 55, 65, 69, 71, 73, 75, 80, 84, 93, 95, 106, 130 for this spot."
+  },
+  {
+   "kind": "same",
+   "unconfirmed": true,
+   "box": [
+    274.4,
+    394.9,
+    313.1,
+    453.6
+   ],
+   "box_b": [
+    273.1,
+    381.2,
+    402.5,
+    476.0
+   ],
+   "a": {
+    "object_id": 25,
+    "crop": "crops/25_120.5.jpg",
+    "t": 120.5
+   },
+   "b": {
+    "object_id": 362,
+    "crop": "crops/362_1586.6.jpg",
+    "t": 1586.61
+   },
+   "similarity": null,
+   "iou": 0.191,
+   "note": "A vehicle is parked in this spot on both days. Day 20260902 is night infrared (no colour), so it can't confirm it is the same vehicle. Tracker also used id 31, 46, 38, 58 for this spot."
+  },
+  {
+   "kind": "same",
+   "unconfirmed": true,
+   "box": [
+    749.4,
+    509.7,
+    874.4,
+    598.3
+   ],
+   "box_b": [
+    738.8,
+    463.6,
+    929.4,
+    594.6
+   ],
+   "a": {
+    "object_id": 2,
+    "crop": "crops/2_32.1.jpg",
+    "t": 32.13
+   },
+   "b": {
+    "object_id": 380,
+    "crop": "crops/380_1759.3.jpg",
+    "t": 1759.33
+   },
+   "similarity": null,
+   "iou": 0.419,
+   "note": "A vehicle is parked in this spot on both days. Day 20260902 is night infrared (no colour), so it can't confirm it is the same vehicle. Tracker also used id 113, 17, 24, 30, 37, 45, 56, 66, 70, 72, 74, 76, 81, 85, 94, 96, 107, 132, 138, 142, 148, 152, 155, 156, 159, 162, 165 for this spot."
+  }
+ ],
+ "counts": {
+  "same": 2,
+  "arrived": 0,
+  "left": 2,
+  "moved": 0,
+  "swapped": 0
+ },
+ "not_compared": [
+  {
+   "day": "20260902",
+   "object_id": 369,
+   "box": [
+    296.8,
+    395.7,
+    438.1,
+    451.2
+   ],
+   "box_b": [
+    296.2,
+    396.2,
+    437.5,
+    451.7
+   ],
+   "seconds": 3,
+   "reason": "a vehicle stood on this spot for 3 s in a row on day 20260901 but not long enough to count as parked: can't tell"
+  },
+  {
+   "day": "20260902",
+   "object_id": 368,
+   "box": [
+    448.7,
+    624.0,
+    851.2,
+    717.6
+   ],
+   "box_b": [
+    448.1,
+    624.5,
+    850.6,
+    718.1
+   ],
+   "reason": "vehicle is cut off by the edge of day 20260902's frame or outside day 20260901's view"
+  }
+ ],
+ "infrared": {
+  "20260901": false,
+  "20260902": true
+ },
+ "unconfirmed": 2,
+ "parked": {
+  "20260901": 4,
+  "20260902": 4
+ },
+ "seconds_to_build": 36.7,
+ "note": "Same camera framing on both days (7 inliers)."
+}

@@ -1,0 +1,74 @@
+{
+ "ptz_parking": {
+  "path": "S:/vast-hack/videos/online/ptz_parking.mp4",
+  "source": "https://commons.wikimedia.org/wiki/File:BLK-HDPTZ12_Security_Camera_Parking_Lot_Surveillance_Video.webm",
+  "title": "BLK-HDPTZ12 Security Camera Parking Lot Surveillance Video.webm",
+  "license": "Public domain",
+  "license_url": null,
+  "author": "Supercircuits",
+  "origin": "wikimedia_commons"
+ },
+ "rochester_night": {
+  "path": "S:/vast-hack/videos/online/rochester_night.mp4",
+  "source": "https://commons.wikimedia.org/wiki/File:Corporation_Street,_Rochester,_Kent,_England,_at_night.webm",
+  "title": "Corporation Street, Rochester, Kent, England, at night.webm",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "author": "OathOn",
+  "origin": "wikimedia_commons"
+ },
+ "dashcam_urban": {
+  "path": "S:/vast-hack/videos/online/dashcam_urban.mp4",
+  "source": "https://commons.wikimedia.org/wiki/File:Dashcam_Recording_(urban).ogv",
+  "title": "Dashcam Recording (urban).ogv",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "author": "Fernost",
+  "origin": "wikimedia_commons"
+ },
+ "yonge_dundas": {
+  "path": "S:/vast-hack/videos/online/yonge_dundas.mp4",
+  "source": "https://commons.wikimedia.org/wiki/File:DiagonalCrosswalkYongeDundas.webm",
+  "title": "DiagonalCrosswalkYongeDundas.webm",
+  "license": "CC0",
+  "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "author": "Raysonho @ Open Grid Scheduler / Grid Engine",
+  "origin": "wikimedia_commons"
+ },
+ "elephants_dream": {
+  "path": "S:/vast-hack/videos/online/elephants_dream.mp4",
+  "source": "https://commons.wikimedia.org/wiki/File:Elephants_Dream(HQ).webm",
+  "title": "Elephants Dream(HQ).webm",
+  "license": "CC BY-SA 2.5",
+  "license_url": "https://creativecommons.org/licenses/by-sa/2.5",
+  "author": "(CC) Blender Foundation | orange.blender.org [1]",
+  "origin": "wikimedia_commons"
+ },
+ "retail_cctv": {
+  "path": "S:/vast-hack/videos/online/retail_cctv.mp4",
+  "source": "https://commons.wikimedia.org/wiki/File:HD_CCTV_Camera_video_3MP_4MP_iProx_CCTV_HDCCTVCameras.net_retail_store.webm",
+  "title": "HD CCTV Camera video 3MP 4MP iProx CCTV HDCCTVCameras.net retail store.webm",
+  "license": "Public domain",
+  "license_url": null,
+  "author": "HDCCTV Cameras",
+  "origin": "wikimedia_commons"
+ },
+ "lisbon_parking": {
+  "path": "S:/vast-hack/videos/online/lisbon_parking.mp4",
+  "source": "https://commons.wikimedia.org/wiki/File:Illegal_parking_in_Lisbon.ogv",
+  "title": "Illegal parking in Lisbon.ogv",
+  "license": "CC BY-SA 3.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+  "author": "Joao.pimentel.ferreira",
+  "origin": "wikimedia_commons"
+ },
+ "motorway_a40": {
+  "path": "S:/vast-hack/videos/online/motorway_a40.mp4",
+  "source": "https://commons.wikimedia.org/wiki/File:Motorway_A40_-_on_bridge_above_the_traffic.webm",
+  "title": "Motorway A40 - on bridge above the traffic.webm",
+  "license": "CC BY 3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0",
+  "author": "Photographer: Kathinka Engels, Video Recordist: Kathinka Engels, Sound Recordist: Kathinka Engels",
+  "origin": "wikimedia_commons"
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "camera": "person_bicycle_car_detection",
+ "title": "Street with people, bikes, cars",
+ "credit": "Intel IoT sample videos, CC BY 4.0",
+ "fps": 12.0,
+ "w": 768,
+ "h": 432,
+ "duration": 53.92,
+ "days": [
+  {
+   "id": "A",
+   "label": "Clip",
+   "start": 0.0,
+   "end": 53.916666666666664
+  }
+ ],
+ "simulated": [],
+ "background": "background.jpg",
+ "video": "videos/person-bicycle-car-detection.mp4"
+}

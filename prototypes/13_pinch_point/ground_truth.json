@@ -1,0 +1,88 @@
+{
+ "method": "Frames viewed by the author (Claude) as plain images with only the zone outline drawn (no detector boxes), people counted whose feet are inside the outline. People whose feet sit within ~10 px of the outline count 0.5. 'range' = plausible low/high count. Counted BEFORE looking at the detector boxes, except people_detection (3 clear people, seen earlier in an annotated preview).",
+ "frames": [
+  {
+   "video": "yonge_dundas",
+   "t": 24.02,
+   "eyeball": 11,
+   "range": [
+    9,
+    13
+   ],
+   "note": "frame 576; foreground 4 + about 7 crossing people in the far crosswalk, boundary-sensitive"
+  },
+  {
+   "video": "yonge_dundas",
+   "t": 39.54,
+   "eyeball": 14,
+   "range": [
+    13,
+    15
+   ],
+   "note": "frame 948; 5 large foreground people + 9 mid-distance crossers"
+  },
+  {
+   "video": "yonge_dundas",
+   "t": 48.47,
+   "eyeball": 9,
+   "range": [
+    8,
+    10
+   ],
+   "note": "frame 1162; 5 near/mid people + 3 cyclists/walkers at the far lane, 2 borderline"
+  },
+  {
+   "video": "retail_cctv",
+   "t": 23.52,
+   "eyeball": 7.5,
+   "range": [
+    6,
+    9
+   ],
+   "peak_frame": true,
+   "note": "fire #1 peak. 6 clear (cashier, navy man, black-hat man, blue-jacket woman, red-hat man, woman with white bag) + 3 half-hidden at the zone line (boy, blonde, scarf woman) at 0.5. CAVEAT: refined on a zoomed crop AFTER seeing the detector overlay; my first blind pass on the 1100 px frame was only 4 clear + 5 borderline (range 4-9)"
+  },
+  {
+   "video": "retail_cctv",
+   "t": 49.49,
+   "eyeball": 9,
+   "range": [
+    8,
+    10
+   ],
+   "note": "frame 648; 8 clear + 2 borderline (feet hidden behind the counter at the zone edge) counted 0.5 each",
+   "peak_frame": true
+  },
+  {
+   "video": "retail_cctv",
+   "t": 57.51,
+   "eyeball": 8.5,
+   "range": [
+    7,
+    10
+   ],
+   "peak_frame": true,
+   "note": "third peak. 7 clear (cashier, grey man, blue-jacket woman, bending grey-top woman, bottom-edge blonde with cut-off feet, red-hat man, dark woman) + 3 half-hidden (boy, scarf woman, black-haired woman behind the display) at 0.5. Counted on a zoomed crop BEFORE looking at the boxes"
+  },
+  {
+   "video": "store_aisle_detection",
+   "t": 37.5,
+   "eyeball": 5,
+   "range": [
+    5,
+    5
+   ],
+   "note": "frame 2248; five clearly separate people"
+  },
+  {
+   "video": "people_detection",
+   "t": 29.42,
+   "eyeball": 3,
+   "range": [
+    3,
+    3
+   ],
+   "note": "frame 353; three people walking toward the camera"
+  }
+ ]
+}

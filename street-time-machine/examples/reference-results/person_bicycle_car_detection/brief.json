@@ -1,0 +1,57 @@
+{
+ "camera": "person_bicycle_car_detection",
+ "headline": "4 people, 2 bicycles and 2 cars went by.",
+ "bullets": [
+  {
+   "text": "Busiest route: 4 vehicles went bottom to top through the centre.",
+   "t": null,
+   "kind": "lane",
+   "crop": "flow.jpg"
+  },
+  {
+   "text": "Person stays 6 s at 00:01.",
+   "t": 1.25,
+   "kind": "long_stay",
+   "crop": "moments/1.jpg"
+  },
+  {
+   "text": "Busiest moment: 1 person and 2 vehicles on screen at 00:45.",
+   "t": 44.75,
+   "kind": "busiest",
+   "crop": "frames/busiest.jpg"
+  },
+  {
+   "text": "In total 4 people, 2 bicycles and 2 cars moved through the view.",
+   "t": null,
+   "kind": "count",
+   "crop": null
+  },
+  {
+   "text": "A 9 s replay shows 4 people, 2 bicycles and 2 cars from the 54 s recording at once.",
+   "t": null,
+   "kind": "replay",
+   "crop": null
+  },
+  {
+   "text": "Most common colour: silver (5) and white (3) of 8 people and vehicles.",
+   "t": null,
+   "kind": "colour",
+   "crop": null
+  }
+ ],
+ "honesty": [
+  "Not checked yet whether the camera could see the whole time (no camera health report).",
+  "Counts come from an automatic detector; one person or car can be counted twice if it was lost and found again."
+ ],
+ "generated_from": [
+  "tracks (stm.data.objects)",
+  "moments.json",
+  "flow.json",
+  "synopsis.json",
+  "index.json"
+ ],
+ "missing": [
+  "ledger.json",
+  "diff.json"
+ ]
+}

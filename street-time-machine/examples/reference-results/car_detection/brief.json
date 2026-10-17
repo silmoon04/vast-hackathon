@@ -1,0 +1,52 @@
+{
+ "camera": "car_detection",
+ "headline": "4 cars went by; the camera could not see for 8 s.",
+ "bullets": [
+  {
+   "text": "Busiest route: 3 vehicles went bottom to top through the centre.",
+   "t": null,
+   "kind": "lane",
+   "crop": "flow.jpg"
+  },
+  {
+   "text": "Busiest moment: 2 vehicles on screen at 00:15.",
+   "t": 15.36,
+   "kind": "busiest",
+   "crop": "frames/busiest.jpg"
+  },
+  {
+   "text": "In total 4 cars moved through the view.",
+   "t": null,
+   "kind": "count",
+   "crop": null
+  },
+  {
+   "text": "A 9 s replay shows 4 cars from the 30 s recording at once.",
+   "t": null,
+   "kind": "replay",
+   "crop": null
+  },
+  {
+   "text": "Most common colour: white (3) and red (2) of 5 people and vehicles.",
+   "t": null,
+   "kind": "colour",
+   "crop": null
+  }
+ ],
+ "honesty": [
+  "The camera could not see for 8 s in total, in 3 stretches (5 s view blocked and 3 s blurry picture); the longest was 00:27 to 00:30. Anything that happened then is unknown.",
+  "Counts come from an automatic detector; one person or car can be counted twice if it was lost and found again.",
+  "1 more track hardly moved (less than its own width) and is not counted as going by."
+ ],
+ "generated_from": [
+  "tracks (stm.data.objects)",
+  "moments.json",
+  "flow.json",
+  "synopsis.json",
+  "index.json",
+  "ledger.json"
+ ],
+ "missing": [
+  "diff.json"
+ ]
+}

@@ -1,0 +1,20 @@
+{
+  "camera": "synthetic_demo",
+  "seconds": 12,
+  "blind": [{"start": 8, "end": 10, "reason": "blocked", "score": 1}],
+  "spots": [],
+  "per_second": [
+    {"t": 0, "visible": true, "reason": null},
+    {"t": 1, "visible": true, "reason": null},
+    {"t": 2, "visible": true, "reason": null},
+    {"t": 3, "visible": true, "reason": null},
+    {"t": 4, "visible": true, "reason": null},
+    {"t": 5, "visible": true, "reason": null},
+    {"t": 6, "visible": true, "reason": null},
+    {"t": 7, "visible": true, "reason": null},
+    {"t": 8, "visible": false, "reason": "blocked"},
+    {"t": 9, "visible": false, "reason": "blocked"},
+    {"t": 10, "visible": true, "reason": null},
+    {"t": 11, "visible": true, "reason": null}
+  ]
+}

@@ -1,0 +1,460 @@
+{
+ "idea": "Between The Lines",
+ "videos": {
+  "dashcam_urban": {
+   "video": "dashcam_urban",
+   "analysed_s": 120.0,
+   "audio_speech_frac": 0.285,
+   "gaps": 12,
+   "gap_usable_s": 75.9,
+   "strict_silence_only_gap_s": 4.9,
+   "gaps_quiet": 2,
+   "gaps_bed": 10,
+   "slots": 14,
+   "slots_described": 14,
+   "slots_held": 0,
+   "slots_dropped_by_cap": 0,
+   "slots_unfittable": 3,
+   "unfittable": [
+    {
+     "slot": 9,
+     "slot_len": 2.01,
+     "draft": "A white van moves ahead on the right.",
+     "trimmed": null
+    },
+    {
+     "slot": 10,
+     "slot_len": 1.52,
+     "draft": "A silver car drives past on the left.",
+     "trimmed": null
+    },
+    {
+     "slot": 11,
+     "slot_len": 2.05,
+     "draft": "A black car drives past on the left.",
+     "trimmed": null
+    }
+   ],
+   "n_lines": 11,
+   "n_green": 5,
+   "n_amber": 2,
+   "n_unverified": 4,
+   "n_verified": 7,
+   "words": 75,
+   "line_seconds": 28.5,
+   "mean_wps": 2.63,
+   "max_words": 8,
+   "max_wps_slot": 2.44,
+   "mean_wps_slot": 1.07,
+   "lines_trimmed_to_fit": 3,
+   "over_speech_s": 0.0,
+   "lines_overlapping_speech": 0,
+   "lines_inside_own_gap": 11,
+   "line_seconds_in_silencedetect_silence": 3.1,
+   "line_seconds_over_music_or_ambience": 25.4,
+   "silencedetect_threshold_db": -31.1,
+   "ducking_db": {
+    "mean_db": 15.7,
+    "min_db": 13.8,
+    "max_db": 17.2,
+    "n": 11
+   },
+   "vlm_calls": 17,
+   "title_lines": 0,
+   "n_shot_cuts": 0,
+   "seconds": 31.0,
+   "headline": "11 lines drafted into 12 dialogue gaps (75.9 s usable); 0.0 s over detected speech; 5 GREEN / 2 AMBER / 4 UNVERIFIED.",
+   "eyeball": {
+    "judged": 11,
+    "unjudged_or_stale": 0,
+    "accurate": 5,
+    "partly": 5,
+    "wrong": 1,
+    "accurate_frac": 0.455,
+    "accurate_or_partly_frac": 0.909,
+    "amber_flags_on_inaccurate": 1,
+    "inaccurate_total": 6,
+    "green_lines_accurate": 1,
+    "green_total": 5,
+    "by_flag": {
+     "GREEN": {
+      "n": 5,
+      "accurate": 1,
+      "partly": 3,
+      "wrong": 1
+     },
+     "UNVERIFIED": {
+      "n": 4,
+      "accurate": 3,
+      "partly": 1,
+      "wrong": 0
+     },
+     "AMBER": {
+      "n": 2,
+      "accurate": 1,
+      "partly": 1,
+      "wrong": 0
+     }
+    }
+   },
+   "spectro_audit_by_eye": {
+    "clear": 11,
+    "ambiguous": 0,
+    "speech-like": 0,
+    "judged": 11
+   }
+  },
+  "elephants_dream": {
+   "video": "elephants_dream",
+   "analysed_s": 180.0,
+   "audio_speech_frac": 0.626,
+   "gaps": 10,
+   "gap_usable_s": 55.8,
+   "strict_silence_only_gap_s": 0,
+   "gaps_quiet": 0,
+   "gaps_bed": 10,
+   "slots": 12,
+   "slots_described": 10,
+   "slots_held": 2,
+   "slots_dropped_by_cap": 0,
+   "slots_unfittable": 0,
+   "unfittable": [],
+   "n_lines": 10,
+   "n_green": 4,
+   "n_amber": 5,
+   "n_unverified": 1,
+   "n_verified": 9,
+   "words": 60,
+   "line_seconds": 24.2,
+   "mean_wps": 2.48,
+   "max_words": 8,
+   "max_wps_slot": 2.27,
+   "mean_wps_slot": 1.14,
+   "lines_trimmed_to_fit": 5,
+   "over_speech_s": 0.0,
+   "lines_overlapping_speech": 0,
+   "lines_inside_own_gap": 10,
+   "line_seconds_in_silencedetect_silence": 0.0,
+   "line_seconds_over_music_or_ambience": 24.2,
+   "silencedetect_threshold_db": -43.0,
+   "ducking_db": {
+    "mean_db": 15.1,
+    "min_db": 12.6,
+    "max_db": 17.0,
+    "n": 10
+   },
+   "vlm_calls": 11,
+   "title_lines": 1,
+   "n_shot_cuts": 24,
+   "seconds": 16.4,
+   "headline": "10 lines drafted into 10 dialogue gaps (55.8 s usable); 0.0 s over detected speech; 4 GREEN / 5 AMBER / 1 UNVERIFIED.",
+   "eyeball": {
+    "judged": 10,
+    "unjudged_or_stale": 0,
+    "accurate": 4,
+    "partly": 6,
+    "wrong": 0,
+    "accurate_frac": 0.4,
+    "accurate_or_partly_frac": 1.0,
+    "amber_flags_on_inaccurate": 3,
+    "inaccurate_total": 6,
+    "green_lines_accurate": 1,
+    "green_total": 4,
+    "by_flag": {
+     "GREEN": {
+      "n": 4,
+      "accurate": 1,
+      "partly": 3,
+      "wrong": 0
+     },
+     "UNVERIFIED": {
+      "n": 1,
+      "accurate": 1,
+      "partly": 0,
+      "wrong": 0
+     },
+     "AMBER": {
+      "n": 5,
+      "accurate": 2,
+      "partly": 3,
+      "wrong": 0
+     }
+    }
+   },
+   "spectro_audit_by_eye": {
+    "clear": 6,
+    "ambiguous": 4,
+    "speech-like": 0,
+    "judged": 10
+   }
+  },
+  "yonge_dundas": {
+   "video": "yonge_dundas",
+   "analysed_s": 56.6,
+   "audio_speech_frac": 0.295,
+   "gaps": 5,
+   "gap_usable_s": 33.3,
+   "strict_silence_only_gap_s": 0,
+   "gaps_quiet": 0,
+   "gaps_bed": 5,
+   "slots": 6,
+   "slots_described": 6,
+   "slots_held": 0,
+   "slots_dropped_by_cap": 0,
+   "slots_unfittable": 1,
+   "unfittable": [
+    {
+     "slot": 3,
+     "slot_len": 3.45,
+     "draft": "A man in a white shirt crosses the street.",
+     "trimmed": null
+    }
+   ],
+   "n_lines": 5,
+   "n_green": 3,
+   "n_amber": 2,
+   "n_unverified": 0,
+   "n_verified": 5,
+   "words": 24,
+   "line_seconds": 11.4,
+   "mean_wps": 2.11,
+   "max_words": 8,
+   "max_wps_slot": 1.37,
+   "mean_wps_slot": 0.8,
+   "lines_trimmed_to_fit": 3,
+   "over_speech_s": 0.0,
+   "lines_overlapping_speech": 0,
+   "lines_inside_own_gap": 5,
+   "line_seconds_in_silencedetect_silence": 0,
+   "line_seconds_over_music_or_ambience": 11.4,
+   "silencedetect_threshold_db": -30.0,
+   "ducking_db": {
+    "mean_db": 15.1,
+    "min_db": 14.1,
+    "max_db": 16.1,
+    "n": 5
+   },
+   "vlm_calls": 6,
+   "title_lines": 0,
+   "n_shot_cuts": 0,
+   "seconds": 9.5,
+   "headline": "5 lines drafted into 5 dialogue gaps (33.3 s usable); 0.0 s over detected speech; 3 GREEN / 2 AMBER / 0 UNVERIFIED.",
+   "eyeball": {
+    "judged": 5,
+    "unjudged_or_stale": 0,
+    "accurate": 3,
+    "partly": 2,
+    "wrong": 0,
+    "accurate_frac": 0.6,
+    "accurate_or_partly_frac": 1.0,
+    "amber_flags_on_inaccurate": 1,
+    "inaccurate_total": 2,
+    "green_lines_accurate": 2,
+    "green_total": 3,
+    "by_flag": {
+     "GREEN": {
+      "n": 3,
+      "accurate": 2,
+      "partly": 1,
+      "wrong": 0
+     },
+     "UNVERIFIED": {
+      "n": 0,
+      "accurate": 0,
+      "partly": 0,
+      "wrong": 0
+     },
+     "AMBER": {
+      "n": 2,
+      "accurate": 1,
+      "partly": 1,
+      "wrong": 0
+     }
+    }
+   },
+   "spectro_audit_by_eye": {
+    "clear": 2,
+    "ambiguous": 3,
+    "speech-like": 0,
+    "judged": 5
+   }
+  }
+ },
+ "generated": "2026-10-17 03:16",
+ "totals": {
+  "lines": 26,
+  "over_speech_s": 0.0,
+  "amber": 9,
+  "eyeball_accurate_frac": 0.462
+ },
+ "flag_calibration": {
+  "GREEN": {
+   "n": 12,
+   "accurate": 4,
+   "partly": 7,
+   "wrong": 1
+  },
+  "UNVERIFIED": {
+   "n": 5,
+   "accurate": 4,
+   "partly": 1,
+   "wrong": 0
+  },
+  "AMBER": {
+   "n": 9,
+   "accurate": 4,
+   "partly": 5,
+   "wrong": 0
+  }
+ },
+ "spectrogram_audit_by_eye": {
+  "clear": 19,
+  "ambiguous": 7,
+  "speech-like": 0,
+  "judged": 26
+ },
+ "kill_test": {
+  "criterion": "zero lines overlap dialogue AND >= 60 % of lines judged accurate by eye",
+  "lines_overlapping_detected_speech": 0,
+  "overlap_seconds_vs_speech_map": 0.0,
+  "line_seconds_inside_silencedetect_silence": 3.1,
+  "line_seconds_total": 64.1,
+  "eyeball_accurate_strict": 0.462,
+  "eyeball_accurate_or_partly": 0.962,
+  "spectrogram_audit_by_eye": {
+   "clear": 19,
+   "ambiguous": 7,
+   "speech-like": 0,
+   "judged": 26
+  },
+  "dialogue_part_passed": true,
+  "accuracy_part_passed_strict": false,
+  "passed": false
+ },
+ "vad_validation_SIMULATED": {
+  "ED_music_sfx_27-147": {
+   "no_injection": {
+    "speech_frac": 0.752,
+    "gaps": 6
+   },
+   "injected": [
+    {
+     "gain_db": -3,
+     "utterances": 12,
+     "speech_s": 41.4,
+     "mean_coverage": 1.0,
+     "utt_detected_80pct": 12,
+     "utt_missed_below_50pct": 0,
+     "gaps": 8,
+     "gap_seconds": 21.8,
+     "gap_overlap_with_injected_speech_s": 0.0
+    },
+    {
+     "gain_db": 0,
+     "utterances": 12,
+     "speech_s": 41.4,
+     "mean_coverage": 1.0,
+     "utt_detected_80pct": 12,
+     "utt_missed_below_50pct": 0,
+     "gaps": 8,
+     "gap_seconds": 25.8,
+     "gap_overlap_with_injected_speech_s": 0.0
+    },
+    {
+     "gain_db": 6,
+     "utterances": 12,
+     "speech_s": 41.4,
+     "mean_coverage": 0.999,
+     "utt_detected_80pct": 12,
+     "utt_missed_below_50pct": 0,
+     "gaps": 7,
+     "gap_seconds": 29.6,
+     "gap_overlap_with_injected_speech_s": 0.0
+    }
+   ]
+  },
+  "yonge_ambient": {
+   "no_injection": {
+    "speech_frac": 0.294,
+    "gaps": 5
+   },
+   "injected": [
+    {
+     "gain_db": -3,
+     "utterances": 7,
+     "speech_s": 24.9,
+     "mean_coverage": 0.991,
+     "utt_detected_80pct": 7,
+     "utt_missed_below_50pct": 0,
+     "gaps": 4,
+     "gap_seconds": 9.6,
+     "gap_overlap_with_injected_speech_s": 0.0
+    },
+    {
+     "gain_db": 0,
+     "utterances": 7,
+     "speech_s": 24.9,
+     "mean_coverage": 1.0,
+     "utt_detected_80pct": 7,
+     "utt_missed_below_50pct": 0,
+     "gaps": 3,
+     "gap_seconds": 7.5,
+     "gap_overlap_with_injected_speech_s": 0.0
+    },
+    {
+     "gain_db": 6,
+     "utterances": 7,
+     "speech_s": 24.9,
+     "mean_coverage": 1.0,
+     "utt_detected_80pct": 7,
+     "utt_missed_below_50pct": 0,
+     "gaps": 7,
+     "gap_seconds": 18.0,
+     "gap_overlap_with_injected_speech_s": 0.0
+    }
+   ]
+  },
+  "dashcam_engine": {
+   "no_injection": {
+    "speech_frac": 0.283,
+    "gaps": 12
+   },
+   "injected": [
+    {
+     "gain_db": -3,
+     "utterances": 12,
+     "speech_s": 41.4,
+     "mean_coverage": 1.0,
+     "utt_detected_80pct": 12,
+     "utt_missed_below_50pct": 0,
+     "gaps": 10,
+     "gap_seconds": 53.2,
+     "gap_overlap_with_injected_speech_s": 0.0
+    },
+    {
+     "gain_db": 0,
+     "utterances": 12,
+     "speech_s": 41.4,
+     "mean_coverage": 1.0,
+     "utt_detected_80pct": 12,
+     "utt_missed_below_50pct": 0,
+     "gaps": 10,
+     "gap_seconds": 55.0,
+     "gap_overlap_with_injected_speech_s": 0.0
+    },
+    {
+     "gain_db": 6,
+     "utterances": 12,
+     "speech_s": 41.4,
+     "mean_coverage": 1.0,
+     "utt_detected_80pct": 12,
+     "utt_missed_below_50pct": 0,
+     "gaps": 11,
+     "gap_seconds": 57.0,
+     "gap_overlap_with_injected_speech_s": 0.0
+    }
+   ]
+  }
+ },
+ "run_seconds": 70.7
+}

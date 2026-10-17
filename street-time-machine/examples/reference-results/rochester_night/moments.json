@@ -1,0 +1,35 @@
+{
+ "camera": "rochester_night",
+ "moments": [
+  {
+   "t": 1.93,
+   "end": 1.93,
+   "kind": "close_pass",
+   "title": "Person passes close to moving car",
+   "detail": "Person #4 and moving car #1 (335 px/s) were touching boxes at 0:01, 0.00 x the car's height, close for 0.1 s. Image distance only; true distance is not known.",
+   "object_ids": [
+    4,
+    1
+   ],
+   "thumb": "moments/1.jpg",
+   "box": [
+    454.8,
+    509.0,
+    689.2,
+    604.5
+   ],
+   "score": 0.759
+  },
+  {
+   "t": 22.0,
+   "end": 84.53,
+   "kind": "blind",
+   "title": "View blocked for 63 s",
+   "detail": "The health ledger marks 0:22 to 1:24 (63 s) as not visible (blocked 56 s, blur 6 s). What happened then is UNKNOWN. The detector still returned 1056 detections in this span (17/s vs 17/s elsewhere), so the ledger and the detector disagree here.",
+   "object_ids": [],
+   "thumb": "moments/2.jpg",
+   "box": null,
+   "score": 0.95
+  }
+ ]
+}

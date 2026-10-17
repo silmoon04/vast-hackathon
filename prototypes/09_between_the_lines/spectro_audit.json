@@ -1,0 +1,164 @@
+{
+ "elephants_dream": {
+  "4.35": {
+   "id": 0,
+   "verdict": "clear",
+   "note": "near-silent, faint noise only (title bed). The detector painted 0.2-4.1 s red here: a false alarm",
+   "text_sha": "029ef045"
+  },
+  "34.71": {
+   "id": 1,
+   "verdict": "clear",
+   "note": "broadband clicks and noise, no harmonic stack",
+   "text_sha": "0d5569ad"
+  },
+  "40.43": {
+   "id": 2,
+   "verdict": "clear",
+   "note": "broadband clicks and noise, no harmonic stack",
+   "text_sha": "0d5569ad"
+  },
+  "69.27": {
+   "id": 3,
+   "verdict": "clear",
+   "note": "quiet with one steady low tone",
+   "text_sha": "c0810408"
+  },
+  "78.6": {
+   "id": 4,
+   "verdict": "clear",
+   "note": "quiet, one steady low tone",
+   "text_sha": "8704e48a"
+  },
+  "87.32": {
+   "id": 5,
+   "verdict": "clear",
+   "note": "steady horizontal tones (drone), no pitch glide or syllable bursts",
+   "text_sha": "89c34b1c"
+  },
+  "109.22": {
+   "id": 6,
+   "verdict": "ambiguous",
+   "note": "dense steady harmonic bands (music or ambience?) that could hide a monotone voice; no glides seen",
+   "text_sha": "d94fac3c"
+  },
+  "116.25": {
+   "id": 7,
+   "verdict": "ambiguous",
+   "note": "dense steady harmonic bands, same as line 6",
+   "text_sha": "c62f240b"
+  },
+  "123.365": {
+   "id": 8,
+   "verdict": "ambiguous",
+   "note": "dense steady harmonic bands, same as line 6",
+   "text_sha": "c623e8bb"
+  },
+  "142.47": {
+   "id": 9,
+   "verdict": "ambiguous",
+   "note": "short curved/diagonal streaks at 142.5 s and 143.6 s: vocalisation or effect, cannot tell by eye",
+   "text_sha": "550475fd"
+  }
+ },
+ "yonge_dundas": {
+  "0.25": {
+   "id": 0,
+   "verdict": "clear",
+   "note": "periodic clicks every 1.5 s (crossing signal), no harmonic glide",
+   "text_sha": "68953080"
+  },
+  "8.285": {
+   "id": 1,
+   "verdict": "clear",
+   "note": "same periodic clicks, no glide inside the line",
+   "text_sha": "ef9570cc"
+  },
+  "23.11": {
+   "id": 2,
+   "verdict": "ambiguous",
+   "note": "short curved streaks 23.5-24.3 s: crowd murmur fragments, background rather than foreground speech",
+   "text_sha": "178c3d33"
+  },
+  "42.18": {
+   "id": 3,
+   "verdict": "ambiguous",
+   "note": "faint horizontal streaks near 43 s: murmur",
+   "text_sha": "178c3d33"
+  },
+  "48.56": {
+   "id": 4,
+   "verdict": "ambiguous",
+   "note": "short harmonic fragments near 49.0 and 49.5 s: murmur",
+   "text_sha": "178c3d33"
+  }
+ },
+ "dashcam_urban": {
+  "6.06": {
+   "id": 0,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "66a000d0"
+  },
+  "17.64": {
+   "id": 1,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "55aeef3a"
+  },
+  "24.89": {
+   "id": 2,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "19fd4532"
+  },
+  "31.49": {
+   "id": 3,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "a3f3f793"
+  },
+  "40.4": {
+   "id": 4,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "50426769"
+  },
+  "49.63": {
+   "id": 5,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "ada58bdc"
+  },
+  "57.08": {
+   "id": 6,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "12db922d"
+  },
+  "67.93": {
+   "id": 7,
+   "verdict": "clear",
+   "note": "engine hum only; turn-signal ticks",
+   "text_sha": "ada58bdc"
+  },
+  "72.92": {
+   "id": 8,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "757bb650"
+  },
+  "97.96": {
+   "id": 9,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "62990a3e"
+  },
+  "107.325": {
+   "id": 10,
+   "verdict": "clear",
+   "note": "engine hum only",
+   "text_sha": "c3b9f46a"
+  }
+ }
+}

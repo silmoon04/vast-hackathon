@@ -1,0 +1,355 @@
+{
+ "camera": "car_detection",
+ "image": "flow.jpg",
+ "w": 768,
+ "h": 432,
+ "lanes": [
+  {
+   "lane_id": "L1",
+   "name": "bottom to top through the centre",
+   "group": "vehicle",
+   "count": 2,
+   "from": [
+    395.0,
+    357.4
+   ],
+   "to": [
+    356.9,
+    42.9
+   ],
+   "path": [
+    [
+     395.0,
+     357.4
+    ],
+    [
+     392.5,
+     341.0
+    ],
+    [
+     389.8,
+     324.5
+    ],
+    [
+     387.1,
+     308.1
+    ],
+    [
+     384.2,
+     291.6
+    ],
+    [
+     381.4,
+     275.2
+    ],
+    [
+     378.9,
+     258.7
+    ],
+    [
+     376.4,
+     242.2
+    ],
+    [
+     374.1,
+     225.6
+    ],
+    [
+     372.1,
+     209.0
+    ],
+    [
+     370.1,
+     192.5
+    ],
+    [
+     368.3,
+     175.9
+    ],
+    [
+     366.6,
+     159.2
+    ],
+    [
+     365.1,
+     142.6
+    ],
+    [
+     363.6,
+     126.0
+    ],
+    [
+     362.3,
+     109.4
+    ],
+    [
+     361.0,
+     92.7
+    ],
+    [
+     359.6,
+     76.1
+    ],
+    [
+     358.1,
+     59.5
+    ],
+    [
+     356.9,
+     42.9
+    ]
+   ],
+   "median_speed_px_s": 107.3,
+   "example_ids": [
+    2,
+    8
+   ]
+  },
+  {
+   "lane_id": "L2",
+   "name": "top to bottom left of centre",
+   "group": "vehicle",
+   "count": 2,
+   "from": [
+    226.3,
+    66.5
+   ],
+   "to": [
+    176.3,
+    390.9
+   ],
+   "path": [
+    [
+     226.3,
+     66.5
+    ],
+    [
+     221.9,
+     83.3
+    ],
+    [
+     217.5,
+     100.0
+    ],
+    [
+     213.3,
+     116.9
+    ],
+    [
+     209.8,
+     133.8
+    ],
+    [
+     206.3,
+     150.8
+    ],
+    [
+     203.1,
+     167.9
+    ],
+    [
+     200.1,
+     184.9
+    ],
+    [
+     197.2,
+     202.0
+    ],
+    [
+     194.2,
+     219.1
+    ],
+    [
+     191.4,
+     236.2
+    ],
+    [
+     188.2,
+     253.2
+    ],
+    [
+     185.0,
+     270.2
+    ],
+    [
+     182.0,
+     287.3
+    ],
+    [
+     179.5,
+     304.4
+    ],
+    [
+     177.8,
+     321.6
+    ],
+    [
+     177.2,
+     339.0
+    ],
+    [
+     176.9,
+     356.3
+    ],
+    [
+     176.8,
+     373.6
+    ],
+    [
+     176.3,
+     390.9
+    ]
+   ],
+   "median_speed_px_s": 148.65,
+   "example_ids": [
+    16,
+    6
+   ]
+  },
+  {
+   "lane_id": "L3",
+   "name": "bottom to top through the centre (2)",
+   "group": "vehicle",
+   "count": 1,
+   "from": [
+    369.7,
+    49.0
+   ],
+   "to": [
+    358.4,
+    19.1
+   ],
+   "path": [
+    [
+     369.7,
+     49.0
+    ],
+    [
+     369.1,
+     47.4
+    ],
+    [
+     368.5,
+     45.8
+    ],
+    [
+     368.0,
+     44.2
+    ],
+    [
+     367.4,
+     42.6
+    ],
+    [
+     366.8,
+     41.1
+    ],
+    [
+     366.3,
+     39.5
+    ],
+    [
+     365.7,
+     37.9
+    ],
+    [
+     365.1,
+     36.3
+    ],
+    [
+     364.5,
+     34.7
+    ],
+    [
+     364.0,
+     33.1
+    ],
+    [
+     363.4,
+     31.6
+    ],
+    [
+     362.8,
+     30.0
+    ],
+    [
+     362.1,
+     28.4
+    ],
+    [
+     361.5,
+     26.9
+    ],
+    [
+     360.9,
+     25.3
+    ],
+    [
+     360.3,
+     23.7
+    ],
+    [
+     359.7,
+     22.2
+    ],
+    [
+     359.0,
+     20.6
+    ],
+    [
+     358.4,
+     19.1
+    ]
+   ],
+   "median_speed_px_s": 57.08,
+   "example_ids": [
+    11
+   ]
+  }
+ ],
+ "per_minute": [
+  {
+   "t": 0,
+   "person": 0,
+   "vehicle": 5,
+   "seconds": 30.16,
+   "visible_s": 30.16
+  }
+ ],
+ "busiest": {
+  "t": 15.36,
+  "count": 2,
+  "frame": "frames/busiest.jpg",
+  "person": 0,
+  "vehicle": 2,
+  "track_ids": 2
+ },
+ "totals": {
+  "moving": 5,
+  "moving_person": 0,
+  "moving_vehicle": 5,
+  "parked_excluded": 0,
+  "stationary_excluded": 0,
+  "too_short_excluded": 2,
+  "in_lanes": 5,
+  "not_in_main_lanes": {
+   "person": 0,
+   "vehicle": 0
+  },
+  "dropped_detections_other_view": 0
+ },
+ "view": {
+  "main_view_s": 30.16,
+  "duration_s": 30.16,
+  "excluded": [],
+  "plate": "background.jpg"
+ },
+ "notes": [
+  "Counts are tracker ids, not verified individuals: one object can split into several ids and two can merge.",
+  "Coordinates are source-video pixels (w x h); flow.jpg may be upscaled, see image_w/image_h.",
+  "Group 'vehicle' includes bicycles and motorcycles.",
+  "Busiest count = boxes on screen in one frame after merging same-group boxes with IoU >= 0.5 (one object held by two tracker ids); person/vehicle split by that frame's class; track_ids = tracker ids before merging."
+ ],
+ "image_w": 1280,
+ "image_h": 720
+}

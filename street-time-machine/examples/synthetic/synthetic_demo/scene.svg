@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" fill="#142231"/>
+  <path d="M0 140h960v300H0z" fill="#35424c"/>
+  <path d="M0 180h960M0 400h960" stroke="#b8c3c7" stroke-width="4"/>
+  <path d="M60 290h180m480 0h180" stroke="#e6c864" stroke-width="6" stroke-dasharray="30 24"/>
+  <rect x="350" y="230" width="160" height="100" rx="22" fill="#bf573f"/>
+  <rect x="385" y="242" width="90" height="74" rx="12" fill="#527b91"/>
+  <path d="M430 240v77" stroke="#d3e1e5" stroke-width="3"/>
+  <circle cx="535" cy="248" r="12" fill="#edb861"/>
+  <path d="M535 268v32m0-19-16 10m16-10 16 10m-16 9-11 22m11-22 11 22" stroke="#edb861" stroke-width="9" stroke-linecap="round"/>
+  <text x="32" y="57" font-family="sans-serif" font-size="27" font-weight="700" fill="#edb861">SYNTHETIC EXAMPLE</text>
+  <text x="32" y="95" font-family="sans-serif" font-size="19" fill="#d3e1e5">Illustration and preset events. No recorded footage or inference.</text>
+  <text x="355" y="365" font-family="sans-serif" font-size="20" fill="#d3e1e5">Car #1</text>
+  <text x="32" y="494" font-family="sans-serif" font-size="19" fill="#d3e1e5">Visitor at 00:05 | View blocked 00:08 to 00:10</text>
+</svg>

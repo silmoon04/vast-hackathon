@@ -1,0 +1,170 @@
+{
+ "camera": "person_bicycle_car_detection",
+ "objects": [
+  {
+   "object_id": 1,
+   "name": "person",
+   "colour": null,
+   "rgb": null,
+   "first_t": 1.25,
+   "last_t": 7.08,
+   "parked": false,
+   "n": 71,
+   "crop": "crops/1.jpg",
+   "crop_t": 2.17,
+   "colour_frac": null,
+   "colour_reliable": false,
+   "colour_why": "person",
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 33,
+   "name": "person",
+   "colour": null,
+   "rgb": null,
+   "first_t": 40.25,
+   "last_t": 45.83,
+   "parked": false,
+   "n": 68,
+   "crop": "crops/33.jpg",
+   "crop_t": 43.0,
+   "colour_frac": null,
+   "colour_reliable": false,
+   "colour_why": "person",
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 38,
+   "name": "car",
+   "colour": "silver",
+   "rgb": [
+    134,
+    137,
+    147
+   ],
+   "first_t": 44.0,
+   "last_t": 49.33,
+   "parked": false,
+   "n": 65,
+   "crop": "crops/38.jpg",
+   "crop_t": 45.42,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "colour_why": null,
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 7,
+   "name": "car",
+   "colour": "white",
+   "rgb": [
+    204,
+    210,
+    220
+   ],
+   "first_t": 14.33,
+   "last_t": 19.17,
+   "parked": false,
+   "n": 58,
+   "crop": "crops/7.jpg",
+   "crop_t": 15.67,
+   "colour_frac": 1.0,
+   "colour_reliable": true,
+   "colour_why": null,
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 43,
+   "name": "bicycle",
+   "colour": null,
+   "rgb": null,
+   "first_t": 44.75,
+   "last_t": 49.5,
+   "parked": false,
+   "n": 58,
+   "crop": "crops/43.jpg",
+   "crop_t": 47.67,
+   "colour_frac": null,
+   "colour_reliable": false,
+   "colour_why": "rider",
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 52,
+   "name": "person",
+   "colour": null,
+   "rgb": null,
+   "first_t": 46.33,
+   "last_t": 49.42,
+   "parked": false,
+   "n": 38,
+   "crop": "crops/52.jpg",
+   "crop_t": 47.58,
+   "colour_frac": null,
+   "colour_reliable": false,
+   "colour_why": "person",
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 13,
+   "name": "bicycle",
+   "colour": null,
+   "rgb": null,
+   "first_t": 25.67,
+   "last_t": 29.08,
+   "parked": false,
+   "n": 32,
+   "crop": "crops/13.jpg",
+   "crop_t": 27.58,
+   "colour_frac": null,
+   "colour_reliable": false,
+   "colour_why": "rider",
+   "night": false,
+   "day": "A"
+  },
+  {
+   "object_id": 23,
+   "name": "person",
+   "colour": null,
+   "rgb": null,
+   "first_t": 26.67,
+   "last_t": 29.0,
+   "parked": false,
+   "n": 29,
+   "crop": "crops/23.jpg",
+   "crop_t": 27.5,
+   "colour_frac": null,
+   "colour_reliable": false,
+   "colour_why": "person",
+   "night": false,
+   "day": "A"
+  }
+ ],
+ "colours": {
+  "white": 1,
+  "silver": 1
+ },
+ "n_coloured": 2,
+ "n_vehicles": 2,
+ "uncoloured": {
+  "person": 4,
+  "rider": 2
+ },
+ "n_objects_total": 8,
+ "cap": 150,
+ "notes": [
+  "people are never described by how they look: 4 people and 2 bikes/motorbikes (box is mostly the rider) have no colour"
+ ],
+ "scene_brightness": 139.0,
+ "scene_brightness_by_day": {
+  "A": 139.0
+ },
+ "night_days": [],
+ "method": "vehicles (car/truck/bus) only: dominant paint colour of the box body in HSV, borders and darkest/brightest 10% ignored; no colour at night or for dark or tiny boxes. People, bicycles and motorbikes are never given a colour or any appearance attribute."
+}

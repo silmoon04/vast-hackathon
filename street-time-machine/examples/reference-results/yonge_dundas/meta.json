@@ -1,0 +1,20 @@
+{
+ "camera": "yonge_dundas",
+ "title": "City crossing",
+ "credit": "Wikimedia Commons, CC0",
+ "fps": 23.976023976023978,
+ "w": 1280,
+ "h": 720,
+ "duration": 56.56,
+ "days": [
+  {
+   "id": "A",
+   "label": "Clip",
+   "start": 0.0,
+   "end": 56.55649999999999
+  }
+ ],
+ "simulated": [],
+ "background": "background.jpg",
+ "video": "videos/yonge_dundas.mp4"
+}

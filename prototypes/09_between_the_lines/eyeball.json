@@ -1,0 +1,190 @@
+{
+ "elephants_dream": {
+  "4.35": {
+   "id": 0,
+   "verdict": "accurate",
+   "note": "title card: 'the orange open movie project presents' read exactly; the second card 'elephants dream' is not in this slot",
+   "text": "Title: The orange open movie project presents.",
+   "text_sha": "029ef045"
+  },
+  "34.71": {
+   "id": 1,
+   "verdict": "accurate",
+   "note": "bald man in a brown-grey coat standing at a console; a second figure lies on the platform (not mentioned). AMBER 'brown' flag is a false alarm (cartoon coat is desaturated)",
+   "text": "A man in a brown coat stands.",
+   "text_sha": "0d5569ad"
+  },
+  "40.43": {
+   "id": 2,
+   "verdict": "accurate",
+   "note": "same man standing on the platform; right but repeats line 1 (near-repeat flag is fair)",
+   "text": "A man in a brown coat stands.",
+   "text_sha": "0d5569ad"
+  },
+  "69.27": {
+   "id": 3,
+   "verdict": "partly",
+   "note": "man in a doorway at 1:10; at the line start the frame is still the machine, and he leans forward rather than stands",
+   "text": "A man stands.",
+   "text_sha": "c0810408"
+  },
+  "78.6": {
+   "id": 4,
+   "verdict": "partly",
+   "note": "two men peer round the curtain; 'a man steps forward' drops the second man and the action",
+   "text": "A man steps forward.",
+   "text_sha": "8704e48a"
+  },
+  "87.32": {
+   "id": 5,
+   "verdict": "partly",
+   "note": "winding walkway through cables is right; no figure is clearly visible in 2 of 3 frames",
+   "text": "A figure walks along a glowing path.",
+   "text_sha": "89c34b1c"
+  },
+  "109.22": {
+   "id": 6,
+   "verdict": "partly",
+   "note": "small figure on a wire is right; 'runs' is wrong, it walks",
+   "text": "A figure runs along the tangled wires.",
+   "text_sha": "d94fac3c"
+  },
+  "116.25": {
+   "id": 7,
+   "verdict": "accurate",
+   "note": "child-like figure and the bald man walking along a narrow metal walkway; 'a figure walks on a narrow bridge' is true (second figure omitted)",
+   "text": "A figure walks on a narrow bridge.",
+   "text_sha": "c62f240b"
+  },
+  "123.365": {
+   "id": 8,
+   "verdict": "partly",
+   "note": "twisting metal walkway is right; no figure is clearly visible. AMBER (YOLO 0 persons) is a fair flag",
+   "text": "A figure walks along a twisting metal walkway.",
+   "text_sha": "c623e8bb"
+  },
+  "142.47": {
+   "id": 9,
+   "verdict": "partly",
+   "note": "1.1 s slot: frame 1 shows two men in the foreground, later frames only wires; 'a figure walks' is thin",
+   "text": "A figure walks.",
+   "text_sha": "550475fd"
+  }
+ },
+ "yonge_dundas": {
+  "0.25": {
+   "id": 0,
+   "verdict": "accurate",
+   "note": "pedestrians crossing, cars passing in front of the building: all true",
+   "text": "Pedestrians cross the intersection; cars drive past building.",
+   "text_sha": "68953080"
+  },
+  "8.285": {
+   "id": 1,
+   "verdict": "partly",
+   "note": "a man in a dark top walks (frame 3); 'black jacket' is not certain, it looks like a dark grey t-shirt",
+   "text": "A man in a black jacket walks.",
+   "text_sha": "ef9570cc"
+  },
+  "23.11": {
+   "id": 2,
+   "verdict": "accurate",
+   "note": "woman in a pink blouse walks in the foreground (many others too)",
+   "text": "A woman walks.",
+   "text_sha": "178c3d33"
+  },
+  "42.18": {
+   "id": 3,
+   "verdict": "partly",
+   "note": "wide shot of a busy crossing with cyclists; only a woman's hair is in the foreground at the end",
+   "text": "A woman walks.",
+   "text_sha": "178c3d33"
+  },
+  "48.56": {
+   "id": 4,
+   "verdict": "accurate",
+   "note": "curly-haired woman seen from behind walks in the foreground (generous: she is one of ~7 people)",
+   "text": "A woman walks.",
+   "text_sha": "178c3d33"
+  }
+ },
+ "dashcam_urban": {
+  "6.06": {
+   "id": 0,
+   "verdict": "accurate",
+   "note": "driving through an empty parking garage",
+   "text": "I drive through the empty urban parking garage.",
+   "text_sha": "66a000d0"
+  },
+  "17.64": {
+   "id": 1,
+   "verdict": "accurate",
+   "note": "leaving the garage into bright light",
+   "text": "I exit the parking garage.",
+   "text_sha": "55aeef3a"
+  },
+  "24.89": {
+   "id": 2,
+   "verdict": "partly",
+   "note": "a small red sign among bushes could be a stop sign; not certain",
+   "text": "I approach a stop sign.",
+   "text_sha": "19fd4532"
+  },
+  "31.49": {
+   "id": 3,
+   "verdict": "partly",
+   "note": "cars are visible at the junction but none clearly 'drives past'",
+   "text": "A car drives past.",
+   "text_sha": "a3f3f793"
+  },
+  "40.4": {
+   "id": 4,
+   "verdict": "wrong",
+   "note": "no car turns right: the road is empty ahead; a dark van is parked at the right",
+   "text": "A car turns right at intersection.",
+   "text_sha": "50426769"
+  },
+  "49.63": {
+   "id": 5,
+   "verdict": "partly",
+   "note": "white cars ahead in the lane centre and parked on the right; none clearly drives past",
+   "text": "A white car drives past on the right.",
+   "text_sha": "ada58bdc"
+  },
+  "57.08": {
+   "id": 6,
+   "verdict": "partly",
+   "note": "a dark (blue-black) car far ahead on the left; not driving past",
+   "text": "A blue car drives past on the left.",
+   "text_sha": "12db922d"
+  },
+  "67.93": {
+   "id": 7,
+   "verdict": "accurate",
+   "note": "white car on the right in frame 3. AMBER colour flag is a false alarm (box covers the camera car bonnet, 3% white)",
+   "text": "A white car drives past on the right.",
+   "text_sha": "ada58bdc"
+  },
+  "72.92": {
+   "id": 8,
+   "verdict": "accurate",
+   "note": "black car on the left in frame 1",
+   "text": "A black car drives past on the left.",
+   "text_sha": "757bb650"
+  },
+  "97.96": {
+   "id": 9,
+   "verdict": "partly",
+   "note": "black car is ahead in the lane, centre-left, not on the right. AMBER position flag is correct",
+   "text": "A black car drives ahead on the right.",
+   "text_sha": "62990a3e"
+  },
+  "107.325": {
+   "id": 10,
+   "verdict": "accurate",
+   "note": "traffic light on the left in frame 1",
+   "text": "A traffic light is on the left.",
+   "text_sha": "c3b9f46a"
+  }
+ }
+}

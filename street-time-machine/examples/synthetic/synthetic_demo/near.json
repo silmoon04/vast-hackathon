@@ -1,0 +1,23 @@
+{
+  "camera": "synthetic_demo",
+  "targets": [{
+    "object_id": 1,
+    "name": "car",
+    "box": [350, 230, 510, 330],
+    "start": 0,
+    "end": 12,
+    "crop": "scene.svg",
+    "visitors": [{
+      "object_id": 2,
+      "name": "person",
+      "closest_t": 5,
+      "gap_px": 10,
+      "gap_rel": 0.1,
+      "enter_t": 4,
+      "exit_t": 6,
+      "crop": "scene.svg"
+    }],
+    "blind": [{"start": 8, "end": 10, "reason": "blocked"}],
+    "summary": "Synthetic fixture: one illustrated visitor passes a parked car."
+  }]
+}

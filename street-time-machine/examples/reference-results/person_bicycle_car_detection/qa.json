@@ -1,0 +1,302 @@
+{
+ "camera": "person_bicycle_car_detection",
+ "ledger_used": false,
+ "blind_total_s": 0.0,
+ "days": [
+  {
+   "id": "A",
+   "label": "Clip"
+  }
+ ],
+ "blind": [],
+ "items": [
+  {
+   "question": "Who came near the grey car?",
+   "t": null,
+   "type": "who_near",
+   "answer": {
+    "type": "who_near",
+    "answer": "1",
+    "sentence": "1 came near the grey car #38 (00:44-00:49): person #33 came close at 00:44. This says who was close, not who did anything.",
+    "latency_ms": 108.25,
+    "evidence": [
+     {
+      "object_id": 38,
+      "t": 44.0,
+      "crop": "ask_crops/38.jpg",
+      "box": [
+       32.9,
+       95.5,
+       270.1,
+       267.9
+      ]
+     },
+     {
+      "object_id": 33,
+      "t": 44.0,
+      "crop": "ask_crops/33.jpg",
+      "box": [
+       209.6,
+       7.3,
+       247.8,
+       87.4
+      ]
+     }
+    ],
+    "honesty": "close means within half a car-height in the picture, so it may have been in front or behind",
+    "last_seen": null,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "Is the grey car still there?",
+   "t": null,
+   "type": "still_there",
+   "answer": {
+    "type": "still_there",
+    "answer": "NO",
+    "sentence": "No. The grey car #38 left the picture through the left edge at 00:49.",
+    "latency_ms": 49.37,
+    "evidence": [
+     {
+      "object_id": 38,
+      "t": 44.0,
+      "crop": "ask_crops/38.jpg",
+      "box": [
+       63.0,
+       360.1,
+       239.7,
+       431.4
+      ]
+     },
+     {
+      "object_id": 38,
+      "t": 49.33,
+      "crop": "ask_crops/38.jpg",
+      "box": [
+       0.0,
+       66.0,
+       50.0,
+       144.4
+      ]
+     }
+    ],
+    "honesty": null,
+    "last_seen": 49.33,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "Who dented the grey car?",
+   "t": null,
+   "type": "who_near",
+   "answer": {
+    "type": "who_near",
+    "answer": "UNKNOWN",
+    "sentence": "It can't say who did it. It shows who was near: 1 came near the grey car #38 (00:44-00:49): person #33 came close at 00:44.",
+    "latency_ms": 31.57,
+    "evidence": [
+     {
+      "object_id": 38,
+      "t": 44.0,
+      "crop": "ask_crops/38.jpg",
+      "box": [
+       32.9,
+       95.5,
+       270.1,
+       267.9
+      ]
+     },
+     {
+      "object_id": 33,
+      "t": 44.0,
+      "crop": "ask_crops/33.jpg",
+      "box": [
+       209.6,
+       7.3,
+       247.8,
+       87.4
+      ]
+     }
+    ],
+    "honesty": "by design: being near is not doing it; it shows who was near, never who did it; close means within half a car-height in the picture, so it may have been in front or behind",
+    "last_seen": null,
+    "blind": [],
+    "refused": "blame"
+   }
+  },
+  {
+   "question": "What changed since 00:05?",
+   "t": null,
+   "type": "what_changed",
+   "answer": {
+    "type": "what_changed",
+    "answer": "no parked changes",
+    "sentence": "Nothing parked here (00:05 vs 00:53); 7 moving object(s) passed through.",
+    "latency_ms": 10.57,
+    "evidence": [],
+    "honesty": null,
+    "last_seen": null,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "How many people walked by?",
+   "t": null,
+   "type": "count_since",
+   "answer": {
+    "type": "count_since",
+    "answer": "4",
+    "sentence": "4 moving people came into view between 00:00 and 00:53.",
+    "latency_ms": 11.49,
+    "evidence": [
+     {
+      "object_id": 1,
+      "t": 1.25,
+      "crop": "ask_crops/1.jpg",
+      "box": [
+       594.0,
+       191.9,
+       649.9,
+       288.3
+      ]
+     },
+     {
+      "object_id": 23,
+      "t": 26.67,
+      "crop": "ask_crops/23.jpg",
+      "box": [
+       639.1,
+       18.7,
+       689.0,
+       88.8
+      ]
+     },
+     {
+      "object_id": 33,
+      "t": 40.25,
+      "crop": "ask_crops/33.jpg",
+      "box": [
+       152.8,
+       22.75,
+       193.4,
+       103.95
+      ]
+     },
+     {
+      "object_id": 52,
+      "t": 46.33,
+      "crop": "ask_crops/52.jpg",
+      "box": [
+       639.5,
+       18.3,
+       676.3,
+       86.95
+      ]
+     }
+    ],
+    "honesty": null,
+    "last_seen": null,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "Which way did the person go?",
+   "t": null,
+   "type": "which_way",
+   "answer": {
+    "type": "which_way",
+    "answer": "right",
+    "sentence": "The person #52 left through the right edge of the picture at 00:49, heading right.",
+    "latency_ms": 23.25,
+    "evidence": [
+     {
+      "object_id": 52,
+      "t": 46.33,
+      "crop": "ask_crops/52.jpg",
+      "box": [
+       547.7,
+       0.2,
+       574.7,
+       43.6
+      ]
+     },
+     {
+      "object_id": 52,
+      "t": 49.42,
+      "crop": "ask_crops/52.jpg",
+      "box": [
+       747.6,
+       35.8,
+       768.0,
+       91.3
+      ]
+     }
+    ],
+    "honesty": null,
+    "last_seen": 49.42,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "How many cars came by since 00:13?",
+   "t": null,
+   "type": "count_since",
+   "answer": {
+    "type": "count_since",
+    "answer": "2",
+    "sentence": "2 moving cars came into view between 00:13 and 00:53.",
+    "latency_ms": 11.3,
+    "evidence": [
+     {
+      "object_id": 7,
+      "t": 14.33,
+      "crop": "ask_crops/7.jpg",
+      "box": [
+       12.7,
+       126.4,
+       257.1,
+       307.05
+      ]
+     },
+     {
+      "object_id": 38,
+      "t": 44.0,
+      "crop": "ask_crops/38.jpg",
+      "box": [
+       32.9,
+       95.5,
+       270.1,
+       267.9
+      ]
+     }
+    ],
+    "honesty": null,
+    "last_seen": null,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "Find the man in the black shirt",
+   "t": null,
+   "type": "unknown",
+   "answer": {
+    "type": "unknown",
+    "answer": "UNKNOWN",
+    "sentence": "Street Time Machine never describes or searches people by how they look: no clothing, skin, gender or face. Ask about vehicles, or who came near a car.",
+    "latency_ms": 0.14,
+    "evidence": [],
+    "honesty": "by design",
+    "last_seen": null,
+    "blind": [],
+    "refused": "appearance"
+   }
+  }
+ ]
+}

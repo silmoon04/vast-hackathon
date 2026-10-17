@@ -1,0 +1,14 @@
+# Cosmos-Embed1 mirror ONLY (its remote code needs transformers 4.x, so it gets its own venv):
+#   uv venv .venv-embed --python 3.12
+#   uv pip install --python .venv-embed -r requirements-embed.txt --index-url https://download.pytorch.org/whl/cu128 --extra-index-url https://pypi.org/simple
+# Not a pyproject.toml extra (CUDA wheel index, transformers 4.x): runs vastkit.local.embed_server from the repo checkout.
+torch==2.11.0+cu128
+transformers==4.57.6
+huggingface-hub==0.36.2
+einops==0.8.2
+av==19.0.1
+opencv-python-headless==5.0.0.93
+numpy==2.5.2
+fastapi==0.143.2
+uvicorn==0.54.0
+pydantic==2.14.1

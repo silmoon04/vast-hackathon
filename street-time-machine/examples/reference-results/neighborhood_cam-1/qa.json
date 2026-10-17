@@ -1,0 +1,555 @@
+{
+ "camera": "neighborhood_cam-1",
+ "ledger_used": true,
+ "blind": [
+  {
+   "start": 110.0,
+   "end": 118.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 118.49,
+   "end": 130.14,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 119.0,
+   "end": 145.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 131.75,
+   "end": 137.37,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 138.58,
+   "end": 144.2,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 316.0,
+   "end": 424.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 316.52,
+   "end": 334.19,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 335.4,
+   "end": 423.36,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 464.0,
+   "end": 471.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 465.94,
+   "end": 470.76,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 471.97,
+   "end": 480.8,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 472.0,
+   "end": 481.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 894.93,
+   "end": 903.36,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 896.0,
+   "end": 904.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 904.97,
+   "end": 915.41,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 905.0,
+   "end": 916.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 917.0,
+   "end": 929.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 917.02,
+   "end": 928.67,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 929.87,
+   "end": 954.78,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 930.0,
+   "end": 955.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 1038.33,
+   "end": 1064.84,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 1039.0,
+   "end": 1066.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 1088.94,
+   "end": 1089.34,
+   "reason": "cut",
+   "source": "scan"
+  },
+  {
+   "start": 1089.0,
+   "end": 1091.0,
+   "reason": "no_signal",
+   "source": "ledger"
+  },
+  {
+   "start": 1091.0,
+   "end": 1159.0,
+   "reason": "blocked",
+   "source": "ledger"
+  },
+  {
+   "start": 1158.83,
+   "end": 1159.23,
+   "reason": "cut",
+   "source": "scan"
+  },
+  {
+   "start": 1159.0,
+   "end": 1161.0,
+   "reason": "no_signal",
+   "source": "ledger"
+  },
+  {
+   "start": 1161.0,
+   "end": 1188.0,
+   "reason": "blur",
+   "source": "ledger"
+  },
+  {
+   "start": 1188.0,
+   "end": 1190.0,
+   "reason": "no_signal",
+   "source": "ledger"
+  },
+  {
+   "start": 1190.0,
+   "end": 1271.0,
+   "reason": "blur",
+   "source": "ledger"
+  },
+  {
+   "start": 1270.49,
+   "end": 1309.86,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 1271.0,
+   "end": 1311.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 1311.0,
+   "end": 1416.0,
+   "reason": "blur",
+   "source": "ledger"
+  },
+  {
+   "start": 1416.0,
+   "end": 1457.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 1419.92,
+   "end": 1456.47,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 1457.0,
+   "end": 1567.0,
+   "reason": "blur",
+   "source": "ledger"
+  },
+  {
+   "start": 1568.0,
+   "end": 1587.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 1568.13,
+   "end": 1586.61,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 1588.0,
+   "end": 1595.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 1588.22,
+   "end": 1602.68,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 1596.0,
+   "end": 1603.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 1635.0,
+   "end": 1646.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 1635.21,
+   "end": 1644.85,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 1646.46,
+   "end": 1668.95,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 1647.0,
+   "end": 1670.0,
+   "reason": "frozen",
+   "source": "ledger"
+  },
+  {
+   "start": 1676.0,
+   "end": 1677.0,
+   "reason": "blur",
+   "source": "ledger"
+  },
+  {
+   "start": 1700.0,
+   "end": 1701.0,
+   "reason": "blur",
+   "source": "ledger"
+  },
+  {
+   "start": 1710.73,
+   "end": 1777.41,
+   "reason": "frozen",
+   "source": "scan"
+  },
+  {
+   "start": 1711.0,
+   "end": 1778.0,
+   "reason": "frozen",
+   "source": "ledger"
+  }
+ ],
+ "items": [
+  {
+   "question": "Is car #165 still there at 18:01?",
+   "t": 1081.0,
+   "type": "still_there",
+   "answer": {
+    "type": "still_there",
+    "answer": "YES",
+    "sentence": "Yes. The black car #165 is still in its spot at 18:01 (detected there at 1080.99 s).",
+    "latency_ms": 0.93,
+    "evidence": [
+     {
+      "object_id": 165,
+      "t": 1054.49,
+      "crop": "ask_crops/165.jpg",
+      "box": [
+       748.1,
+       510.4,
+       875.0,
+       601.5
+      ]
+     },
+     {
+      "object_id": 165,
+      "t": 1080.99,
+      "crop": "ask_crops/165.jpg",
+      "box": [
+       748.1,
+       510.4,
+       875.0,
+       601.5
+      ]
+     }
+    ],
+    "honesty": null
+   }
+  },
+  {
+   "question": "When did car #25 leave, by 18:01?",
+   "t": 1081.0,
+   "type": "when_left",
+   "answer": {
+    "type": "when_left",
+    "answer": "02:47",
+    "sentence": "The black car #25 left at about 167.22 s (02:47): last detection in its spot, which looks different afterwards (picture correlation -0.12, 701 s of visible spot after).",
+    "latency_ms": 1.96,
+    "evidence": [
+     {
+      "object_id": 25,
+      "t": 105.04,
+      "crop": "ask_crops/25.jpg",
+      "box": [
+       274.4,
+       394.9,
+       313.1,
+       453.6
+      ]
+     },
+     {
+      "object_id": 31,
+      "t": 167.22,
+      "crop": "ask_crops/31.jpg",
+      "box": [
+       274.4,
+       394.9,
+       313.1,
+       453.6
+      ]
+     },
+     {
+      "object_id": 25,
+      "t": 1080.9,
+      "crop": "ask_crops/spot25_1080.9.jpg",
+      "box": [
+       274.4,
+       394.9,
+       313.1,
+       453.6
+      ]
+     }
+    ],
+    "honesty": null
+   }
+  },
+  {
+   "question": "Who came near car #165 by 18:01?",
+   "t": 1081.0,
+   "type": "who_near",
+   "answer": {
+    "type": "who_near",
+    "answer": "0",
+    "sentence": "Nothing moving came within half a car-height of the black car #165 between 17:34 and 18:01.",
+    "latency_ms": 1.25,
+    "evidence": [
+     {
+      "object_id": 165,
+      "t": 1054.49,
+      "crop": "ask_crops/165.jpg",
+      "box": [
+       748.1,
+       510.4,
+       875.0,
+       601.5
+      ]
+     }
+    ],
+    "honesty": "12 s of the 27 s watch window were blind (frozen 1038.33-1064.84 s; frozen 1039.00-1066.00 s); visitors then are missed"
+   }
+  },
+  {
+   "question": "Which way did the person go?",
+   "t": null,
+   "type": "which_way",
+   "answer": {
+    "type": "which_way",
+    "answer": "right",
+    "sentence": "The person #79 (in black) was last tracked mid-frame at 451.81 s (07:31) heading right; it did not reach a frame edge.",
+    "latency_ms": 2.0,
+    "evidence": [
+     {
+      "object_id": 79,
+      "t": 449.16,
+      "crop": "ask_crops/79.jpg",
+      "box": [
+       279.4,
+       413.7,
+       306.2,
+       484.2
+      ]
+     },
+     {
+      "object_id": 79,
+      "t": 451.81,
+      "crop": "ask_crops/79.jpg",
+      "box": [
+       715.6,
+       372.5,
+       731.2,
+       413.7
+      ]
+     }
+    ],
+    "honesty": "track ended away from the frame edge (hidden behind something or missed by the detector)"
+   }
+  },
+  {
+   "question": "How many people walked by?",
+   "t": null,
+   "type": "count_since",
+   "answer": {
+    "type": "count_since",
+    "answer": "2",
+    "sentence": "2 moving people came into view between 00:00 and 30:53.",
+    "latency_ms": 1.39,
+    "evidence": [
+     {
+      "object_id": 48,
+      "t": 220.8,
+      "crop": "ask_crops/48.jpg",
+      "box": [
+       512.5,
+       511.0,
+       543.8,
+       592.1
+      ]
+     },
+     {
+      "object_id": 79,
+      "t": 449.16,
+      "crop": "ask_crops/79.jpg",
+      "box": [
+       565.9,
+       380.9,
+       589.05,
+       434.25
+      ]
+     }
+    ],
+    "honesty": "859 s of 1853 s were blind (frozen 110.00-118.00 s; frozen 118.49-130.14 s; frozen 119.00-145.00 s), so this is a lower bound"
+   }
+  },
+  {
+   "question": "What changed between Day A and Day B?",
+   "t": null,
+   "type": "what_changed",
+   "answer": {
+    "type": "what_changed",
+    "answer": "UNKNOWN",
+    "sentence": "Can't compare Day 20260901 with Day 20260902: the camera framing is different (Day 20260901 ends in view 0, Day 20260902 ends in view 1), so the parking spots don't line up.",
+    "latency_ms": 0.06,
+    "evidence": [],
+    "honesty": "camera moved between the days (cut 1088.94-1089.34 s; blocked 1091.00-1159.00 s; cut 1158.83-1159.23 s); a box-by-box comparison would invent arrivals and departures"
+   }
+  },
+  {
+   "question": "What changed since 00:20 at 18:01?",
+   "t": 1081.0,
+   "type": "what_changed",
+   "answer": {
+    "type": "what_changed",
+    "answer": "0 arrived, 0 left, 2 stayed",
+    "sentence": "00:20 vs 18:01: 0 arrived, 0 left, 2 stayed.",
+    "latency_ms": 142.96,
+    "evidence": [],
+    "honesty": "the video jumps or goes blind in between (frozen 110.00-118.00 s; frozen 118.49-130.14 s; frozen 119.00-145.00 s); states before/after are seen, the moments of change may not be; 1 spot(s) the detector missed at one end look unchanged in the picture, counted as stayed; 4 spot(s) undetected at both times"
+   }
+  },
+  {
+   "question": "Is car #165 still there?",
+   "t": null,
+   "type": "still_there",
+   "answer": {
+    "type": "still_there",
+    "answer": "YES",
+    "sentence": "Yes, most likely. The detector lost the black car #165 at 1084.44 s, but its spot at 1088.54 s looks the same as when it was detected (picture correlation 1.00).",
+    "latency_ms": 138.71,
+    "evidence": [
+     {
+      "object_id": 165,
+      "t": 1054.49,
+      "crop": "ask_crops/165.jpg",
+      "box": [
+       748.1,
+       510.4,
+       875.0,
+       601.5
+      ]
+     },
+     {
+      "object_id": 165,
+      "t": 1084.44,
+      "crop": "ask_crops/165.jpg",
+      "box": [
+       748.1,
+       510.4,
+       875.0,
+       601.5
+      ]
+     },
+     {
+      "object_id": 165,
+      "t": 1088.54,
+      "crop": "ask_crops/spot165_1088.5.jpg",
+      "box": [
+       748.1,
+       510.4,
+       875.0,
+       601.5
+      ]
+     }
+    ],
+    "honesty": "not detected at the end; judged by comparing the spot's pixels, not by the detector"
+   }
+  }
+ ]
+}

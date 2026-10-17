@@ -1,0 +1,2009 @@
+{
+ "idea": "ON THE LINE",
+ "clips": {
+  "person_bicycle_car_detection": {
+   "title": "Car park, drone-style fixed view",
+   "alarm_s": 0.0,
+   "hangup_s": 52.0,
+   "frames_ingested": 624,
+   "fps_sampled": 12.0,
+   "raw_tracks_confirmed": 8,
+   "entities": 7,
+   "carried_not_counted": 0,
+   "answers_right": 5,
+   "answers_scored": 5,
+   "latency_ms": {
+    "p50": 1.48,
+    "max": 5.29,
+    "all": [
+     5.29,
+     1.48,
+     2.4,
+     0.89,
+     0.8
+    ]
+   },
+   "feed_ms_per_frame_mean": 0.72,
+   "causality": [
+    {
+     "id": "A1",
+     "identical": true
+    },
+    {
+     "id": "A2",
+     "identical": true
+    },
+    {
+     "id": "A3",
+     "identical": true
+    },
+    {
+     "id": "A4",
+     "identical": true
+    },
+    {
+     "id": "A5",
+     "identical": true
+    }
+   ],
+   "causality_all_identical": true,
+   "detector_agreement": {
+    "person": {
+     "frames": 12,
+     "mean_abs_diff": 0.25,
+     "within_1": 1.0,
+     "engine": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     "yolo26l": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1
+     ]
+    },
+    "vehicle": {
+     "frames": 12,
+     "mean_abs_diff": 0.08,
+     "within_1": 1.0,
+     "engine": [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+     ],
+     "yolo26l": [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1
+     ]
+    }
+   },
+   "vlm": {
+    "calls": 6,
+    "described": 6,
+    "measured_local_median_s": 20.1,
+    "measured_local_max_s": 24.7,
+    "assumed_availability_delay_s_SIMULATED": 3.0,
+    "colour_agreement_with_pixels": "5/6",
+    "withheld_by_conflict_check": "1/6",
+    "of_which_age_guess": 0,
+    "samples": [
+     "A person wearing a dark blue top and light blue jeans, with a grey beanie hat, is seen walking away from the camera, carrying a dark-colored bag in their right hand.",
+     "White compact hatchback with a sunroof and blue license plate.",
+     "A person wearing a light grey long-sleeved top and dark trousers is seen walking across the road, carrying a dark shoulder bag and wearing a dark-colored cap.",
+     "The image shows a silver compact hatchback with a sleek, aerodynamic design. It has a smooth, metallic finish with subtle contours along the body panels. No visible license plate or other markings can be seen from this angle.",
+     "A person wearing a dark-colored top and trousers, a dark hat, and carrying a bag is seen approaching a bicycle near a crosswalk in the security camera footage.",
+     "A person wearing a black top and trousers, a light-colored hat, and carrying a dark bag is seen riding a bicycle on a city street."
+    ]
+   },
+   "sql_baseline": {
+    "answers": [
+     {
+      "id": "A1",
+      "type": "count_now",
+      "group": "person",
+      "sql": "SELECT peak_person AS n FROM seg WHERE \"end\" <= 5.00 ORDER BY \"end\" DESC LIMIT 1",
+      "got": 1,
+      "truth_range": [
+       1,
+       1
+      ],
+      "right": true
+     },
+     {
+      "id": "A5",
+      "type": "total",
+      "group": "vehicle",
+      "sql": "SELECT SUM(n_car) AS n FROM seg WHERE \"end\" <= 51.00 AND \"end\" > 0.00",
+      "got": 4,
+      "truth_range": [
+       2,
+       2
+      ],
+      "right": false
+     }
+    ],
+    "right": 1,
+    "n": 2
+   },
+   "questions": [
+    {
+     "i": 0,
+     "id": "A1",
+     "t": 5.0,
+     "text": "How many people can you see right now?",
+     "headline": "1 person in view now",
+     "latency_ms": 5.286,
+     "intents": [
+      "count"
+     ],
+     "checks": [
+      {
+       "type": "count_now",
+       "group": "person",
+       "range": [
+        1,
+        1
+       ],
+       "ok": true,
+       "got": 1
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "count_now": {
+       "person": 1
+      }
+     }
+    },
+    {
+     "i": 1,
+     "id": "A2",
+     "t": 10.0,
+     "text": "Which way did he go?",
+     "headline": "The person left via the RIGHT edge, heading RIGHT AND UP",
+     "latency_ms": 1.483,
+     "intents": [
+      "direction"
+     ],
+     "checks": [
+      {
+       "type": "exit_side",
+       "in": [
+        "right"
+       ],
+       "ok": true,
+       "got": "right"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "direction": {
+       "eid": 1,
+       "entry_side": "bottom",
+       "exit_side": "right",
+       "heading": "right+up",
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 2,
+     "id": "A3",
+     "t": 18.0,
+     "text": "What colour is the car?",
+     "headline": "A white car",
+     "latency_ms": 2.398,
+     "intents": [
+      "appearance"
+     ],
+     "checks": [
+      {
+       "type": "colour",
+       "part": "body",
+       "in": [
+        "white",
+        "silver"
+       ],
+       "ok": true,
+       "got": "white"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "appearance": {
+       "cls": "car",
+       "colours": {
+        "body": "white"
+       },
+       "desc": null,
+       "eid": 2
+      }
+     }
+    },
+    {
+     "i": 3,
+     "id": "A4",
+     "t": 22.0,
+     "text": "Is the car still there?",
+     "headline": "NO: the car was last seen 2.8 s ago, left via the LEFT edge",
+     "latency_ms": 0.885,
+     "intents": [
+      "still"
+     ],
+     "checks": [
+      {
+       "type": "present",
+       "value": false,
+       "ok": true,
+       "got": false
+      },
+      {
+       "type": "exit_side",
+       "in": [
+        "left"
+       ],
+       "ok": true,
+       "got": "left"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "still": {
+       "eid": 2,
+       "exit_side": "left",
+       "last_seen_ago": 2.833333333333332,
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 4,
+     "id": "A5",
+     "t": 51.0,
+     "text": "How many cars have come in since the alarm, and when did the first one arrive?",
+     "headline": "2 vehicles since the alarm. The car arrived at 00:14.3 (alarm +14 s)",
+     "latency_ms": 0.795,
+     "intents": [
+      "total",
+      "arrival"
+     ],
+     "checks": [
+      {
+       "type": "total",
+       "group": "vehicle",
+       "range": [
+        2,
+        2
+       ],
+       "ok": true,
+       "got": 2
+      },
+      {
+       "type": "arrival",
+       "t": 14.3,
+       "tol": 1.5,
+       "ok": true,
+       "got": 14.33
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "arrival": {
+       "at_alarm": false,
+       "eid": 2,
+       "first_t": 14.333333333333334
+      },
+      "total": {
+       "vehicle": 2
+      },
+      "total_new": {
+       "vehicle": 2
+      }
+     }
+    }
+   ],
+   "incident_log": "INCIDENT LOG (auto-draft, operator to review) | Car park, drone-style fixed view | alarm 00:00.0 | hang-up 00:52.0\n00:00.0  Alarm received, camera: Car park, drone-style fixed view.\n00:01.2  Person (dark blue top, blue trousers) arrived via the BOTTOM edge. [#1]\n00:05.0  Police asked \"How many people can you see right now?\" -> 1 person in view now.\n00:07.1  Person (dark blue top, blue trousers) left via the RIGHT edge. [#1]\n00:10.0  Police asked \"Which way did he go?\" -> The person left via the RIGHT edge, heading RIGHT AND UP.\n00:14.3  White car arrived via the BOTTOM edge. [#2]\n00:18.0  Police asked \"What colour is the car?\" -> A white car.\n00:19.2  White car left via the LEFT edge. [#2]\n00:22.0  Police asked \"Is the car still there?\" -> NO: the car was last seen 2.8 s ago, left via the LEFT edge.\n00:25.7  Person (light grey top, grey trousers) arrived via the TOP edge. [#3]\n00:29.1  Person (light grey top, grey trousers) left via the RIGHT edge. [#3]\n00:40.2  Person (light grey top, dark blue trousers) arrived via the LEFT edge. [#4]\n00:44.0  Blue car arrived via the BOTTOM edge. [#5]\n00:44.8  Bicycle arrived via the TOP edge. [#6]\n00:45.8  Person (light grey top, dark blue trousers) left via the TOP edge. [#4]\n00:46.3  Person arrived via the TOP edge. [#7]\n00:49.3  Blue car left via the LEFT edge. [#5]\n00:49.4  Person left via the RIGHT edge. [#7]\n00:49.5  Bicycle left via the RIGHT edge. [#6]\n00:51.0  Police asked \"How many cars have come in since the alarm, and when did the first one arrive?\" -> 2 vehicles since the alarm. The car arrived at 00:14.3 (alarm +14 s).\nSeen since alarm: 4 people, 2 vehicles, 1 bicycle.\nOn scene at hang-up (00:52.0): 0 (none).\n7 left through a frame edge: LEFT, RIGHT, TOP.",
+   "wall_s": 18.6,
+   "sim_wall_s": 14.3
+  },
+  "rochester_night": {
+   "title": "Corporation Street, night",
+   "alarm_s": 8.5,
+   "hangup_s": 21.0,
+   "frames_ingested": 187,
+   "fps_sampled": 15.0,
+   "raw_tracks_confirmed": 6,
+   "entities": 5,
+   "carried_not_counted": 1,
+   "answers_right": 5,
+   "answers_scored": 5,
+   "latency_ms": {
+    "p50": 0.72,
+    "max": 3.41,
+    "all": [
+     3.41,
+     0.93,
+     0.69,
+     0.7,
+     0.72
+    ]
+   },
+   "feed_ms_per_frame_mean": 1.21,
+   "causality": [
+    {
+     "id": "R1",
+     "identical": true
+    },
+    {
+     "id": "R2",
+     "identical": true
+    },
+    {
+     "id": "R3",
+     "identical": true
+    },
+    {
+     "id": "R4",
+     "identical": true
+    },
+    {
+     "id": "R5",
+     "identical": true
+    }
+   ],
+   "causality_all_identical": true,
+   "detector_agreement": {
+    "vehicle": {
+     "frames": 12,
+     "mean_abs_diff": 0.33,
+     "within_1": 0.92,
+     "engine": [
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      0
+     ],
+     "yolo26l": [
+      1,
+      1,
+      0,
+      1,
+      3,
+      1,
+      1,
+      1,
+      2,
+      1,
+      0,
+      0
+     ]
+    }
+   },
+   "vlm": {
+    "calls": 4,
+    "described": 4,
+    "measured_local_median_s": 49.5,
+    "measured_local_max_s": 79.7,
+    "assumed_availability_delay_s_SIMULATED": 3.0,
+    "colour_agreement_with_pixels": "3/4",
+    "withheld_by_conflict_check": "1/4",
+    "of_which_age_guess": 0,
+    "samples": [
+     "A dark blue compact hatchback with illuminated rear lights is captured in motion on a city street.",
+     "Yellow flatbed tow truck carrying a silver SUV, positioned on a city street at night.",
+     "Dark-colored hatchback, possibly black or dark grey, in motion with blurred features, making it difficult to discern specific markings or additional details.",
+     "Black compact hatchback, no visible markings, speeding through urban streets at high speed."
+    ]
+   },
+   "sql_baseline": {
+    "answers": [
+     {
+      "id": "R3",
+      "type": "total",
+      "group": "vehicle",
+      "sql": "SELECT SUM(n_car + n_truck + n_bus) AS n FROM seg WHERE \"end\" <= 12.50 AND \"end\" > 8.50",
+      "got": 2,
+      "truth_range": [
+       1,
+       1
+      ],
+      "right": false
+     },
+     {
+      "id": "R5",
+      "type": "total",
+      "group": "vehicle",
+      "sql": "SELECT SUM(n_car + n_truck + n_bus) AS n FROM seg WHERE \"end\" <= 20.50 AND \"end\" > 8.50",
+      "got": 13,
+      "truth_range": [
+       4,
+       4
+      ],
+      "right": false
+     }
+    ],
+    "right": 0,
+    "n": 2
+   },
+   "questions": [
+    {
+     "i": 0,
+     "id": "R1",
+     "t": 11.0,
+     "text": "What vehicle just went past, what colour was it?",
+     "headline": "A navy car",
+     "latency_ms": 3.413,
+     "intents": [
+      "appearance"
+     ],
+     "checks": [
+      {
+       "type": "colour",
+       "part": "body",
+       "in": [
+        "blue",
+        "navy"
+       ],
+       "ok": true,
+       "got": "navy"
+      }
+     ],
+     "correct": true,
+     "caveats": [
+      "night: colours unreliable"
+     ],
+     "facts": {
+      "appearance": {
+       "cls": "car",
+       "colours": {
+        "body": "navy"
+       },
+       "desc": null,
+       "eid": 1
+      }
+     }
+    },
+    {
+     "i": 1,
+     "id": "R2",
+     "t": 12.0,
+     "text": "Which way did it go?",
+     "headline": "The car left via the LEFT edge, heading LEFT",
+     "latency_ms": 0.932,
+     "intents": [
+      "direction"
+     ],
+     "checks": [
+      {
+       "type": "exit_side",
+       "in": [
+        "left"
+       ],
+       "ok": true,
+       "got": "left"
+      },
+      {
+       "type": "heading",
+       "in": [
+        "left"
+       ],
+       "ok": true,
+       "got": "left"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "direction": {
+       "eid": 1,
+       "entry_side": "right",
+       "exit_side": "left",
+       "heading": "left",
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 2,
+     "id": "R3",
+     "t": 12.5,
+     "text": "How many vehicles have passed since the alarm, and what time did the first one arrive?",
+     "headline": "1 vehicle since the alarm. The car arrived at 00:09.5 (alarm +1 s)",
+     "latency_ms": 0.693,
+     "intents": [
+      "total",
+      "arrival"
+     ],
+     "checks": [
+      {
+       "type": "total",
+       "group": "vehicle",
+       "range": [
+        1,
+        1
+       ],
+       "ok": true,
+       "got": 1
+      },
+      {
+       "type": "arrival",
+       "t": 9.4,
+       "tol": 1.0,
+       "ok": true,
+       "got": 9.47
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "arrival": {
+       "at_alarm": false,
+       "eid": 1,
+       "first_t": 9.466666666666667
+      },
+      "total": {
+       "vehicle": 1
+      },
+      "total_new": {
+       "vehicle": 1
+      }
+     }
+    },
+    {
+     "i": 3,
+     "id": "R4",
+     "t": 19.5,
+     "text": "Is the last car still there?",
+     "headline": "NO: the car was last seen 1.3 s ago, left via the LEFT edge",
+     "latency_ms": 0.701,
+     "intents": [
+      "still"
+     ],
+     "checks": [
+      {
+       "type": "present",
+       "value": false,
+       "ok": true,
+       "got": false
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "still": {
+       "eid": 5,
+       "exit_side": "left",
+       "last_seen_ago": 1.2666666666666657,
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 4,
+     "id": "R5",
+     "t": 20.5,
+     "text": "How many vehicles in total since the alarm?",
+     "headline": "4 vehicles since the alarm",
+     "latency_ms": 0.716,
+     "intents": [
+      "total"
+     ],
+     "checks": [
+      {
+       "type": "total",
+       "group": "vehicle",
+       "range": [
+        4,
+        4
+       ],
+       "ok": true,
+       "got": 4
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "carried": 1,
+      "total": {
+       "vehicle": 4
+      },
+      "total_new": {
+       "vehicle": 4
+      }
+     }
+    }
+   ],
+   "incident_log": "INCIDENT LOG (auto-draft, operator to review) | Corporation Street, night | alarm 00:08.5 | hang-up 00:21.0\n00:08.5  Alarm received, camera: Corporation Street, night.\n00:09.5  Navy car arrived via the RIGHT edge. [#1]\n00:11.0  Police asked \"What vehicle just went past, what colour was it?\" -> A navy car.\n00:11.1  Navy car left via the LEFT edge. [#1]\n00:12.0  Police asked \"Which way did it go?\" -> The car left via the LEFT edge, heading LEFT.\n00:12.5  Police asked \"How many vehicles have passed since the alarm, and what time did the first one arrive?\" -> 1 vehicle since the alarm. The car arrived at 00:09.5 (alarm +1 s).\n00:13.0  Orange truck arrived via the BOTTOM edge. [#2]\n00:14.7  Orange truck left via the LEFT edge. [#2]\n00:15.5  Brown car arrived via the RIGHT edge. [#4]\n00:16.7  Black car arrived via the BOTTOM edge. [#5]\n00:17.0  Brown car left via the LEFT edge. [#4]\n00:18.2  Black car left via the LEFT edge. [#5]\n00:19.5  Police asked \"Is the last car still there?\" -> NO: the car was last seen 1.3 s ago, left via the LEFT edge.\n00:20.5  Police asked \"How many vehicles in total since the alarm?\" -> 4 vehicles since the alarm.\nSeen since alarm: 4 vehicles.\nOn scene at hang-up (00:21.0): 0 (none).\n4 left through a frame edge: LEFT.",
+   "wall_s": 10.3,
+   "sim_wall_s": 5.9
+  },
+  "retail_cctv": {
+   "title": "Shop-floor CCTV, busy till and display",
+   "alarm_s": 62.0,
+   "hangup_s": 88.0,
+   "frames_ingested": 341,
+   "fps_sampled": 13.093,
+   "raw_tracks_confirmed": 48,
+   "entities": 27,
+   "carried_not_counted": 0,
+   "answers_right": 5,
+   "answers_scored": 5,
+   "latency_ms": {
+    "p50": 2.72,
+    "max": 4.34,
+    "all": [
+     2.72,
+     4.34,
+     1.37,
+     0.88,
+     3.31
+    ]
+   },
+   "feed_ms_per_frame_mean": 13.1,
+   "causality": [
+    {
+     "id": "S1",
+     "identical": true
+    },
+    {
+     "id": "S2",
+     "identical": true
+    },
+    {
+     "id": "S3",
+     "identical": true
+    },
+    {
+     "id": "S4",
+     "identical": true
+    },
+    {
+     "id": "S5",
+     "identical": true
+    }
+   ],
+   "causality_all_identical": true,
+   "detector_agreement": {
+    "person": {
+     "frames": 12,
+     "mean_abs_diff": 3.17,
+     "within_1": 0.17,
+     "engine": [
+      14,
+      12,
+      15,
+      13,
+      14,
+      15,
+      15,
+      14,
+      12,
+      12,
+      14,
+      11
+     ],
+     "yolo26l": [
+      11,
+      11,
+      10,
+      9,
+      11,
+      11,
+      9,
+      12,
+      12,
+      10,
+      8,
+      9
+     ]
+    }
+   },
+   "vlm": {
+    "calls": 27,
+    "described": 27,
+    "measured_local_median_s": 42.7,
+    "measured_local_max_s": 186.0,
+    "assumed_availability_delay_s_SIMULATED": 3.0,
+    "colour_agreement_with_pixels": "15/27",
+    "withheld_by_conflict_check": "12/27",
+    "of_which_age_guess": 2,
+    "samples": [
+     "The individual is wearing a dark blue top and light-colored trousers, carrying a black shoulder bag while walking away from the camera.",
+     "A female security camera image shows a person with long dark hair wearing a red long-sleeved top and dark trousers, carrying a black bag and a small hat on their head.",
+     "The image shows a person with long blonde hair wearing a white top and white trousers, carrying a black bag and a green bag.",
+     "A person observed by security camera footage is wearing a dark blue jacket and matching dark blue trousers, with a dark-colored baseball cap, carrying a black shoulder bag.",
+     "The image shows a female subject with long dark hair wearing a black top and black trousers, sporting long dark hair and a black beanie. She is carrying a black shoulder bag.",
+     "A person with medium skin tone is seen wearing a royal blue top and matching trousers, a white baseball cap, and carrying a black shoulder bag while walking through a retail space."
+    ]
+   },
+   "sql_baseline": {
+    "answers": [
+     {
+      "id": "S1",
+      "type": "count_now",
+      "group": "person",
+      "sql": "SELECT peak_person AS n FROM seg WHERE \"end\" <= 65.00 ORDER BY \"end\" DESC LIMIT 1",
+      "got": 16,
+      "truth_range": [
+       14,
+       18
+      ],
+      "right": true
+     },
+     {
+      "id": "S5",
+      "type": "count_now",
+      "group": "person",
+      "sql": "SELECT peak_person AS n FROM seg WHERE \"end\" <= 87.00 ORDER BY \"end\" DESC LIMIT 1",
+      "got": 13,
+      "truth_range": [
+       11,
+       13
+      ],
+      "right": true
+     }
+    ],
+    "right": 2,
+    "n": 2
+   },
+   "questions": [
+    {
+     "i": 0,
+     "id": "S1",
+     "t": 65.0,
+     "text": "How many people can you see right now?",
+     "headline": "16 people in view now",
+     "latency_ms": 2.719,
+     "intents": [
+      "count"
+     ],
+     "checks": [
+      {
+       "type": "count_now",
+       "group": "person",
+       "range": [
+        14,
+        18
+       ],
+       "ok": true,
+       "got": 16
+      }
+     ],
+     "correct": true,
+     "caveats": [
+      "crowded: count +/-2"
+     ],
+     "facts": {
+      "count_now": {
+       "person": 16
+      }
+     }
+    },
+    {
+     "i": 1,
+     "id": "S2",
+     "t": 70.0,
+     "text": "Who just left, and what were they wearing?",
+     "headline": "A person: light grey top, dark blue trousers",
+     "latency_ms": 4.338,
+     "intents": [
+      "appearance"
+     ],
+     "checks": [
+      {
+       "type": "colour",
+       "part": "top",
+       "in": [
+        "grey",
+        "silver",
+        "charcoal"
+       ],
+       "ok": true,
+       "got": "silver"
+      },
+      {
+       "type": "colour",
+       "part": "bottom",
+       "in": [
+        "blue",
+        "navy"
+       ],
+       "ok": true,
+       "got": "navy"
+      }
+     ],
+     "correct": true,
+     "caveats": [
+      "descriptions disagree"
+     ],
+     "facts": {
+      "appearance": {
+       "cls": "person",
+       "colours": {
+        "bottom": "navy",
+        "top": "silver"
+       },
+       "cosmos_withheld": "Cosmos guessed an age",
+       "desc": null,
+       "desc_raw": "A child with light-colored hair wearing a blue top and trousers, a light-colored hat, and carrying a small bag while standing near a white metal cart.",
+       "eid": 17
+      }
+     }
+    },
+    {
+     "i": 2,
+     "id": "S3",
+     "t": 70.5,
+     "text": "Which way did she go?",
+     "headline": "The person left via the RIGHT edge, heading RIGHT",
+     "latency_ms": 1.373,
+     "intents": [
+      "direction"
+     ],
+     "checks": [
+      {
+       "type": "exit_side",
+       "in": [
+        "right",
+        "bottom"
+       ],
+       "ok": true,
+       "got": "right"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "direction": {
+       "eid": 17,
+       "entry_side": null,
+       "exit_side": "right",
+       "heading": "right",
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 3,
+     "id": "S4",
+     "t": 80.0,
+     "text": "Is she still there?",
+     "headline": "NO: the person was last seen 11.2 s ago, left via the RIGHT edge",
+     "latency_ms": 0.885,
+     "intents": [
+      "still"
+     ],
+     "checks": [
+      {
+       "type": "present",
+       "value": false,
+       "ok": true,
+       "got": false
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "still": {
+       "eid": 17,
+       "exit_side": "right",
+       "last_seen_ago": 11.150996715802336,
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 4,
+     "id": "S5",
+     "t": 87.0,
+     "text": "How many people are in the shop now?",
+     "headline": "11 people in view now",
+     "latency_ms": 3.315,
+     "intents": [
+      "count"
+     ],
+     "checks": [
+      {
+       "type": "count_now",
+       "group": "person",
+       "range": [
+        11,
+        13
+       ],
+       "ok": true,
+       "got": 11
+      }
+     ],
+     "correct": true,
+     "caveats": [
+      "crowded: count +/-2"
+     ],
+     "facts": {
+      "count_now": {
+       "person": 11
+      }
+     }
+    }
+   ],
+   "incident_log": "INCIDENT LOG (auto-draft, operator to review) | Shop-floor CCTV, busy till and display | alarm 01:02.0 | hang-up 01:28.0\n01:02.0  Alarm received, camera: Shop-floor CCTV, busy till and display.\n01:02.0  13 people already on scene.\n01:03.3  Person (light grey top, dark blue trousers) arrived. [#17]\n01:05.0  Police asked \"How many people can you see right now?\" -> 16 people in view now.\n01:08.8  Person (light grey top, dark blue trousers) left via the RIGHT edge. [#17]\n01:10.0  Police asked \"Who just left, and what were they wearing?\" -> A person: light grey top, dark blue trousers.\n01:10.5  Police asked \"Which way did she go?\" -> The person left via the RIGHT edge, heading RIGHT.\n01:20.0  Police asked \"Is she still there?\" -> NO: the person was last seen 11.2 s ago, left via the RIGHT edge.\n01:27.0  Police asked \"How many people are in the shop now?\" -> 11 people in view now.\nSeen since alarm: 27 people.\nOn scene at hang-up (01:28.0): 9 (9 person).\n26 other people moved through the scene (not itemised: crowd).\n8 left through a frame edge: BOTTOM, RIGHT, TOP.",
+   "wall_s": 32.2,
+   "sim_wall_s": 15.1
+  },
+  "one_by_one_person_detection": {
+   "title": "HELD-OUT: people at a table",
+   "alarm_s": 0.0,
+   "hangup_s": 62.0,
+   "frames_ingested": 620,
+   "fps_sampled": 10.0,
+   "raw_tracks_confirmed": 3,
+   "entities": 3,
+   "carried_not_counted": 0,
+   "answers_right": 5,
+   "answers_scored": 5,
+   "latency_ms": {
+    "p50": 1.24,
+    "max": 2.3,
+    "all": [
+     0.72,
+     2.3,
+     1.24,
+     1.99,
+     1.1
+    ]
+   },
+   "feed_ms_per_frame_mean": 1.64,
+   "causality": [
+    {
+     "id": "H1",
+     "identical": true
+    },
+    {
+     "id": "H2",
+     "identical": true
+    },
+    {
+     "id": "H3",
+     "identical": true
+    },
+    {
+     "id": "H4",
+     "identical": true
+    },
+    {
+     "id": "H5",
+     "identical": true
+    }
+   ],
+   "causality_all_identical": true,
+   "detector_agreement": {
+    "person": {
+     "frames": 12,
+     "mean_abs_diff": 0.0,
+     "within_1": 1.0,
+     "engine": [
+      1,
+      1,
+      1,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      1,
+      1
+     ],
+     "yolo26l": [
+      1,
+      1,
+      1,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      1,
+      1
+     ]
+    }
+   },
+   "vlm": {
+    "calls": 3,
+    "described": 3,
+    "measured_local_median_s": 12.4,
+    "measured_local_max_s": 40.6,
+    "assumed_availability_delay_s_SIMULATED": 3.0,
+    "colour_agreement_with_pixels": "3/3",
+    "withheld_by_conflict_check": "0/3",
+    "of_which_age_guess": 0,
+    "samples": [
+     "A person with long brown hair wearing a grey top and trousers is seen from behind walking away, carrying a white bag.",
+     "A person wearing a black top and black trousers, with a dark cap on their head, is seen walking away from the camera on a wooden floor.",
+     "The image shows a person with long, wavy blonde hair wearing a black top and black trousers, carrying a black shoulder bag and walking away from the camera."
+    ]
+   },
+   "sql_baseline": {
+    "answers": [
+     {
+      "id": "H1",
+      "type": "count_now",
+      "group": "person",
+      "sql": "SELECT peak_person AS n FROM seg WHERE \"end\" <= 12.00 ORDER BY \"end\" DESC LIMIT 1",
+      "got": 1,
+      "truth_range": [
+       1,
+       1
+      ],
+      "right": true
+     },
+     {
+      "id": "H5",
+      "type": "total",
+      "group": "person",
+      "sql": "SELECT SUM(n_person) AS n FROM seg WHERE \"end\" <= 56.00 AND \"end\" > 0.00",
+      "got": 9,
+      "truth_range": [
+       3,
+       3
+      ],
+      "right": false
+     }
+    ],
+    "right": 1,
+    "n": 2
+   },
+   "questions": [
+    {
+     "i": 0,
+     "id": "H1",
+     "t": 12.0,
+     "text": "How many people are there now?",
+     "headline": "1 person in view now",
+     "latency_ms": 0.721,
+     "intents": [
+      "count"
+     ],
+     "checks": [
+      {
+       "type": "count_now",
+       "group": "person",
+       "range": [
+        1,
+        1
+       ],
+       "ok": true,
+       "got": 1
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "count_now": {
+       "person": 1
+      }
+     }
+    },
+    {
+     "i": 1,
+     "id": "H2",
+     "t": 13.0,
+     "text": "What is she wearing?",
+     "headline": "A person: grey top, dark grey trousers",
+     "latency_ms": 2.297,
+     "intents": [
+      "appearance"
+     ],
+     "checks": [
+      {
+       "type": "colour",
+       "part": "top",
+       "in": [
+        "grey",
+        "silver",
+        "charcoal"
+       ],
+       "ok": true,
+       "got": "grey"
+      },
+      {
+       "type": "colour",
+       "part": "bottom",
+       "in": [
+        "black",
+        "charcoal",
+        "navy"
+       ],
+       "ok": true,
+       "got": "charcoal"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "appearance": {
+       "cls": "person",
+       "colours": {
+        "bottom": "charcoal",
+        "top": "grey"
+       },
+       "desc": "A person with long brown hair wearing a grey top and trousers is seen from behind walking away, carrying a white bag.",
+       "eid": 1
+      }
+     }
+    },
+    {
+     "i": 2,
+     "id": "H3",
+     "t": 16.0,
+     "text": "Is she still there?",
+     "headline": "YES: the person is in view now, not moving since 00:13.5",
+     "latency_ms": 1.239,
+     "intents": [
+      "still"
+     ],
+     "checks": [
+      {
+       "type": "present",
+       "value": true,
+       "ok": true,
+       "got": true
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "still": {
+       "eid": 1,
+       "last_seen_ago": 0.0,
+       "present": true
+      }
+     }
+    },
+    {
+     "i": 3,
+     "id": "H4",
+     "t": 22.0,
+     "text": "Which way did she go?",
+     "headline": "The person left via the RIGHT edge, heading RIGHT",
+     "latency_ms": 1.985,
+     "intents": [
+      "direction"
+     ],
+     "checks": [
+      {
+       "type": "exit_side",
+       "in": [
+        "right",
+        "bottom"
+       ],
+       "ok": true,
+       "got": "right"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "direction": {
+       "eid": 1,
+       "entry_side": "bottom",
+       "exit_side": "right",
+       "heading": "right",
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 4,
+     "id": "H5",
+     "t": 56.0,
+     "text": "How many people have been here in total since the alarm?",
+     "headline": "3 people since the alarm",
+     "latency_ms": 1.098,
+     "intents": [
+      "total"
+     ],
+     "checks": [
+      {
+       "type": "total",
+       "group": "person",
+       "range": [
+        3,
+        3
+       ],
+       "ok": true,
+       "got": 3
+      }
+     ],
+     "correct": true,
+     "caveats": [
+      "double-count risk in crowds"
+     ],
+     "facts": {
+      "total": {
+       "person": 3
+      },
+      "total_new": {
+       "person": 3
+      }
+     }
+    }
+   ],
+   "incident_log": "INCIDENT LOG (auto-draft, operator to review) | HELD-OUT: people at a table | alarm 00:00.0 | hang-up 01:02.0\n00:00.0  Alarm received, camera: HELD-OUT: people at a table.\n00:06.2  Person (grey top, dark grey trousers) arrived via the BOTTOM edge. [#1]\n00:12.0  Police asked \"How many people are there now?\" -> 1 person in view now.\n00:13.0  Police asked \"What is she wearing?\" -> A person: grey top, dark grey trousers.\n00:16.0  Police asked \"Is she still there?\" -> YES: the person is in view now, not moving since 00:13.5.\n00:19.4  Person (grey top, dark grey trousers) left via the RIGHT edge. [#1]\n00:22.0  Police asked \"Which way did she go?\" -> The person left via the RIGHT edge, heading RIGHT.\n00:23.1  Person (black top, black trousers) arrived via the BOTTOM edge. [#2]\n00:44.8  Person (black top, black trousers) left via the RIGHT edge. [#2]\n00:50.5  Person arrived via the BOTTOM edge. [#3]\n00:56.0  Police asked \"How many people have been here in total since the alarm?\" -> 3 people since the alarm.\nSeen since alarm: 3 people.\nOn scene at hang-up (01:02.0): 1 (1 person).\n2 left through a frame edge: RIGHT.",
+   "wall_s": 22.5,
+   "sim_wall_s": 15.9
+  },
+  "car_detection": {
+   "title": "HELD-OUT: cars in a car park",
+   "alarm_s": 0.0,
+   "hangup_s": 29.8,
+   "frames_ingested": 373,
+   "fps_sampled": 12.5,
+   "raw_tracks_confirmed": 5,
+   "entities": 4,
+   "carried_not_counted": 0,
+   "answers_right": 6,
+   "answers_scored": 6,
+   "latency_ms": {
+    "p50": 1.35,
+    "max": 2.41,
+    "all": [
+     2.33,
+     1.26,
+     0.98,
+     2.41,
+     1.16,
+     1.43
+    ]
+   },
+   "feed_ms_per_frame_mean": 0.87,
+   "causality": [
+    {
+     "id": "C1",
+     "identical": true
+    },
+    {
+     "id": "C2",
+     "identical": true
+    },
+    {
+     "id": "C3",
+     "identical": true
+    },
+    {
+     "id": "C4",
+     "identical": true
+    },
+    {
+     "id": "C5",
+     "identical": true
+    },
+    {
+     "id": "C6",
+     "identical": true
+    }
+   ],
+   "causality_all_identical": true,
+   "detector_agreement": {
+    "vehicle": {
+     "frames": 12,
+     "mean_abs_diff": 0.17,
+     "within_1": 1.0,
+     "engine": [
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      2,
+      2,
+      0,
+      0,
+      0,
+      1
+     ],
+     "yolo26l": [
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      2,
+      1,
+      0,
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   "vlm": {
+    "calls": 4,
+    "described": 4,
+    "measured_local_median_s": 33.5,
+    "measured_local_max_s": 54.2,
+    "assumed_availability_delay_s_SIMULATED": 3.0,
+    "colour_agreement_with_pixels": "3/4",
+    "withheld_by_conflict_check": "1/4",
+    "of_which_age_guess": 0,
+    "samples": [
+     "White hatchback with a black rear window and a blue license plate.",
+     "The image shows a silver compact hatchback with a sleek, aerodynamic design and a distinctive shark's nose front end.",
+     "The image shows a red hatchback with a sleek, aerodynamic body and a distinctive sloping roofline.",
+     "The image shows a white Porsche Panamera parked on a dark asphalt surface. This sports car features a sleek, aerodynamic design with a distinctive curved roofline, a prominent front grille, and sleek headlights. The vehicle's body is entirely white, with no visible markings or decals from this angle."
+    ]
+   },
+   "sql_baseline": {
+    "answers": [
+     {
+      "id": "C3",
+      "type": "count_now",
+      "group": "vehicle",
+      "sql": "SELECT peak_car AS n FROM seg WHERE \"end\" <= 17.00 ORDER BY \"end\" DESC LIMIT 1",
+      "got": 1,
+      "truth_range": [
+       2,
+       2
+      ],
+      "right": false
+     },
+     {
+      "id": "C6",
+      "type": "total",
+      "group": "vehicle",
+      "sql": "SELECT SUM(n_car) AS n FROM seg WHERE \"end\" <= 29.50 AND \"end\" > 0.00",
+      "got": 5,
+      "truth_range": [
+       4,
+       4
+      ],
+      "right": false
+     }
+    ],
+    "right": 0,
+    "n": 2
+   },
+   "questions": [
+    {
+     "i": 0,
+     "id": "C1",
+     "t": 6.0,
+     "text": "What sort of motor is that, colour and all?",
+     "headline": "A white car",
+     "latency_ms": 2.334,
+     "intents": [
+      "appearance"
+     ],
+     "checks": [
+      {
+       "type": "colour",
+       "part": "body",
+       "in": [
+        "white",
+        "silver"
+       ],
+       "ok": true,
+       "got": "white"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "appearance": {
+       "cls": "car",
+       "colours": {
+        "body": "white"
+       },
+       "desc": null,
+       "eid": 1
+      }
+     }
+    },
+    {
+     "i": 1,
+     "id": "C2",
+     "t": 9.5,
+     "text": "Which way did the vehicle go when it left?",
+     "headline": "The car left via the TOP edge, heading UP the frame (away)",
+     "latency_ms": 1.264,
+     "intents": [
+      "direction"
+     ],
+     "checks": [
+      {
+       "type": "exit_side",
+       "in": [
+        "top"
+       ],
+       "ok": true,
+       "got": "top"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "direction": {
+       "eid": 1,
+       "entry_side": "bottom",
+       "exit_side": "top",
+       "heading": "up",
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 2,
+     "id": "C3",
+     "t": 17.0,
+     "text": "How many cars are there now?",
+     "headline": "2 vehicles in view now",
+     "latency_ms": 0.977,
+     "intents": [
+      "count"
+     ],
+     "checks": [
+      {
+       "type": "count_now",
+       "group": "vehicle",
+       "range": [
+        2,
+        2
+       ],
+       "ok": true,
+       "got": 2
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "count_now": {
+       "vehicle": 2
+      }
+     }
+    },
+    {
+     "i": 3,
+     "id": "C4",
+     "t": 22.0,
+     "text": "Has the red one gone yet?",
+     "headline": "NO: the car was last seen 3.1 s ago, left via the TOP edge",
+     "latency_ms": 2.405,
+     "intents": [
+      "still"
+     ],
+     "checks": [
+      {
+       "type": "present",
+       "value": false,
+       "ok": true,
+       "got": false
+      },
+      {
+       "type": "exit_side",
+       "in": [
+        "top"
+       ],
+       "ok": true,
+       "got": "top"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "still": {
+       "eid": 3,
+       "exit_side": "top",
+       "last_seen_ago": 3.120000000000001,
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 4,
+     "id": "C5",
+     "t": 29.0,
+     "text": "When did the last one turn up?",
+     "headline": "The car arrived at 00:25.8 (alarm +26 s)",
+     "latency_ms": 1.159,
+     "intents": [
+      "arrival"
+     ],
+     "checks": [
+      {
+       "type": "arrival",
+       "t": 25.2,
+       "tol": 1.0,
+       "ok": true,
+       "got": 25.84
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "arrival": {
+       "at_alarm": false,
+       "eid": 4,
+       "first_t": 25.84
+      }
+     }
+    },
+    {
+     "i": 5,
+     "id": "C6",
+     "t": 29.5,
+     "text": "How many vehicles have there been all told?",
+     "headline": "4 vehicles since the alarm",
+     "latency_ms": 1.432,
+     "intents": [
+      "total"
+     ],
+     "checks": [
+      {
+       "type": "total",
+       "group": "vehicle",
+       "range": [
+        4,
+        4
+       ],
+       "ok": true,
+       "got": 4
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "total": {
+       "vehicle": 4
+      },
+      "total_new": {
+       "vehicle": 4
+      }
+     }
+    }
+   ],
+   "incident_log": "INCIDENT LOG (auto-draft, operator to review) | HELD-OUT: cars in a car park | alarm 00:00.0 | hang-up 00:29.8\n00:00.0  Alarm received, camera: HELD-OUT: cars in a car park.\n00:05.3  White car arrived via the BOTTOM edge. [#1]\n00:06.0  Police asked \"What sort of motor is that, colour and all?\" -> A white car.\n00:08.3  White car left via the TOP edge. [#1]\n00:09.5  Police asked \"Which way did the vehicle go when it left?\" -> The car left via the TOP edge, heading UP the frame (away).\n00:15.2  White car arrived via the TOP edge. [#2]\n00:15.4  Red car arrived via the BOTTOM edge. [#3]\n00:17.0  Police asked \"How many cars are there now?\" -> 2 vehicles in view now.\n00:18.1  White car left via the BOTTOM edge. [#2]\n00:18.9  Red car left via the TOP edge. [#3]\n00:22.0  Police asked \"Has the red one gone yet?\" -> NO: the car was last seen 3.1 s ago, left via the TOP edge.\n00:25.8  White car arrived via the TOP edge. [#4]\n00:27.6  White car left via the BOTTOM edge. [#4]\n00:29.0  Police asked \"When did the last one turn up?\" -> The car arrived at 00:25.8 (alarm +26 s).\n00:29.5  Police asked \"How many vehicles have there been all told?\" -> 4 vehicles since the alarm.\nSeen since alarm: 4 vehicles.\nOn scene at hang-up (00:29.8): 0 (none).\n4 left through a frame edge: BOTTOM, TOP.",
+   "wall_s": 17.4,
+   "sim_wall_s": 11.6
+  },
+  "people_detection": {
+   "title": "HELD-OUT: people crossing a room",
+   "alarm_s": 0.0,
+   "hangup_s": 49.0,
+   "frames_ingested": 588,
+   "fps_sampled": 12.0,
+   "raw_tracks_confirmed": 7,
+   "entities": 7,
+   "carried_not_counted": 0,
+   "answers_right": 5,
+   "answers_scored": 6,
+   "latency_ms": {
+    "p50": 1.77,
+    "max": 3.37,
+    "all": [
+     0.88,
+     1.41,
+     3.37,
+     2.13,
+     1.0,
+     2.51
+    ]
+   },
+   "feed_ms_per_frame_mean": 1.03,
+   "causality": [
+    {
+     "id": "P1",
+     "identical": true
+    },
+    {
+     "id": "P2",
+     "identical": true
+    },
+    {
+     "id": "P3",
+     "identical": true
+    },
+    {
+     "id": "P4",
+     "identical": true
+    },
+    {
+     "id": "P5",
+     "identical": true
+    },
+    {
+     "id": "P6",
+     "identical": true
+    }
+   ],
+   "causality_all_identical": true,
+   "detector_agreement": {
+    "person": {
+     "frames": 12,
+     "mean_abs_diff": 0.25,
+     "within_1": 1.0,
+     "engine": [
+      1,
+      0,
+      0,
+      2,
+      1,
+      0,
+      0,
+      3,
+      1,
+      0,
+      0,
+      1
+     ],
+     "yolo26l": [
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      3,
+      0,
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   "vlm": {
+    "calls": 7,
+    "described": 7,
+    "measured_local_median_s": 9.4,
+    "measured_local_max_s": 16.6,
+    "assumed_availability_delay_s_SIMULATED": 3.0,
+    "colour_agreement_with_pixels": "1/7",
+    "withheld_by_conflict_check": "6/7",
+    "of_which_age_guess": 0,
+    "samples": [
+     "A female subject with long hair wearing a black long-sleeved top and dark grey trousers is seen walking away on a wooden floor, carrying a black shoulder bag.",
+     "A person wearing a black t-shirt and black trousers, with a black baseball cap, is seen walking away on a wooden floor, carrying an unspecified item in their right hand.",
+     "The image shows a person wearing a blue top and a striped skirt, walking away on a wooden floor.",
+     "The image shows a man with short brown hair wearing a checkered shirt and dark trousers, carrying a wristwatch on his left hand. A woman with long dark hair is visible from the back, dressed in a dark outfit and carrying a white bag.",
+     "A person wearing a white top and black trousers is seen walking away, carrying a black shoulder bag and wearing a light-colored hat.",
+     "Dark-colored top and trousers, black cap, black shoulder bag, walking away on wooden floor."
+    ]
+   },
+   "sql_baseline": {
+    "answers": [
+     {
+      "id": "P1",
+      "type": "count_now",
+      "group": "person",
+      "sql": "SELECT peak_person AS n FROM seg WHERE \"end\" <= 3.00 ORDER BY \"end\" DESC LIMIT 1",
+      "got": 0,
+      "truth_range": [
+       1,
+       1
+      ],
+      "right": false
+     },
+     {
+      "id": "P5",
+      "type": "total",
+      "group": "person",
+      "sql": "SELECT SUM(n_person) AS n FROM seg WHERE \"end\" <= 36.50 AND \"end\" > 0.00",
+      "got": 12,
+      "truth_range": [
+       6,
+       6
+      ],
+      "right": false
+     },
+     {
+      "id": "P6",
+      "type": "count_now",
+      "group": "person",
+      "sql": "SELECT peak_person AS n FROM seg WHERE \"end\" <= 48.00 ORDER BY \"end\" DESC LIMIT 1",
+      "got": 1,
+      "truth_range": [
+       0,
+       0
+      ],
+      "right": false
+     }
+    ],
+    "right": 0,
+    "n": 3
+   },
+   "questions": [
+    {
+     "i": 0,
+     "id": "P1",
+     "t": 3.0,
+     "text": "Right, how many blokes are we looking at?",
+     "headline": "1 person in view now",
+     "latency_ms": 0.882,
+     "intents": [
+      "count"
+     ],
+     "checks": [
+      {
+       "type": "count_now",
+       "group": "person",
+       "range": [
+        1,
+        1
+       ],
+       "ok": true,
+       "got": 1
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "count_now": {
+       "person": 1
+      }
+     }
+    },
+    {
+     "i": 1,
+     "id": "P2",
+     "t": 8.0,
+     "text": "Where'd she go?",
+     "headline": "The person left via the RIGHT edge, heading RIGHT",
+     "latency_ms": 1.406,
+     "intents": [
+      "direction"
+     ],
+     "checks": [
+      {
+       "type": "exit_side",
+       "in": [
+        "right"
+       ],
+       "ok": true,
+       "got": "right"
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "direction": {
+       "eid": 1,
+       "entry_side": "bottom",
+       "exit_side": "right",
+       "heading": "right",
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 2,
+     "id": "P3",
+     "t": 17.5,
+     "text": "What's the lad in the black top got on?",
+     "headline": "A person: black top, maroon trousers",
+     "latency_ms": 3.37,
+     "intents": [
+      "appearance"
+     ],
+     "checks": [
+      {
+       "type": "colour",
+       "part": "top",
+       "in": [
+        "black",
+        "charcoal"
+       ],
+       "ok": true,
+       "got": "black"
+      },
+      {
+       "type": "colour",
+       "part": "bottom",
+       "in": [
+        "black",
+        "charcoal",
+        "navy"
+       ],
+       "ok": false,
+       "got": "maroon"
+      }
+     ],
+     "correct": false,
+     "caveats": [],
+     "facts": {
+      "appearance": {
+       "cls": "person",
+       "colours": {
+        "bottom": "maroon",
+        "top": "black"
+       },
+       "desc": null,
+       "eid": 2
+      }
+     }
+    },
+    {
+     "i": 3,
+     "id": "P4",
+     "t": 24.0,
+     "text": "The man in the black top, where did he go?",
+     "headline": "The person left via the LEFT edge, heading LEFT",
+     "latency_ms": 2.132,
+     "intents": [
+      "direction"
+     ],
+     "checks": [
+      {
+       "type": "exit_side",
+       "in": [
+        "left"
+       ],
+       "ok": true,
+       "got": "left"
+      }
+     ],
+     "correct": true,
+     "caveats": [
+      "no black top: showing latest"
+     ],
+     "facts": {
+      "direction": {
+       "eid": 3,
+       "entry_side": "bottom",
+       "exit_side": "left",
+       "heading": "left",
+       "present": false
+      }
+     }
+    },
+    {
+     "i": 4,
+     "id": "P5",
+     "t": 36.5,
+     "text": "Altogether how many people have turned up since the alarm?",
+     "headline": "6 people since the alarm",
+     "latency_ms": 1.0,
+     "intents": [
+      "total"
+     ],
+     "checks": [
+      {
+       "type": "total",
+       "group": "person",
+       "range": [
+        6,
+        6
+       ],
+       "ok": true,
+       "got": 6
+      }
+     ],
+     "correct": true,
+     "caveats": [
+      "double-count risk in crowds"
+     ],
+     "facts": {
+      "total": {
+       "person": 6
+      },
+      "total_new": {
+       "person": 6
+      }
+     }
+    },
+    {
+     "i": 5,
+     "id": "P6",
+     "t": 48.0,
+     "text": "Is anybody still about?",
+     "headline": "0 people in view now",
+     "latency_ms": 2.506,
+     "intents": [
+      "count"
+     ],
+     "checks": [
+      {
+       "type": "count_now",
+       "group": "person",
+       "range": [
+        0,
+        0
+       ],
+       "ok": true,
+       "got": 0
+      }
+     ],
+     "correct": true,
+     "caveats": [],
+     "facts": {
+      "count_now": {
+       "person": 0
+      }
+     }
+    }
+   ],
+   "incident_log": "INCIDENT LOG (auto-draft, operator to review) | HELD-OUT: people crossing a room | alarm 00:00.0 | hang-up 00:49.0\n00:00.0  Alarm received, camera: HELD-OUT: people crossing a room.\n00:01.8  Person (purple top, purple trousers) arrived via the BOTTOM edge. [#1]\n00:03.0  Police asked \"Right, how many blokes are we looking at?\" -> 1 person in view now.\n00:06.5  Person (purple top, purple trousers) left via the RIGHT edge. [#1]\n00:08.0  Police asked \"Where'd she go?\" -> The person left via the RIGHT edge, heading RIGHT.\n00:15.0  Person (purple top, black trousers) arrived via the BOTTOM edge. [#2]\n00:15.0  Person (dark blue top, maroon trousers) arrived via the BOTTOM edge. [#3]\n00:17.5  Police asked \"What's the lad in the black top got on?\" -> A person: black top, maroon trousers.\n00:20.1  Person (purple top, black trousers) left via the LEFT edge. [#2]\n00:20.8  Person (dark blue top, maroon trousers) left via the LEFT edge. [#3]\n00:24.0  Police asked \"The man in the black top, where did he go?\" -> The person left via the LEFT edge, heading LEFT.\n00:28.2  Person (purple top, maroon trousers) arrived via the BOTTOM edge. [#4]\n00:28.4  Person (light grey top, maroon trousers) arrived via the BOTTOM edge. [#5]\n00:29.4  Person (dark blue top, maroon trousers) arrived. [#6]\n00:33.4  Person (light grey top, maroon trousers) left via the RIGHT edge. [#5]\n00:33.6  Person (purple top, maroon trousers) left via the LEFT edge. [#4]\n00:34.4  Person (dark blue top, maroon trousers) left via the RIGHT edge. [#6]\n00:36.5  Police asked \"Altogether how many people have turned up since the alarm?\" -> 6 people since the alarm.\n00:43.6  Person (blue top, maroon trousers) arrived via the BOTTOM edge. [#7]\n00:46.5  Person (blue top, maroon trousers) left via the LEFT edge. [#7]\n00:48.0  Police asked \"Is anybody still about?\" -> 0 people in view now.\nSeen since alarm: 7 people.\nOn scene at hang-up (00:49.0): 0 (none).\n7 left through a frame edge: LEFT, RIGHT.",
+   "wall_s": 25.1,
+   "sim_wall_s": 16.9
+  }
+ },
+ "kill_test": {
+  "criterion": ">= 4 of 5 answers right on 2 clips; answer latency < 1 s",
+  "clips_with_ge_4_of_5": [
+   "person_bicycle_car_detection",
+   "rochester_night",
+   "retail_cctv"
+  ],
+  "max_latency_ms": 5.29,
+  "passed": true
+ },
+ "wall_s": 126.1,
+ "held_out": {
+  "clips": {
+   "one_by_one_person_detection": "5/5",
+   "car_detection": "6/6",
+   "people_detection": "5/6"
+  },
+  "right": 16,
+  "scored": 17,
+  "note": "scripts and truth written from contact sheets before the first run on these clips. one_by_one and people_detection: no change to the engine after seeing their results. car_detection: first run was 5/6 (C6 counted 5 vehicles, a half-visible car at the frame edge got a second tracker id; the red car was named 'pink'); I then fixed the edge-merge rule and the red/pink naming, so car_detection is no longer a clean held-out result"
+ },
+ "default_set": {
+  "right": 15,
+  "scored": 15
+ }
+}

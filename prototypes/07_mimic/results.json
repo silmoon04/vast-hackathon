@@ -1,0 +1,3327 @@
+{
+ "videos": {
+  "retail_cctv": {
+   "tracks": 243,
+   "tracklets": 126,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.9,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 0.905,
+     "verdict": "NO MATCH",
+     "ms": 186.0,
+     "top3": [
+      {
+       "key": "retail_cctv:854:0",
+       "cost": 0.905,
+       "cls": "person",
+       "t0": 51.9,
+       "rot_deg": 60
+      },
+      {
+       "key": "retail_cctv:1321:0",
+       "cost": 0.947,
+       "cls": "person",
+       "t0": 88.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "retail_cctv:1421:0",
+       "cost": 1.302,
+       "cls": "person",
+       "t0": 88.1,
+       "rot_deg": 180
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 0.842,
+     "verdict": "NO MATCH",
+     "ms": 29.2,
+     "top3": [
+      {
+       "key": "retail_cctv:1167:0",
+       "cost": 0.842,
+       "cls": "person",
+       "t0": 80.0,
+       "rot_deg": 0
+      },
+      {
+       "key": "retail_cctv:1370:0",
+       "cost": 0.86,
+       "cls": "person",
+       "t0": 84.9,
+       "rot_deg": 0
+      },
+      {
+       "key": "retail_cctv:1282:0",
+       "cost": 0.945,
+       "cls": "person",
+       "t0": 80.4,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.617,
+     "verdict": "MAYBE",
+     "ms": 277.9,
+     "top3": [
+      {
+       "key": "retail_cctv:1421:0",
+       "cost": 0.617,
+       "cls": "person",
+       "t0": 88.1,
+       "rot_deg": 180
+      },
+      {
+       "key": "retail_cctv:1368:0",
+       "cost": 0.629,
+       "cls": "person",
+       "t0": 84.9,
+       "rot_deg": 30
+      },
+      {
+       "key": "retail_cctv:70:0",
+       "cost": 0.732,
+       "cls": "person",
+       "t0": 9.2,
+       "rot_deg": 270
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 0.667,
+     "verdict": "NO MATCH",
+     "ms": 341.0,
+     "top3": [
+      {
+       "key": "retail_cctv:1:0",
+       "cost": 0.667,
+       "cls": "person",
+       "t0": 0.0,
+       "rot_deg": 90
+      },
+      {
+       "key": "retail_cctv:597:0",
+       "cost": 0.761,
+       "cls": "person",
+       "t0": 33.8,
+       "rot_deg": 0
+      },
+      {
+       "key": "retail_cctv:1227:0",
+       "cost": 0.787,
+       "cls": "person",
+       "t0": 74.3,
+       "rot_deg": 150
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 0.427,
+     "verdict": "MATCH",
+     "ms": 53.6,
+     "top3": [
+      {
+       "key": "retail_cctv:238:0",
+       "cost": 0.427,
+       "cls": "person",
+       "t0": 13.6,
+       "rot_deg": 0
+      },
+      {
+       "key": "retail_cctv:1368:0",
+       "cost": 0.485,
+       "cls": "person",
+       "t0": 84.9,
+       "rot_deg": 0
+      },
+      {
+       "key": "retail_cctv:1087:0",
+       "cost": 0.502,
+       "cls": "person",
+       "t0": 66.0,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "diagonal"
+  },
+  "lisbon_parking": {
+   "tracks": 6006,
+   "tracklets": 12,
+   "camera_windows": 2177,
+   "camera_cover_pct": 77.7,
+   "presets": {
+    "u_turn": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "left_to_right": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "stop_and_go": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "loiter": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "diagonal": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    }
+   },
+   "hero_preset": "u_turn"
+  },
+  "ptz_parking": {
+   "tracks": 315,
+   "tracklets": 222,
+   "camera_windows": 121,
+   "camera_cover_pct": 97.4,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 1.524,
+     "verdict": "NO MATCH",
+     "ms": 238.0,
+     "top3": [
+      {
+       "key": "ptz_parking:2625:118",
+       "cost": 1.524,
+       "cls": "car",
+       "t0": 238.3,
+       "rot_deg": 150
+      },
+      {
+       "key": "ptz_parking:3370:120",
+       "cost": 1.599,
+       "cls": "person",
+       "t0": 258.1,
+       "rot_deg": 210
+      },
+      {
+       "key": "ptz_parking:925:0",
+       "cost": 1.674,
+       "cls": "car",
+       "t0": 68.2,
+       "rot_deg": 240
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 0.288,
+     "verdict": "MATCH",
+     "ms": 49.4,
+     "top3": [
+      {
+       "key": "ptz_parking:1707:0",
+       "cost": 0.288,
+       "cls": "truck",
+       "t0": 99.0,
+       "rot_deg": 0
+      },
+      {
+       "key": "ptz_parking:2144:0",
+       "cost": 0.967,
+       "cls": "person",
+       "t0": 137.9,
+       "rot_deg": 0
+      },
+      {
+       "key": "ptz_parking:174:0",
+       "cost": 1.01,
+       "cls": "person",
+       "t0": 26.2,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.707,
+     "verdict": "NO MATCH",
+     "ms": 297.9,
+     "top3": [
+      {
+       "key": "ptz_parking:3426:120",
+       "cost": 0.707,
+       "cls": "person",
+       "t0": 259.9,
+       "rot_deg": 210
+      },
+      {
+       "key": "ptz_parking:4492:120",
+       "cost": 0.738,
+       "cls": "car",
+       "t0": 308.3,
+       "rot_deg": 180
+      },
+      {
+       "key": "ptz_parking:421:0",
+       "cost": 0.797,
+       "cls": "car",
+       "t0": 38.9,
+       "rot_deg": 210
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 0.978,
+     "verdict": "NO MATCH",
+     "ms": 289.6,
+     "top3": [
+      {
+       "key": "ptz_parking:925:0",
+       "cost": 0.978,
+       "cls": "car",
+       "t0": 68.2,
+       "rot_deg": 120
+      },
+      {
+       "key": "ptz_parking:2848:120",
+       "cost": 1.061,
+       "cls": "car",
+       "t0": 250.3,
+       "rot_deg": 150
+      },
+      {
+       "key": "ptz_parking:3370:120",
+       "cost": 1.22,
+       "cls": "person",
+       "t0": 258.1,
+       "rot_deg": 60
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 0.347,
+     "verdict": "MATCH",
+     "ms": 42.4,
+     "top3": [
+      {
+       "key": "ptz_parking:174:0",
+       "cost": 0.347,
+       "cls": "person",
+       "t0": 26.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "ptz_parking:2144:0",
+       "cost": 0.427,
+       "cls": "person",
+       "t0": 137.9,
+       "rot_deg": 0
+      },
+      {
+       "key": "ptz_parking:79:0",
+       "cost": 0.569,
+       "cls": "person",
+       "t0": 11.8,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "left_to_right"
+  },
+  "rochester_night": {
+   "tracks": 64,
+   "tracklets": 21,
+   "camera_windows": 34,
+   "camera_cover_pct": 97.3,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 1.906,
+     "verdict": "NO MATCH",
+     "ms": 327.6,
+     "top3": [
+      {
+       "key": "rochester_night:224:4",
+       "cost": 1.906,
+       "cls": "car",
+       "t0": 41.3,
+       "rot_deg": 0
+      },
+      {
+       "key": "rochester_night:290:5",
+       "cost": 1.973,
+       "cls": "car",
+       "t0": 43.6,
+       "rot_deg": 0
+      },
+      {
+       "key": "rochester_night:250:4",
+       "cost": 1.99,
+       "cls": "car",
+       "t0": 40.3,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 0.03,
+     "verdict": "MATCH",
+     "ms": 54.0,
+     "top3": [
+      {
+       "key": "rochester_night:1:0",
+       "cost": 0.03,
+       "cls": "car",
+       "t0": 0.0,
+       "rot_deg": 0
+      },
+      {
+       "key": "rochester_night:250:4",
+       "cost": 0.057,
+       "cls": "car",
+       "t0": 40.3,
+       "rot_deg": 0
+      },
+      {
+       "key": "rochester_night:10:0",
+       "cost": 0.059,
+       "cls": "car",
+       "t0": 2.3,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.702,
+     "verdict": "NO MATCH",
+     "ms": 370.1,
+     "top3": [
+      {
+       "key": "rochester_night:309:7",
+       "cost": 0.702,
+       "cls": "car",
+       "t0": 49.1,
+       "rot_deg": 180
+      },
+      {
+       "key": "rochester_night:363:10",
+       "cost": 0.73,
+       "cls": "car",
+       "t0": 59.4,
+       "rot_deg": 180
+      },
+      {
+       "key": "rochester_night:451:29",
+       "cost": 0.735,
+       "cls": "car",
+       "t0": 80.0,
+       "rot_deg": 180
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 1.377,
+     "verdict": "NO MATCH",
+     "ms": 376.2,
+     "top3": [
+      {
+       "key": "rochester_night:233:4",
+       "cost": 1.377,
+       "cls": "car",
+       "t0": 41.6,
+       "rot_deg": 180
+      },
+      {
+       "key": "rochester_night:309:7",
+       "cost": 1.438,
+       "cls": "car",
+       "t0": 49.1,
+       "rot_deg": 0
+      },
+      {
+       "key": "rochester_night:352:7",
+       "cost": 1.572,
+       "cls": "car",
+       "t0": 52.7,
+       "rot_deg": 180
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 1.036,
+     "verdict": "NO MATCH",
+     "ms": 40.2,
+     "top3": [
+      {
+       "key": "rochester_night:224:4",
+       "cost": 1.036,
+       "cls": "car",
+       "t0": 41.3,
+       "rot_deg": 0
+      },
+      {
+       "key": "rochester_night:137:4",
+       "cost": 1.094,
+       "cls": "car",
+       "t0": 28.9,
+       "rot_deg": 0
+      },
+      {
+       "key": "rochester_night:233:4",
+       "cost": 1.132,
+       "cls": "car",
+       "t0": 41.6,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "left_to_right"
+  },
+  "yonge_dundas": {
+   "tracks": 454,
+   "tracklets": 161,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.9,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 1.108,
+     "verdict": "NO MATCH",
+     "ms": 585.1,
+     "top3": [
+      {
+       "key": "yonge_dundas:2977:0",
+       "cost": 1.108,
+       "cls": "car",
+       "t0": 52.6,
+       "rot_deg": 180
+      },
+      {
+       "key": "yonge_dundas:2317:0",
+       "cost": 1.134,
+       "cls": "car",
+       "t0": 47.2,
+       "rot_deg": 180
+      },
+      {
+       "key": "yonge_dundas:1606:0",
+       "cost": 1.224,
+       "cls": "car",
+       "t0": 30.9,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 0.022,
+     "verdict": "MATCH",
+     "ms": 117.2,
+     "top3": [
+      {
+       "key": "yonge_dundas:2412:0",
+       "cost": 0.022,
+       "cls": "person",
+       "t0": 39.6,
+       "rot_deg": 0
+      },
+      {
+       "key": "yonge_dundas:2443:0",
+       "cost": 0.054,
+       "cls": "person",
+       "t0": 40.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "yonge_dundas:448:0",
+       "cost": 0.064,
+       "cls": "person",
+       "t0": 6.9,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.514,
+     "verdict": "MAYBE",
+     "ms": 551.3,
+     "top3": [
+      {
+       "key": "yonge_dundas:2639:0",
+       "cost": 0.514,
+       "cls": "person",
+       "t0": 45.0,
+       "rot_deg": 180
+      },
+      {
+       "key": "yonge_dundas:2420:0",
+       "cost": 0.617,
+       "cls": "car",
+       "t0": 39.8,
+       "rot_deg": 180
+      },
+      {
+       "key": "yonge_dundas:1555:0",
+       "cost": 0.663,
+       "cls": "person",
+       "t0": 34.5,
+       "rot_deg": 150
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 0.653,
+     "verdict": "NO MATCH",
+     "ms": 502.3,
+     "top3": [
+      {
+       "key": "yonge_dundas:310:0",
+       "cost": 0.653,
+       "cls": "car",
+       "t0": 4.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "yonge_dundas:351:0",
+       "cost": 0.693,
+       "cls": "car",
+       "t0": 5.2,
+       "rot_deg": 180
+      },
+      {
+       "key": "yonge_dundas:1622:0",
+       "cost": 0.909,
+       "cls": "person",
+       "t0": 33.0,
+       "rot_deg": 180
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 0.778,
+     "verdict": "NO MATCH",
+     "ms": 65.8,
+     "top3": [
+      {
+       "key": "yonge_dundas:1434:0",
+       "cost": 0.778,
+       "cls": "person",
+       "t0": 26.8,
+       "rot_deg": 0
+      },
+      {
+       "key": "yonge_dundas:1977:0",
+       "cost": 0.847,
+       "cls": "person",
+       "t0": 33.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "yonge_dundas:2935:0",
+       "cost": 0.851,
+       "cls": "car",
+       "t0": 53.6,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "left_to_right"
+  },
+  "motorway_a40": {
+   "tracks": 72,
+   "tracklets": 40,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.9,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 1.747,
+     "verdict": "NO MATCH",
+     "ms": 269.1,
+     "top3": [
+      {
+       "key": "motorway_a40:356:0",
+       "cost": 1.747,
+       "cls": "truck",
+       "t0": 21.4,
+       "rot_deg": 150
+      },
+      {
+       "key": "motorway_a40:405:0",
+       "cost": 1.789,
+       "cls": "car",
+       "t0": 18.7,
+       "rot_deg": 150
+      },
+      {
+       "key": "motorway_a40:8:0",
+       "cost": 1.827,
+       "cls": "car",
+       "t0": 0.0,
+       "rot_deg": 150
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 2.106,
+     "verdict": "NO MATCH",
+     "ms": 44.6,
+     "top3": [
+      {
+       "key": "motorway_a40:464:0",
+       "cost": 2.106,
+       "cls": "car",
+       "t0": 22.1,
+       "rot_deg": 0
+      },
+      {
+       "key": "motorway_a40:124:0",
+       "cost": 2.291,
+       "cls": "car",
+       "t0": 6.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "motorway_a40:155:0",
+       "cost": 2.37,
+       "cls": "car",
+       "t0": 8.0,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.657,
+     "verdict": "NO MATCH",
+     "ms": 265.7,
+     "top3": [
+      {
+       "key": "motorway_a40:405:0",
+       "cost": 0.657,
+       "cls": "car",
+       "t0": 18.7,
+       "rot_deg": 150
+      },
+      {
+       "key": "motorway_a40:422:0",
+       "cost": 0.687,
+       "cls": "truck",
+       "t0": 19.6,
+       "rot_deg": 180
+      },
+      {
+       "key": "motorway_a40:466:0",
+       "cost": 0.773,
+       "cls": "truck",
+       "t0": 22.1,
+       "rot_deg": 300
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 1.329,
+     "verdict": "NO MATCH",
+     "ms": 258.5,
+     "top3": [
+      {
+       "key": "motorway_a40:271:0",
+       "cost": 1.329,
+       "cls": "car",
+       "t0": 15.1,
+       "rot_deg": 120
+      },
+      {
+       "key": "motorway_a40:96:0",
+       "cost": 1.346,
+       "cls": "car",
+       "t0": 5.6,
+       "rot_deg": 120
+      },
+      {
+       "key": "motorway_a40:314:0",
+       "cost": 1.406,
+       "cls": "car",
+       "t0": 16.7,
+       "rot_deg": 330
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 3.186,
+     "verdict": "NO MATCH",
+     "ms": 48.1,
+     "top3": [
+      {
+       "key": "motorway_a40:464:0",
+       "cost": 3.186,
+       "cls": "car",
+       "t0": 22.1,
+       "rot_deg": 0
+      },
+      {
+       "key": "motorway_a40:124:0",
+       "cost": 3.353,
+       "cls": "car",
+       "t0": 6.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "motorway_a40:155:0",
+       "cost": 3.414,
+       "cls": "car",
+       "t0": 8.0,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "stop_and_go"
+  },
+  "dashcam_urban": {
+   "tracks": 153,
+   "tracklets": 4,
+   "camera_windows": 307,
+   "camera_cover_pct": 83.0,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 1.895,
+     "verdict": "NO MATCH",
+     "ms": 182.7,
+     "top3": [
+      {
+       "key": "dashcam_urban:1201:183",
+       "cost": 1.895,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 150
+      },
+      {
+       "key": "dashcam_urban:1451:183",
+       "cost": 1.951,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 1.025,
+     "verdict": "NO MATCH",
+     "ms": 32.3,
+     "top3": [
+      {
+       "key": "dashcam_urban:1451:183",
+       "cost": 1.025,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "dashcam_urban:1201:183",
+       "cost": 5.583,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.815,
+     "verdict": "NO MATCH",
+     "ms": 176.2,
+     "top3": [
+      {
+       "key": "dashcam_urban:1451:183",
+       "cost": 0.815,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 30
+      },
+      {
+       "key": "dashcam_urban:1201:183",
+       "cost": 0.933,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 180
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 1.599,
+     "verdict": "NO MATCH",
+     "ms": 167.4,
+     "top3": [
+      {
+       "key": "dashcam_urban:1201:183",
+       "cost": 1.599,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "dashcam_urban:1451:183",
+       "cost": 2.805,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 180
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 0.607,
+     "verdict": "MAYBE",
+     "ms": 36.6,
+     "top3": [
+      {
+       "key": "dashcam_urban:1451:183",
+       "cost": 0.607,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "dashcam_urban:1201:183",
+       "cost": 5.3,
+       "cls": "car",
+       "t0": 85.2,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "diagonal"
+  },
+  "elephants_dream": {
+   "tracks": 195,
+   "tracklets": 94,
+   "camera_windows": 1635,
+   "camera_cover_pct": 79.2,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 0.597,
+     "verdict": "MAYBE",
+     "ms": 190.2,
+     "top3": [
+      {
+       "key": "elephants_dream:698:421",
+       "cost": 0.597,
+       "cls": "person",
+       "t0": 297.4,
+       "rot_deg": 30
+      },
+      {
+       "key": "elephants_dream:231:72",
+       "cost": 1.242,
+       "cls": "person",
+       "t0": 106.3,
+       "rot_deg": 270
+      },
+      {
+       "key": "elephants_dream:643:385",
+       "cost": 1.428,
+       "cls": "person",
+       "t0": 274.5,
+       "rot_deg": 330
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 0.098,
+     "verdict": "MATCH",
+     "ms": 36.8,
+     "top3": [
+      {
+       "key": "elephants_dream:650:385",
+       "cost": 0.098,
+       "cls": "person",
+       "t0": 274.6,
+       "rot_deg": 0
+      },
+      {
+       "key": "elephants_dream:494:263",
+       "cost": 0.157,
+       "cls": "person",
+       "t0": 221.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "elephants_dream:560:291",
+       "cost": 0.18,
+       "cls": "person",
+       "t0": 249.9,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.612,
+     "verdict": "MAYBE",
+     "ms": 193.6,
+     "top3": [
+      {
+       "key": "elephants_dream:435:243",
+       "cost": 0.612,
+       "cls": "person",
+       "t0": 174.4,
+       "rot_deg": 210
+      },
+      {
+       "key": "elephants_dream:686:420",
+       "cost": 0.664,
+       "cls": "person",
+       "t0": 287.8,
+       "rot_deg": 0
+      },
+      {
+       "key": "elephants_dream:685:420",
+       "cost": 0.684,
+       "cls": "person",
+       "t0": 287.8,
+       "rot_deg": 330
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 0.341,
+     "verdict": "MATCH",
+     "ms": 174.2,
+     "top3": [
+      {
+       "key": "elephants_dream:698:421",
+       "cost": 0.341,
+       "cls": "person",
+       "t0": 297.4,
+       "rot_deg": 210
+      },
+      {
+       "key": "elephants_dream:518:270",
+       "cost": 0.833,
+       "cls": "person",
+       "t0": 235.0,
+       "rot_deg": 0
+      },
+      {
+       "key": "elephants_dream:968:887",
+       "cost": 1.148,
+       "cls": "person",
+       "t0": 429.7,
+       "rot_deg": 30
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 1.25,
+     "verdict": "NO MATCH",
+     "ms": 39.9,
+     "top3": [
+      {
+       "key": "elephants_dream:650:385",
+       "cost": 1.25,
+       "cls": "person",
+       "t0": 274.6,
+       "rot_deg": 0
+      },
+      {
+       "key": "elephants_dream:494:263",
+       "cost": 1.339,
+       "cls": "person",
+       "t0": 221.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "elephants_dream:560:291",
+       "cost": 1.389,
+       "cls": "person",
+       "t0": 249.9,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "left_to_right"
+  },
+  "skate_fall": {
+   "tracks": 6,
+   "tracklets": 1,
+   "camera_windows": 10,
+   "camera_cover_pct": 92.6,
+   "presets": {
+    "u_turn": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "left_to_right": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "stop_and_go": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "loiter": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "diagonal": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    }
+   },
+   "hero_preset": "u_turn"
+  },
+  "floor_lie": {
+   "tracks": 2,
+   "tracklets": 1,
+   "camera_windows": 2,
+   "camera_cover_pct": 95.8,
+   "presets": {
+    "u_turn": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "left_to_right": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "stop_and_go": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "loiter": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "diagonal": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    }
+   },
+   "hero_preset": "u_turn"
+  },
+  "assist_elderly": {
+   "tracks": 6,
+   "tracklets": 3,
+   "camera_windows": 17,
+   "camera_cover_pct": 85.8,
+   "presets": {
+    "u_turn": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "left_to_right": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "stop_and_go": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "loiter": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "diagonal": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    }
+   },
+   "hero_preset": "u_turn"
+  },
+  "help_sit": {
+   "tracks": 10,
+   "tracklets": 9,
+   "camera_windows": 5,
+   "camera_cover_pct": 97.2,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 2.171,
+     "verdict": "NO MATCH",
+     "ms": 160.8,
+     "top3": [
+      {
+       "key": "help_sit:4:0",
+       "cost": 2.171,
+       "cls": "person",
+       "t0": 1.1,
+       "rot_deg": 180
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 5.431,
+     "verdict": "NO MATCH",
+     "ms": 34.0,
+     "top3": [
+      {
+       "key": "help_sit:4:0",
+       "cost": 5.431,
+       "cls": "person",
+       "t0": 1.1,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.615,
+     "verdict": "MAYBE",
+     "ms": 164.0,
+     "top3": [
+      {
+       "key": "help_sit:4:0",
+       "cost": 0.615,
+       "cls": "person",
+       "t0": 1.1,
+       "rot_deg": 210
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 1.561,
+     "verdict": "NO MATCH",
+     "ms": 189.9,
+     "top3": [
+      {
+       "key": "help_sit:4:0",
+       "cost": 1.561,
+       "cls": "person",
+       "t0": 1.1,
+       "rot_deg": 30
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 5.483,
+     "verdict": "NO MATCH",
+     "ms": 31.6,
+     "top3": [
+      {
+       "key": "help_sit:4:0",
+       "cost": 5.483,
+       "cls": "person",
+       "t0": 1.1,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "stop_and_go"
+  },
+  "sit_down": {
+   "tracks": 4,
+   "tracklets": 3,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.3,
+   "presets": {
+    "u_turn": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "left_to_right": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "stop_and_go": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "loiter": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "diagonal": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    }
+   },
+   "hero_preset": "u_turn"
+  },
+  "car_detection": {
+   "tracks": 5,
+   "tracklets": 4,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.7,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 2.113,
+     "verdict": "NO MATCH",
+     "ms": 187.3,
+     "top3": [
+      {
+       "key": "car_detection:6:0",
+       "cost": 2.113,
+       "cls": "car",
+       "t0": 15.2,
+       "rot_deg": 90
+      },
+      {
+       "key": "car_detection:2:0",
+       "cost": 2.12,
+       "cls": "car",
+       "t0": 5.3,
+       "rot_deg": 240
+      },
+      {
+       "key": "car_detection:16:0",
+       "cost": 2.212,
+       "cls": "car",
+       "t0": 25.8,
+       "rot_deg": 90
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 4.194,
+     "verdict": "NO MATCH",
+     "ms": 45.6,
+     "top3": [
+      {
+       "key": "car_detection:8:0",
+       "cost": 4.194,
+       "cls": "car",
+       "t0": 15.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "car_detection:2:0",
+       "cost": 4.268,
+       "cls": "car",
+       "t0": 5.3,
+       "rot_deg": 0
+      },
+      {
+       "key": "car_detection:16:0",
+       "cost": 4.329,
+       "cls": "car",
+       "t0": 25.8,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.734,
+     "verdict": "NO MATCH",
+     "ms": 234.5,
+     "top3": [
+      {
+       "key": "car_detection:8:0",
+       "cost": 0.734,
+       "cls": "car",
+       "t0": 15.4,
+       "rot_deg": 270
+      },
+      {
+       "key": "car_detection:2:0",
+       "cost": 0.799,
+       "cls": "car",
+       "t0": 5.3,
+       "rot_deg": 270
+      },
+      {
+       "key": "car_detection:6:0",
+       "cost": 0.818,
+       "cls": "car",
+       "t0": 15.2,
+       "rot_deg": 90
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 1.669,
+     "verdict": "NO MATCH",
+     "ms": 205.1,
+     "top3": [
+      {
+       "key": "car_detection:2:0",
+       "cost": 1.669,
+       "cls": "car",
+       "t0": 5.3,
+       "rot_deg": 90
+      },
+      {
+       "key": "car_detection:16:0",
+       "cost": 1.693,
+       "cls": "car",
+       "t0": 25.8,
+       "rot_deg": 270
+      },
+      {
+       "key": "car_detection:8:0",
+       "cost": 1.725,
+       "cls": "car",
+       "t0": 15.4,
+       "rot_deg": 90
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 3.44,
+     "verdict": "NO MATCH",
+     "ms": 36.7,
+     "top3": [
+      {
+       "key": "car_detection:16:0",
+       "cost": 3.44,
+       "cls": "car",
+       "t0": 25.8,
+       "rot_deg": 0
+      },
+      {
+       "key": "car_detection:6:0",
+       "cost": 3.464,
+       "cls": "car",
+       "t0": 15.2,
+       "rot_deg": 0
+      },
+      {
+       "key": "car_detection:8:0",
+       "cost": 4.898,
+       "cls": "car",
+       "t0": 15.4,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "stop_and_go"
+  },
+  "classroom": {
+   "tracks": 31,
+   "tracklets": 6,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.8,
+   "presets": {
+    "u_turn": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "left_to_right": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "stop_and_go": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "loiter": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    },
+    "diagonal": {
+     "top1_cost": null,
+     "verdict": "NO DATA",
+     "top3": []
+    }
+   },
+   "hero_preset": "u_turn"
+  },
+  "face_demographics_walking_and_pause": {
+   "tracks": 7,
+   "tracklets": 7,
+   "camera_windows": 2,
+   "camera_cover_pct": 99.8,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 0.495,
+     "verdict": "MAYBE",
+     "ms": 300.5,
+     "top3": [
+      {
+       "key": "face_demographics_walking_and_pause:1:0",
+       "cost": 0.495,
+       "cls": "person",
+       "t0": 3.4,
+       "rot_deg": 180
+      },
+      {
+       "key": "face_demographics_walking_and_pause:14:0",
+       "cost": 0.593,
+       "cls": "person",
+       "t0": 55.4,
+       "rot_deg": 180
+      },
+      {
+       "key": "face_demographics_walking_and_pause:15:0",
+       "cost": 1.326,
+       "cls": "person",
+       "t0": 56.4,
+       "rot_deg": 330
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 2.598,
+     "verdict": "NO MATCH",
+     "ms": 83.4,
+     "top3": [
+      {
+       "key": "face_demographics_walking_and_pause:15:0",
+       "cost": 2.598,
+       "cls": "person",
+       "t0": 56.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "face_demographics_walking_and_pause:1:0",
+       "cost": 3.764,
+       "cls": "person",
+       "t0": 3.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "face_demographics_walking_and_pause:8:0",
+       "cost": 4.198,
+       "cls": "person",
+       "t0": 29.1,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.535,
+     "verdict": "MAYBE",
+     "ms": 277.3,
+     "top3": [
+      {
+       "key": "face_demographics_walking_and_pause:13:0",
+       "cost": 0.535,
+       "cls": "person",
+       "t0": 54.2,
+       "rot_deg": 180
+      },
+      {
+       "key": "face_demographics_walking_and_pause:5:0",
+       "cost": 0.67,
+       "cls": "person",
+       "t0": 27.7,
+       "rot_deg": 180
+      },
+      {
+       "key": "face_demographics_walking_and_pause:20:1",
+       "cost": 0.766,
+       "cls": "person",
+       "t0": 74.8,
+       "rot_deg": 180
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 0.292,
+     "verdict": "MATCH",
+     "ms": 271.3,
+     "top3": [
+      {
+       "key": "face_demographics_walking_and_pause:14:0",
+       "cost": 0.292,
+       "cls": "person",
+       "t0": 55.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "face_demographics_walking_and_pause:1:0",
+       "cost": 0.567,
+       "cls": "person",
+       "t0": 3.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "face_demographics_walking_and_pause:15:0",
+       "cost": 0.738,
+       "cls": "person",
+       "t0": 56.4,
+       "rot_deg": 150
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 2.867,
+     "verdict": "NO MATCH",
+     "ms": 43.7,
+     "top3": [
+      {
+       "key": "face_demographics_walking_and_pause:15:0",
+       "cost": 2.867,
+       "cls": "person",
+       "t0": 56.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "face_demographics_walking_and_pause:1:0",
+       "cost": 3.756,
+       "cls": "person",
+       "t0": 3.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "face_demographics_walking_and_pause:8:0",
+       "cost": 4.236,
+       "cls": "person",
+       "t0": 29.1,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "loiter"
+  },
+  "one_by_one_person_detection": {
+   "tracks": 15,
+   "tracklets": 6,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.9,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 1.358,
+     "verdict": "NO MATCH",
+     "ms": 529.8,
+     "top3": [
+      {
+       "key": "one_by_one_person_detection:49:0",
+       "cost": 1.358,
+       "cls": "person",
+       "t0": 123.7,
+       "rot_deg": 330
+      },
+      {
+       "key": "one_by_one_person_detection:30:0",
+       "cost": 1.524,
+       "cls": "person",
+       "t0": 74.7,
+       "rot_deg": 330
+      },
+      {
+       "key": "one_by_one_person_detection:3:0",
+       "cost": 1.662,
+       "cls": "person",
+       "t0": 6.2,
+       "rot_deg": 300
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 1.305,
+     "verdict": "NO MATCH",
+     "ms": 101.6,
+     "top3": [
+      {
+       "key": "one_by_one_person_detection:49:0",
+       "cost": 1.305,
+       "cls": "person",
+       "t0": 123.7,
+       "rot_deg": 0
+      },
+      {
+       "key": "one_by_one_person_detection:30:0",
+       "cost": 1.409,
+       "cls": "person",
+       "t0": 74.7,
+       "rot_deg": 0
+      },
+      {
+       "key": "one_by_one_person_detection:3:0",
+       "cost": 1.583,
+       "cls": "person",
+       "t0": 6.2,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.752,
+     "verdict": "NO MATCH",
+     "ms": 361.8,
+     "top3": [
+      {
+       "key": "one_by_one_person_detection:49:0",
+       "cost": 0.752,
+       "cls": "person",
+       "t0": 123.7,
+       "rot_deg": 330
+      },
+      {
+       "key": "one_by_one_person_detection:3:0",
+       "cost": 0.759,
+       "cls": "person",
+       "t0": 6.2,
+       "rot_deg": 330
+      },
+      {
+       "key": "one_by_one_person_detection:30:0",
+       "cost": 0.807,
+       "cls": "person",
+       "t0": 74.7,
+       "rot_deg": 330
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 1.269,
+     "verdict": "NO MATCH",
+     "ms": 235.5,
+     "top3": [
+      {
+       "key": "one_by_one_person_detection:18:0",
+       "cost": 1.269,
+       "cls": "person",
+       "t0": 50.5,
+       "rot_deg": 150
+      },
+      {
+       "key": "one_by_one_person_detection:43:0",
+       "cost": 1.373,
+       "cls": "person",
+       "t0": 93.1,
+       "rot_deg": 150
+      },
+      {
+       "key": "one_by_one_person_detection:49:0",
+       "cost": 1.563,
+       "cls": "person",
+       "t0": 123.7,
+       "rot_deg": 150
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 2.412,
+     "verdict": "NO MATCH",
+     "ms": 63.7,
+     "top3": [
+      {
+       "key": "one_by_one_person_detection:49:0",
+       "cost": 2.412,
+       "cls": "person",
+       "t0": 123.7,
+       "rot_deg": 0
+      },
+      {
+       "key": "one_by_one_person_detection:30:0",
+       "cost": 2.553,
+       "cls": "person",
+       "t0": 74.7,
+       "rot_deg": 0
+      },
+      {
+       "key": "one_by_one_person_detection:3:0",
+       "cost": 2.67,
+       "cls": "person",
+       "t0": 6.2,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "stop_and_go"
+  },
+  "people_detection": {
+   "tracks": 7,
+   "tracklets": 7,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.8,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 1.219,
+     "verdict": "NO MATCH",
+     "ms": 309.8,
+     "top3": [
+      {
+       "key": "people_detection:14:0",
+       "cost": 1.219,
+       "cls": "person",
+       "t0": 29.4,
+       "rot_deg": 300
+      },
+      {
+       "key": "people_detection:10:0",
+       "cost": 1.323,
+       "cls": "person",
+       "t0": 28.4,
+       "rot_deg": 300
+      },
+      {
+       "key": "people_detection:2:0",
+       "cost": 1.673,
+       "cls": "person",
+       "t0": 1.8,
+       "rot_deg": 300
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 1.564,
+     "verdict": "NO MATCH",
+     "ms": 53.3,
+     "top3": [
+      {
+       "key": "people_detection:2:0",
+       "cost": 1.564,
+       "cls": "person",
+       "t0": 1.8,
+       "rot_deg": 0
+      },
+      {
+       "key": "people_detection:14:0",
+       "cost": 1.998,
+       "cls": "person",
+       "t0": 29.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "people_detection:10:0",
+       "cost": 2.458,
+       "cls": "person",
+       "t0": 28.4,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.783,
+     "verdict": "NO MATCH",
+     "ms": 297.2,
+     "top3": [
+      {
+       "key": "people_detection:4:0",
+       "cost": 0.783,
+       "cls": "person",
+       "t0": 15.0,
+       "rot_deg": 210
+      },
+      {
+       "key": "people_detection:18:0",
+       "cost": 0.847,
+       "cls": "person",
+       "t0": 43.6,
+       "rot_deg": 210
+      },
+      {
+       "key": "people_detection:9:0",
+       "cost": 0.862,
+       "cls": "person",
+       "t0": 28.2,
+       "rot_deg": 270
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 1.316,
+     "verdict": "NO MATCH",
+     "ms": 309.3,
+     "top3": [
+      {
+       "key": "people_detection:9:0",
+       "cost": 1.316,
+       "cls": "person",
+       "t0": 28.2,
+       "rot_deg": 120
+      },
+      {
+       "key": "people_detection:3:0",
+       "cost": 1.361,
+       "cls": "person",
+       "t0": 15.0,
+       "rot_deg": 90
+      },
+      {
+       "key": "people_detection:14:0",
+       "cost": 1.492,
+       "cls": "person",
+       "t0": 29.4,
+       "rot_deg": 120
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 2.685,
+     "verdict": "NO MATCH",
+     "ms": 56.6,
+     "top3": [
+      {
+       "key": "people_detection:2:0",
+       "cost": 2.685,
+       "cls": "person",
+       "t0": 1.8,
+       "rot_deg": 0
+      },
+      {
+       "key": "people_detection:14:0",
+       "cost": 3.16,
+       "cls": "person",
+       "t0": 29.4,
+       "rot_deg": 0
+      },
+      {
+       "key": "people_detection:10:0",
+       "cost": 3.436,
+       "cls": "person",
+       "t0": 28.4,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "stop_and_go"
+  },
+  "person_bicycle_car_detection": {
+   "tracks": 9,
+   "tracklets": 8,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.8,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 1.694,
+     "verdict": "NO MATCH",
+     "ms": 289.5,
+     "top3": [
+      {
+       "key": "person_bicycle_car_detection:1:0",
+       "cost": 1.694,
+       "cls": "person",
+       "t0": 1.2,
+       "rot_deg": 270
+      },
+      {
+       "key": "person_bicycle_car_detection:33:0",
+       "cost": 2.0,
+       "cls": "person",
+       "t0": 40.2,
+       "rot_deg": 330
+      },
+      {
+       "key": "person_bicycle_car_detection:52:0",
+       "cost": 2.084,
+       "cls": "person",
+       "t0": 46.3,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 0.859,
+     "verdict": "NO MATCH",
+     "ms": 62.5,
+     "top3": [
+      {
+       "key": "person_bicycle_car_detection:23:0",
+       "cost": 0.859,
+       "cls": "person",
+       "t0": 26.7,
+       "rot_deg": 0
+      },
+      {
+       "key": "person_bicycle_car_detection:52:0",
+       "cost": 0.861,
+       "cls": "person",
+       "t0": 46.3,
+       "rot_deg": 0
+      },
+      {
+       "key": "person_bicycle_car_detection:33:0",
+       "cost": 0.958,
+       "cls": "person",
+       "t0": 40.2,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.765,
+     "verdict": "NO MATCH",
+     "ms": 316.3,
+     "top3": [
+      {
+       "key": "person_bicycle_car_detection:7:0",
+       "cost": 0.765,
+       "cls": "car",
+       "t0": 14.5,
+       "rot_deg": 270
+      },
+      {
+       "key": "person_bicycle_car_detection:38:0",
+       "cost": 0.774,
+       "cls": "car",
+       "t0": 44.0,
+       "rot_deg": 270
+      },
+      {
+       "key": "person_bicycle_car_detection:43:0",
+       "cost": 0.919,
+       "cls": "bicycle",
+       "t0": 46.1,
+       "rot_deg": 30
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 1.351,
+     "verdict": "NO MATCH",
+     "ms": 369.9,
+     "top3": [
+      {
+       "key": "person_bicycle_car_detection:52:0",
+       "cost": 1.351,
+       "cls": "person",
+       "t0": 46.3,
+       "rot_deg": 180
+      },
+      {
+       "key": "person_bicycle_car_detection:23:0",
+       "cost": 1.373,
+       "cls": "person",
+       "t0": 26.7,
+       "rot_deg": 210
+      },
+      {
+       "key": "person_bicycle_car_detection:13:0",
+       "cost": 1.433,
+       "cls": "bicycle",
+       "t0": 26.0,
+       "rot_deg": 210
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 0.357,
+     "verdict": "MATCH",
+     "ms": 82.4,
+     "top3": [
+      {
+       "key": "person_bicycle_car_detection:13:0",
+       "cost": 0.357,
+       "cls": "bicycle",
+       "t0": 26.0,
+       "rot_deg": 0
+      },
+      {
+       "key": "person_bicycle_car_detection:23:0",
+       "cost": 0.449,
+       "cls": "person",
+       "t0": 26.7,
+       "rot_deg": 0
+      },
+      {
+       "key": "person_bicycle_car_detection:43:0",
+       "cost": 0.472,
+       "cls": "bicycle",
+       "t0": 46.1,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "diagonal"
+  },
+  "store_aisle_detection": {
+   "tracks": 19,
+   "tracklets": 12,
+   "camera_windows": 1,
+   "camera_cover_pct": 100.0,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 1.225,
+     "verdict": "NO MATCH",
+     "ms": 209.3,
+     "top3": [
+      {
+       "key": "store_aisle_detection:1:0",
+       "cost": 1.225,
+       "cls": "person",
+       "t0": 6.5,
+       "rot_deg": 210
+      },
+      {
+       "key": "store_aisle_detection:25:0",
+       "cost": 1.235,
+       "cls": "person",
+       "t0": 11.3,
+       "rot_deg": 210
+      },
+      {
+       "key": "store_aisle_detection:120:0",
+       "cost": 1.674,
+       "cls": "person",
+       "t0": 52.3,
+       "rot_deg": 300
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 2.125,
+     "verdict": "NO MATCH",
+     "ms": 41.6,
+     "top3": [
+      {
+       "key": "store_aisle_detection:120:0",
+       "cost": 2.125,
+       "cls": "person",
+       "t0": 52.3,
+       "rot_deg": 0
+      },
+      {
+       "key": "store_aisle_detection:48:0",
+       "cost": 3.073,
+       "cls": "person",
+       "t0": 27.9,
+       "rot_deg": 0
+      },
+      {
+       "key": "store_aisle_detection:46:0",
+       "cost": 3.624,
+       "cls": "person",
+       "t0": 26.0,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.704,
+     "verdict": "NO MATCH",
+     "ms": 215.6,
+     "top3": [
+      {
+       "key": "store_aisle_detection:120:0",
+       "cost": 0.704,
+       "cls": "person",
+       "t0": 52.3,
+       "rot_deg": 330
+      },
+      {
+       "key": "store_aisle_detection:48:0",
+       "cost": 0.805,
+       "cls": "person",
+       "t0": 27.9,
+       "rot_deg": 330
+      },
+      {
+       "key": "store_aisle_detection:45:0",
+       "cost": 0.822,
+       "cls": "person",
+       "t0": 26.0,
+       "rot_deg": 240
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 0.924,
+     "verdict": "NO MATCH",
+     "ms": 358.9,
+     "top3": [
+      {
+       "key": "store_aisle_detection:113:0",
+       "cost": 0.924,
+       "cls": "person",
+       "t0": 37.4,
+       "rot_deg": 210
+      },
+      {
+       "key": "store_aisle_detection:25:0",
+       "cost": 0.931,
+       "cls": "person",
+       "t0": 11.3,
+       "rot_deg": 30
+      },
+      {
+       "key": "store_aisle_detection:45:0",
+       "cost": 0.967,
+       "cls": "person",
+       "t0": 26.0,
+       "rot_deg": 60
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 3.021,
+     "verdict": "NO MATCH",
+     "ms": 68.7,
+     "top3": [
+      {
+       "key": "store_aisle_detection:120:0",
+       "cost": 3.021,
+       "cls": "person",
+       "t0": 52.3,
+       "rot_deg": 0
+      },
+      {
+       "key": "store_aisle_detection:48:0",
+       "cost": 3.538,
+       "cls": "person",
+       "t0": 27.9,
+       "rot_deg": 0
+      },
+      {
+       "key": "store_aisle_detection:113:0",
+       "cost": 3.641,
+       "cls": "person",
+       "t0": 37.4,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "stop_and_go"
+  },
+  "worker_zone_detection": {
+   "tracks": 6,
+   "tracklets": 6,
+   "camera_windows": 1,
+   "camera_cover_pct": 99.9,
+   "presets": {
+    "u_turn": {
+     "top1_cost": 0.402,
+     "verdict": "MATCH",
+     "ms": 394.8,
+     "top3": [
+      {
+       "key": "worker_zone_detection:19:0",
+       "cost": 0.402,
+       "cls": "person",
+       "t0": 58.0,
+       "rot_deg": 180
+      },
+      {
+       "key": "worker_zone_detection:18:0",
+       "cost": 0.425,
+       "cls": "person",
+       "t0": 47.8,
+       "rot_deg": 180
+      },
+      {
+       "key": "worker_zone_detection:10:0",
+       "cost": 0.448,
+       "cls": "person",
+       "t0": 34.0,
+       "rot_deg": 180
+      }
+     ]
+    },
+    "left_to_right": {
+     "top1_cost": 3.19,
+     "verdict": "NO MATCH",
+     "ms": 116.2,
+     "top3": [
+      {
+       "key": "worker_zone_detection:12:0",
+       "cost": 3.19,
+       "cls": "person",
+       "t0": 34.1,
+       "rot_deg": 0
+      },
+      {
+       "key": "worker_zone_detection:1:0",
+       "cost": 3.46,
+       "cls": "person",
+       "t0": 2.7,
+       "rot_deg": 0
+      },
+      {
+       "key": "worker_zone_detection:5:0",
+       "cost": 3.794,
+       "cls": "person",
+       "t0": 12.3,
+       "rot_deg": 0
+      }
+     ]
+    },
+    "stop_and_go": {
+     "top1_cost": 0.892,
+     "verdict": "NO MATCH",
+     "ms": 366.7,
+     "top3": [
+      {
+       "key": "worker_zone_detection:12:0",
+       "cost": 0.892,
+       "cls": "person",
+       "t0": 34.1,
+       "rot_deg": 300
+      },
+      {
+       "key": "worker_zone_detection:5:0",
+       "cost": 0.921,
+       "cls": "person",
+       "t0": 12.3,
+       "rot_deg": 210
+      },
+      {
+       "key": "worker_zone_detection:19:0",
+       "cost": 0.991,
+       "cls": "person",
+       "t0": 58.0,
+       "rot_deg": 210
+      }
+     ]
+    },
+    "loiter": {
+     "top1_cost": 1.023,
+     "verdict": "NO MATCH",
+     "ms": 314.1,
+     "top3": [
+      {
+       "key": "worker_zone_detection:10:0",
+       "cost": 1.023,
+       "cls": "person",
+       "t0": 34.0,
+       "rot_deg": 30
+      },
+      {
+       "key": "worker_zone_detection:19:0",
+       "cost": 1.024,
+       "cls": "person",
+       "t0": 58.0,
+       "rot_deg": 30
+      },
+      {
+       "key": "worker_zone_detection:18:0",
+       "cost": 1.086,
+       "cls": "person",
+       "t0": 47.8,
+       "rot_deg": 30
+      }
+     ]
+    },
+    "diagonal": {
+     "top1_cost": 3.461,
+     "verdict": "NO MATCH",
+     "ms": 87.3,
+     "top3": [
+      {
+       "key": "worker_zone_detection:12:0",
+       "cost": 3.461,
+       "cls": "person",
+       "t0": 34.1,
+       "rot_deg": 0
+      },
+      {
+       "key": "worker_zone_detection:1:0",
+       "cost": 3.72,
+       "cls": "person",
+       "t0": 2.7,
+       "rot_deg": 0
+      },
+      {
+       "key": "worker_zone_detection:18:0",
+       "cost": 3.95,
+       "cls": "person",
+       "t0": 47.8,
+       "rot_deg": 0
+      }
+     ]
+    }
+   },
+   "hero_preset": "u_turn"
+  }
+ },
+ "negative_test": {
+  "clip": "yonge_dundas",
+  "preset": "u_turn",
+  "top1_cost": 1.108,
+  "verdict": "NO MATCH",
+  "threshold_plausible": 0.62,
+  "note": "tracker-level negative: no >=1.5 s camera-stable tracklet has a hairpin; it does not prove nobody turned round"
+ },
+ "global": {
+  "u_turn": {
+   "ms": 716.2,
+   "top8": [
+    {
+     "key": "worker_zone_detection:19:0",
+     "video": "worker_zone_detection",
+     "cls": "person",
+     "t0": 58.0,
+     "t1": 74.6,
+     "cost": 0.402,
+     "rot_deg": 180
+    },
+    {
+     "key": "worker_zone_detection:18:0",
+     "video": "worker_zone_detection",
+     "cls": "person",
+     "t0": 47.8,
+     "t1": 55.9,
+     "cost": 0.425,
+     "rot_deg": 180
+    },
+    {
+     "key": "worker_zone_detection:10:0",
+     "video": "worker_zone_detection",
+     "cls": "person",
+     "t0": 34.0,
+     "t1": 43.2,
+     "cost": 0.448,
+     "rot_deg": 180
+    },
+    {
+     "key": "worker_zone_detection:5:0",
+     "video": "worker_zone_detection",
+     "cls": "person",
+     "t0": 12.3,
+     "t1": 30.9,
+     "cost": 0.481,
+     "rot_deg": 210
+    },
+    {
+     "key": "face_demographics_walking_and_pause:1:0",
+     "video": "face_demographics_walking_and_pause",
+     "cls": "person",
+     "t0": 3.4,
+     "t1": 19.2,
+     "cost": 0.495,
+     "rot_deg": 180
+    },
+    {
+     "key": "worker_zone_detection:1:0",
+     "video": "worker_zone_detection",
+     "cls": "person",
+     "t0": 2.7,
+     "t1": 9.4,
+     "cost": 0.559,
+     "rot_deg": 210
+    },
+    {
+     "key": "face_demographics_walking_and_pause:14:0",
+     "video": "face_demographics_walking_and_pause",
+     "cls": "person",
+     "t0": 55.4,
+     "t1": 68.3,
+     "cost": 0.593,
+     "rot_deg": 180
+    },
+    {
+     "key": "elephants_dream:698:421",
+     "video": "elephants_dream",
+     "cls": "person",
+     "t0": 297.4,
+     "t1": 303.5,
+     "cost": 0.597,
+     "rot_deg": 30
+    }
+   ]
+  },
+  "left_to_right": {
+   "ms": 120.1,
+   "top8": [
+    {
+     "key": "yonge_dundas:2412:0",
+     "video": "yonge_dundas",
+     "cls": "person",
+     "t0": 39.6,
+     "t1": 50.2,
+     "cost": 0.022,
+     "rot_deg": 0
+    },
+    {
+     "key": "rochester_night:1:0",
+     "video": "rochester_night",
+     "cls": "car",
+     "t0": 0.0,
+     "t1": 3.9,
+     "cost": 0.03,
+     "rot_deg": 0
+    },
+    {
+     "key": "yonge_dundas:2443:0",
+     "video": "yonge_dundas",
+     "cls": "person",
+     "t0": 40.2,
+     "t1": 48.2,
+     "cost": 0.054,
+     "rot_deg": 0
+    },
+    {
+     "key": "rochester_night:250:4",
+     "video": "rochester_night",
+     "cls": "car",
+     "t0": 40.3,
+     "t1": 43.3,
+     "cost": 0.057,
+     "rot_deg": 0
+    },
+    {
+     "key": "rochester_night:10:0",
+     "video": "rochester_night",
+     "cls": "car",
+     "t0": 2.3,
+     "t1": 6.7,
+     "cost": 0.059,
+     "rot_deg": 0
+    },
+    {
+     "key": "yonge_dundas:448:0",
+     "video": "yonge_dundas",
+     "cls": "person",
+     "t0": 6.9,
+     "t1": 9.2,
+     "cost": 0.064,
+     "rot_deg": 0
+    },
+    {
+     "key": "rochester_night:233:5",
+     "video": "rochester_night",
+     "cls": "car",
+     "t0": 43.6,
+     "t1": 45.3,
+     "cost": 0.07,
+     "rot_deg": 0
+    },
+    {
+     "key": "rochester_night:352:7",
+     "video": "rochester_night",
+     "cls": "car",
+     "t0": 52.7,
+     "t1": 55.3,
+     "cost": 0.08,
+     "rot_deg": 0
+    }
+   ]
+  },
+  "stop_and_go": {
+   "ms": 710.9,
+   "top8": [
+    {
+     "key": "yonge_dundas:2639:0",
+     "video": "yonge_dundas",
+     "cls": "person",
+     "t0": 45.0,
+     "t1": 53.6,
+     "cost": 0.514,
+     "rot_deg": 180
+    },
+    {
+     "key": "face_demographics_walking_and_pause:13:0",
+     "video": "face_demographics_walking_and_pause",
+     "cls": "person",
+     "t0": 54.2,
+     "t1": 67.0,
+     "cost": 0.535,
+     "rot_deg": 180
+    },
+    {
+     "key": "elephants_dream:435:243",
+     "video": "elephants_dream",
+     "cls": "person",
+     "t0": 174.4,
+     "t1": 176.7,
+     "cost": 0.612,
+     "rot_deg": 210
+    },
+    {
+     "key": "help_sit:4:0",
+     "video": "help_sit",
+     "cls": "person",
+     "t0": 1.1,
+     "t1": 4.7,
+     "cost": 0.615,
+     "rot_deg": 210
+    },
+    {
+     "key": "retail_cctv:1421:0",
+     "video": "retail_cctv",
+     "cls": "person",
+     "t0": 88.1,
+     "t1": 91.3,
+     "cost": 0.617,
+     "rot_deg": 180
+    },
+    {
+     "key": "retail_cctv:1368:0",
+     "video": "retail_cctv",
+     "cls": "person",
+     "t0": 84.9,
+     "t1": 110.7,
+     "cost": 0.629,
+     "rot_deg": 30
+    },
+    {
+     "key": "motorway_a40:405:0",
+     "video": "motorway_a40",
+     "cls": "car",
+     "t0": 18.7,
+     "t1": 24.5,
+     "cost": 0.657,
+     "rot_deg": 150
+    },
+    {
+     "key": "yonge_dundas:1555:0",
+     "video": "yonge_dundas",
+     "cls": "person",
+     "t0": 34.5,
+     "t1": 38.8,
+     "cost": 0.663,
+     "rot_deg": 150
+    }
+   ]
+  },
+  "loiter": {
+   "ms": 741.6,
+   "top8": [
+    {
+     "key": "face_demographics_walking_and_pause:14:0",
+     "video": "face_demographics_walking_and_pause",
+     "cls": "person",
+     "t0": 55.4,
+     "t1": 68.3,
+     "cost": 0.292,
+     "rot_deg": 0
+    },
+    {
+     "key": "elephants_dream:698:421",
+     "video": "elephants_dream",
+     "cls": "person",
+     "t0": 297.4,
+     "t1": 303.5,
+     "cost": 0.341,
+     "rot_deg": 210
+    },
+    {
+     "key": "face_demographics_walking_and_pause:1:0",
+     "video": "face_demographics_walking_and_pause",
+     "cls": "person",
+     "t0": 3.4,
+     "t1": 19.2,
+     "cost": 0.567,
+     "rot_deg": 0
+    },
+    {
+     "key": "yonge_dundas:310:0",
+     "video": "yonge_dundas",
+     "cls": "car",
+     "t0": 4.4,
+     "t1": 6.2,
+     "cost": 0.653,
+     "rot_deg": 0
+    },
+    {
+     "key": "retail_cctv:1:0",
+     "video": "retail_cctv",
+     "cls": "person",
+     "t0": 0.0,
+     "t1": 26.3,
+     "cost": 0.667,
+     "rot_deg": 90
+    },
+    {
+     "key": "yonge_dundas:351:0",
+     "video": "yonge_dundas",
+     "cls": "car",
+     "t0": 5.2,
+     "t1": 7.3,
+     "cost": 0.693,
+     "rot_deg": 180
+    },
+    {
+     "key": "face_demographics_walking_and_pause:15:0",
+     "video": "face_demographics_walking_and_pause",
+     "cls": "person",
+     "t0": 56.4,
+     "t1": 67.7,
+     "cost": 0.738,
+     "rot_deg": 150
+    },
+    {
+     "key": "retail_cctv:597:0",
+     "video": "retail_cctv",
+     "cls": "person",
+     "t0": 33.8,
+     "t1": 77.9,
+     "cost": 0.761,
+     "rot_deg": 0
+    }
+   ]
+  },
+  "diagonal": {
+   "ms": 99.6,
+   "top8": [
+    {
+     "key": "ptz_parking:174:0",
+     "video": "ptz_parking",
+     "cls": "person",
+     "t0": 26.2,
+     "t1": 28.1,
+     "cost": 0.347,
+     "rot_deg": 0
+    },
+    {
+     "key": "person_bicycle_car_detection:13:0",
+     "video": "person_bicycle_car_detection",
+     "cls": "bicycle",
+     "t0": 26.0,
+     "t1": 29.0,
+     "cost": 0.357,
+     "rot_deg": 0
+    },
+    {
+     "key": "retail_cctv:238:0",
+     "video": "retail_cctv",
+     "cls": "person",
+     "t0": 13.6,
+     "t1": 18.6,
+     "cost": 0.427,
+     "rot_deg": 0
+    },
+    {
+     "key": "ptz_parking:2144:0",
+     "video": "ptz_parking",
+     "cls": "person",
+     "t0": 137.9,
+     "t1": 148.3,
+     "cost": 0.427,
+     "rot_deg": 0
+    },
+    {
+     "key": "person_bicycle_car_detection:23:0",
+     "video": "person_bicycle_car_detection",
+     "cls": "person",
+     "t0": 26.7,
+     "t1": 28.9,
+     "cost": 0.449,
+     "rot_deg": 0
+    },
+    {
+     "key": "person_bicycle_car_detection:43:0",
+     "video": "person_bicycle_car_detection",
+     "cls": "bicycle",
+     "t0": 46.1,
+     "t1": 49.5,
+     "cost": 0.472,
+     "rot_deg": 0
+    },
+    {
+     "key": "retail_cctv:1368:0",
+     "video": "retail_cctv",
+     "cls": "person",
+     "t0": 84.9,
+     "t1": 110.7,
+     "cost": 0.485,
+     "rot_deg": 0
+    },
+    {
+     "key": "retail_cctv:1087:0",
+     "video": "retail_cctv",
+     "cls": "person",
+     "t0": 66.0,
+     "t1": 68.8,
+     "cost": 0.502,
+     "rot_deg": 0
+    }
+   ]
+  }
+ },
+ "eval": {
+  "precision": {
+   "u_turn": {
+    "p_at_3": 1.0,
+    "correct_in_top3": 3,
+    "unlabelled_in_top3": 0,
+    "top1_correct": true,
+    "correct_in_top8": 5,
+    "unlabelled_in_top8": 0,
+    "top3": [
+     {
+      "key": "worker_zone_detection:19:0",
+      "label": 1
+     },
+     {
+      "key": "worker_zone_detection:18:0",
+      "label": 1
+     },
+     {
+      "key": "worker_zone_detection:10:0",
+      "label": 1
+     }
+    ]
+   },
+   "left_to_right": {
+    "p_at_3": 1.0,
+    "correct_in_top3": 3,
+    "unlabelled_in_top3": 0,
+    "top1_correct": true,
+    "correct_in_top8": 8,
+    "unlabelled_in_top8": 0,
+    "top3": [
+     {
+      "key": "yonge_dundas:2412:0",
+      "label": 1
+     },
+     {
+      "key": "rochester_night:1:0",
+      "label": 1
+     },
+     {
+      "key": "yonge_dundas:2443:0",
+      "label": 1
+     }
+    ]
+   },
+   "stop_and_go": {
+    "p_at_3": 0.667,
+    "correct_in_top3": 2,
+    "unlabelled_in_top3": 0,
+    "top1_correct": true,
+    "correct_in_top8": 2,
+    "unlabelled_in_top8": 0,
+    "top3": [
+     {
+      "key": "yonge_dundas:2639:0",
+      "label": 1
+     },
+     {
+      "key": "face_demographics_walking_and_pause:13:0",
+      "label": 1
+     },
+     {
+      "key": "elephants_dream:435:243",
+      "label": 0
+     }
+    ]
+   },
+   "loiter": {
+    "p_at_3": 1.0,
+    "correct_in_top3": 3,
+    "unlabelled_in_top3": 0,
+    "top1_correct": true,
+    "correct_in_top8": 6,
+    "unlabelled_in_top8": 0,
+    "top3": [
+     {
+      "key": "face_demographics_walking_and_pause:14:0",
+      "label": 1
+     },
+     {
+      "key": "elephants_dream:698:421",
+      "label": 1
+     },
+     {
+      "key": "face_demographics_walking_and_pause:1:0",
+      "label": 1
+     }
+    ]
+   },
+   "diagonal": {
+    "p_at_3": 1.0,
+    "correct_in_top3": 3,
+    "unlabelled_in_top3": 0,
+    "top1_correct": true,
+    "correct_in_top8": 8,
+    "unlabelled_in_top8": 0,
+    "top3": [
+     {
+      "key": "ptz_parking:174:0",
+      "label": 1
+     },
+     {
+      "key": "person_bicycle_car_detection:13:0",
+      "label": 1
+     },
+     {
+      "key": "retail_cctv:238:0",
+      "label": 1
+     }
+    ]
+   }
+  },
+  "kill_test": {
+   "criterion": ">= 3 of 4 presets (u_turn, left_to_right, stop_and_go, loiter) return a plausible match (>= 1 hand-verified correct result in the top 3)",
+   "presets_passing": 4,
+   "of": 4,
+   "presets_with_correct_top1": 4,
+   "passed": true,
+   "labelled": true
+  },
+  "mean_p_at_3_4presets": 0.917,
+  "simulated_self_retrieval": {
+   "label": "SIMULATED hand-drawn queries (wobble + jitter + rescale of real tracklets)",
+   "n": 60,
+   "variants": {
+    "shape_only_all_clips": {
+     "recall_at_1": 0.7,
+     "recall_at_8": 0.967,
+     "top1_is_same_object_or_overlapping_duplicate": 0.8,
+     "recall_at_8_curved_paths_only": 0.867,
+     "n_curved": 15
+    },
+    "shape_plus_where_all_clips": {
+     "recall_at_1": 0.85,
+     "recall_at_8": 0.983,
+     "top1_is_same_object_or_overlapping_duplicate": 0.95,
+     "recall_at_8_curved_paths_only": 0.933,
+     "n_curved": 15
+    },
+    "shape_plus_where_one_clip": {
+     "recall_at_1": 0.75,
+     "recall_at_8": 0.983,
+     "top1_is_same_object_or_overlapping_duplicate": 0.867,
+     "recall_at_8_curved_paths_only": 1.0,
+     "n_curved": 15
+    }
+   },
+   "ms_per_query_median": 104.5
+  },
+  "simulated_drawing_robustness": {
+   "label": "SIMULATED shaky re-drawings of each preset: share of their top-3 results that are in the clean preset's top 10",
+   "per_preset": {
+    "u_turn": 1.0,
+    "left_to_right": 0.5,
+    "stop_and_go": 0.9,
+    "loiter": 1.0,
+    "diagonal": 1.0
+   }
+  },
+  "simulated_uturn_variants": {
+   "label": "SIMULATED: 18 differently proportioned / rotated U-turn drawings, hand-verified hairpins = worker_zone tracklets",
+   "mean_workers_in_top3": 2.67,
+   "top1_is_worker": 16,
+   "n": 18,
+   "variants": [
+    {
+     "gap": 0.1,
+     "length": 0.25,
+     "angle": 0,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:19:0",
+     "top1_cost": 0.417
+    },
+    {
+     "gap": 0.1,
+     "length": 0.25,
+     "angle": 90,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:10:0",
+     "top1_cost": 0.288
+    },
+    {
+     "gap": 0.1,
+     "length": 0.25,
+     "angle": 200,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:18:0",
+     "top1_cost": 0.214
+    },
+    {
+     "gap": 0.1,
+     "length": 0.5,
+     "angle": 0,
+     "workers_in_top3": 1,
+     "top1": "face_demographics_walking_and_pause:1:0",
+     "top1_cost": 0.425
+    },
+    {
+     "gap": 0.1,
+     "length": 0.5,
+     "angle": 90,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:19:0",
+     "top1_cost": 0.293
+    },
+    {
+     "gap": 0.1,
+     "length": 0.5,
+     "angle": 200,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:19:0",
+     "top1_cost": 0.32
+    },
+    {
+     "gap": 0.2,
+     "length": 0.25,
+     "angle": 0,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:19:0",
+     "top1_cost": 0.248
+    },
+    {
+     "gap": 0.2,
+     "length": 0.25,
+     "angle": 90,
+     "workers_in_top3": 2,
+     "top1": "worker_zone_detection:10:0",
+     "top1_cost": 0.637
+    },
+    {
+     "gap": 0.2,
+     "length": 0.25,
+     "angle": 200,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:18:0",
+     "top1_cost": 0.156
+    },
+    {
+     "gap": 0.2,
+     "length": 0.5,
+     "angle": 0,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:19:0",
+     "top1_cost": 0.417
+    },
+    {
+     "gap": 0.2,
+     "length": 0.5,
+     "angle": 90,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:10:0",
+     "top1_cost": 0.288
+    },
+    {
+     "gap": 0.2,
+     "length": 0.5,
+     "angle": 200,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:18:0",
+     "top1_cost": 0.214
+    },
+    {
+     "gap": 0.3,
+     "length": 0.25,
+     "angle": 0,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:10:0",
+     "top1_cost": 0.183
+    },
+    {
+     "gap": 0.3,
+     "length": 0.25,
+     "angle": 90,
+     "workers_in_top3": 0,
+     "top1": "yonge_dundas:1761:0",
+     "top1_cost": 0.682
+    },
+    {
+     "gap": 0.3,
+     "length": 0.25,
+     "angle": 200,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:5:0",
+     "top1_cost": 0.239
+    },
+    {
+     "gap": 0.3,
+     "length": 0.5,
+     "angle": 0,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:19:0",
+     "top1_cost": 0.312
+    },
+    {
+     "gap": 0.3,
+     "length": 0.5,
+     "angle": 90,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:10:0",
+     "top1_cost": 0.483
+    },
+    {
+     "gap": 0.3,
+     "length": 0.5,
+     "angle": 200,
+     "workers_in_top3": 3,
+     "top1": "worker_zone_detection:18:0",
+     "top1_cost": 0.133
+    }
+   ]
+  },
+  "labelled_cost": {
+   "correct_n": 29,
+   "correct_median": 0.427,
+   "correct_max": 0.761,
+   "wrong_n": 11,
+   "wrong_median": 0.617,
+   "wrong_min": 0.495
+  }
+ },
+ "calibration": {
+  "strong": 0.45,
+  "plausible": 0.62,
+  "how": "chosen by eye on these 40 labelled results (same sample the precision is measured on, so the verdict thresholds are optimistic)"
+ },
+ "meta": {
+  "retail_cctv": {
+   "w": 1270,
+   "h": 720,
+   "fps": 13.093,
+   "src_fps": 13.093,
+   "duration": 110.89895363934927,
+   "n_tracks": 243,
+   "cam_cover": 110.82257694951501,
+   "windows": 1
+  },
+  "lisbon_parking": {
+   "w": 640,
+   "h": 480,
+   "fps": 12.5,
+   "src_fps": 25.0,
+   "duration": 779.28,
+   "n_tracks": 6006,
+   "cam_cover": 605.119999999996,
+   "windows": 2177
+  },
+  "ptz_parking": {
+   "w": 1280,
+   "h": 720,
+   "fps": 15.0,
+   "src_fps": 30.0,
+   "duration": 316.1333333333333,
+   "n_tracks": 315,
+   "cam_cover": 308.0666666666667,
+   "windows": 121
+  },
+  "rochester_night": {
+   "w": 1280,
+   "h": 720,
+   "fps": 15.0,
+   "src_fps": 30.0,
+   "duration": 84.53333333333333,
+   "n_tracks": 64,
+   "cam_cover": 82.26666666666664,
+   "windows": 34
+  },
+  "yonge_dundas": {
+   "w": 1280,
+   "h": 720,
+   "fps": 11.988011988011989,
+   "src_fps": 23.976023976023978,
+   "duration": 56.55649999999999,
+   "n_tracks": 454,
+   "cam_cover": 56.47308333333333,
+   "windows": 1
+  },
+  "motorway_a40": {
+   "w": 1280,
+   "h": 720,
+   "fps": 15.0,
+   "src_fps": 30.0,
+   "duration": 24.5,
+   "n_tracks": 72,
+   "cam_cover": 24.466666666666665,
+   "windows": 1
+  },
+  "dashcam_urban": {
+   "w": 1280,
+   "h": 720,
+   "fps": 15.0,
+   "src_fps": 30.0,
+   "duration": 120.03333333333333,
+   "n_tracks": 153,
+   "cam_cover": 99.60000000000002,
+   "windows": 307
+  },
+  "elephants_dream": {
+   "w": 640,
+   "h": 360,
+   "fps": 12.0,
+   "src_fps": 24.0,
+   "duration": 653.7916666666666,
+   "n_tracks": 195,
+   "cam_cover": 517.5833333333319,
+   "windows": 1635
+  },
+  "skate_fall": {
+   "w": 960,
+   "h": 540,
+   "fps": 12.5,
+   "src_fps": 25.0,
+   "duration": 10.28,
+   "n_tracks": 6,
+   "cam_cover": 9.52,
+   "windows": 10
+  },
+  "floor_lie": {
+   "w": 960,
+   "h": 540,
+   "fps": 12.5,
+   "src_fps": 25.0,
+   "duration": 2.84,
+   "n_tracks": 2,
+   "cam_cover": 2.7199999999999998,
+   "windows": 2
+  },
+  "assist_elderly": {
+   "w": 960,
+   "h": 540,
+   "fps": 12.5,
+   "src_fps": 25.0,
+   "duration": 9.6,
+   "n_tracks": 6,
+   "cam_cover": 8.239999999999998,
+   "windows": 17
+  },
+  "help_sit": {
+   "w": 960,
+   "h": 540,
+   "fps": 12.5,
+   "src_fps": 25.0,
+   "duration": 14.32,
+   "n_tracks": 10,
+   "cam_cover": 13.92,
+   "windows": 5
+  },
+  "sit_down": {
+   "w": 540,
+   "h": 960,
+   "fps": 14.985014985014985,
+   "src_fps": 29.97002997002997,
+   "duration": 10.01,
+   "n_tracks": 4,
+   "cam_cover": 9.943266666666666,
+   "windows": 1
+  },
+  "car_detection": {
+   "w": 768,
+   "h": 432,
+   "fps": 12.5,
+   "src_fps": 12.5,
+   "duration": 30.16,
+   "n_tracks": 5,
+   "cam_cover": 30.08,
+   "windows": 1
+  },
+  "classroom": {
+   "w": 1920,
+   "h": 1080,
+   "fps": 15.0,
+   "src_fps": 30.0,
+   "duration": 32.8,
+   "n_tracks": 31,
+   "cam_cover": 32.733333333333334,
+   "windows": 1
+  },
+  "face_demographics_walking_and_pause": {
+   "w": 768,
+   "h": 432,
+   "fps": 12.0,
+   "src_fps": 12.0,
+   "duration": 90.91666666666667,
+   "n_tracks": 7,
+   "cam_cover": 90.74999999999999,
+   "windows": 2
+  },
+  "one_by_one_person_detection": {
+   "w": 768,
+   "h": 432,
+   "fps": 10.0,
+   "src_fps": 10.0,
+   "duration": 139.4,
+   "n_tracks": 15,
+   "cam_cover": 139.3,
+   "windows": 1
+  },
+  "people_detection": {
+   "w": 768,
+   "h": 432,
+   "fps": 12.0,
+   "src_fps": 12.0,
+   "duration": 49.666666666666664,
+   "n_tracks": 7,
+   "cam_cover": 49.583333333333336,
+   "windows": 1
+  },
+  "person_bicycle_car_detection": {
+   "w": 768,
+   "h": 432,
+   "fps": 12.0,
+   "src_fps": 12.0,
+   "duration": 53.916666666666664,
+   "n_tracks": 9,
+   "cam_cover": 53.833333333333336,
+   "windows": 1
+  },
+  "store_aisle_detection": {
+   "w": 720,
+   "h": 404,
+   "fps": 14.985014985014985,
+   "src_fps": 59.94005994005994,
+   "duration": 65.41535,
+   "n_tracks": 19,
+   "cam_cover": 65.39866666666667,
+   "windows": 1
+  },
+  "worker_zone_detection": {
+   "w": 1920,
+   "h": 1080,
+   "fps": 14.985014985014985,
+   "src_fps": 59.94005994005994,
+   "duration": 75.8758,
+   "n_tracks": 6,
+   "cam_cover": 75.80906666666667,
+   "windows": 1
+  }
+ },
+ "totals": {
+  "clips": 21,
+  "tracklets": 753,
+  "seconds_total": 235.6
+ },
+ "updated": "2026-10-17 02:15",
+ "page_browser_check": {
+  "browser": "chrome.exe",
+  "note": "synthetic pointer events, file:// page, no server",
+  "scenarios": [
+   {
+    "scen": "draw_u_turn",
+    "cards": 7,
+    "banner": false,
+    "weak_cards": 0,
+    "turned_chips": 6,
+    "nonblank_canvases": 7,
+    "status": "8 candidates ranked in 0 ms over 753 tracklets. Best cost 0.36",
+    "pts": 39,
+    "errors": []
+   },
+   {
+    "scen": "draw_line",
+    "cards": 8,
+    "banner": false,
+    "weak_cards": 0,
+    "turned_chips": 0,
+    "nonblank_canvases": 8,
+    "status": "8 candidates ranked in 0 ms over 753 tracklets. Best cost 0.11",
+    "pts": 31,
+    "errors": []
+   },
+   {
+    "scen": "yonge_u_turn_negative",
+    "cards": 3,
+    "banner": true,
+    "weak_cards": 3,
+    "turned_chips": 0,
+    "nonblank_canvases": 3,
+    "status": "8 candidates ranked in 0 ms over 753 tracklets (one clip). Best cost 1.25",
+    "pts": 39,
+    "errors": []
+   },
+   {
+    "scen": "draw_walk_stop_walk",
+    "cards": 8,
+    "banner": false,
+    "weak_cards": 0,
+    "turned_chips": 5,
+    "nonblank_canvases": 8,
+    "status": "8 candidates ranked in 0 ms over 753 tracklets. Best cost 0.40",
+    "pts": 31,
+    "errors": []
+   }
+  ]
+ }
+}

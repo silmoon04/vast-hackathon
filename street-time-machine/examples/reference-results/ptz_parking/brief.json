@@ -1,0 +1,62 @@
+{
+ "camera": "ptz_parking",
+ "headline": "2 vehicles left and none arrived between Day A and Day B; the camera could not see for 1 min 38 s.",
+ "bullets": [
+  {
+   "text": "2 vehicles parked on Day A were gone on Day B.",
+   "t": 34.0,
+   "kind": "left",
+   "crop": "crops/7_34.0.jpg"
+  },
+  {
+   "text": "Most visitors near one parked car: 7 came close (3 cars, 3 people and 1 truck) between 00:00 and 02:35.",
+   "t": 25.2,
+   "kind": "near",
+   "crop": "near/3.jpg"
+  },
+  {
+   "text": "In total 45 cars, 9 people and 6 trucks moved through the view; 69 tracks were parked vehicles.",
+   "t": null,
+   "kind": "count",
+   "crop": null
+  },
+  {
+   "text": "Busiest route: 16 vehicles went bottom left to top right.",
+   "t": null,
+   "kind": "lane",
+   "crop": "flow.jpg"
+  },
+  {
+   "text": "Person stays 19 s at 01:46.",
+   "t": 106.47,
+   "kind": "long_stay",
+   "crop": "moments/4.jpg"
+  },
+  {
+   "text": "Busiest moment: 18 vehicles on screen at 03:58.",
+   "t": 237.87,
+   "kind": "busiest",
+   "crop": "frames/busiest.jpg"
+  }
+ ],
+ "honesty": [
+  "The camera could not see for 1 min 38 s in total, in 2 stretches (1 min 32 s view blocked, 4 s blurry picture and 2 s no picture); the longest was 02:36 to 04:12. Anything that happened then is unknown.",
+  "SIMULATED: Day A / Day B are two halves of one 5-minute clip.",
+  "25 parked vehicles could not be compared between the two days (11 because: vehicle is cut off by the edge of day B's frame or outside day A's view).",
+  "Counts come from an automatic detector; one person or car can be counted twice if it was lost and found again.",
+  "138 more tracks hardly moved (less than their own width) and are not counted as going by.",
+  "'Came close' only means near: 40 of the 40 parked vehicles checked had someone or something close by, which says nothing about who did anything.",
+  "\"Busiest moment\" at 03:58 falls in a stretch when the camera could not see well (blurry picture), so treat it with care."
+ ],
+ "generated_from": [
+  "diff.json",
+  "tracks (stm.data.objects)",
+  "near.json",
+  "moments.json",
+  "flow.json",
+  "synopsis.json",
+  "index.json",
+  "ledger.json"
+ ],
+ "missing": []
+}

@@ -1,0 +1,14 @@
+# Append to %USERPROFILE%\.ssh\config after creating the key yourself:
+#   ssh-keygen -t ed25519 -f $env:USERPROFILE\.ssh\vast_bc -C vast-bc-london
+# then paste vast_bc.pub into the lab page ("Option 1 - Key"). Replace <username> and <NNN>
+# with the values shown on the lab page on the day. The first connect opens a Cloudflare Access login.
+# Needs cloudflared on PATH (winget install --id Cloudflare.cloudflared -e). If ssh cannot find it,
+# put its full path in ProxyCommand instead, e.g. <path-to>\cloudflared.exe (a path with no spaces).
+Host bc-<username>
+    HostName bc-pool-<NNN>.thecosmoslabs.com
+    User <username>
+    IdentityFile ~/.ssh/vast_bc
+    IdentitiesOnly yes
+    ProxyCommand cloudflared access ssh --hostname %h
+    ServerAliveInterval 30
+    ServerAliveCountMax 6

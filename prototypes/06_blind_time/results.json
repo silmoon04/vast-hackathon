@@ -1,0 +1,3617 @@
+{
+ "videos": {
+  "ptz_parking": {
+   "video": "ptz_parking",
+   "duration_s": 316.1333333333333,
+   "seconds_analysed": 316,
+   "ref_t": 0.0,
+   "state_seconds": {
+    "OK": 155,
+    "DARK": 0,
+    "FROZEN": 0,
+    "BLUR": 0,
+    "MOVED": 161,
+    "OCCLUDED": 0
+   },
+   "ok_pct": 49.050632911392405,
+   "spans": [
+    {
+     "t0": 0,
+     "t1": 155,
+     "dur": 155,
+     "state": "OK",
+     "why": "775 inliers, 100% in view"
+    },
+    {
+     "t0": 155,
+     "t1": 316,
+     "dur": 161,
+     "state": "MOVED",
+     "why": "reference scene not found (5 inliers)"
+    }
+   ],
+   "queries": [
+    {
+     "query": "person 02:40-04:00",
+     "cls": "person",
+     "t0": 160.0,
+     "t1": 240.0,
+     "verdict": "COULD NOT SEE",
+     "naive": "NOTHING FOUND",
+     "coverage": 0.0,
+     "window_s": 80,
+     "blind_s": 80,
+     "blind_spans": [
+      {
+       "t0": 160,
+       "t1": 240,
+       "state": "MOVED"
+      }
+     ],
+     "evidence": [],
+     "evidence_off_view": [],
+     "naive_misleading": true,
+     "naive_wrong": true,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 160 AND sec < 240",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND usable = 1 AND sec >= 160 AND sec < 240",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND other_view = 1 AND sec >= 160 AND sec < 240"
+      ]
+     }
+    },
+    {
+     "query": "person 02:00-04:00",
+     "cls": "person",
+     "t0": 120.0,
+     "t1": 240.0,
+     "verdict": "SEEN",
+     "naive": "SEEN",
+     "coverage": 0.2916666666666667,
+     "window_s": 120,
+     "blind_s": 85,
+     "blind_spans": [
+      {
+       "t0": 155,
+       "t1": 240,
+       "state": "MOVED"
+      }
+     ],
+     "evidence": [
+      {
+       "s": 120,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.829,
+       "box": [
+        492.0,
+        551.2,
+        528.3,
+        646.5
+       ]
+      },
+      {
+       "s": 121,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.799,
+       "box": [
+        429.0,
+        559.5,
+        467.8,
+        654.9
+       ]
+      },
+      {
+       "s": 122,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.628,
+       "box": [
+        362.2,
+        565.2,
+        400.7,
+        657.4
+       ]
+      },
+      {
+       "s": 123,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.777,
+       "box": [
+        299.2,
+        571.7,
+        323.0,
+        627.2
+       ]
+      },
+      {
+       "s": 124,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.746,
+       "box": [
+        225.8,
+        576.7,
+        263.2,
+        674.8
+       ]
+      },
+      {
+       "s": 139,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.731,
+       "box": [
+        142.7,
+        505.8,
+        178.4,
+        588.4
+       ]
+      },
+      {
+       "s": 140,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.758,
+       "box": [
+        189.0,
+        517.2,
+        229.5,
+        606.0
+       ]
+      },
+      {
+       "s": 141,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.833,
+       "box": [
+        241.2,
+        535.8,
+        285.5,
+        629.3
+       ]
+      },
+      {
+       "s": 142,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.828,
+       "box": [
+        303.4,
+        551.8,
+        344.2,
+        630.2
+       ]
+      },
+      {
+       "s": 143,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.732,
+       "box": [
+        352.7,
+        569.3,
+        410.4,
+        683.7
+       ]
+      },
+      {
+       "s": 144,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.878,
+       "box": [
+        423.6,
+        587.0,
+        475.9,
+        694.2
+       ]
+      },
+      {
+       "s": 145,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.768,
+       "box": [
+        492.1,
+        608.8,
+        538.0,
+        708.3
+       ]
+      },
+      {
+       "s": 146,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.649,
+       "box": [
+        568.3,
+        627.6,
+        613.8,
+        719.9
+       ]
+      },
+      {
+       "s": 147,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.776,
+       "box": [
+        637.5,
+        665.9,
+        678.1,
+        719.4
+       ]
+      }
+     ],
+     "evidence_off_view": [],
+     "naive_misleading": false,
+     "naive_wrong": false,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 120 AND sec < 240",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND usable = 1 AND sec >= 120 AND sec < 240",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND other_view = 1 AND sec >= 120 AND sec < 240"
+      ]
+     }
+    },
+    {
+     "query": "car 00:30-01:30",
+     "cls": "car",
+     "t0": 30.0,
+     "t1": 90.0,
+     "verdict": "SEEN",
+     "naive": "SEEN",
+     "coverage": 1.0,
+     "window_s": 60,
+     "blind_s": 0,
+     "blind_spans": [],
+     "evidence": [
+      {
+       "s": 30,
+       "state": "OK",
+       "n": 21,
+       "conf": 0.764,
+       "box": [
+        72.3,
+        596.0,
+        215.7,
+        719.0
+       ]
+      },
+      {
+       "s": 31,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.749,
+       "box": [
+        845.8,
+        569.0,
+        1002.2,
+        694.0
+       ]
+      },
+      {
+       "s": 32,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.766,
+       "box": [
+        266.1,
+        627.5,
+        418.9,
+        719.5
+       ]
+      },
+      {
+       "s": 33,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.784,
+       "box": [
+        570.4,
+        608.0,
+        739.4,
+        718.0
+       ]
+      },
+      {
+       "s": 34,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.787,
+       "box": [
+        846.2,
+        569.3,
+        1001.8,
+        693.4
+       ]
+      },
+      {
+       "s": 35,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.779,
+       "box": [
+        846.1,
+        569.5,
+        1001.9,
+        693.5
+       ]
+      },
+      {
+       "s": 36,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.776,
+       "box": [
+        570.5,
+        607.5,
+        737.4,
+        717.5
+       ]
+      },
+      {
+       "s": 37,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.776,
+       "box": [
+        845.8,
+        568.8,
+        1002.2,
+        693.3
+       ]
+      },
+      {
+       "s": 38,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.779,
+       "box": [
+        845.7,
+        568.7,
+        1002.3,
+        693.2
+       ]
+      },
+      {
+       "s": 39,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.787,
+       "box": [
+        845.6,
+        569.5,
+        1001.7,
+        693.5
+       ]
+      },
+      {
+       "s": 40,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.774,
+       "box": [
+        845.6,
+        568.7,
+        1002.4,
+        693.2
+       ]
+      },
+      {
+       "s": 41,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.773,
+       "box": [
+        569.9,
+        607.8,
+        738.2,
+        718.3
+       ]
+      },
+      {
+       "s": 42,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.765,
+       "box": [
+        845.8,
+        568.7,
+        1002.2,
+        693.2
+       ]
+      },
+      {
+       "s": 43,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.766,
+       "box": [
+        845.9,
+        568.7,
+        1002.1,
+        693.2
+       ]
+      },
+      {
+       "s": 44,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.776,
+       "box": [
+        570.6,
+        607.8,
+        741.9,
+        718.3
+       ]
+      },
+      {
+       "s": 45,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.772,
+       "box": [
+        571.0,
+        607.8,
+        742.5,
+        718.3
+       ]
+      },
+      {
+       "s": 46,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.771,
+       "box": [
+        846.0,
+        569.3,
+        1001.3,
+        692.7
+       ]
+      },
+      {
+       "s": 47,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.765,
+       "box": [
+        570.5,
+        607.7,
+        739.3,
+        718.3
+       ]
+      },
+      {
+       "s": 48,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.759,
+       "box": [
+        571.7,
+        607.5,
+        740.3,
+        718.5
+       ]
+      },
+      {
+       "s": 49,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.766,
+       "box": [
+        846.5,
+        569.0,
+        1001.5,
+        693.0
+       ]
+      },
+      {
+       "s": 50,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.806,
+       "box": [
+        569.5,
+        607.8,
+        737.3,
+        718.2
+       ]
+      },
+      {
+       "s": 51,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.803,
+       "box": [
+        570.4,
+        608.0,
+        735.6,
+        718.0
+       ]
+      },
+      {
+       "s": 52,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.788,
+       "box": [
+        571.9,
+        608.0,
+        736.8,
+        718.0
+       ]
+      },
+      {
+       "s": 53,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.787,
+       "box": [
+        571.1,
+        608.0,
+        736.9,
+        718.0
+       ]
+      },
+      {
+       "s": 54,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.784,
+       "box": [
+        570.8,
+        608.0,
+        737.2,
+        718.0
+       ]
+      },
+      {
+       "s": 55,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.759,
+       "box": [
+        572.3,
+        608.0,
+        738.8,
+        718.0
+       ]
+      },
+      {
+       "s": 56,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.749,
+       "box": [
+        847.9,
+        569.5,
+        1000.7,
+        694.5
+       ]
+      },
+      {
+       "s": 57,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.75,
+       "box": [
+        848.1,
+        569.5,
+        1000.9,
+        694.5
+       ]
+      },
+      {
+       "s": 58,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.784,
+       "box": [
+        569.4,
+        608.0,
+        736.4,
+        718.0
+       ]
+      },
+      {
+       "s": 59,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.774,
+       "box": [
+        571.4,
+        608.0,
+        736.5,
+        718.0
+       ]
+      },
+      {
+       "s": 60,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.791,
+       "box": [
+        570.5,
+        608.0,
+        735.5,
+        718.0
+       ]
+      },
+      {
+       "s": 61,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.773,
+       "box": [
+        571.4,
+        608.0,
+        736.6,
+        718.0
+       ]
+      },
+      {
+       "s": 62,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.771,
+       "box": [
+        571.9,
+        608.1,
+        738.1,
+        717.9
+       ]
+      },
+      {
+       "s": 63,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.764,
+       "box": [
+        571.5,
+        608.0,
+        739.2,
+        718.0
+       ]
+      },
+      {
+       "s": 64,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.771,
+       "box": [
+        571.4,
+        608.0,
+        740.8,
+        718.0
+       ]
+      },
+      {
+       "s": 65,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.756,
+       "box": [
+        571.6,
+        608.0,
+        742.4,
+        718.0
+       ]
+      },
+      {
+       "s": 66,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.762,
+       "box": [
+        847.5,
+        570.0,
+        1001.5,
+        694.0
+       ]
+      },
+      {
+       "s": 67,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.774,
+       "box": [
+        846.2,
+        570.0,
+        1001.8,
+        695.0
+       ]
+      },
+      {
+       "s": 68,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.785,
+       "box": [
+        72.2,
+        595.5,
+        216.4,
+        718.5
+       ]
+      },
+      {
+       "s": 69,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.789,
+       "box": [
+        72.2,
+        595.5,
+        216.8,
+        718.5
+       ]
+      },
+      {
+       "s": 70,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.787,
+       "box": [
+        71.9,
+        595.3,
+        216.8,
+        718.7
+       ]
+      },
+      {
+       "s": 71,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.781,
+       "box": [
+        72.2,
+        595.2,
+        216.8,
+        718.8
+       ]
+      },
+      {
+       "s": 72,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.776,
+       "box": [
+        72.4,
+        595.2,
+        216.9,
+        718.8
+       ]
+      },
+      {
+       "s": 73,
+       "state": "OK",
+       "n": 22,
+       "conf": 0.783,
+       "box": [
+        72.5,
+        595.2,
+        216.9,
+        718.8
+       ]
+      },
+      {
+       "s": 74,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.777,
+       "box": [
+        72.3,
+        595.0,
+        217.2,
+        719.0
+       ]
+      },
+      {
+       "s": 75,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.789,
+       "box": [
+        72.7,
+        595.5,
+        216.8,
+        718.5
+       ]
+      },
+      {
+       "s": 76,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.785,
+       "box": [
+        569.9,
+        607.5,
+        737.9,
+        718.5
+       ]
+      },
+      {
+       "s": 77,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.798,
+       "box": [
+        72.8,
+        595.5,
+        216.7,
+        718.5
+       ]
+      },
+      {
+       "s": 78,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.781,
+       "box": [
+        72.5,
+        595.3,
+        217.0,
+        718.7
+       ]
+      },
+      {
+       "s": 79,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.794,
+       "box": [
+        72.7,
+        595.5,
+        216.8,
+        718.5
+       ]
+      },
+      {
+       "s": 80,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.806,
+       "box": [
+        72.3,
+        595.5,
+        216.7,
+        718.5
+       ]
+      },
+      {
+       "s": 81,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.812,
+       "box": [
+        72.3,
+        595.5,
+        216.7,
+        718.5
+       ]
+      },
+      {
+       "s": 82,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.797,
+       "box": [
+        72.4,
+        595.5,
+        216.6,
+        718.5
+       ]
+      },
+      {
+       "s": 83,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.799,
+       "box": [
+        72.4,
+        595.5,
+        216.5,
+        718.5
+       ]
+      },
+      {
+       "s": 84,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.801,
+       "box": [
+        72.0,
+        595.5,
+        216.2,
+        718.5
+       ]
+      },
+      {
+       "s": 85,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.792,
+       "box": [
+        72.1,
+        595.3,
+        216.8,
+        718.7
+       ]
+      },
+      {
+       "s": 86,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.777,
+       "box": [
+        72.3,
+        595.5,
+        216.5,
+        718.5
+       ]
+      },
+      {
+       "s": 87,
+       "state": "OK",
+       "n": 23,
+       "conf": 0.776,
+       "box": [
+        71.8,
+        595.2,
+        216.7,
+        718.8
+       ]
+      },
+      {
+       "s": 88,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.779,
+       "box": [
+        72.5,
+        595.5,
+        216.6,
+        718.5
+       ]
+      },
+      {
+       "s": 89,
+       "state": "OK",
+       "n": 24,
+       "conf": 0.787,
+       "box": [
+        72.2,
+        595.5,
+        216.7,
+        718.5
+       ]
+      }
+     ],
+     "evidence_off_view": [],
+     "naive_misleading": false,
+     "naive_wrong": false,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 30 AND sec < 90",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'car' AND usable = 1 AND sec >= 30 AND sec < 90",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'car' AND other_view = 1 AND sec >= 30 AND sec < 90"
+      ]
+     }
+    },
+    {
+     "query": "car 04:20-05:10",
+     "cls": "car",
+     "t0": 260.0,
+     "t1": 310.0,
+     "verdict": "SEEN IN OTHER VIEW",
+     "naive": "SEEN",
+     "coverage": 0.0,
+     "window_s": 50,
+     "blind_s": 50,
+     "blind_spans": [
+      {
+       "t0": 260,
+       "t1": 310,
+       "state": "MOVED"
+      }
+     ],
+     "evidence": [],
+     "evidence_off_view": [
+      {
+       "s": 260,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.896,
+       "box": [
+        415.4,
+        486.1,
+        565.8,
+        629.9
+       ]
+      },
+      {
+       "s": 261,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.883,
+       "box": [
+        416.3,
+        486.2,
+        565.5,
+        629.6
+       ]
+      },
+      {
+       "s": 262,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.891,
+       "box": [
+        415.9,
+        486.3,
+        565.4,
+        629.7
+       ]
+      },
+      {
+       "s": 263,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.89,
+       "box": [
+        414.8,
+        486.2,
+        565.8,
+        629.7
+       ]
+      },
+      {
+       "s": 264,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.888,
+       "box": [
+        415.5,
+        486.2,
+        565.6,
+        629.8
+       ]
+      },
+      {
+       "s": 265,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.893,
+       "box": [
+        415.8,
+        486.3,
+        565.2,
+        629.7
+       ]
+      },
+      {
+       "s": 266,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.897,
+       "box": [
+        415.2,
+        486.5,
+        564.8,
+        629.5
+       ]
+      },
+      {
+       "s": 267,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.897,
+       "box": [
+        414.9,
+        486.3,
+        565.1,
+        629.7
+       ]
+      },
+      {
+       "s": 268,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.9,
+       "box": [
+        414.9,
+        486.0,
+        565.6,
+        630.0
+       ]
+      },
+      {
+       "s": 269,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.894,
+       "box": [
+        415.1,
+        486.3,
+        565.5,
+        629.9
+       ]
+      },
+      {
+       "s": 270,
+       "state": "MOVED",
+       "n": 26,
+       "conf": 0.889,
+       "box": [
+        415.5,
+        486.3,
+        565.5,
+        630.3
+       ]
+      },
+      {
+       "s": 271,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.884,
+       "box": [
+        415.5,
+        486.0,
+        565.5,
+        630.0
+       ]
+      },
+      {
+       "s": 272,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.876,
+       "box": [
+        415.9,
+        486.1,
+        565.6,
+        629.9
+       ]
+      },
+      {
+       "s": 273,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.87,
+       "box": [
+        416.0,
+        486.3,
+        565.5,
+        629.7
+       ]
+      },
+      {
+       "s": 274,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.878,
+       "box": [
+        416.0,
+        486.3,
+        565.5,
+        629.7
+       ]
+      },
+      {
+       "s": 275,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.88,
+       "box": [
+        415.9,
+        486.0,
+        565.6,
+        630.0
+       ]
+      },
+      {
+       "s": 276,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.881,
+       "box": [
+        416.0,
+        486.0,
+        565.5,
+        630.0
+       ]
+      },
+      {
+       "s": 277,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.887,
+       "box": [
+        416.2,
+        486.3,
+        565.4,
+        629.7
+       ]
+      },
+      {
+       "s": 278,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.887,
+       "box": [
+        416.0,
+        486.3,
+        565.4,
+        629.7
+       ]
+      },
+      {
+       "s": 279,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.887,
+       "box": [
+        415.9,
+        486.3,
+        565.2,
+        629.7
+       ]
+      },
+      {
+       "s": 280,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.89,
+       "box": [
+        416.1,
+        486.5,
+        564.9,
+        629.5
+       ]
+      },
+      {
+       "s": 281,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.892,
+       "box": [
+        416.0,
+        486.2,
+        565.3,
+        629.8
+       ]
+      },
+      {
+       "s": 282,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.89,
+       "box": [
+        416.0,
+        486.0,
+        565.6,
+        630.0
+       ]
+      },
+      {
+       "s": 283,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.893,
+       "box": [
+        415.8,
+        486.2,
+        564.7,
+        629.8
+       ]
+      },
+      {
+       "s": 284,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.889,
+       "box": [
+        415.6,
+        486.3,
+        564.9,
+        629.7
+       ]
+      },
+      {
+       "s": 285,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.893,
+       "box": [
+        415.4,
+        486.1,
+        565.1,
+        629.9
+       ]
+      },
+      {
+       "s": 286,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.89,
+       "box": [
+        415.6,
+        486.2,
+        564.9,
+        629.8
+       ]
+      },
+      {
+       "s": 287,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.891,
+       "box": [
+        415.4,
+        486.0,
+        565.1,
+        630.0
+       ]
+      },
+      {
+       "s": 288,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.886,
+       "box": [
+        229.5,
+        494.2,
+        411.5,
+        631.8
+       ]
+      },
+      {
+       "s": 289,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.887,
+       "box": [
+        97.5,
+        465.5,
+        265.0,
+        618.5
+       ]
+      },
+      {
+       "s": 290,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.886,
+       "box": [
+        415.8,
+        486.0,
+        565.2,
+        630.0
+       ]
+      },
+      {
+       "s": 291,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.89,
+       "box": [
+        415.9,
+        486.0,
+        565.1,
+        630.0
+       ]
+      },
+      {
+       "s": 292,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.894,
+       "box": [
+        415.8,
+        486.0,
+        565.2,
+        630.0
+       ]
+      },
+      {
+       "s": 293,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.893,
+       "box": [
+        415.7,
+        486.0,
+        565.3,
+        630.0
+       ]
+      },
+      {
+       "s": 294,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.893,
+       "box": [
+        415.3,
+        486.0,
+        565.0,
+        630.0
+       ]
+      },
+      {
+       "s": 295,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.89,
+       "box": [
+        415.4,
+        485.7,
+        565.1,
+        630.3
+       ]
+      },
+      {
+       "s": 296,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.896,
+       "box": [
+        415.7,
+        485.7,
+        565.3,
+        630.3
+       ]
+      },
+      {
+       "s": 297,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.9,
+       "box": [
+        415.7,
+        486.0,
+        565.3,
+        630.0
+       ]
+      },
+      {
+       "s": 298,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.896,
+       "box": [
+        415.6,
+        485.9,
+        565.1,
+        630.1
+       ]
+      },
+      {
+       "s": 299,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.9,
+       "box": [
+        304.2,
+        403.8,
+        511.3,
+        508.5
+       ]
+      },
+      {
+       "s": 300,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.893,
+       "box": [
+        415.7,
+        486.0,
+        565.2,
+        630.0
+       ]
+      },
+      {
+       "s": 301,
+       "state": "MOVED",
+       "n": 23,
+       "conf": 0.896,
+       "box": [
+        414.9,
+        486.0,
+        565.1,
+        630.0
+       ]
+      },
+      {
+       "s": 302,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.896,
+       "box": [
+        415.4,
+        486.0,
+        565.2,
+        630.0
+       ]
+      },
+      {
+       "s": 303,
+       "state": "MOVED",
+       "n": 23,
+       "conf": 0.895,
+       "box": [
+        415.5,
+        486.0,
+        565.4,
+        630.0
+       ]
+      },
+      {
+       "s": 304,
+       "state": "MOVED",
+       "n": 23,
+       "conf": 0.892,
+       "box": [
+        415.4,
+        486.0,
+        565.3,
+        630.0
+       ]
+      },
+      {
+       "s": 305,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.897,
+       "box": [
+        415.8,
+        486.0,
+        565.2,
+        630.0
+       ]
+      },
+      {
+       "s": 306,
+       "state": "MOVED",
+       "n": 25,
+       "conf": 0.894,
+       "box": [
+        415.5,
+        486.0,
+        565.0,
+        630.0
+       ]
+      },
+      {
+       "s": 307,
+       "state": "MOVED",
+       "n": 24,
+       "conf": 0.896,
+       "box": [
+        415.8,
+        486.3,
+        565.2,
+        629.7
+       ]
+      },
+      {
+       "s": 308,
+       "state": "MOVED",
+       "n": 26,
+       "conf": 0.903,
+       "box": [
+        415.6,
+        486.3,
+        565.3,
+        629.7
+       ]
+      },
+      {
+       "s": 309,
+       "state": "MOVED",
+       "n": 22,
+       "conf": 0.903,
+       "box": [
+        415.5,
+        486.3,
+        565.4,
+        629.7
+       ]
+      }
+     ],
+     "naive_misleading": false,
+     "naive_wrong": true,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 260 AND sec < 310",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'car' AND usable = 1 AND sec >= 260 AND sec < 310",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'car' AND other_view = 1 AND sec >= 260 AND sec < 310"
+      ]
+     }
+    }
+   ],
+   "battery_30s_windows": {
+    "windows": 20,
+    "window_s": 30,
+    "naive_nothing_found": 4,
+    "naive_nothing_found_but_blind": 3,
+    "naive_seen_but_only_stale_or_black_frames": 0,
+    "seen_in_other_view": 6,
+    "seen": 10
+   },
+   "eyeball": {
+    "seconds": 316,
+    "agree": 316,
+    "agreement": 1.0,
+    "gt_away_s": 161,
+    "pred_away_s": 161,
+    "away_precision": 1.0,
+    "away_recall": 1.0,
+    "pred_spans_non_ok": [
+     [
+      155,
+      316,
+      "MOVED"
+     ]
+    ],
+    "gt_away": [
+     [
+      155.5,
+      316.2
+     ]
+    ],
+    "gt_note": "Eyeball (frames viewed at 1 s steps around 150-165 s, then every 21 s): the PTZ holds its home view until ~155.5 s, swings to a zoomed hedge/pole view (156-205 s), then to an extreme zoom on a licence plate (~205-240 s), then settles on a different, closer wide view of the same car park (~240-316 s). It never returns to the home framing."
+   },
+   "seconds_to_compute": {
+    "extract": 71.4,
+    "detect": 4.7,
+    "detections_from": "cached YOLO26s+ByteTrack tracks (15 fps), frame nearest the middle of each second"
+   },
+   "wall_s": 7.2
+  },
+  "rochester_night": {
+   "video": "rochester_night",
+   "duration_s": 84.53333333333333,
+   "seconds_analysed": 84,
+   "ref_t": 0.0,
+   "state_seconds": {
+    "OK": 22,
+    "DARK": 0,
+    "FROZEN": 0,
+    "BLUR": 0,
+    "MOVED": 62,
+    "OCCLUDED": 0
+   },
+   "ok_pct": 26.19047619047619,
+   "spans": [
+    {
+     "t0": 0,
+     "t1": 22,
+     "dur": 22,
+     "state": "OK",
+     "why": "633 inliers, 98% in view"
+    },
+    {
+     "t0": 22,
+     "t1": 84,
+     "dur": 62,
+     "state": "MOVED",
+     "why": "47% of the reference view in frame, zoom x1.04, 37 inliers"
+    }
+   ],
+   "queries": [
+    {
+     "query": "person 00:10-01:00",
+     "cls": "person",
+     "t0": 10.0,
+     "t1": 60.0,
+     "verdict": "COULD NOT SEE",
+     "naive": "NOTHING FOUND",
+     "coverage": 0.24,
+     "window_s": 50,
+     "blind_s": 38,
+     "blind_spans": [
+      {
+       "t0": 22,
+       "t1": 60,
+       "state": "MOVED"
+      }
+     ],
+     "evidence": [],
+     "evidence_off_view": [],
+     "naive_misleading": true,
+     "naive_wrong": true,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 10 AND sec < 60",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND usable = 1 AND sec >= 10 AND sec < 60",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND other_view = 1 AND sec >= 10 AND sec < 60"
+      ]
+     }
+    },
+    {
+     "query": "person 00:00-00:10",
+     "cls": "person",
+     "t0": 0.0,
+     "t1": 10.0,
+     "verdict": "SEEN",
+     "naive": "SEEN",
+     "coverage": 1.0,
+     "window_s": 10,
+     "blind_s": 0,
+     "blind_spans": [],
+     "evidence": [
+      {
+       "s": 0,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.689,
+       "box": [
+        556.2,
+        527.8,
+        592.6,
+        605.6
+       ]
+      },
+      {
+       "s": 4,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.666,
+       "box": [
+        857.7,
+        515.8,
+        891.7,
+        605.6
+       ]
+      },
+      {
+       "s": 7,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.572,
+       "box": [
+        1139.7,
+        515.0,
+        1182.9,
+        622.4
+       ]
+      }
+     ],
+     "evidence_off_view": [],
+     "naive_misleading": false,
+     "naive_wrong": false,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 0 AND sec < 10",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND usable = 1 AND sec >= 0 AND sec < 10",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND other_view = 1 AND sec >= 0 AND sec < 10"
+      ]
+     }
+    },
+    {
+     "query": "car 00:00-00:20",
+     "cls": "car",
+     "t0": 0.0,
+     "t1": 20.0,
+     "verdict": "SEEN",
+     "naive": "SEEN",
+     "coverage": 1.0,
+     "window_s": 20,
+     "blind_s": 0,
+     "blind_spans": [],
+     "evidence": [
+      {
+       "s": 0,
+       "state": "OK",
+       "n": 2,
+       "conf": 0.914,
+       "box": [
+        102.2,
+        546.7,
+        277.0,
+        607.2
+       ]
+      },
+      {
+       "s": 1,
+       "state": "OK",
+       "n": 2,
+       "conf": 0.902,
+       "box": [
+        358.5,
+        515.2,
+        584.7,
+        668.5
+       ]
+      },
+      {
+       "s": 2,
+       "state": "OK",
+       "n": 3,
+       "conf": 0.896,
+       "box": [
+        610.8,
+        530.1,
+        863.6,
+        609.1
+       ]
+      },
+      {
+       "s": 3,
+       "state": "OK",
+       "n": 2,
+       "conf": 0.925,
+       "box": [
+        971.5,
+        531.2,
+        1280.0,
+        627.1
+       ]
+      },
+      {
+       "s": 4,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.887,
+       "box": [
+        373.9,
+        541.0,
+        535.3,
+        610.1
+       ]
+      },
+      {
+       "s": 5,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.899,
+       "box": [
+        649.8,
+        536.5,
+        857.8,
+        617.6
+       ]
+      },
+      {
+       "s": 6,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.922,
+       "box": [
+        1027.5,
+        531.9,
+        1280.0,
+        626.3
+       ]
+      },
+      {
+       "s": 9,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.663,
+       "box": [
+        1079.9,
+        536.2,
+        1257.7,
+        680.7
+       ]
+      },
+      {
+       "s": 10,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.89,
+       "box": [
+        181.1,
+        543.2,
+        385.8,
+        644.1
+       ]
+      },
+      {
+       "s": 11,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.719,
+       "box": [
+        0.0,
+        553.9,
+        81.0,
+        627.6
+       ]
+      },
+      {
+       "s": 14,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.705,
+       "box": [
+        97.7,
+        425.2,
+        436.2,
+        557.6
+       ]
+      },
+      {
+       "s": 15,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.833,
+       "box": [
+        1005.8,
+        514.5,
+        1248.6,
+        658.2
+       ]
+      },
+      {
+       "s": 16,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.896,
+       "box": [
+        146.7,
+        531.2,
+        359.3,
+        629.8
+       ]
+      },
+      {
+       "s": 17,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.886,
+       "box": [
+        206.1,
+        523.3,
+        474.4,
+        658.5
+       ]
+      },
+      {
+       "s": 18,
+       "state": "OK",
+       "n": 1,
+       "conf": 0.754,
+       "box": [
+        0.0,
+        540.7,
+        99.5,
+        629.7
+       ]
+      }
+     ],
+     "evidence_off_view": [],
+     "naive_misleading": false,
+     "naive_wrong": false,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 0 AND sec < 20",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'car' AND usable = 1 AND sec >= 0 AND sec < 20",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'car' AND other_view = 1 AND sec >= 0 AND sec < 20"
+      ]
+     }
+    },
+    {
+     "query": "car 00:30-00:50",
+     "cls": "car",
+     "t0": 30.0,
+     "t1": 50.0,
+     "verdict": "SEEN IN OTHER VIEW",
+     "naive": "SEEN",
+     "coverage": 0.0,
+     "window_s": 20,
+     "blind_s": 20,
+     "blind_spans": [
+      {
+       "t0": 30,
+       "t1": 50,
+       "state": "MOVED"
+      }
+     ],
+     "evidence": [],
+     "evidence_off_view": [
+      {
+       "s": 30,
+       "state": "MOVED",
+       "n": 2,
+       "conf": 0.861,
+       "box": [
+        843.0,
+        475.4,
+        985.3,
+        542.4
+       ]
+      },
+      {
+       "s": 31,
+       "state": "MOVED",
+       "n": 2,
+       "conf": 0.765,
+       "box": [
+        284.2,
+        486.1,
+        345.3,
+        527.7
+       ]
+      },
+      {
+       "s": 32,
+       "state": "MOVED",
+       "n": 1,
+       "conf": 0.74,
+       "box": [
+        634.1,
+        487.2,
+        699.4,
+        527.1
+       ]
+      },
+      {
+       "s": 33,
+       "state": "MOVED",
+       "n": 2,
+       "conf": 0.894,
+       "box": [
+        868.4,
+        483.1,
+        996.3,
+        544.9
+       ]
+      },
+      {
+       "s": 34,
+       "state": "MOVED",
+       "n": 1,
+       "conf": 0.449,
+       "box": [
+        141.0,
+        486.2,
+        174.4,
+        511.9
+       ]
+      },
+      {
+       "s": 38,
+       "state": "MOVED",
+       "n": 1,
+       "conf": 0.543,
+       "box": [
+        324.7,
+        491.2,
+        383.7,
+        522.6
+       ]
+      },
+      {
+       "s": 39,
+       "state": "MOVED",
+       "n": 2,
+       "conf": 0.848,
+       "box": [
+        583.1,
+        473.6,
+        751.9,
+        573.5
+       ]
+      },
+      {
+       "s": 40,
+       "state": "MOVED",
+       "n": 3,
+       "conf": 0.756,
+       "box": [
+        562.3,
+        484.5,
+        620.1,
+        527.9
+       ]
+      },
+      {
+       "s": 41,
+       "state": "MOVED",
+       "n": 3,
+       "conf": 0.854,
+       "box": [
+        715.6,
+        485.8,
+        811.9,
+        537.0
+       ]
+      },
+      {
+       "s": 42,
+       "state": "MOVED",
+       "n": 3,
+       "conf": 0.882,
+       "box": [
+        911.3,
+        479.7,
+        1078.8,
+        553.4
+       ]
+      },
+      {
+       "s": 43,
+       "state": "MOVED",
+       "n": 2,
+       "conf": 0.853,
+       "box": [
+        624.8,
+        476.6,
+        769.5,
+        535.1
+       ]
+      },
+      {
+       "s": 44,
+       "state": "MOVED",
+       "n": 2,
+       "conf": 0.903,
+       "box": [
+        840.7,
+        481.1,
+        1056.0,
+        557.1
+       ]
+      },
+      {
+       "s": 45,
+       "state": "MOVED",
+       "n": 1,
+       "conf": 0.847,
+       "box": [
+        500.1,
+        478.0,
+        617.6,
+        536.5
+       ]
+      },
+      {
+       "s": 46,
+       "state": "MOVED",
+       "n": 1,
+       "conf": 0.886,
+       "box": [
+        776.7,
+        472.2,
+        945.8,
+        546.3
+       ]
+      },
+      {
+       "s": 47,
+       "state": "MOVED",
+       "n": 1,
+       "conf": 0.78,
+       "box": [
+        1140.5,
+        471.5,
+        1280.0,
+        560.1
+       ]
+      },
+      {
+       "s": 48,
+       "state": "MOVED",
+       "n": 1,
+       "conf": 0.814,
+       "box": [
+        828.7,
+        451.1,
+        982.2,
+        573.6
+       ]
+      },
+      {
+       "s": 49,
+       "state": "MOVED",
+       "n": 1,
+       "conf": 0.576,
+       "box": [
+        470.1,
+        467.9,
+        558.6,
+        523.8
+       ]
+      }
+     ],
+     "naive_misleading": false,
+     "naive_wrong": true,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 30 AND sec < 50",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'car' AND usable = 1 AND sec >= 30 AND sec < 50",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'car' AND other_view = 1 AND sec >= 30 AND sec < 50"
+      ]
+     }
+    }
+   ],
+   "battery_30s_windows": {
+    "windows": 4,
+    "window_s": 30,
+    "naive_nothing_found": 1,
+    "naive_nothing_found_but_blind": 1,
+    "naive_seen_but_only_stale_or_black_frames": 0,
+    "seen_in_other_view": 1,
+    "seen": 2
+   },
+   "eyeball": {
+    "seconds": 84,
+    "agree": 84,
+    "agreement": 1.0,
+    "gt_away_s": 62,
+    "pred_away_s": 62,
+    "away_precision": 1.0,
+    "away_recall": 1.0,
+    "pred_spans_non_ok": [
+     [
+      22,
+      84,
+      "MOVED"
+     ]
+    ],
+    "gt_away": [
+     [
+      22.5,
+      84.5
+     ]
+    ],
+    "gt_note": "Eyeball (frames at 1 s steps 17-28 s, then every 4 s to 84 s): the opening framing (building + lamp, cars crossing) holds until ~22 s, then the camera pans right to a tree-lined view (23 s on) and keeps wandering (76 s: building facade, 80 s: junction). The opening framing never returns. The scene is night but well exposed (lamps lit): not DARK."
+   },
+   "seconds_to_compute": {
+    "extract": 19.2,
+    "detect": 0.6,
+    "detections_from": "cached YOLO26s+ByteTrack tracks (15 fps), frame nearest the middle of each second"
+   },
+   "wall_s": 5.5
+  },
+  "retail_cctv_SIM": {
+   "video": "retail_cctv_SIM",
+   "SIMULATED": true,
+   "base": "retail_cctv",
+   "duration_s": 110.89895363934927,
+   "seconds_analysed": 111,
+   "plan": [
+    {
+     "state": "DARK",
+     "t0": 14.3,
+     "t1": 24.3,
+     "what": "black frames, 10 s"
+    },
+    {
+     "state": "FROZEN",
+     "t0": 36.7,
+     "t1": 44.7,
+     "what": "last frame repeated, 8 s"
+    },
+    {
+     "state": "BLUR",
+     "t0": 58.2,
+     "t1": 64.2,
+     "what": "Gaussian blur sigma 10 px (at 1270 px), 6 s",
+     "sigma": 10
+    },
+    {
+     "state": "MOVED",
+     "t0": 76.5,
+     "t1": 86.5,
+     "what": "view shifted 30% right + 8% down, rotated 4 deg, 10 s",
+     "dx": 0.3,
+     "dy": 0.08,
+     "rot": 4.0
+    },
+    {
+     "state": "OCCLUDED",
+     "t0": 88.3,
+     "t1": 95.3,
+     "what": "dark textured blob over ~40% of the frame, 7 s (extra fault)"
+    }
+   ],
+   "natural_frozen_s": [
+    0,
+    1,
+    2,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110
+   ],
+   "scores_smoothed": {
+    "OK": {
+     "gt_s": 53,
+     "pred_s": 55,
+     "tp": 53,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.9636363636363636,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 0.9818181818181818
+    },
+    "DARK": {
+     "gt_s": 10,
+     "pred_s": 10,
+     "tp": 10,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "FROZEN": {
+     "gt_s": 24,
+     "pred_s": 22,
+     "tp": 22,
+     "fp": 0,
+     "fn": 2,
+     "precision": 1.0,
+     "recall": 0.9166666666666666,
+     "recall_tol": 0.9583333333333334,
+     "precision_tol": 1.0
+    },
+    "BLUR": {
+     "gt_s": 6,
+     "pred_s": 6,
+     "tp": 6,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "MOVED": {
+     "gt_s": 11,
+     "pred_s": 11,
+     "tp": 11,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "OCCLUDED": {
+     "gt_s": 7,
+     "pred_s": 7,
+     "tp": 7,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    }
+   },
+   "scores_raw": {
+    "OK": {
+     "gt_s": 53,
+     "pred_s": 56,
+     "tp": 53,
+     "fp": 3,
+     "fn": 0,
+     "precision": 0.9464285714285714,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 0.9642857142857143
+    },
+    "DARK": {
+     "gt_s": 10,
+     "pred_s": 10,
+     "tp": 10,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "FROZEN": {
+     "gt_s": 24,
+     "pred_s": 21,
+     "tp": 21,
+     "fp": 0,
+     "fn": 3,
+     "precision": 1.0,
+     "recall": 0.875,
+     "recall_tol": 0.9583333333333334,
+     "precision_tol": 1.0
+    },
+    "BLUR": {
+     "gt_s": 6,
+     "pred_s": 6,
+     "tp": 6,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "MOVED": {
+     "gt_s": 11,
+     "pred_s": 11,
+     "tp": 11,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "OCCLUDED": {
+     "gt_s": 7,
+     "pred_s": 7,
+     "tp": 7,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    }
+   },
+   "confusion": {
+    "OK": {
+     "OK": 53
+    },
+    "DARK": {
+     "DARK": 10
+    },
+    "FROZEN": {
+     "FROZEN": 22,
+     "OK": 2
+    },
+    "BLUR": {
+     "BLUR": 6
+    },
+    "MOVED": {
+     "MOVED": 11
+    },
+    "OCCLUDED": {
+     "OCCLUDED": 7
+    }
+   },
+   "recall_injected_only": {
+    "DARK": 1.0,
+    "FROZEN": 1.0,
+    "BLUR": 1.0,
+    "MOVED": 1.0,
+    "OCCLUDED": 1.0
+   },
+   "recall_min_4_spec_faults": 0.9166666666666666,
+   "recall_tol_min_4_spec_faults": 0.9583333333333334,
+   "pred_spans": [
+    {
+     "t0": 0,
+     "t1": 3,
+     "dur": 3,
+     "state": "FROZEN",
+     "why": "identical frames (median pair difference 0.0016)"
+    },
+    {
+     "t0": 3,
+     "t1": 14,
+     "dur": 11,
+     "state": "OK",
+     "why": "973 inliers, 100% in view"
+    },
+    {
+     "t0": 14,
+     "t1": 24,
+     "dur": 10,
+     "state": "DARK",
+     "why": "mean luminance 0 (reference 112)"
+    },
+    {
+     "t0": 24,
+     "t1": 37,
+     "dur": 13,
+     "state": "OK",
+     "why": "819 inliers, 100% in view"
+    },
+    {
+     "t0": 37,
+     "t1": 45,
+     "dur": 8,
+     "state": "FROZEN",
+     "why": "identical frames (median pair difference 0.0008)"
+    },
+    {
+     "t0": 45,
+     "t1": 58,
+     "dur": 13,
+     "state": "OK",
+     "why": "753 inliers, 100% in view"
+    },
+    {
+     "t0": 58,
+     "t1": 64,
+     "dur": 6,
+     "state": "BLUR",
+     "why": "blur 0.80 vs reference 0.22, scene unregistrable"
+    },
+    {
+     "t0": 64,
+     "t1": 76,
+     "dur": 12,
+     "state": "OK",
+     "why": "607 inliers, 100% in view"
+    },
+    {
+     "t0": 76,
+     "t1": 87,
+     "dur": 11,
+     "state": "MOVED",
+     "why": "66% of the reference view in frame, zoom x1.00, 135 inliers"
+    },
+    {
+     "t0": 87,
+     "t1": 88,
+     "dur": 1,
+     "state": "OK",
+     "why": "670 inliers, 100% in view"
+    },
+    {
+     "t0": 88,
+     "t1": 95,
+     "dur": 7,
+     "state": "OCCLUDED",
+     "why": "62% of the view covered (changed 32%, landmarks lost 62%)"
+    },
+    {
+     "t0": 95,
+     "t1": 100,
+     "dur": 5,
+     "state": "OK",
+     "why": "998 inliers, 100% in view"
+    },
+    {
+     "t0": 100,
+     "t1": 111,
+     "dur": 11,
+     "state": "FROZEN",
+     "why": "identical frames (median pair difference 0.0020)"
+    }
+   ],
+   "queries": [
+    {
+     "query": "person 00:37-00:44",
+     "cls": "person",
+     "t0": 37.0,
+     "t1": 44.0,
+     "verdict": "COULD NOT SEE",
+     "naive": "SEEN",
+     "coverage": 0.0,
+     "window_s": 7,
+     "blind_s": 7,
+     "blind_spans": [
+      {
+       "t0": 37,
+       "t1": 44,
+       "state": "FROZEN"
+      }
+     ],
+     "evidence": [],
+     "evidence_off_view": [],
+     "naive_misleading": false,
+     "naive_wrong": true,
+     "naive_stale": true,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 37 AND sec < 44",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND usable = 1 AND sec >= 37 AND sec < 44",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND other_view = 1 AND sec >= 37 AND sec < 44"
+      ]
+     }
+    },
+    {
+     "query": "person 00:15-00:23",
+     "cls": "person",
+     "t0": 15.0,
+     "t1": 23.0,
+     "verdict": "COULD NOT SEE",
+     "naive": "NOTHING FOUND",
+     "coverage": 0.0,
+     "window_s": 8,
+     "blind_s": 8,
+     "blind_spans": [
+      {
+       "t0": 15,
+       "t1": 23,
+       "state": "DARK"
+      }
+     ],
+     "evidence": [],
+     "evidence_off_view": [],
+     "naive_misleading": true,
+     "naive_wrong": true,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 15 AND sec < 23",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND usable = 1 AND sec >= 15 AND sec < 23",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND other_view = 1 AND sec >= 15 AND sec < 23"
+      ]
+     }
+    },
+    {
+     "query": "person 01:00-01:06",
+     "cls": "person",
+     "t0": 60.0,
+     "t1": 66.0,
+     "verdict": "SEEN",
+     "naive": "SEEN",
+     "coverage": 0.3333333333333333,
+     "window_s": 6,
+     "blind_s": 4,
+     "blind_spans": [
+      {
+       "t0": 60,
+       "t1": 64,
+       "state": "BLUR"
+      }
+     ],
+     "evidence": [
+      {
+       "s": 60,
+       "state": "BLUR",
+       "n": 3,
+       "conf": 0.677,
+       "box": [
+        912.8,
+        366.0,
+        1123.2,
+        714.0
+       ]
+      },
+      {
+       "s": 61,
+       "state": "BLUR",
+       "n": 5,
+       "conf": 0.502,
+       "box": [
+        70.6,
+        153.7,
+        189.8,
+        406.6
+       ]
+      },
+      {
+       "s": 62,
+       "state": "BLUR",
+       "n": 4,
+       "conf": 0.833,
+       "box": [
+        182.6,
+        317.1,
+        378.5,
+        706.4
+       ]
+      },
+      {
+       "s": 63,
+       "state": "BLUR",
+       "n": 1,
+       "conf": 0.354,
+       "box": [
+        266.5,
+        36.8,
+        366.5,
+        255.7
+       ]
+      },
+      {
+       "s": 64,
+       "state": "OK",
+       "n": 13,
+       "conf": 0.909,
+       "box": [
+        680.9,
+        333.2,
+        874.9,
+        713.1
+       ]
+      },
+      {
+       "s": 65,
+       "state": "OK",
+       "n": 12,
+       "conf": 0.913,
+       "box": [
+        664.3,
+        339.4,
+        853.8,
+        713.8
+       ]
+      }
+     ],
+     "evidence_off_view": [],
+     "naive_misleading": false,
+     "naive_wrong": false,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 60 AND sec < 66",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND usable = 1 AND sec >= 60 AND sec < 66",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND other_view = 1 AND sec >= 60 AND sec < 66"
+      ]
+     }
+    },
+    {
+     "query": "person 01:17-01:26",
+     "cls": "person",
+     "t0": 77.0,
+     "t1": 86.0,
+     "verdict": "SEEN IN OTHER VIEW",
+     "naive": "SEEN",
+     "coverage": 0.0,
+     "window_s": 9,
+     "blind_s": 9,
+     "blind_spans": [
+      {
+       "t0": 77,
+       "t1": 86,
+       "state": "MOVED"
+      }
+     ],
+     "evidence": [],
+     "evidence_off_view": [
+      {
+       "s": 77,
+       "state": "MOVED",
+       "n": 15,
+       "conf": 0.937,
+       "box": [
+        1084.0,
+        306.7,
+        1269.5,
+        714.8
+       ]
+      },
+      {
+       "s": 78,
+       "state": "MOVED",
+       "n": 14,
+       "conf": 0.935,
+       "box": [
+        1075.5,
+        280.4,
+        1270.0,
+        677.6
+       ]
+      },
+      {
+       "s": 79,
+       "state": "MOVED",
+       "n": 15,
+       "conf": 0.918,
+       "box": [
+        472.3,
+        341.7,
+        674.7,
+        713.6
+       ]
+      },
+      {
+       "s": 80,
+       "state": "MOVED",
+       "n": 15,
+       "conf": 0.897,
+       "box": [
+        481.8,
+        333.5,
+        673.1,
+        713.8
+       ]
+      },
+      {
+       "s": 81,
+       "state": "MOVED",
+       "n": 13,
+       "conf": 0.877,
+       "box": [
+        45.6,
+        310.2,
+        285.8,
+        685.5
+       ]
+      },
+      {
+       "s": 82,
+       "state": "MOVED",
+       "n": 17,
+       "conf": 0.882,
+       "box": [
+        44.4,
+        310.2,
+        282.5,
+        685.5
+       ]
+      },
+      {
+       "s": 83,
+       "state": "MOVED",
+       "n": 15,
+       "conf": 0.874,
+       "box": [
+        699.2,
+        284.6,
+        876.3,
+        581.2
+       ]
+      },
+      {
+       "s": 84,
+       "state": "MOVED",
+       "n": 13,
+       "conf": 0.918,
+       "box": [
+        494.1,
+        343.9,
+        685.6,
+        715.3
+       ]
+      },
+      {
+       "s": 85,
+       "state": "MOVED",
+       "n": 14,
+       "conf": 0.917,
+       "box": [
+        492.6,
+        343.1,
+        686.1,
+        715.0
+       ]
+      }
+     ],
+     "naive_misleading": false,
+     "naive_wrong": true,
+     "naive_stale": false,
+     "sql_check": {
+      "agrees": true,
+      "sql": [
+       "SELECT COUNT(*), SUM(ok) FROM health WHERE sec >= 77 AND sec < 86",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND usable = 1 AND sec >= 77 AND sec < 86",
+       "SELECT COUNT(*) FROM hits WHERE cls = 'person' AND other_view = 1 AND sec >= 77 AND sec < 86"
+      ]
+     }
+    }
+   ],
+   "battery_30s_windows": {
+    "windows": 3,
+    "window_s": 30,
+    "naive_nothing_found": 0,
+    "naive_nothing_found_but_blind": 0,
+    "naive_seen_but_only_stale_or_black_frames": 0,
+    "seen_in_other_view": 0,
+    "seen": 3
+   },
+   "sweep": {
+    "table": [
+     {
+      "fault (SIMULATED)": "blur sigma 2 px",
+      "expected": "BLUR",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "BLUR"
+     },
+     {
+      "fault (SIMULATED)": "blur sigma 4 px",
+      "expected": "BLUR",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "BLUR"
+     },
+     {
+      "fault (SIMULATED)": "blur sigma 6 px",
+      "expected": "BLUR",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "BLUR"
+     },
+     {
+      "fault (SIMULATED)": "blur sigma 10 px",
+      "expected": "BLUR",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "BLUR"
+     },
+     {
+      "fault (SIMULATED)": "shift 5% of width",
+      "expected": "MOVED",
+      "seconds": 3,
+      "detected as expected": "0/3",
+      "flagged as any non-OK": "0/3",
+      "states seen": "OK"
+     },
+     {
+      "fault (SIMULATED)": "shift 10% of width",
+      "expected": "MOVED",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "MOVED"
+     },
+     {
+      "fault (SIMULATED)": "shift 20% of width",
+      "expected": "MOVED",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "MOVED"
+     },
+     {
+      "fault (SIMULATED)": "shift 30% of width",
+      "expected": "MOVED",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "MOVED"
+     },
+     {
+      "fault (SIMULATED)": "dimmed to 50% brightness",
+      "expected": "DARK",
+      "seconds": 3,
+      "detected as expected": "0/3",
+      "flagged as any non-OK": "0/3",
+      "states seen": "OK"
+     },
+     {
+      "fault (SIMULATED)": "dimmed to 25% brightness",
+      "expected": "DARK",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "DARK"
+     },
+     {
+      "fault (SIMULATED)": "dimmed to 10% brightness",
+      "expected": "DARK",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "DARK"
+     },
+     {
+      "fault (SIMULATED)": "blob covering ~15% of frame",
+      "expected": "OCCLUDED",
+      "seconds": 3,
+      "detected as expected": "0/3",
+      "flagged as any non-OK": "0/3",
+      "states seen": "OK"
+     },
+     {
+      "fault (SIMULATED)": "blob covering ~25% of frame",
+      "expected": "OCCLUDED",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "OCCLUDED"
+     },
+     {
+      "fault (SIMULATED)": "blob covering ~40% of frame",
+      "expected": "OCCLUDED",
+      "seconds": 3,
+      "detected as expected": "3/3",
+      "flagged as any non-OK": "3/3",
+      "states seen": "OCCLUDED"
+     }
+    ],
+    "clean_seconds": 11,
+    "false_alarm_seconds": 0
+   },
+   "seconds_to_compute": {
+    "extract": 31.1,
+    "detect": 233.2,
+    "detections_from": "YOLO26s (TensorRT) on the middle frame of each second"
+   },
+   "wall_s": 11.8
+  },
+  "heldout_store_aisle_detection": {
+   "video": "heldout_store_aisle_detection",
+   "SIMULATED": true,
+   "base": "store_aisle_detection",
+   "duration_s": 65.41541541541542,
+   "seconds_analysed": 65,
+   "plan": [
+    {
+     "state": "DARK",
+     "t0": 9.6,
+     "t1": 15.6,
+     "what": "black frames, 6 s"
+    },
+    {
+     "state": "FROZEN",
+     "t0": 21.4,
+     "t1": 28.4,
+     "what": "last frame repeated, 7 s"
+    },
+    {
+     "state": "BLUR",
+     "t0": 33.1,
+     "t1": 38.1,
+     "what": "Gaussian blur sigma 7 px, 5 s",
+     "sigma": 7
+    },
+    {
+     "state": "MOVED",
+     "t0": 42.2,
+     "t1": 48.2,
+     "what": "view shifted 20% right + 5% down, rotated 2 deg, 6 s",
+     "dx": 0.2,
+     "dy": 0.05,
+     "rot": 2.0
+    },
+    {
+     "state": "OCCLUDED",
+     "t0": 52.4,
+     "t1": 57.4,
+     "what": "dark textured blob over ~30% of the frame (other seed / position), 5 s",
+     "area": 0.3,
+     "seed": 7,
+     "cx": 0.62,
+     "cy": 0.45
+    }
+   ],
+   "natural_frozen_s": [],
+   "scores": {
+    "OK": {
+     "gt_s": 36,
+     "pred_s": 36,
+     "tp": 36,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "DARK": {
+     "gt_s": 6,
+     "pred_s": 6,
+     "tp": 6,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "FROZEN": {
+     "gt_s": 7,
+     "pred_s": 7,
+     "tp": 7,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "BLUR": {
+     "gt_s": 5,
+     "pred_s": 5,
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "MOVED": {
+     "gt_s": 6,
+     "pred_s": 6,
+     "tp": 6,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "OCCLUDED": {
+     "gt_s": 5,
+     "pred_s": 5,
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    }
+   },
+   "recall": {
+    "DARK": 1.0,
+    "FROZEN": 1.0,
+    "BLUR": 1.0,
+    "MOVED": 1.0,
+    "OCCLUDED": 1.0
+   },
+   "recall_injected_only": {
+    "DARK": 1.0,
+    "FROZEN": 1.0,
+    "BLUR": 1.0,
+    "MOVED": 1.0,
+    "OCCLUDED": 1.0
+   },
+   "recall_min_5": 1.0,
+   "per_fault": [
+    {
+     "fault (SIMULATED)": "black frames, 6 s",
+     "expected": "DARK",
+     "seconds": 5,
+     "detected as expected": "5/5",
+     "flagged as any non-OK": "5/5",
+     "states seen": "DARK"
+    },
+    {
+     "fault (SIMULATED)": "last frame repeated, 7 s",
+     "expected": "FROZEN",
+     "seconds": 6,
+     "detected as expected": "6/6",
+     "flagged as any non-OK": "6/6",
+     "states seen": "FROZEN"
+    },
+    {
+     "fault (SIMULATED)": "Gaussian blur sigma 7 px, 5 s",
+     "expected": "BLUR",
+     "seconds": 4,
+     "detected as expected": "4/4",
+     "flagged as any non-OK": "4/4",
+     "states seen": "BLUR"
+    },
+    {
+     "fault (SIMULATED)": "view shifted 20% right + 5% down, rotated 2 deg, 6 s",
+     "expected": "MOVED",
+     "seconds": 5,
+     "detected as expected": "5/5",
+     "flagged as any non-OK": "5/5",
+     "states seen": "MOVED"
+    },
+    {
+     "fault (SIMULATED)": "dark textured blob over ~30% of the frame (other seed / position), 5 s",
+     "expected": "OCCLUDED",
+     "seconds": 4,
+     "detected as expected": "4/4",
+     "flagged as any non-OK": "4/4",
+     "states seen": "OCCLUDED"
+    }
+   ],
+   "ok_precision": 1.0,
+   "healthy_seconds": 26,
+   "false_alarm_seconds": 0,
+   "confusion": {
+    "OK": {
+     "OK": 36
+    },
+    "DARK": {
+     "DARK": 6
+    },
+    "FROZEN": {
+     "FROZEN": 7
+    },
+    "BLUR": {
+     "BLUR": 5
+    },
+    "MOVED": {
+     "MOVED": 6
+    },
+    "OCCLUDED": {
+     "OCCLUDED": 5
+    }
+   },
+   "pred_spans": [
+    {
+     "t0": 0,
+     "t1": 10,
+     "dur": 10,
+     "state": "OK",
+     "why": "2127 inliers, 100% in view"
+    },
+    {
+     "t0": 10,
+     "t1": 16,
+     "dur": 6,
+     "state": "DARK",
+     "why": "mean luminance 0 (reference 140)"
+    },
+    {
+     "t0": 16,
+     "t1": 21,
+     "dur": 5,
+     "state": "OK",
+     "why": "1222 inliers, 100% in view"
+    },
+    {
+     "t0": 21,
+     "t1": 28,
+     "dur": 7,
+     "state": "FROZEN",
+     "why": "identical frames (median pair difference 0.0000)"
+    },
+    {
+     "t0": 28,
+     "t1": 33,
+     "dur": 5,
+     "state": "OK",
+     "why": "850 inliers, 100% in view"
+    },
+    {
+     "t0": 33,
+     "t1": 38,
+     "dur": 5,
+     "state": "BLUR",
+     "why": "blur 0.76 vs reference 0.31, scene unregistrable"
+    },
+    {
+     "t0": 38,
+     "t1": 42,
+     "dur": 4,
+     "state": "OK",
+     "why": "1102 inliers, 100% in view"
+    },
+    {
+     "t0": 42,
+     "t1": 48,
+     "dur": 6,
+     "state": "MOVED",
+     "why": "76% of the reference view in frame, zoom x1.00, 360 inliers"
+    },
+    {
+     "t0": 48,
+     "t1": 52,
+     "dur": 4,
+     "state": "OK",
+     "why": "1201 inliers, 100% in view"
+    },
+    {
+     "t0": 52,
+     "t1": 57,
+     "dur": 5,
+     "state": "OCCLUDED",
+     "why": "47% of the view covered (changed 31%, landmarks lost 47%)"
+    },
+    {
+     "t0": 57,
+     "t1": 65,
+     "dur": 8,
+     "state": "OK",
+     "why": "1127 inliers, 100% in view"
+    }
+   ],
+   "wall_s": 3.0
+  },
+  "heldout_yonge_dundas": {
+   "video": "heldout_yonge_dundas",
+   "SIMULATED": true,
+   "base": "yonge_dundas",
+   "duration_s": 56.55655655655656,
+   "seconds_analysed": 56,
+   "plan": [
+    {
+     "state": "DARK",
+     "t0": 9.4,
+     "t1": 14.4,
+     "what": "dimmed to 15% brightness, 5 s",
+     "gain": 0.15
+    },
+    {
+     "state": "FROZEN",
+     "t0": 19.2,
+     "t1": 26.2,
+     "what": "last frame repeated, 7 s"
+    },
+    {
+     "state": "BLUR",
+     "t0": 31.6,
+     "t1": 36.6,
+     "what": "Gaussian blur sigma 7 px, 5 s",
+     "sigma": 7
+    },
+    {
+     "state": "MOVED",
+     "t0": 40.3,
+     "t1": 45.3,
+     "what": "view shifted 22% right, 5% up, rotated -3 deg, 5 s",
+     "dx": 0.22,
+     "dy": -0.05,
+     "rot": -3.0
+    },
+    {
+     "state": "OCCLUDED",
+     "t0": 49.1,
+     "t1": 54.1,
+     "what": "dark textured blob over ~30% of the frame (other seed / position), 5 s",
+     "area": 0.3,
+     "seed": 11,
+     "cx": 0.3,
+     "cy": 0.4
+    }
+   ],
+   "natural_frozen_s": [],
+   "scores": {
+    "OK": {
+     "gt_s": 29,
+     "pred_s": 34,
+     "tp": 29,
+     "fp": 5,
+     "fn": 0,
+     "precision": 0.8529411764705882,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 0.9117647058823529
+    },
+    "DARK": {
+     "gt_s": 5,
+     "pred_s": 5,
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "FROZEN": {
+     "gt_s": 7,
+     "pred_s": 7,
+     "tp": 7,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "BLUR": {
+     "gt_s": 5,
+     "pred_s": 5,
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "MOVED": {
+     "gt_s": 5,
+     "pred_s": 5,
+     "tp": 5,
+     "fp": 0,
+     "fn": 0,
+     "precision": 1.0,
+     "recall": 1.0,
+     "recall_tol": 1.0,
+     "precision_tol": 1.0
+    },
+    "OCCLUDED": {
+     "gt_s": 5,
+     "pred_s": 0,
+     "tp": 0,
+     "fp": 0,
+     "fn": 5,
+     "precision": null,
+     "recall": 0.0,
+     "recall_tol": 0.0,
+     "precision_tol": null
+    }
+   },
+   "recall": {
+    "DARK": 1.0,
+    "FROZEN": 1.0,
+    "BLUR": 1.0,
+    "MOVED": 1.0,
+    "OCCLUDED": 0.0
+   },
+   "recall_injected_only": {
+    "DARK": 1.0,
+    "FROZEN": 1.0,
+    "BLUR": 1.0,
+    "MOVED": 1.0,
+    "OCCLUDED": 0.0
+   },
+   "recall_min_5": 0.0,
+   "per_fault": [
+    {
+     "fault (SIMULATED)": "dimmed to 15% brightness, 5 s",
+     "expected": "DARK",
+     "seconds": 4,
+     "detected as expected": "4/4",
+     "flagged as any non-OK": "4/4",
+     "states seen": "DARK"
+    },
+    {
+     "fault (SIMULATED)": "last frame repeated, 7 s",
+     "expected": "FROZEN",
+     "seconds": 6,
+     "detected as expected": "6/6",
+     "flagged as any non-OK": "6/6",
+     "states seen": "FROZEN"
+    },
+    {
+     "fault (SIMULATED)": "Gaussian blur sigma 7 px, 5 s",
+     "expected": "BLUR",
+     "seconds": 4,
+     "detected as expected": "4/4",
+     "flagged as any non-OK": "4/4",
+     "states seen": "BLUR"
+    },
+    {
+     "fault (SIMULATED)": "view shifted 22% right, 5% up, rotated -3 deg, 5 s",
+     "expected": "MOVED",
+     "seconds": 4,
+     "detected as expected": "4/4",
+     "flagged as any non-OK": "4/4",
+     "states seen": "MOVED"
+    },
+    {
+     "fault (SIMULATED)": "dark textured blob over ~30% of the frame (other seed / position), 5 s",
+     "expected": "OCCLUDED",
+     "seconds": 4,
+     "detected as expected": "0/4",
+     "flagged as any non-OK": "0/4",
+     "states seen": "OK"
+    }
+   ],
+   "ok_precision": 0.8529411764705882,
+   "healthy_seconds": 19,
+   "false_alarm_seconds": 0,
+   "confusion": {
+    "OK": {
+     "OK": 29
+    },
+    "DARK": {
+     "DARK": 5
+    },
+    "FROZEN": {
+     "FROZEN": 7
+    },
+    "BLUR": {
+     "BLUR": 5
+    },
+    "MOVED": {
+     "MOVED": 5
+    },
+    "OCCLUDED": {
+     "OK": 5
+    }
+   },
+   "pred_spans": [
+    {
+     "t0": 0,
+     "t1": 9,
+     "dur": 9,
+     "state": "OK",
+     "why": "1048 inliers, 100% in view"
+    },
+    {
+     "t0": 9,
+     "t1": 14,
+     "dur": 5,
+     "state": "DARK",
+     "why": "mean luminance 17 (reference 114)"
+    },
+    {
+     "t0": 14,
+     "t1": 19,
+     "dur": 5,
+     "state": "OK",
+     "why": "968 inliers, 100% in view"
+    },
+    {
+     "t0": 19,
+     "t1": 26,
+     "dur": 7,
+     "state": "FROZEN",
+     "why": "identical frames (median pair difference 0.0000)"
+    },
+    {
+     "t0": 26,
+     "t1": 32,
+     "dur": 6,
+     "state": "OK",
+     "why": "848 inliers, 100% in view"
+    },
+    {
+     "t0": 32,
+     "t1": 37,
+     "dur": 5,
+     "state": "BLUR",
+     "why": "blur 0.73 vs reference 0.22"
+    },
+    {
+     "t0": 37,
+     "t1": 40,
+     "dur": 3,
+     "state": "OK",
+     "why": "854 inliers, 100% in view"
+    },
+    {
+     "t0": 40,
+     "t1": 45,
+     "dur": 5,
+     "state": "MOVED",
+     "why": "75% of the reference view in frame, zoom x1.00, 392 inliers"
+    },
+    {
+     "t0": 45,
+     "t1": 56,
+     "dur": 11,
+     "state": "OK",
+     "why": "459 inliers, 100% in view"
+    }
+   ],
+   "wall_s": 5.1
+  }
+ },
+ "total_wall_s": 32.7,
+ "thresholds": {
+  "work_w": 640,
+  "tiny_w": 160,
+  "ref_seconds": 7,
+  "frozen_core_eps": 0.004,
+  "frozen_ext_eps": 0.006,
+  "frozen_min_run": 2,
+  "dark_abs": 14.0,
+  "dark_rel": 0.3,
+  "reg_min_inliers": 20,
+  "reg_min_ratio": 0.3,
+  "moved_min_vis": 0.93,
+  "moved_scale": [
+   0.85,
+   1.18
+  ],
+  "moved_rot_deg": 6.0,
+  "blur_excess": 0.17,
+  "blur_unreg_excess": 0.4,
+  "occ_diff": 38,
+  "occ_frac": 0.25,
+  "lost_frac": 0.75,
+  "flat_cover": 0.85,
+  "despeckle": true,
+  "coverage_for_nothing": 0.95
+ }
+}

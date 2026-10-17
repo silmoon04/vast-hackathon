@@ -1,0 +1,1695 @@
+{
+ "camera": null,
+ "source": "external/mock_corpus.json",
+ "practice": true,
+ "models": [
+  "nvidia/Cosmos3-Edge"
+ ],
+ "witness_note": "Practice corpus from the organisers' sample clips. For person-bicycle-car-detection our own YOLO + ByteTrack run on the original video is a second, independent witness.",
+ "rules": "Caption lie detector: check the pipeline's AI captions against detector evidence.\n\nInputs (VSS row shape; caption = reasoning_content, detector = object_counts):\n  * the practice corpus (vast-hackathon/data/mock_corpus.json, a list of rows) -> out/captions/captions.json.\n    For person-bicycle-car-detection clips our own YOLO+ByteTrack run on the original video is a second witness:\n    our_counts = max simultaneous tracked objects per class within the segment.\n  * the event pack (data/packd/segments.json, {\"chunks\": [...], \"segments\": [...]}) -> out/captions/<camera_id>.json.\n    Segment times are put on the camera timeline with data/packd/chunk_offsets.json (offset of each chunk, day\n    ranges). Its detector counts come from the same YOLO sidecars our tracks are built from, so there is ONE\n    witness there, not two: our_counts stays null.\n\nEverything is plain rules, listed below, so a judge can read exactly why a row got its verdict.\n  * claim  = a COCO noun (or synonym; \"vehicle\" = car+truck+bus+motorcycle) in the caption; its count comes from\n             the word before it: number words and digits are exact (\"two cars\"), \"a\"/\"an\"/\"another\" only say\n             \"at least one\", \"a few\"/\"several\"/plurals give no count, \"the\"/\"her\"/... add no new count.\n  * negation: \"no pedestrians\", \"without any people\", \"no other vehicles or pedestrians\" claim zero. Relative\n             negations (\"no MOVING vehicles\", \"no other cars\") are not checked, since parked cars still count.\n  * person = the explicit number on a group noun (\"three people\") if there is one, else the sum of the\n             individually introduced people (\"a man and a woman\" = at least 2).\n  * verdict: contradiction if a claimed MOVER class (person, vehicle, animal) was seen by no detector, an exact\n             or zero count is off by >= 2 from every detector, an \"at least\" count is 2 or more above every\n             detector, or the caption describes an object that should show up as a COCO lookalike (e.g. a drone\n             -> airplane/bird/kite) while every detector saw nothing at all; consistent if every claim is\n             supported (off by one = \"count differs\"; static things such as tables or cups the detector did not\n             report are \"unconfirmed\", since silence about clutter is weak evidence); unverifiable if nothing in\n             the caption could be checked.\n  * our_counts: each track takes its majority class inside the segment (ByteTrack ids flip labels), tracks\n             with fewer than 3 detections in the segment are dropped as blips, then max per frame.\n  * detector_suspect: a detector class the caption never mentions AND a second signal says it is wrong:\n             the caption names a non-COCO object the detector is known to force into that class (LOOKALIKE),\n             the class is implausible for the scene the caption describes (SCENE), or the other detector\n             did not see it either.",
+ "rows": [
+  {
+   "id": "bolt-detection_001",
+   "pk": "7753529729742de763d05221da48f4df",
+   "clip": "bolt-detection",
+   "start": 0.0,
+   "end": 5.0,
+   "caption": "A bolt is placed on a black textured surface.",
+   "claims": [],
+   "claimed_counts": {},
+   "checks": [],
+   "pipeline_counts": {
+    "toothbrush": 1,
+    "tennis racket": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "unverifiable",
+   "why": "nothing in the caption can be checked against COCO detections (it describes: bolt)",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline tennis racket: caption describes a bolt, which COCO has no class for; YOLO often calls such things tennis racket; pipeline toothbrush: caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "tennis racket",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a bolt, which COCO has no class for; YOLO often calls such things tennis racket"
+    },
+    {
+     "source": "pipeline",
+     "object": "toothbrush",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/bolt-detection_001.jpg",
+   "frame_t": 2.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "bolt-detection_002",
+   "pk": "703537f509baea959f9c28bc642c8f0b",
+   "clip": "bolt-detection",
+   "start": 5.0,
+   "end": 10.0,
+   "caption": "A bolt falls on a black surface.",
+   "claims": [],
+   "claimed_counts": {},
+   "checks": [],
+   "pipeline_counts": {
+    "skateboard": 1,
+    "toothbrush": 2,
+    "baseball bat": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "unverifiable",
+   "why": "nothing in the caption can be checked against COCO detections (it describes: bolt)",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline baseball bat: caption describes a bolt, which COCO has no class for; YOLO often calls such things baseball bat; pipeline skateboard: caption describes a bolt, which COCO has no class for; YOLO often calls such things skateboard; pipeline toothbrush: caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "baseball bat",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a bolt, which COCO has no class for; YOLO often calls such things baseball bat"
+    },
+    {
+     "source": "pipeline",
+     "object": "skateboard",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a bolt, which COCO has no class for; YOLO often calls such things skateboard"
+    },
+    {
+     "source": "pipeline",
+     "object": "toothbrush",
+     "count": 2,
+     "suspect": true,
+     "reason": "caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/bolt-detection_002.jpg",
+   "frame_t": 7.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "bolt-detection_003",
+   "pk": "356255f348763f39ae1c429ef0e016d1",
+   "clip": "bolt-detection",
+   "start": 10.0,
+   "end": 15.0,
+   "caption": "A brown tube is rolling on a black surface.",
+   "claims": [],
+   "claimed_counts": {},
+   "checks": [],
+   "pipeline_counts": {
+    "toothbrush": 1,
+    "bottle": 1,
+    "baseball bat": 1,
+    "remote": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "unverifiable",
+   "why": "nothing in the caption can be checked against COCO detections (it describes: tube)",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline baseball bat: caption describes a tube, which COCO has no class for; YOLO often calls such things baseball bat; pipeline bottle: caption describes a tube, which COCO has no class for; YOLO often calls such things bottle; pipeline remote: caption describes a tube, which COCO has no class for; YOLO often calls such things remote; pipeline toothbrush: caption describes a tube, which COCO has no class for; YOLO often calls such things toothbrush",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "baseball bat",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a tube, which COCO has no class for; YOLO often calls such things baseball bat"
+    },
+    {
+     "source": "pipeline",
+     "object": "bottle",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a tube, which COCO has no class for; YOLO often calls such things bottle"
+    },
+    {
+     "source": "pipeline",
+     "object": "remote",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a tube, which COCO has no class for; YOLO often calls such things remote"
+    },
+    {
+     "source": "pipeline",
+     "object": "toothbrush",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a tube, which COCO has no class for; YOLO often calls such things toothbrush"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/bolt-detection_003.jpg",
+   "frame_t": 12.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "bolt-detection_004",
+   "pk": "13f3faf72de10cc98edd2483e86e82d0",
+   "clip": "bolt-detection",
+   "start": 15.0,
+   "end": 20.0,
+   "caption": "A bolt is shown in the frame.",
+   "claims": [],
+   "claimed_counts": {},
+   "checks": [],
+   "pipeline_counts": {
+    "toothbrush": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "unverifiable",
+   "why": "nothing in the caption can be checked against COCO detections (it describes: bolt)",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline toothbrush: caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "toothbrush",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/bolt-detection_004.jpg",
+   "frame_t": 17.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "bolt-detection_005",
+   "pk": "2ed2cc137587aa689dc85d646a2d2e55",
+   "clip": "bolt-detection",
+   "start": 20.0,
+   "end": 25.0,
+   "caption": "A bolt falls on a black surface.",
+   "claims": [],
+   "claimed_counts": {},
+   "checks": [],
+   "pipeline_counts": {
+    "toothbrush": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "unverifiable",
+   "why": "nothing in the caption can be checked against COCO detections (it describes: bolt)",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline toothbrush: caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "toothbrush",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/bolt-detection_005.jpg",
+   "frame_t": 22.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "bolt-detection_006",
+   "pk": "857af78be20cce6b22cb5c4b1579407a",
+   "clip": "bolt-detection",
+   "start": 25.0,
+   "end": 30.0,
+   "caption": "A bolt is placed on a black surface.",
+   "claims": [],
+   "claimed_counts": {},
+   "checks": [],
+   "pipeline_counts": {
+    "boat": 1,
+    "truck": 1,
+    "toothbrush": 1,
+    "baseball bat": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "unverifiable",
+   "why": "nothing in the caption can be checked against COCO detections (it describes: bolt)",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline baseball bat: caption describes a bolt, which COCO has no class for; YOLO often calls such things baseball bat; pipeline boat: a boat is implausible in a tabletop scene ('surface'); pipeline toothbrush: caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush; pipeline truck: a truck is implausible in a tabletop scene ('surface')",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "baseball bat",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a bolt, which COCO has no class for; YOLO often calls such things baseball bat"
+    },
+    {
+     "source": "pipeline",
+     "object": "boat",
+     "count": 1,
+     "suspect": true,
+     "reason": "a boat is implausible in a tabletop scene ('surface')"
+    },
+    {
+     "source": "pipeline",
+     "object": "toothbrush",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a bolt, which COCO has no class for; YOLO often calls such things toothbrush"
+    },
+    {
+     "source": "pipeline",
+     "object": "truck",
+     "count": 1,
+     "suspect": true,
+     "reason": "a truck is implausible in a tabletop scene ('surface')"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/bolt-detection_006.jpg",
+   "frame_t": 27.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "people-detection_001",
+   "pk": "fefe831b3a01c0568413f59296ebd36e",
+   "clip": "people-detection",
+   "start": 0.0,
+   "end": 5.0,
+   "caption": "A woman with long blonde hair, wearing a black long-sleeved shirt, a gray skirt, and black heels, is walking across a room with a wooden floor. The room has white walls, two windows with black frames, and a brown door.",
+   "claims": [
+    {
+     "text": "a woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "person": 1
+   },
+   "checks": [
+    {
+     "object": "person",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 1
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "dog": 1,
+    "person": 1,
+    "tv": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says at least 1 person; pipeline 1",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline tv: caption describes a window, which COCO has no class for; YOLO often calls such things tv",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "dog",
+     "count": 1,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    },
+    {
+     "source": "pipeline",
+     "object": "tv",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a window, which COCO has no class for; YOLO often calls such things tv"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/people-detection_001.jpg",
+   "frame_t": 2.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "people-detection_002",
+   "pk": "09b15c01f8ff2cf82118002c03a467f4",
+   "clip": "people-detection",
+   "start": 5.0,
+   "end": 10.0,
+   "caption": "A woman with blonde hair, dressed in a black top and a gray skirt, walks across a spacious room with polished wooden floors and white walls. The room features two rectangular windows with frosted glass panels and a brown door. The woman moves from one side of the room to the other, her motion captured from an elevated angle.",
+   "claims": [
+    {
+     "text": "a woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "the woman",
+     "object": "person",
+     "count": null,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "person": 1
+   },
+   "checks": [
+    {
+     "object": "person",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 1
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 1,
+    "tv": 1,
+    "cat": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says at least 1 person; pipeline 1",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline tv: caption describes a window, which COCO has no class for; YOLO often calls such things tv",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "cat",
+     "count": 1,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    },
+    {
+     "source": "pipeline",
+     "object": "tv",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a window, which COCO has no class for; YOLO often calls such things tv"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/people-detection_002.jpg",
+   "frame_t": 7.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "people-detection_003",
+   "pk": "4e54c42e807c4b8ced2ffbf382a59130",
+   "clip": "people-detection",
+   "start": 10.0,
+   "end": 15.0,
+   "caption": "A room with white walls and a brown wooden floor is visible. The walls have two windows with black borders and glass. A brown door is visible on the left side of the room. A white pillar is visible in the center of the room. A red lamp is visible on the right side of the room. A white wall is visible on the left side of the room.",
+   "claims": [],
+   "claimed_counts": {},
+   "checks": [],
+   "pipeline_counts": {
+    "person": 2
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "unverifiable",
+   "why": "nothing in the caption can be checked against COCO detections (it describes: window). Caption never mentions the detected person x2",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": false,
+   "detector_reason": null,
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "person",
+     "count": 2,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/people-detection_003.jpg",
+   "frame_t": 12.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "people-detection_004",
+   "pk": "d9c01fb29e32629275f62038173ac035",
+   "clip": "people-detection",
+   "start": 15.0,
+   "end": 20.0,
+   "caption": "Two people, a man and a woman, are walking through a room with white walls and a brown floor. The man is wearing a black T-shirt, black pants, and black shoes, while the woman is wearing a blue long-sleeve shirt, a white and brown skirt, and black shoes. They are walking towards a door with a brown door and a black frame.",
+   "claims": [
+    {
+     "text": "two people",
+     "object": "person",
+     "count": 2,
+     "negated": false
+    },
+    {
+     "text": "a man",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "a woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "the man",
+     "object": "person",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "the woman",
+     "object": "person",
+     "count": null,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "person": 2
+   },
+   "checks": [
+    {
+     "object": "person",
+     "claimed": 2,
+     "exact": true,
+     "seen": {
+      "pipeline": 2
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 2,
+    "tv": 1,
+    "skateboard": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says 2 people; pipeline 2",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": false,
+   "detector_reason": null,
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "skateboard",
+     "count": 1,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    },
+    {
+     "source": "pipeline",
+     "object": "tv",
+     "count": 1,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/people-detection_004.jpg",
+   "frame_t": 17.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "people-detection_005",
+   "pk": "b64cb0ab8411ca944868d3d0a936fd57",
+   "clip": "people-detection",
+   "start": 20.0,
+   "end": 25.0,
+   "caption": "A woman in a blue t-shirt and white skirt, with her hair tied in a ponytail, walks into a room with brown wooden flooring and white walls. She is wearing black shoes. The room has two windows with black borders and white curtains. There is a brown door with a black border.",
+   "claims": [
+    {
+     "text": "a woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "person": 1
+   },
+   "checks": [
+    {
+     "object": "person",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 2
+     },
+     "status": "count_differs"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 2
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says at least 1 person; pipeline 2 (the detector counted more; the caption need not name every one)",
+   "count_differs": true,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": false,
+   "detector_reason": null,
+   "detector_notes": [],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/people-detection_005.jpg",
+   "frame_t": 22.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "people-detection_006",
+   "pk": "c802ccb2b1497949496ff04c2fd14644",
+   "clip": "people-detection",
+   "start": 25.0,
+   "end": 30.0,
+   "caption": "Three people enter a room with white walls and a brown floor. The person on the left is wearing a checkered shirt and dark pants, the person in the middle is wearing a black top and black bottoms, and the person on the right is wearing a white shirt and a straw hat.",
+   "claims": [
+    {
+     "text": "three people",
+     "object": "person",
+     "count": 3,
+     "negated": false
+    },
+    {
+     "text": "the person",
+     "object": "person",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "the person",
+     "object": "person",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "the person",
+     "object": "person",
+     "count": null,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "person": 3
+   },
+   "checks": [
+    {
+     "object": "person",
+     "claimed": 3,
+     "exact": true,
+     "seen": {
+      "pipeline": 3
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 3,
+    "toilet": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says 3 people; pipeline 3",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": false,
+   "detector_reason": null,
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "toilet",
+     "count": 1,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/people-detection_006.jpg",
+   "frame_t": 27.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "person-bicycle-car-detection_001",
+   "pk": "ee2e2e0051e89b446bebf937af101ddb",
+   "clip": "person-bicycle-car-detection",
+   "start": 0.0,
+   "end": 5.0,
+   "caption": "A man wearing a black jacket, blue jeans, and a white cap is walking in a parking lot.",
+   "claims": [
+    {
+     "text": "a man",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "person": 1
+   },
+   "checks": [
+    {
+     "object": "person",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 1,
+      "our tracker": 1
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 1
+   },
+   "our_counts": {
+    "person": 1
+   },
+   "our_camera": "person_bicycle_car_detection",
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says at least 1 person; pipeline 1, our tracker 1",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": false,
+   "detector_reason": null,
+   "detector_notes": [],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/person-bicycle-car-detection_001.jpg",
+   "frame_t": 2.5,
+   "frame_ours": "frames/person-bicycle-car-detection_001_ours.jpg",
+   "frame_ours_t": 2.5,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "person-bicycle-car-detection_002",
+   "pk": "6639de9274c53430e0ba6568eaf6cab9",
+   "clip": "person-bicycle-car-detection",
+   "start": 5.0,
+   "end": 10.0,
+   "caption": "A man in a black jacket, blue jeans, and a cap is walking in a parking lot.",
+   "claims": [
+    {
+     "text": "a man",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "person": 1
+   },
+   "checks": [
+    {
+     "object": "person",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 2,
+      "our tracker": 1
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 2
+   },
+   "our_counts": {
+    "person": 1
+   },
+   "our_camera": "person_bicycle_car_detection",
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says at least 1 person; pipeline 2, our tracker 1",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": false,
+   "detector_reason": null,
+   "detector_notes": [],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/person-bicycle-car-detection_002.jpg",
+   "frame_t": 7.5,
+   "frame_ours": "frames/person-bicycle-car-detection_002_ours.jpg",
+   "frame_ours_t": 7.08,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "person-bicycle-car-detection_003",
+   "pk": "54196c27cd0f72f9a2d18497a0423c71",
+   "clip": "person-bicycle-car-detection",
+   "start": 10.0,
+   "end": 15.0,
+   "caption": "A white car enters the frame from the bottom left corner and drives into a parking lot. The parking lot has white lines marking the parking spaces.",
+   "claims": [
+    {
+     "text": "a white car",
+     "object": "car",
+     "count": 1,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "car": 1
+   },
+   "checks": [
+    {
+     "object": "car",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 1,
+      "our tracker": 1
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 1,
+    "car": 1,
+    "airplane": 1
+   },
+   "our_counts": {
+    "car": 1
+   },
+   "our_camera": "person_bicycle_car_detection",
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says at least 1 car; pipeline 1, our tracker 1",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline airplane: an airplane is implausible in a street scene ('parking lot'); our tracker did not see it either; pipeline person: our tracker did not see it either",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "airplane",
+     "count": 1,
+     "suspect": true,
+     "reason": "an airplane is implausible in a street scene ('parking lot'); our tracker did not see it either"
+    },
+    {
+     "source": "pipeline",
+     "object": "person",
+     "count": 1,
+     "suspect": true,
+     "reason": "our tracker did not see it either"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/person-bicycle-car-detection_003.jpg",
+   "frame_t": 12.5,
+   "frame_ours": "frames/person-bicycle-car-detection_003_ours.jpg",
+   "frame_ours_t": 14.33,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "person-bicycle-car-detection_004",
+   "pk": "1d81b4a8ac12403a86800e1ecb0e0dde",
+   "clip": "person-bicycle-car-detection",
+   "start": 15.0,
+   "end": 20.0,
+   "caption": "A white car is seen driving out of a parking lot.",
+   "claims": [
+    {
+     "text": "a white car",
+     "object": "car",
+     "count": 1,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "car": 1
+   },
+   "checks": [
+    {
+     "object": "car",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 1,
+      "our tracker": 1
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "boat": 1,
+    "car": 1,
+    "airplane": 1
+   },
+   "our_counts": {
+    "car": 1
+   },
+   "our_camera": "person_bicycle_car_detection",
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says at least 1 car; pipeline 1, our tracker 1",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline airplane: an airplane is implausible in a street scene ('parking lot'); our tracker did not see it either; pipeline boat: a boat is implausible in a street scene ('parking lot'); our tracker did not see it either",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "airplane",
+     "count": 1,
+     "suspect": true,
+     "reason": "an airplane is implausible in a street scene ('parking lot'); our tracker did not see it either"
+    },
+    {
+     "source": "pipeline",
+     "object": "boat",
+     "count": 1,
+     "suspect": true,
+     "reason": "a boat is implausible in a street scene ('parking lot'); our tracker did not see it either"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/person-bicycle-car-detection_004.jpg",
+   "frame_t": 17.5,
+   "frame_ours": "frames/person-bicycle-car-detection_004_ours.jpg",
+   "frame_ours_t": 17.5,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "person-bicycle-car-detection_005",
+   "pk": "29d4d84c3deacc68833fdca5e42e8004",
+   "clip": "person-bicycle-car-detection",
+   "start": 20.0,
+   "end": 25.0,
+   "caption": "A black and white drone flies over a parking lot and then lands on the ground.",
+   "claims": [],
+   "claimed_counts": {},
+   "checks": [
+    {
+     "object": "drone",
+     "claimed": null,
+     "exact": false,
+     "seen": {
+      "pipeline": 0,
+      "our tracker": 0
+     },
+     "status": "unseen"
+    }
+   ],
+   "pipeline_counts": {},
+   "our_counts": {},
+   "our_camera": "person_bicycle_car_detection",
+   "verdict": "contradiction",
+   "why": "caption describes a drone, which a COCO detector would show as airplane/bird/kite; no detector reported any object in this segment (pipeline saw nothing, our tracker saw nothing)",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": false,
+   "detector_reason": null,
+   "detector_notes": [],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/person-bicycle-car-detection_005.jpg",
+   "frame_t": 22.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": "frames/person-bicycle-car-detection_005_strip.jpg",
+   "strip_t": [
+    20.42,
+    21.25,
+    22.08,
+    22.92,
+    23.75,
+    24.58
+   ]
+  },
+  {
+   "id": "person-bicycle-car-detection_006",
+   "pk": "4a8c31fced4aacfa052351d3abf671f0",
+   "clip": "person-bicycle-car-detection",
+   "start": 25.0,
+   "end": 30.0,
+   "caption": "A person in a black outfit and a white helmet is riding a bicycle in a parking lot.",
+   "claims": [
+    {
+     "text": "a person",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "a bicycle",
+     "object": "bicycle",
+     "count": 1,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "bicycle": 1,
+    "person": 1
+   },
+   "checks": [
+    {
+     "object": "bicycle",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 1,
+      "our tracker": 1
+     },
+     "status": "supported"
+    },
+    {
+     "object": "person",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 1,
+      "our tracker": 1
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 1,
+    "motorcycle": 1,
+    "bicycle": 1
+   },
+   "our_counts": {
+    "bicycle": 1,
+    "person": 1
+   },
+   "our_camera": "person_bicycle_car_detection",
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says at least 1 bicycle; pipeline 1, our tracker 1; caption says at least 1 person; pipeline 1, our tracker 1",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline motorcycle: our tracker did not see it either",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "motorcycle",
+     "count": 1,
+     "suspect": true,
+     "reason": "our tracker did not see it either"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/person-bicycle-car-detection_006.jpg",
+   "frame_t": 27.5,
+   "frame_ours": "frames/person-bicycle-car-detection_006_ours.jpg",
+   "frame_ours_t": 27.5,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "store-aisle-detection_001",
+   "pk": "7b785b4a59e53da6f4d1c54c37e5e28d",
+   "clip": "store-aisle-detection",
+   "start": 0.0,
+   "end": 5.0,
+   "caption": "The video shows a room with white shelves on both sides, filled with white crockery and crockery ware. The shelves are arranged in rows and are placed on a gray floor. A blue and a green wall can be seen in the background. The blue wall has a framed picture on it, while the green wall has a shelf with glassware on it. A brown cardboard box is placed on the floor in front of the blue wall. The shelves are arranged in rows and extend from the foreground to the background of the room. The shelves are filled with white crockery and crockery ware, including plates, bowls, cups, and teapots. The video ends with a static shot of the room.",
+   "claims": [
+    {
+     "text": "bowls",
+     "object": "bowl",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "cups",
+     "object": "cup",
+     "count": null,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "bowl": null,
+    "cup": null
+   },
+   "checks": [
+    {
+     "object": "bowl",
+     "claimed": null,
+     "exact": false,
+     "seen": {
+      "pipeline": 1
+     },
+     "status": "supported"
+    },
+    {
+     "object": "cup",
+     "claimed": null,
+     "exact": false,
+     "seen": {
+      "pipeline": 0
+     },
+     "status": "unconfirmed"
+    }
+   ],
+   "pipeline_counts": {
+    "toilet": 2,
+    "bowl": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: bowl seen (pipeline 1). Unconfirmed: cup not reported (pipeline 0); detectors often miss static objects, so this neither confirms nor refutes the caption",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline toilet: caption describes crockery / a plate / a teapot, which COCO has no class for; YOLO often calls such things toilet",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "toilet",
+     "count": 2,
+     "suspect": true,
+     "reason": "caption describes crockery / a plate / a teapot, which COCO has no class for; YOLO often calls such things toilet"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/store-aisle-detection_001.jpg",
+   "frame_t": 2.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "store-aisle-detection_002",
+   "pk": "5baeedecb0ae90e3d8b16698ff391f8f",
+   "clip": "store-aisle-detection",
+   "start": 5.0,
+   "end": 10.0,
+   "caption": "A man wearing a brown hat and a green shirt enters the frame from the bottom right corner. He is walking towards a shelf that has white plates and bowls on it.",
+   "claims": [
+    {
+     "text": "a man",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "bowls",
+     "object": "bowl",
+     "count": null,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "bowl": null,
+    "person": 1
+   },
+   "checks": [
+    {
+     "object": "bowl",
+     "claimed": null,
+     "exact": false,
+     "seen": {
+      "pipeline": 1
+     },
+     "status": "supported"
+    },
+    {
+     "object": "person",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 1
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "toilet": 2,
+    "bowl": 1,
+    "person": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: bowl seen (pipeline 1); caption says at least 1 person; pipeline 1",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline toilet: caption describes a plate, which COCO has no class for; YOLO often calls such things toilet",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "toilet",
+     "count": 2,
+     "suspect": true,
+     "reason": "caption describes a plate, which COCO has no class for; YOLO often calls such things toilet"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/store-aisle-detection_002.jpg",
+   "frame_t": 7.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "store-aisle-detection_003",
+   "pk": "f8d4008dac826d4a9485715bdc6a3dcb",
+   "clip": "store-aisle-detection",
+   "start": 10.0,
+   "end": 15.0,
+   "caption": "A man and a woman are walking down a long aisle in a pottery shop. The man is wearing a brown jacket, blue jeans, and a yellow hat, while the woman is wearing a green top and black pants. They are looking at the white plates and bowls on the table in the middle of the aisle.",
+   "claims": [
+    {
+     "text": "a man",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "a woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "the man",
+     "object": "person",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "the woman",
+     "object": "person",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "bowls",
+     "object": "bowl",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "the table",
+     "object": "dining table",
+     "count": null,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "bowl": null,
+    "dining table": null,
+    "person": 2
+   },
+   "checks": [
+    {
+     "object": "bowl",
+     "claimed": null,
+     "exact": false,
+     "seen": {
+      "pipeline": 4
+     },
+     "status": "supported"
+    },
+    {
+     "object": "dining table",
+     "claimed": null,
+     "exact": false,
+     "seen": {
+      "pipeline": 0
+     },
+     "status": "unconfirmed"
+    },
+    {
+     "object": "person",
+     "claimed": 2,
+     "exact": false,
+     "seen": {
+      "pipeline": 2
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 2,
+    "toilet": 1,
+    "bowl": 4,
+    "cup": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: bowl seen (pipeline 4); caption says at least 2 people; pipeline 2. Unconfirmed: dining table not reported (pipeline 0); detectors often miss static objects, so this neither confirms nor refutes the caption",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline toilet: caption describes a plate / pottery, which COCO has no class for; YOLO often calls such things toilet",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "cup",
+     "count": 1,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    },
+    {
+     "source": "pipeline",
+     "object": "toilet",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a plate / pottery, which COCO has no class for; YOLO often calls such things toilet"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/store-aisle-detection_003.jpg",
+   "frame_t": 12.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "store-aisle-detection_004",
+   "pk": "e2b5df7771d9571d9cf14eea51290217",
+   "clip": "store-aisle-detection",
+   "start": 15.0,
+   "end": 20.0,
+   "caption": "A man wearing a brown jacket and a yellow hat is looking at the white plates on the floor and a woman wearing a green top and black pants is looking at the white bowls on the shelf. Another woman wearing a brown jacket and black pants enters the frame and stands next to the man. Another woman with blonde hair enters the frame from the bottom and stands next to the man and the woman in green.",
+   "claims": [
+    {
+     "text": "a man",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "a woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "the white bowls",
+     "object": "bowl",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "another woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "the man",
+     "object": "person",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "another woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "the man",
+     "object": "person",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "the woman",
+     "object": "person",
+     "count": null,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "bowl": null,
+    "person": 4
+   },
+   "checks": [
+    {
+     "object": "bowl",
+     "claimed": null,
+     "exact": false,
+     "seen": {
+      "pipeline": 4
+     },
+     "status": "supported"
+    },
+    {
+     "object": "person",
+     "claimed": 4,
+     "exact": false,
+     "seen": {
+      "pipeline": 4
+     },
+     "status": "supported"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 4,
+    "bowl": 4,
+    "cup": 1,
+    "toilet": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: bowl seen (pipeline 4); caption says at least 4 people; pipeline 4",
+   "count_differs": false,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline toilet: caption describes a plate, which COCO has no class for; YOLO often calls such things toilet",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "cup",
+     "count": 1,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    },
+    {
+     "source": "pipeline",
+     "object": "toilet",
+     "count": 1,
+     "suspect": true,
+     "reason": "caption describes a plate, which COCO has no class for; YOLO often calls such things toilet"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/store-aisle-detection_004.jpg",
+   "frame_t": 17.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "store-aisle-detection_005",
+   "pk": "d7039721b18dc701dbc690a0c9d0e7b3",
+   "clip": "store-aisle-detection",
+   "start": 20.0,
+   "end": 25.0,
+   "caption": "Three people are shopping for pottery in a pottery shop.",
+   "claims": [
+    {
+     "text": "three people",
+     "object": "person",
+     "count": 3,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "person": 3
+   },
+   "checks": [
+    {
+     "object": "person",
+     "claimed": 3,
+     "exact": true,
+     "seen": {
+      "pipeline": 4
+     },
+     "status": "count_differs"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 4,
+    "bowl": 2,
+    "toilet": 2
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says 3 people; pipeline 4 (off by one)",
+   "count_differs": true,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": true,
+   "detector_reason": "pipeline toilet: caption describes pottery, which COCO has no class for; YOLO often calls such things toilet",
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "bowl",
+     "count": 2,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    },
+    {
+     "source": "pipeline",
+     "object": "toilet",
+     "count": 2,
+     "suspect": true,
+     "reason": "caption describes pottery, which COCO has no class for; YOLO often calls such things toilet"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/store-aisle-detection_005.jpg",
+   "frame_t": 22.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  },
+  {
+   "id": "store-aisle-detection_006",
+   "pk": "e9e3c7e8bb5118028eb8f4523857b2f6",
+   "clip": "store-aisle-detection",
+   "start": 25.0,
+   "end": 30.0,
+   "caption": "A woman wearing a brown jacket and black pants bends down to pick up something from a table. Another woman wearing a green jacket and black pants stands up and moves her hand over the table. A man wearing a blue shirt and blue pants walks up to the table. Another woman wearing a black top and black pants walks up to the table.",
+   "claims": [
+    {
+     "text": "a woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "a table",
+     "object": "dining table",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "another woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "the table",
+     "object": "dining table",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "a man",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "the table",
+     "object": "dining table",
+     "count": null,
+     "negated": false
+    },
+    {
+     "text": "another woman",
+     "object": "person",
+     "count": 1,
+     "negated": false
+    },
+    {
+     "text": "the table",
+     "object": "dining table",
+     "count": null,
+     "negated": false
+    }
+   ],
+   "claimed_counts": {
+    "dining table": 1,
+    "person": 4
+   },
+   "checks": [
+    {
+     "object": "dining table",
+     "claimed": 1,
+     "exact": false,
+     "seen": {
+      "pipeline": 0
+     },
+     "status": "unconfirmed"
+    },
+    {
+     "object": "person",
+     "claimed": 4,
+     "exact": false,
+     "seen": {
+      "pipeline": 5
+     },
+     "status": "count_differs"
+    }
+   ],
+   "pipeline_counts": {
+    "person": 5,
+    "bowl": 5,
+    "cup": 1
+   },
+   "our_counts": null,
+   "our_camera": null,
+   "verdict": "consistent",
+   "why": "every checkable claim is backed: caption says at least 4 people; pipeline 5 (the detector counted more; the caption need not name every one). Unconfirmed: dining table not reported (pipeline 0); detectors often miss static objects, so this neither confirms nor refutes the caption",
+   "count_differs": true,
+   "class_differs": false,
+   "repeats": 0,
+   "detector_suspect": false,
+   "detector_reason": null,
+   "detector_notes": [
+    {
+     "source": "pipeline",
+     "object": "bowl",
+     "count": 5,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    },
+    {
+     "source": "pipeline",
+     "object": "cup",
+     "count": 1,
+     "suspect": false,
+     "reason": "not mentioned in the caption"
+    }
+   ],
+   "model": "nvidia/Cosmos3-Edge",
+   "detector": "yolo11_coco",
+   "frame": "frames/store-aisle-detection_006.jpg",
+   "frame_t": 27.5,
+   "frame_ours": null,
+   "frame_ours_t": null,
+   "strip": null,
+   "strip_t": []
+  }
+ ],
+ "totals": {
+  "consistent": 16,
+  "contradiction": 1,
+  "unverifiable": 7
+ },
+ "count_differs": 3,
+ "detector_suspect": 16
+}

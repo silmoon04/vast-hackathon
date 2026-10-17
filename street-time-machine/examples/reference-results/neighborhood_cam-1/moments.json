@@ -1,0 +1,143 @@
+{
+ "camera": "neighborhood_cam-1",
+ "moments": [
+  {
+   "t": 110.0,
+   "end": 145.0,
+   "kind": "blind",
+   "title": "Picture frozen for 35 s",
+   "detail": "The health ledger marks 1:50 to 2:25 (35 s) as not visible (frozen 34 s). What happened then is UNKNOWN. The detector still returned 3249 detections in this span (93/s vs 37/s elsewhere), so the ledger and the detector disagree here.",
+   "object_ids": [],
+   "thumb": "moments/1.jpg",
+   "box": null,
+   "score": 0.783
+  },
+  {
+   "t": 204.38,
+   "end": 207.38,
+   "kind": "departure",
+   "title": "Car leaves",
+   "detail": "Car #38, parked since 2:54 (30 s), disappears (the exit was not seen) at 3:24. No vehicle was detected in the spot in the 10 s after, and the spot looked different then (mean grey change 26 of 255). Car #46 appears in the same spot at 3:36; whether it is the same vehicle is not checked.",
+   "object_ids": [
+    38
+   ],
+   "thumb": "moments/2.jpg",
+   "box": [
+    273.1,
+    395.6,
+    311.2,
+    424.3
+   ],
+   "score": 0.612
+  },
+  {
+   "t": 220.8,
+   "end": 230.3,
+   "kind": "long_stay",
+   "title": "Person stays 10 s",
+   "detail": "Person #48 is on screen from 3:40 to 3:50 (10 s), the longest of 7 people tracked; they moved 399 px in total. The next longest person stayed 8 s.",
+   "object_ids": [
+    48
+   ],
+   "thumb": "moments/3.jpg",
+   "box": [
+    540.0,
+    502.3,
+    571.2,
+    582.1
+   ],
+   "score": 0.563
+  },
+  {
+   "t": 277.94,
+   "end": 280.94,
+   "kind": "departure",
+   "title": "Car leaves",
+   "detail": "Car #58, parked since 4:10 (27 s), disappears (the exit was not seen) at 4:37. No vehicle was detected in the spot in the 10 s after, and the spot looked different then (mean grey change 25 of 255).",
+   "object_ids": [
+    58
+   ],
+   "thumb": "moments/4.jpg",
+   "box": [
+    274.4,
+    396.2,
+    306.2,
+    452.3
+   ],
+   "score": 0.606
+  },
+  {
+   "t": 316.0,
+   "end": 424.0,
+   "kind": "blind",
+   "title": "Picture frozen for 108 s",
+   "detail": "The health ledger marks 5:16 to 7:04 (108 s) as not visible (frozen 108 s). What happened then is UNKNOWN. The detector still returned 3538 detections in this span (33/s vs 39/s elsewhere), so the ledger and the detector disagree here.",
+   "object_ids": [],
+   "thumb": "moments/5.jpg",
+   "box": null,
+   "score": 0.95
+  },
+  {
+   "t": 896.0,
+   "end": 955.0,
+   "kind": "blind",
+   "title": "Picture frozen for 59 s",
+   "detail": "The health ledger marks 14:56 to 15:55 (59 s) as not visible (frozen 56 s). What happened then is UNKNOWN.",
+   "object_ids": [],
+   "thumb": "moments/6.jpg",
+   "box": null,
+   "score": 0.943
+  },
+  {
+   "t": 1089.0,
+   "end": 1603.0,
+   "kind": "blind",
+   "title": "Picture blurred for 514 s",
+   "detail": "The health ledger marks 18:09 to 26:43 (514 s) as not visible (blur 323 s, frozen 114 s, blocked 68 s, no_signal 6 s). What happened then is UNKNOWN. The detector still returned 18851 detections in this span (37/s vs 39/s elsewhere), so the ledger and the detector disagree here.",
+   "object_ids": [],
+   "thumb": "moments/7.jpg",
+   "box": null,
+   "score": 0.95
+  },
+  {
+   "t": 1635.0,
+   "end": 1670.0,
+   "kind": "blind",
+   "title": "Picture frozen for 35 s",
+   "detail": "The health ledger marks 27:15 to 27:50 (35 s) as not visible (frozen 34 s). What happened then is UNKNOWN. The detector still returned 1462 detections in this span (42/s vs 38/s elsewhere), so the ledger and the detector disagree here.",
+   "object_ids": [],
+   "thumb": "moments/8.jpg",
+   "box": null,
+   "score": 0.783
+  },
+  {
+   "t": 1711.0,
+   "end": 1778.0,
+   "kind": "blind",
+   "title": "Picture frozen for 67 s",
+   "detail": "The health ledger marks 28:31 to 29:38 (67 s) as not visible (frozen 67 s). What happened then is UNKNOWN. The detector still returned 3281 detections in this span (49/s vs 38/s elsewhere), so the ledger and the detector disagree here.",
+   "object_ids": [],
+   "thumb": "moments/9.jpg",
+   "box": null,
+   "score": 0.95
+  },
+  {
+   "t": 1843.02,
+   "end": 1846.02,
+   "kind": "departure",
+   "title": "Car leaves",
+   "detail": "Car #394, parked since 30:19 (24 s), disappears (the exit was not seen) at 30:43. No vehicle was detected in the spot in the 10 s after, and the spot looked different then (mean grey change 15 of 255).",
+   "object_ids": [
+    394
+   ],
+   "thumb": "moments/10.jpg",
+   "box": [
+    295.0,
+    394.9,
+    437.5,
+    453.0
+   ],
+   "score": 0.599
+  }
+ ]
+}

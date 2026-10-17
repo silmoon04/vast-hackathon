@@ -1,0 +1,467 @@
+{
+ "camera": "yonge_dundas",
+ "ledger_used": false,
+ "blind_total_s": 0.0,
+ "days": [
+  {
+   "id": "A",
+   "label": "Clip"
+  }
+ ],
+ "blind": [],
+ "items": [
+  {
+   "question": "Who came near the red car?",
+   "t": null,
+   "type": "who_near",
+   "answer": {
+    "type": "who_near",
+    "answer": "3",
+    "sentence": "3 came near the red car #2450 (00:40-00:44): person #1889 came close at 00:40, person #2371 came close at 00:41, person #2520 came close at 00:41. This says who was close, not who did anything.",
+    "latency_ms": 83.65,
+    "evidence": [
+     {
+      "object_id": 2450,
+      "t": 40.29,
+      "crop": "ask_crops/2450.jpg",
+      "box": [
+       1227.2,
+       370.3,
+       1270.5,
+       419.9
+      ]
+     },
+     {
+      "object_id": 1889,
+      "t": 40.29,
+      "crop": "ask_crops/1889.jpg",
+      "box": [
+       1226.4,
+       374.7,
+       1280.0,
+       611.6
+      ]
+     },
+     {
+      "object_id": 2371,
+      "t": 41.12,
+      "crop": "ask_crops/2371.jpg",
+      "box": [
+       1180.5,
+       380.8,
+       1231.1,
+       487.7
+      ]
+     },
+     {
+      "object_id": 2520,
+      "t": 41.71,
+      "crop": "ask_crops/2520.jpg",
+      "box": [
+       1194.2,
+       369.0,
+       1240.2,
+       476.1
+      ]
+     }
+    ],
+    "honesty": "close means within half a car-height in the picture, so it may have been in front or behind",
+    "last_seen": null,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "Is the red car still there?",
+   "t": null,
+   "type": "still_there",
+   "answer": {
+    "type": "still_there",
+    "answer": "NO",
+    "sentence": "No. The red car #2450 was last seen at 00:44; its spot stayed in view for 12 s after and now looks different (picture match 0.27).",
+    "latency_ms": 91.35,
+    "evidence": [
+     {
+      "object_id": 2450,
+      "t": 40.29,
+      "crop": "ask_crops/2450.jpg",
+      "box": [
+       1227.2,
+       370.3,
+       1270.5,
+       419.9
+      ]
+     },
+     {
+      "object_id": 2450,
+      "t": 44.88,
+      "crop": "ask_crops/2450.jpg",
+      "box": [
+       1227.2,
+       370.3,
+       1270.5,
+       419.9
+      ]
+     },
+     {
+      "object_id": 2450,
+      "t": 56.31,
+      "crop": "ask_crops/spot2450_56.3.jpg",
+      "box": [
+       1227.2,
+       370.3,
+       1270.5,
+       419.9
+      ]
+     }
+    ],
+    "honesty": null,
+    "last_seen": 44.88,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "Who dented the red car?",
+   "t": null,
+   "type": "who_near",
+   "answer": {
+    "type": "who_near",
+    "answer": "UNKNOWN",
+    "sentence": "It can't say who did it. It shows who was near: 3 came near the red car #2450 (00:40-00:44): person #1889 came close at 00:40, person #2371 came close at 00:41, person #2520 came close at 00:41.",
+    "latency_ms": 158.2,
+    "evidence": [
+     {
+      "object_id": 2450,
+      "t": 40.29,
+      "crop": "ask_crops/2450.jpg",
+      "box": [
+       1227.2,
+       370.3,
+       1270.5,
+       419.9
+      ]
+     },
+     {
+      "object_id": 1889,
+      "t": 40.29,
+      "crop": "ask_crops/1889.jpg",
+      "box": [
+       1226.4,
+       374.7,
+       1280.0,
+       611.6
+      ]
+     },
+     {
+      "object_id": 2371,
+      "t": 41.12,
+      "crop": "ask_crops/2371.jpg",
+      "box": [
+       1180.5,
+       380.8,
+       1231.1,
+       487.7
+      ]
+     },
+     {
+      "object_id": 2520,
+      "t": 41.71,
+      "crop": "ask_crops/2520.jpg",
+      "box": [
+       1194.2,
+       369.0,
+       1240.2,
+       476.1
+      ]
+     }
+    ],
+    "honesty": "by design: being near is not doing it; it shows who was near, never who did it; close means within half a car-height in the picture, so it may have been in front or behind",
+    "last_seen": null,
+    "blind": [],
+    "refused": "blame"
+   }
+  },
+  {
+   "question": "What changed since 00:05?",
+   "t": null,
+   "type": "what_changed",
+   "answer": {
+    "type": "what_changed",
+    "answer": "0 arrived, 0 left, 4 stayed",
+    "sentence": "00:05 vs 00:56: 0 arrived, 0 left, 4 stayed.",
+    "latency_ms": 48.67,
+    "evidence": [],
+    "honesty": "1 spot(s) undetected at both times",
+    "last_seen": null,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "How many people walked by?",
+   "t": null,
+   "type": "count_since",
+   "answer": {
+    "type": "count_since",
+    "answer": "72",
+    "sentence": "72 moving people came into view between 00:00 and 00:56.",
+    "latency_ms": 43.36,
+    "evidence": [
+     {
+      "object_id": 1,
+      "t": 0.0,
+      "crop": "ask_crops/1.jpg",
+      "box": [
+       843.6,
+       358.2,
+       962.9,
+       658.6
+      ]
+     },
+     {
+      "object_id": 2,
+      "t": 0.0,
+      "crop": "ask_crops/2.jpg",
+      "box": [
+       439.2,
+       326.6,
+       637.1,
+       716.0
+      ]
+     },
+     {
+      "object_id": 5,
+      "t": 0.0,
+      "crop": "ask_crops/5.jpg",
+      "box": [
+       1021.2,
+       375.5,
+       1121.3,
+       603.1
+      ]
+     },
+     {
+      "object_id": 22,
+      "t": 0.0,
+      "crop": "ask_crops/22.jpg",
+      "box": [
+       140.2,
+       355.7,
+       178.5,
+       455.2
+      ]
+     },
+     {
+      "object_id": 39,
+      "t": 0.42,
+      "crop": "ask_crops/39.jpg",
+      "box": [
+       1092.9,
+       370.9,
+       1144.9,
+       469.6
+      ]
+     },
+     {
+      "object_id": 83,
+      "t": 1.0,
+      "crop": "ask_crops/83.jpg",
+      "box": [
+       348.9,
+       368.9,
+       374.4,
+       440.8
+      ]
+     },
+     {
+      "object_id": 100,
+      "t": 1.17,
+      "crop": "ask_crops/100.jpg",
+      "box": [
+       71.9,
+       362.6,
+       106.4,
+       453.0
+      ]
+     },
+     {
+      "object_id": 247,
+      "t": 3.25,
+      "crop": "ask_crops/247.jpg",
+      "box": [
+       130.6,
+       371.6,
+       173.4,
+       436.8
+      ]
+     }
+    ],
+    "honesty": "37 broken track fragment(s) merged",
+    "last_seen": null,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "Which way did the person go?",
+   "t": null,
+   "type": "which_way",
+   "answer": {
+    "type": "which_way",
+    "answer": "bottom",
+    "sentence": "The person #2520 left through the bottom edge of the picture at 00:56, heading left.",
+    "latency_ms": 32.21,
+    "evidence": [
+     {
+      "object_id": 2520,
+      "t": 41.71,
+      "crop": "ask_crops/2520.jpg",
+      "box": [
+       1194.2,
+       369.0,
+       1240.2,
+       476.1
+      ]
+     },
+     {
+      "object_id": 2520,
+      "t": 56.39,
+      "crop": "ask_crops/2520.jpg",
+      "box": [
+       272.5,
+       552.4,
+       448.8,
+       718.7
+      ]
+     }
+    ],
+    "honesty": null,
+    "last_seen": 56.39,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "How many cars came by since 00:14?",
+   "t": null,
+   "type": "count_since",
+   "answer": {
+    "type": "count_since",
+    "answer": "14",
+    "sentence": "14 moving cars came into view between 00:14 and 00:56.",
+    "latency_ms": 24.1,
+    "evidence": [
+     {
+      "object_id": 817,
+      "t": 14.51,
+      "crop": "ask_crops/817.jpg",
+      "box": [
+       0.2,
+       374.55,
+       39.2,
+       421.85
+      ]
+     },
+     {
+      "object_id": 1058,
+      "t": 20.44,
+      "crop": "ask_crops/1058.jpg",
+      "box": [
+       851.9,
+       380.1,
+       960.0,
+       440.6
+      ]
+     },
+     {
+      "object_id": 1216,
+      "t": 23.52,
+      "crop": "ask_crops/1216.jpg",
+      "box": [
+       1049.25,
+       382.6,
+       1088.55,
+       453.25
+      ]
+     },
+     {
+      "object_id": 1272,
+      "t": 24.44,
+      "crop": "ask_crops/1272.jpg",
+      "box": [
+       955.65,
+       379.5,
+       1025.05,
+       448.8
+      ]
+     },
+     {
+      "object_id": 1606,
+      "t": 29.03,
+      "crop": "ask_crops/1606.jpg",
+      "box": [
+       11.6,
+       373.2,
+       94.5,
+       434.9
+      ]
+     },
+     {
+      "object_id": 1740,
+      "t": 30.45,
+      "crop": "ask_crops/1740.jpg",
+      "box": [
+       23.0,
+       372.8,
+       102.9,
+       433.7
+      ]
+     },
+     {
+      "object_id": 1826,
+      "t": 31.36,
+      "crop": "ask_crops/1826.jpg",
+      "box": [
+       900.3,
+       377.4,
+       1006.35,
+       442.65
+      ]
+     },
+     {
+      "object_id": 1985,
+      "t": 33.37,
+      "crop": "ask_crops/1985.jpg",
+      "box": [
+       0.0,
+       373.45,
+       41.35,
+       425.95
+      ]
+     }
+    ],
+    "honesty": "6 broken track fragment(s) merged",
+    "last_seen": null,
+    "blind": [],
+    "refused": null
+   }
+  },
+  {
+   "question": "Find the man in the black shirt",
+   "t": null,
+   "type": "unknown",
+   "answer": {
+    "type": "unknown",
+    "answer": "UNKNOWN",
+    "sentence": "Street Time Machine never describes or searches people by how they look: no clothing, skin, gender or face. Ask about vehicles, or who came near a car.",
+    "latency_ms": 0.09,
+    "evidence": [],
+    "honesty": "by design",
+    "last_seen": null,
+    "blind": [],
+    "refused": "appearance"
+   }
+  }
+ ]
+}

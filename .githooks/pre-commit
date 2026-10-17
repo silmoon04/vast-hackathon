@@ -1,0 +1,10 @@
+#!/bin/sh
+# enable with: git config core.hooksPath .githooks
+# Commits made on Windows record this file without the exec bit; on a Linux clone run
+# chmod +x .githooks/pre-commit, or git skips the hook ("hook was ignored ... not set as executable").
+# python3 first (the VM), then python. Each is probed: Windows ships a python3 stub that only prints a hint.
+for py in python3 python; do
+  if "$py" -c "" >/dev/null 2>&1; then exec "$py" scripts/check_secrets.py; fi
+done
+echo "pre-commit: no working python3 or python on PATH; secret scan not run" >&2
+exit 1

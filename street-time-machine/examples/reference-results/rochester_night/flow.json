@@ -1,0 +1,398 @@
+{
+ "camera": "rochester_night",
+ "image": "flow.jpg",
+ "w": 1280,
+ "h": 720,
+ "lanes": [
+  {
+   "lane_id": "L1",
+   "name": "left to right across the lower middle",
+   "group": "vehicle",
+   "count": 10,
+   "from": [
+    389.6,
+    501.5
+   ],
+   "to": [
+    442.7,
+    501.6
+   ],
+   "path": [
+    [
+     389.6,
+     501.5
+    ],
+    [
+     392.3,
+     501.6
+    ],
+    [
+     395.2,
+     501.7
+    ],
+    [
+     398.2,
+     501.7
+    ],
+    [
+     401.2,
+     501.7
+    ],
+    [
+     404.2,
+     501.7
+    ],
+    [
+     407.2,
+     501.8
+    ],
+    [
+     410.2,
+     501.8
+    ],
+    [
+     413.2,
+     501.8
+    ],
+    [
+     416.2,
+     501.8
+    ],
+    [
+     419.2,
+     501.9
+    ],
+    [
+     422.3,
+     501.9
+    ],
+    [
+     425.3,
+     501.9
+    ],
+    [
+     428.3,
+     501.9
+    ],
+    [
+     431.3,
+     501.9
+    ],
+    [
+     434.3,
+     502.0
+    ],
+    [
+     437.3,
+     502.0
+    ],
+    [
+     440.3,
+     502.0
+    ],
+    [
+     441.5,
+     501.8
+    ],
+    [
+     442.7,
+     501.6
+    ]
+   ],
+   "median_speed_px_s": 78.05,
+   "example_ids": [
+    219,
+    383,
+    157,
+    131,
+    336
+   ]
+  },
+  {
+   "lane_id": "L2",
+   "name": "right to left across the lower middle",
+   "group": "vehicle",
+   "count": 6,
+   "from": [
+    1159.7,
+    532.6
+   ],
+   "to": [
+    320.4,
+    508.8
+   ],
+   "path": [
+    [
+     1159.7,
+     532.6
+    ],
+    [
+     1115.6,
+     530.1
+    ],
+    [
+     1071.4,
+     527.5
+    ],
+    [
+     1027.3,
+     525.1
+    ],
+    [
+     983.1,
+     522.9
+    ],
+    [
+     939.0,
+     520.9
+    ],
+    [
+     894.8,
+     519.1
+    ],
+    [
+     850.6,
+     517.3
+    ],
+    [
+     806.4,
+     515.7
+    ],
+    [
+     762.2,
+     514.2
+    ],
+    [
+     718.0,
+     512.7
+    ],
+    [
+     673.8,
+     511.4
+    ],
+    [
+     629.6,
+     510.2
+    ],
+    [
+     585.4,
+     509.0
+    ],
+    [
+     541.2,
+     507.7
+    ],
+    [
+     497.0,
+     506.8
+    ],
+    [
+     452.8,
+     505.8
+    ],
+    [
+     408.6,
+     506.0
+    ],
+    [
+     364.4,
+     506.7
+    ],
+    [
+     320.4,
+     508.8
+    ]
+   ],
+   "median_speed_px_s": 266.7,
+   "example_ids": [
+    134,
+    309,
+    363,
+    375,
+    221
+   ]
+  },
+  {
+   "lane_id": "L3",
+   "name": "left to right across the lower middle (2)",
+   "group": "vehicle",
+   "count": 5,
+   "from": [
+    615.5,
+    505.1
+   ],
+   "to": [
+    1078.6,
+    516.0
+   ],
+   "path": [
+    [
+     615.5,
+     505.1
+    ],
+    [
+     639.9,
+     505.8
+    ],
+    [
+     664.2,
+     506.6
+    ],
+    [
+     688.6,
+     507.3
+    ],
+    [
+     713.0,
+     508.1
+    ],
+    [
+     737.4,
+     508.9
+    ],
+    [
+     761.7,
+     509.6
+    ],
+    [
+     786.1,
+     510.4
+    ],
+    [
+     810.5,
+     511.0
+    ],
+    [
+     834.8,
+     511.7
+    ],
+    [
+     859.2,
+     512.3
+    ],
+    [
+     883.6,
+     512.9
+    ],
+    [
+     908.0,
+     513.5
+    ],
+    [
+     932.3,
+     514.0
+    ],
+    [
+     956.7,
+     514.4
+    ],
+    [
+     981.1,
+     514.7
+    ],
+    [
+     1005.4,
+     515.0
+    ],
+    [
+     1029.8,
+     515.3
+    ],
+    [
+     1054.2,
+     515.6
+    ],
+    [
+     1078.6,
+     516.0
+    ]
+   ],
+   "median_speed_px_s": 244.7,
+   "example_ids": [
+    250,
+    352,
+    137,
+    177,
+    111
+   ]
+  }
+ ],
+ "per_minute": [
+  {
+   "t": 0,
+   "person": 0,
+   "vehicle": 17,
+   "seconds": 60.0,
+   "visible_s": 27.75
+  },
+  {
+   "t": 60,
+   "person": 0,
+   "vehicle": 6,
+   "seconds": 24.53,
+   "visible_s": 11.25
+  }
+ ],
+ "busiest": {
+  "t": 39.33,
+  "count": 4,
+  "frame": "frames/busiest.jpg",
+  "person": 0,
+  "vehicle": 4,
+  "track_ids": 4
+ },
+ "totals": {
+  "moving": 22,
+  "moving_person": 0,
+  "moving_vehicle": 22,
+  "parked_excluded": 0,
+  "stationary_excluded": 17,
+  "too_short_excluded": 17,
+  "in_lanes": 21,
+  "not_in_main_lanes": {
+   "person": 0,
+   "vehicle": 1
+  },
+  "dropped_detections_other_view": 579
+ },
+ "view": {
+  "main_view_s": 39.0,
+  "duration_s": 84.53,
+  "excluded": [
+   {
+    "start": 0.0,
+    "end": 24.25,
+    "reason": "frame differs from the main camera view (camera moved, zoomed, glare or blocked)",
+    "min_score": 0.043
+   },
+   {
+    "start": 42.75,
+    "end": 47.25,
+    "reason": "frame differs from the main camera view (camera moved, zoomed, glare or blocked)",
+    "min_score": 0.304
+   },
+   {
+    "start": 55.75,
+    "end": 59.25,
+    "reason": "frame differs from the main camera view (camera moved, zoomed, glare or blocked)",
+    "min_score": 0.261
+   },
+   {
+    "start": 71.25,
+    "end": 84.53,
+    "reason": "frame differs from the main camera view (camera moved, zoomed, glare or blocked)",
+    "min_score": 0.0
+   }
+  ],
+  "plate": "built from main-view frames"
+ },
+ "notes": [
+  "Counts are tracker ids, not verified individuals: one object can split into several ids and two can merge.",
+  "Coordinates are source-video pixels (w x h); flow.jpg may be upscaled, see image_w/image_h.",
+  "Group 'vehicle' includes bicycles and motorcycles.",
+  "Busiest count = boxes on screen in one frame after merging same-group boxes with IoU >= 0.5 (one object held by two tracker ids); person/vehicle split by that frame's class; track_ids = tracker ids before merging.",
+  "The camera view changes in this clip: only 39.0 of 84.5 s match the main view; tracks and counts cover those seconds only, the rest is UNKNOWN."
+ ],
+ "image_w": 1280,
+ "image_h": 720
+}

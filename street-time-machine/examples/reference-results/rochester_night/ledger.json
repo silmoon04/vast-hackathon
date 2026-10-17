@@ -1,0 +1,502 @@
+{
+ "camera": "rochester_night",
+ "seconds": 85,
+ "blind": [
+  {
+   "start": 22.0,
+   "end": 26.0,
+   "reason": "moved",
+   "score": 0.55
+  },
+  {
+   "start": 26.0,
+   "end": 37.0,
+   "reason": "turned_away",
+   "score": 0.53
+  },
+  {
+   "start": 37.0,
+   "end": 61.0,
+   "reason": "moved",
+   "score": 0.4
+  },
+  {
+   "start": 61.0,
+   "end": 64.0,
+   "reason": "turned_away",
+   "score": 0.46
+  },
+  {
+   "start": 64.0,
+   "end": 84.53,
+   "reason": "moved",
+   "score": 0.53
+  }
+ ],
+ "blind_total_s": 62.5,
+ "blind_by_reason": {
+  "moved": 48.5,
+  "turned_away": 14.0
+ },
+ "blind_by_day": [
+  {
+   "day": "A",
+   "label": "Night",
+   "start": 0.0,
+   "end": 84.53,
+   "blind_s": 62.5,
+   "by_reason": {
+    "moved": 48.5,
+    "turned_away": 14.0
+   }
+  }
+ ],
+ "home_views": [
+  {
+   "id": "A",
+   "day": "A",
+   "label": "Night",
+   "view": 0,
+   "start": 0.0,
+   "end": 22.0,
+   "seen_s": 22
+  }
+ ],
+ "reason_words": {
+  "no_signal": "no picture",
+  "dark": "too dark",
+  "frozen": "picture froze",
+  "moved": "camera moving",
+  "turned_away": "camera pointed elsewhere",
+  "blocked": "view blocked",
+  "blur": "picture blurred"
+ },
+ "spots": [],
+ "per_second": [
+  {
+   "t": 0,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 1,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 2,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 3,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 4,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 5,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 6,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 7,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 8,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 9,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 10,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 11,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 12,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 13,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 14,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 15,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 16,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 17,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 18,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 19,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 20,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 21,
+   "visible": true,
+   "reason": null
+  },
+  {
+   "t": 22,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 23,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 24,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 25,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 26,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 27,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 28,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 29,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 30,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 31,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 32,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 33,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 34,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 35,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 36,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 37,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 38,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 39,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 40,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 41,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 42,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 43,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 44,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 45,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 46,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 47,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 48,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 49,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 50,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 51,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 52,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 53,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 54,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 55,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 56,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 57,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 58,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 59,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 60,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 61,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 62,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 63,
+   "visible": false,
+   "reason": "turned_away"
+  },
+  {
+   "t": 64,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 65,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 66,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 67,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 68,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 69,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 70,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 71,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 72,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 73,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 74,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 75,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 76,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 77,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 78,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 79,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 80,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 81,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 82,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 83,
+   "visible": false,
+   "reason": "moved"
+  },
+  {
+   "t": 84,
+   "visible": false,
+   "reason": "moved"
+  }
+ ]
+}

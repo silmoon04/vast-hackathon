@@ -1,0 +1,50 @@
+STREET TIME MACHINE - CUE CARD   generated 2026-10-17 11:20 from out/
+Gate: 7 FAIL, 4 WARN (scripts/freeze_demo.py). Read numbers from here, not from memory.
+Default cam: neighborhood_cam-1   fallback: ptz_parking   rewind wow shot: yonge_dundas
+
+== neighborhood_cam-1: Neighbourhood street camera (Pack D) ==
+Days: 1 Sep (20260901), 2 Sep (20260902)   (real recordings)
+Brief headline (key 0): 2 cars left and none arrived between 1 Sep and 2 Sep; the camera could not see for 14 min 15 s.
+Camera could not see: 14 min 15 s (855 s) in 10 stretches; longest 18:09-26:43 (blocked/blur/frozen/no_signal)
+Near hook (key 1): car #44 parked 03:36-04:06: 1 on foot, 1 vehicles came near; blind 0.0 s while it was there
+   on foot: person #48 at 03:47
+Ask who came near: 'Who came near car #165 by 18:01?' -> 0
+Diff 1 Sep vs 2 Sep (key 4): 2 same, 0 arrived, 2 left, 0 moved, 0 swapped; 2 not compared
+Ask 'What changed between Day A and Day B?' -> UNKNOWN
+
+== ptz_parking: Car park, fixed camera ==
+Days: Day A (A), Day B (B)   SIMULATED: Day A / Day B are two halves of one 5-minute clip
+Brief headline (key 0): 2 vehicles left and none arrived between Day A and Day B; the camera could not see for 1 min 38 s.
+Camera could not see: 1 min 37 s (97 s) in 2 stretches; longest 02:36-04:11 (moved/turned_away)
+Near hook (key 1): car #4 parked 00:00-02:35: 5 on foot, 2 vehicles came near; blind 2.5 s while it was there
+   on foot: person #134 at 00:22, person #174 at 00:26, person #1029 at 01:19, person #1795 at 01:57, person #2144 at 02:26
+Ask CAN'T TELL (key 2): 'Is the red car still there?' -> UNKNOWN; last seen 02:35; camera could not see 02:36-04:11 (95 s, moved/turned_away)
+Ask who came near: 'Who came near the red car?' -> 2
+Diff Day A vs Day B (key 4): 16 same, 0 arrived, 2 left, 0 moved, 0 swapped; 25 not compared
+Ask 'What changed between Day A and Day B?' -> 2 left
+
+== yonge_dundas: City crossing ==
+Days: Clip (A)   (real recordings)
+Brief headline (key 0): 151 people, 47 cars and 8 bicycles went by.
+Ask who came near: 'Who came near the red car?' -> 3
+
+Check the AI (key 5): 16 consistent, 1 contradiction, 7 unverifiable
+   person-bicycle-car-detection 20.0-25.0 s: "A black and white drone flies over a parking lot and then lands on the ground." -> detector and tracker saw nothing
+Event camera captions: 307 Cosmos captions, one per 5 s segment
+
+RUN SHEET (?demo=1)
+0:00 key 1 Who came near (hook). 'It tells you who was near, never who did it.'
+0:25 key 2 Ask: who came near (fast) -> 'Is the ... still there?' -> CAN'T TELL -> 'Who dented the car?' -> refusal
+1:00 key 6 Rewind yonge_dundas, spotlight people
+1:20 key 5 Check the AI: the drone (pause for the laugh)
+1:40 key 4 Yesterday vs today / Blink (skip if the aligned version is not merged)
+1:52 key 0 brief headline and close
+
+SCHEDULE
+15:00 feature freeze, Pack D go/no-go
+15:30 stop all writes to out/; commit out/ and ui/ ('demo freeze')
+15:45 and 16:10 timed rehearsals
+16:05 screen recording as last-resort backup
+16:30 submit
+
+Never: name a city for the event camera, describe a person by appearance, say who did it.
