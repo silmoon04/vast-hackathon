@@ -44,8 +44,15 @@ from stm import agent, find, server  # noqa: E402
 
 # The provider key stays on the server. The browser receives only a parsed tool
 # call; timestamps, candidates and evidence come from the prepared scene index.
+def provider_config():
+    if private_config.is_file():
+        for key, value in json.loads(private_config.read_text()).items():
+            if key in {'WANDB_API_KEY', 'WANDB_TEAM', 'WANDB_PROJECT'}:
+                os.environ.setdefault(key, value)
+    return agent.load_config()
+
 def provider_post(body: dict, timeout: float) -> dict:
-    config = agent.load_config()
+    config = provider_config()
     if config is None:
         raise RuntimeError('Model credentials are unavailable')
     headers = {'Authorization': f'Bearer {config.key}', 'OpenAI-Project': config.project_id}
@@ -56,6 +63,8 @@ app = FastAPI(title='Time Search', lifespan=server.lifespan)
 PREFIX = os.environ.get('STM_PUBLIC_PREFIX', '/app').rstrip('/')
 
 def public_text(text: str) -> str:
+    text = text.replace('["caviar", "lab"]', '["lab"]')
+    text = text.replace('["caviar", "Shopping corridor", "real"], ', '')
     for quote in ('"', "'", '`'):
         for path in ('/api/', '/out/'):
             text = text.replace(quote + path, quote + PREFIX + path)
@@ -63,15 +72,15 @@ def public_text(text: str) -> str:
 
 @app.get('/health')
 def health():
-    scenes = [name for name in ('meva', 'caviar', 'lab') if (scene_root / name / 'scene.json').is_file()]
-    if len(scenes) != 3:
+    scenes = [name for name in ('meva', 'lab') if (scene_root / name / 'scene.json').is_file()]
+    if len(scenes) != 2:
         raise HTTPException(503, 'Prepared scene assets are incomplete')
     return {'ok': True, 'app': 'Time Search', 'scenes': scenes, 'model': find.MODELS[0],
-            'model_configured': agent.load_config() is not None}
+            'model_configured': provider_config() is not None}
 
 @app.get('/api/find/health')
 def find_health():
-    return {'ok': agent.load_config() is not None, 'relay': False,
+    return {'ok': provider_config() is not None, 'relay': False,
             'provider': 'W&B Inference', 'models': find.MODELS}
 
 @app.get('/', response_class=HTMLResponse)
@@ -83,11 +92,17 @@ def index():
 
 @app.get('/demo/{path:path}')
 def demo_asset(path: str):
+    if path.split('/')[:2] == ['scenes', 'caviar']:
+        raise HTTPException(404, 'Scene is not part of this public demo')
     base = (RUNTIME / 'ui' / 'demo').resolve()
     target = (base / path).resolve()
     roots = (base, scene_root.resolve())
     if not any(target == root or root in target.parents for root in roots) or not target.is_file():
         raise HTTPException(404, 'Asset not found')
+    if scene_root.resolve() in target.parents:
+        public_scenes = ((scene_root / name).resolve() for name in ('meva', 'lab'))
+        if not any(root in target.parents for root in public_scenes):
+            raise HTTPException(404, 'Scene is not part of this public demo')
     if target.suffix in {'.js', '.mjs', '.css'}:
         media = 'text/css' if target.suffix == '.css' else 'application/javascript'
         return Response(public_text(target.read_text(encoding='utf-8')), media_type=media)
